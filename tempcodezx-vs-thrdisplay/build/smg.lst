@@ -1,0 +1,3903 @@
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.arch armv6s-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.file	"smg.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.GetSmgOneData,"ax",%progbits
+  18              		.align	1
+  19              		.global	GetSmgOneData
+  20              		.syntax unified
+  21              		.code	16
+  22              		.thumb_func
+  24              	GetSmgOneData:
+  25              	.LVL0:
+  26              	.LFB43:
+  27              		.file 1 "Core/Src/smg.c"
+   1:Core/Src/smg.c **** #include "TM1640.h"
+   2:Core/Src/smg.c **** #include "stm32f0xx_hal.h"
+   3:Core/Src/smg.c **** #include <stdio.h>
+   4:Core/Src/smg.c **** #include <string.h>
+   5:Core/Src/smg.c **** #include "main.h"
+   6:Core/Src/smg.c **** 
+   7:Core/Src/smg.c **** // 输入一个或两个
+   8:Core/Src/smg.c **** // A.
+   9:Core/Src/smg.c **** // A
+  10:Core/Src/smg.c **** // 2
+  11:Core/Src/smg.c **** // 2.
+  12:Core/Src/smg.c **** // 这样的字符串，转换成可以显示在数码管上编码
+  13:Core/Src/smg.c **** unsigned char GetSmgOneData(unsigned char ucsmg)
+  14:Core/Src/smg.c **** {
+  28              		.loc 1 14 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		.loc 1 14 1 is_stmt 0 view .LVU1
+  33 0000 00B5     		push	{lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 4
+  36              		.cfi_offset 14, -4
+  15:Core/Src/smg.c ****     unsigned char i;
+  37              		.loc 1 15 5 is_stmt 1 view .LVU2
+  16:Core/Src/smg.c ****     SmgType smg;
+  38              		.loc 1 16 5 view .LVU3
+  17:Core/Src/smg.c **** 
+  18:Core/Src/smg.c ****     switch (ucsmg)
+  39              		.loc 1 18 5 view .LVU4
+  40 0002 2038     		subs	r0, r0, #32
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 2
+
+
+  41              	.LVL1:
+  42              		.loc 1 18 5 is_stmt 0 view .LVU5
+  43 0004 C2B2     		uxtb	r2, r0
+  44 0006 5A2A     		cmp	r2, #90
+  45 0008 04D8     		bhi	.L2
+  46 000a 9000     		lsls	r0, r2, #2
+  47 000c DA4A     		ldr	r2, .L69
+  48 000e 1258     		ldr	r2, [r2, r0]
+  49 0010 9746     		mov	pc, r2
+  50              		.section	.rodata.GetSmgOneData,"a",%progbits
+  51              		.align	2
+  52              	.L4:
+  53 0000 12000000 		.word	.L68
+  54 0004 14000000 		.word	.L2
+  55 0008 14000000 		.word	.L2
+  56 000c 14000000 		.word	.L2
+  57 0010 14000000 		.word	.L2
+  58 0014 14000000 		.word	.L2
+  59 0018 14000000 		.word	.L2
+  60 001c 14000000 		.word	.L2
+  61 0020 14000000 		.word	.L2
+  62 0024 14000000 		.word	.L2
+  63 0028 14000000 		.word	.L2
+  64 002c 14000000 		.word	.L2
+  65 0030 14000000 		.word	.L2
+  66 0034 68050000 		.word	.L67
+  67 0038 6C050000 		.word	.L66
+  68 003c 14000000 		.word	.L2
+  69 0040 18000000 		.word	.L65
+  70 0044 34000000 		.word	.L64
+  71 0048 40000000 		.word	.L63
+  72 004c 58000000 		.word	.L62
+  73 0050 70000000 		.word	.L61
+  74 0054 84000000 		.word	.L60
+  75 0058 9C000000 		.word	.L59
+  76 005c B8000000 		.word	.L58
+  77 0060 C8000000 		.word	.L57
+  78 0064 E8000000 		.word	.L56
+  79 0068 14000000 		.word	.L2
+  80 006c 14000000 		.word	.L2
+  81 0070 14000000 		.word	.L2
+  82 0074 14000000 		.word	.L2
+  83 0078 14000000 		.word	.L2
+  84 007c 14000000 		.word	.L2
+  85 0080 14000000 		.word	.L2
+  86 0084 04010000 		.word	.L55
+  87 0088 20010000 		.word	.L54
+  88 008c 38010000 		.word	.L53
+  89 0090 4C010000 		.word	.L52
+  90 0094 64010000 		.word	.L51
+  91 0098 7C010000 		.word	.L50
+  92 009c 90010000 		.word	.L49
+  93 00a0 A8010000 		.word	.L48
+  94 00a4 C0010000 		.word	.L47
+  95 00a8 CC010000 		.word	.L46
+  96 00ac E0010000 		.word	.L45
+  97 00b0 F8010000 		.word	.L44
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 3
+
+
+  98 00b4 08020000 		.word	.L43
+  99 00b8 20020000 		.word	.L42
+ 100 00bc 38020000 		.word	.L41
+ 101 00c0 54020000 		.word	.L40
+ 102 00c4 6C020000 		.word	.L39
+ 103 00c8 88020000 		.word	.L38
+ 104 00cc A0020000 		.word	.L37
+ 105 00d0 B8020000 		.word	.L36
+ 106 00d4 CC020000 		.word	.L35
+ 107 00d8 E4020000 		.word	.L34
+ 108 00dc FC020000 		.word	.L33
+ 109 00e0 14030000 		.word	.L32
+ 110 00e4 2C030000 		.word	.L31
+ 111 00e8 44030000 		.word	.L30
+ 112 00ec 14000000 		.word	.L2
+ 113 00f0 14000000 		.word	.L2
+ 114 00f4 14000000 		.word	.L2
+ 115 00f8 14000000 		.word	.L2
+ 116 00fc 14000000 		.word	.L2
+ 117 0100 14000000 		.word	.L2
+ 118 0104 5C030000 		.word	.L29
+ 119 0108 7C030000 		.word	.L28
+ 120 010c 94030000 		.word	.L27
+ 121 0110 A4030000 		.word	.L26
+ 122 0114 BC030000 		.word	.L25
+ 123 0118 D8030000 		.word	.L24
+ 124 011c EC030000 		.word	.L23
+ 125 0120 08040000 		.word	.L22
+ 126 0124 1C040000 		.word	.L21
+ 127 0128 20040000 		.word	.L20
+ 128 012c 34040000 		.word	.L19
+ 129 0130 48040000 		.word	.L18
+ 130 0134 54040000 		.word	.L17
+ 131 0138 68040000 		.word	.L16
+ 132 013c 78040000 		.word	.L15
+ 133 0140 8C040000 		.word	.L14
+ 134 0144 A4040000 		.word	.L13
+ 135 0148 BC040000 		.word	.L12
+ 136 014c C8040000 		.word	.L11
+ 137 0150 E0040000 		.word	.L10
+ 138 0154 F4040000 		.word	.L9
+ 139 0158 04050000 		.word	.L8
+ 140 015c 14050000 		.word	.L7
+ 141 0160 24050000 		.word	.L6
+ 142 0164 3C050000 		.word	.L5
+ 143 0168 54050000 		.word	.L3
+ 144              		.section	.text.GetSmgOneData
+ 145              	.L68:
+  19:Core/Src/smg.c ****     {
+  20:Core/Src/smg.c ****     case ' ':
+  21:Core/Src/smg.c ****         smg.bits.a = 0;  //    ----a----
+ 146              		.loc 1 21 9 is_stmt 1 view .LVU6
+  22:Core/Src/smg.c ****         smg.bits.b = 0;  //   |         |
+ 147              		.loc 1 22 9 view .LVU7
+  23:Core/Src/smg.c ****         smg.bits.c = 0;  //   f         b
+ 148              		.loc 1 23 9 view .LVU8
+  24:Core/Src/smg.c ****         smg.bits.d = 0;  //   |         |
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 4
+
+
+ 149              		.loc 1 24 9 view .LVU9
+  25:Core/Src/smg.c ****         smg.bits.e = 0;  //    ----g----
+ 150              		.loc 1 25 9 view .LVU10
+  26:Core/Src/smg.c ****         smg.bits.f = 0;  //   |         |
+ 151              		.loc 1 26 9 view .LVU11
+  27:Core/Src/smg.c ****         smg.bits.g = 0;  //   e         c
+ 152              		.loc 1 27 9 view .LVU12
+  28:Core/Src/smg.c ****         smg.bits.dp = 0; //   |         |
+ 153              		.loc 1 28 9 view .LVU13
+ 154              		.loc 1 28 21 is_stmt 0 view .LVU14
+ 155 0012 0023     		movs	r3, #0
+ 156              	.LVL2:
+  29:Core/Src/smg.c ****         break;           //----d----  dp
+ 157              		.loc 1 29 9 is_stmt 1 view .LVU15
+ 158              	.L2:
+  30:Core/Src/smg.c ****     case '0':
+  31:Core/Src/smg.c ****         smg.bits.a = 1;  //    ----a----
+  32:Core/Src/smg.c ****         smg.bits.b = 1;  //   |         |
+  33:Core/Src/smg.c ****         smg.bits.c = 1;  //   f         b
+  34:Core/Src/smg.c ****         smg.bits.d = 1;  //   |         |
+  35:Core/Src/smg.c ****         smg.bits.e = 1;  //    ----g----
+  36:Core/Src/smg.c ****         smg.bits.f = 1;  //   |         |
+  37:Core/Src/smg.c ****         smg.bits.g = 0;  //   e         c
+  38:Core/Src/smg.c ****         smg.bits.dp = 0; //   |         |
+  39:Core/Src/smg.c ****         break;           //----d----  dp
+  40:Core/Src/smg.c **** 
+  41:Core/Src/smg.c ****     case '1':
+  42:Core/Src/smg.c ****         smg.bits.a = 0;
+  43:Core/Src/smg.c ****         smg.bits.b = 1;
+  44:Core/Src/smg.c ****         smg.bits.c = 1;
+  45:Core/Src/smg.c ****         smg.bits.d = 0;
+  46:Core/Src/smg.c ****         smg.bits.e = 0;
+  47:Core/Src/smg.c ****         smg.bits.f = 0;
+  48:Core/Src/smg.c ****         smg.bits.g = 0;
+  49:Core/Src/smg.c ****         smg.bits.dp = 0;
+  50:Core/Src/smg.c ****         break;
+  51:Core/Src/smg.c ****     case '2':
+  52:Core/Src/smg.c ****         smg.bits.a = 1;
+  53:Core/Src/smg.c ****         smg.bits.b = 1;
+  54:Core/Src/smg.c ****         smg.bits.c = 0;
+  55:Core/Src/smg.c ****         smg.bits.d = 1;
+  56:Core/Src/smg.c ****         smg.bits.e = 1;
+  57:Core/Src/smg.c ****         smg.bits.f = 0;
+  58:Core/Src/smg.c ****         smg.bits.g = 1;
+  59:Core/Src/smg.c ****         smg.bits.dp = 0;
+  60:Core/Src/smg.c ****         break;
+  61:Core/Src/smg.c ****     case '3':
+  62:Core/Src/smg.c ****         smg.bits.a = 1;
+  63:Core/Src/smg.c ****         smg.bits.b = 1;
+  64:Core/Src/smg.c ****         smg.bits.c = 1;
+  65:Core/Src/smg.c ****         smg.bits.d = 1;
+  66:Core/Src/smg.c ****         smg.bits.e = 0;
+  67:Core/Src/smg.c ****         smg.bits.f = 0;
+  68:Core/Src/smg.c ****         smg.bits.g = 1;
+  69:Core/Src/smg.c ****         smg.bits.dp = 0;
+  70:Core/Src/smg.c ****         break;
+  71:Core/Src/smg.c ****     case '4':
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 5
+
+
+  72:Core/Src/smg.c ****         smg.bits.a = 0;
+  73:Core/Src/smg.c ****         smg.bits.b = 1;
+  74:Core/Src/smg.c ****         smg.bits.c = 1;
+  75:Core/Src/smg.c ****         smg.bits.d = 0;
+  76:Core/Src/smg.c ****         smg.bits.e = 0;
+  77:Core/Src/smg.c ****         smg.bits.f = 1;
+  78:Core/Src/smg.c ****         smg.bits.g = 1;
+  79:Core/Src/smg.c ****         smg.bits.dp = 0;
+  80:Core/Src/smg.c ****         break;
+  81:Core/Src/smg.c ****     case '5':
+  82:Core/Src/smg.c ****         smg.bits.a = 1;
+  83:Core/Src/smg.c ****         smg.bits.b = 0;
+  84:Core/Src/smg.c ****         smg.bits.c = 1;
+  85:Core/Src/smg.c ****         smg.bits.d = 1;
+  86:Core/Src/smg.c ****         smg.bits.e = 0;
+  87:Core/Src/smg.c ****         smg.bits.f = 1;
+  88:Core/Src/smg.c ****         smg.bits.g = 1;
+  89:Core/Src/smg.c ****         smg.bits.dp = 0;
+  90:Core/Src/smg.c ****         break;
+  91:Core/Src/smg.c ****     case '6':
+  92:Core/Src/smg.c ****         smg.bits.a = 1;
+  93:Core/Src/smg.c ****         smg.bits.b = 0;
+  94:Core/Src/smg.c ****         smg.bits.c = 1;
+  95:Core/Src/smg.c ****         smg.bits.d = 1;
+  96:Core/Src/smg.c ****         smg.bits.e = 1;
+  97:Core/Src/smg.c ****         smg.bits.f = 1;
+  98:Core/Src/smg.c ****         smg.bits.g = 1;
+  99:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 100:Core/Src/smg.c ****         break;
+ 101:Core/Src/smg.c ****     case '7':
+ 102:Core/Src/smg.c ****         smg.bits.a = 1;
+ 103:Core/Src/smg.c ****         smg.bits.b = 1;
+ 104:Core/Src/smg.c ****         smg.bits.c = 1;
+ 105:Core/Src/smg.c ****         smg.bits.d = 0;
+ 106:Core/Src/smg.c ****         smg.bits.e = 0;
+ 107:Core/Src/smg.c ****         smg.bits.f = 0;
+ 108:Core/Src/smg.c ****         smg.bits.g = 0;
+ 109:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 110:Core/Src/smg.c ****         break;
+ 111:Core/Src/smg.c ****     case '8':
+ 112:Core/Src/smg.c ****         smg.bits.a = 1;
+ 113:Core/Src/smg.c ****         smg.bits.b = 1;
+ 114:Core/Src/smg.c ****         smg.bits.c = 1;
+ 115:Core/Src/smg.c ****         smg.bits.d = 1;
+ 116:Core/Src/smg.c ****         smg.bits.e = 1;
+ 117:Core/Src/smg.c ****         smg.bits.f = 1;
+ 118:Core/Src/smg.c ****         smg.bits.g = 1;
+ 119:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 120:Core/Src/smg.c ****         break;
+ 121:Core/Src/smg.c ****     case '9':
+ 122:Core/Src/smg.c ****         smg.bits.a = 1;
+ 123:Core/Src/smg.c ****         smg.bits.b = 1;
+ 124:Core/Src/smg.c ****         smg.bits.c = 1;
+ 125:Core/Src/smg.c ****         smg.bits.d = 1;
+ 126:Core/Src/smg.c ****         smg.bits.e = 0;
+ 127:Core/Src/smg.c ****         smg.bits.f = 1;
+ 128:Core/Src/smg.c ****         smg.bits.g = 1;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 6
+
+
+ 129:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 130:Core/Src/smg.c ****         break; // g=Q=9
+ 131:Core/Src/smg.c ****     case 'A':
+ 132:Core/Src/smg.c ****         smg.bits.a = 1;
+ 133:Core/Src/smg.c ****         smg.bits.b = 1;
+ 134:Core/Src/smg.c ****         smg.bits.c = 1;
+ 135:Core/Src/smg.c ****         smg.bits.d = 0;
+ 136:Core/Src/smg.c ****         smg.bits.e = 1;
+ 137:Core/Src/smg.c ****         smg.bits.f = 1;
+ 138:Core/Src/smg.c ****         smg.bits.g = 1;
+ 139:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 140:Core/Src/smg.c ****         break;
+ 141:Core/Src/smg.c ****     case 'B':
+ 142:Core/Src/smg.c ****         smg.bits.a = 0;
+ 143:Core/Src/smg.c ****         smg.bits.b = 0;
+ 144:Core/Src/smg.c ****         smg.bits.c = 1;
+ 145:Core/Src/smg.c ****         smg.bits.d = 1;
+ 146:Core/Src/smg.c ****         smg.bits.e = 1;
+ 147:Core/Src/smg.c ****         smg.bits.f = 1;
+ 148:Core/Src/smg.c ****         smg.bits.g = 1;
+ 149:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 150:Core/Src/smg.c ****         break;
+ 151:Core/Src/smg.c ****     case 'C':
+ 152:Core/Src/smg.c ****         smg.bits.a = 1;
+ 153:Core/Src/smg.c ****         smg.bits.b = 0;
+ 154:Core/Src/smg.c ****         smg.bits.c = 0;
+ 155:Core/Src/smg.c ****         smg.bits.d = 1;
+ 156:Core/Src/smg.c ****         smg.bits.e = 1;
+ 157:Core/Src/smg.c ****         smg.bits.f = 1;
+ 158:Core/Src/smg.c ****         smg.bits.g = 0;
+ 159:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 160:Core/Src/smg.c ****         break;
+ 161:Core/Src/smg.c ****     case 'D':
+ 162:Core/Src/smg.c ****         smg.bits.a = 0;
+ 163:Core/Src/smg.c ****         smg.bits.b = 1;
+ 164:Core/Src/smg.c ****         smg.bits.c = 1;
+ 165:Core/Src/smg.c ****         smg.bits.d = 1;
+ 166:Core/Src/smg.c ****         smg.bits.e = 1;
+ 167:Core/Src/smg.c ****         smg.bits.f = 0;
+ 168:Core/Src/smg.c ****         smg.bits.g = 1;
+ 169:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 170:Core/Src/smg.c ****         break;
+ 171:Core/Src/smg.c ****     case 'E':
+ 172:Core/Src/smg.c ****         smg.bits.a = 1;
+ 173:Core/Src/smg.c ****         smg.bits.b = 0;
+ 174:Core/Src/smg.c ****         smg.bits.c = 0;
+ 175:Core/Src/smg.c ****         smg.bits.d = 1;
+ 176:Core/Src/smg.c ****         smg.bits.e = 1;
+ 177:Core/Src/smg.c ****         smg.bits.f = 1;
+ 178:Core/Src/smg.c ****         smg.bits.g = 1;
+ 179:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 180:Core/Src/smg.c ****         break;
+ 181:Core/Src/smg.c ****     case 'F':
+ 182:Core/Src/smg.c ****         smg.bits.a = 1;
+ 183:Core/Src/smg.c ****         smg.bits.b = 0;
+ 184:Core/Src/smg.c ****         smg.bits.c = 0;
+ 185:Core/Src/smg.c ****         smg.bits.d = 0;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 7
+
+
+ 186:Core/Src/smg.c ****         smg.bits.e = 1;
+ 187:Core/Src/smg.c ****         smg.bits.f = 1;
+ 188:Core/Src/smg.c ****         smg.bits.g = 1;
+ 189:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 190:Core/Src/smg.c ****         break;
+ 191:Core/Src/smg.c ****     case 'G':
+ 192:Core/Src/smg.c ****         smg.bits.a = 1;
+ 193:Core/Src/smg.c ****         smg.bits.b = 0;
+ 194:Core/Src/smg.c ****         smg.bits.c = 0;
+ 195:Core/Src/smg.c ****         smg.bits.d = 1;
+ 196:Core/Src/smg.c ****         smg.bits.e = 1;
+ 197:Core/Src/smg.c ****         smg.bits.f = 1;
+ 198:Core/Src/smg.c ****         smg.bits.g = 1;
+ 199:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 200:Core/Src/smg.c ****         break;
+ 201:Core/Src/smg.c ****     case 'H':
+ 202:Core/Src/smg.c ****         smg.bits.a = 0;  //     ---a---
+ 203:Core/Src/smg.c ****         smg.bits.b = 1;  //    |       |
+ 204:Core/Src/smg.c ****         smg.bits.c = 1;  //    f       b
+ 205:Core/Src/smg.c ****         smg.bits.d = 0;  //    |       |
+ 206:Core/Src/smg.c ****         smg.bits.e = 1;  //     ---g---
+ 207:Core/Src/smg.c ****         smg.bits.f = 1;  //    |       |
+ 208:Core/Src/smg.c ****         smg.bits.g = 1;  //    e       c
+ 209:Core/Src/smg.c ****         smg.bits.dp = 0; //    |       |
+ 210:Core/Src/smg.c ****         break;           //         ---d---  dp
+ 211:Core/Src/smg.c ****     case 'I':
+ 212:Core/Src/smg.c ****         smg.bits.a = 0;
+ 213:Core/Src/smg.c ****         smg.bits.b = 1;
+ 214:Core/Src/smg.c ****         smg.bits.c = 1;
+ 215:Core/Src/smg.c ****         smg.bits.d = 0;
+ 216:Core/Src/smg.c ****         smg.bits.e = 0;
+ 217:Core/Src/smg.c ****         smg.bits.f = 0;
+ 218:Core/Src/smg.c ****         smg.bits.g = 0;
+ 219:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 220:Core/Src/smg.c ****         break;
+ 221:Core/Src/smg.c ****     case 'J':
+ 222:Core/Src/smg.c ****         smg.bits.a = 0;
+ 223:Core/Src/smg.c ****         smg.bits.b = 1;
+ 224:Core/Src/smg.c ****         smg.bits.c = 1;
+ 225:Core/Src/smg.c ****         smg.bits.d = 1;
+ 226:Core/Src/smg.c ****         smg.bits.e = 1;
+ 227:Core/Src/smg.c ****         smg.bits.f = 0;
+ 228:Core/Src/smg.c ****         smg.bits.g = 0;
+ 229:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 230:Core/Src/smg.c ****         break;
+ 231:Core/Src/smg.c ****     case 'K':
+ 232:Core/Src/smg.c ****         smg.bits.a = 0;
+ 233:Core/Src/smg.c ****         smg.bits.b = 1;
+ 234:Core/Src/smg.c ****         smg.bits.c = 1;
+ 235:Core/Src/smg.c ****         smg.bits.d = 0;
+ 236:Core/Src/smg.c ****         smg.bits.e = 1;
+ 237:Core/Src/smg.c ****         smg.bits.f = 1;
+ 238:Core/Src/smg.c ****         smg.bits.g = 1;
+ 239:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 240:Core/Src/smg.c ****         break;
+ 241:Core/Src/smg.c ****     case 'L':
+ 242:Core/Src/smg.c ****         smg.bits.a = 0;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 8
+
+
+ 243:Core/Src/smg.c ****         smg.bits.b = 0;
+ 244:Core/Src/smg.c ****         smg.bits.c = 0;
+ 245:Core/Src/smg.c ****         smg.bits.d = 1;
+ 246:Core/Src/smg.c ****         smg.bits.e = 1;
+ 247:Core/Src/smg.c ****         smg.bits.f = 1;
+ 248:Core/Src/smg.c ****         smg.bits.g = 0;
+ 249:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 250:Core/Src/smg.c ****         break;
+ 251:Core/Src/smg.c ****     case 'M':
+ 252:Core/Src/smg.c ****         smg.bits.a = 0;
+ 253:Core/Src/smg.c ****         smg.bits.b = 1;
+ 254:Core/Src/smg.c ****         smg.bits.c = 1;
+ 255:Core/Src/smg.c ****         smg.bits.d = 0;
+ 256:Core/Src/smg.c ****         smg.bits.e = 1;
+ 257:Core/Src/smg.c ****         smg.bits.f = 1;
+ 258:Core/Src/smg.c ****         smg.bits.g = 1;
+ 259:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 260:Core/Src/smg.c ****         break;
+ 261:Core/Src/smg.c ****     case 'N':
+ 262:Core/Src/smg.c ****         smg.bits.a = 0;
+ 263:Core/Src/smg.c ****         smg.bits.b = 1;
+ 264:Core/Src/smg.c ****         smg.bits.c = 1;
+ 265:Core/Src/smg.c ****         smg.bits.d = 0;
+ 266:Core/Src/smg.c ****         smg.bits.e = 1;
+ 267:Core/Src/smg.c ****         smg.bits.f = 1;
+ 268:Core/Src/smg.c ****         smg.bits.g = 1;
+ 269:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 270:Core/Src/smg.c ****         break;
+ 271:Core/Src/smg.c ****     case 'O':
+ 272:Core/Src/smg.c ****         smg.bits.a = 1;
+ 273:Core/Src/smg.c ****         smg.bits.b = 1;
+ 274:Core/Src/smg.c ****         smg.bits.c = 1;
+ 275:Core/Src/smg.c ****         smg.bits.d = 1;
+ 276:Core/Src/smg.c ****         smg.bits.e = 1;
+ 277:Core/Src/smg.c ****         smg.bits.f = 1;
+ 278:Core/Src/smg.c ****         smg.bits.g = 0;
+ 279:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 280:Core/Src/smg.c ****         break;
+ 281:Core/Src/smg.c ****     case 'P':
+ 282:Core/Src/smg.c ****         smg.bits.a = 1;
+ 283:Core/Src/smg.c ****         smg.bits.b = 1;
+ 284:Core/Src/smg.c ****         smg.bits.c = 0;
+ 285:Core/Src/smg.c ****         smg.bits.d = 0;
+ 286:Core/Src/smg.c ****         smg.bits.e = 1;
+ 287:Core/Src/smg.c ****         smg.bits.f = 1;
+ 288:Core/Src/smg.c ****         smg.bits.g = 1;
+ 289:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 290:Core/Src/smg.c ****         break;
+ 291:Core/Src/smg.c ****     case 'Q':
+ 292:Core/Src/smg.c ****         smg.bits.a = 1;
+ 293:Core/Src/smg.c ****         smg.bits.b = 1;
+ 294:Core/Src/smg.c ****         smg.bits.c = 1;
+ 295:Core/Src/smg.c ****         smg.bits.d = 1;
+ 296:Core/Src/smg.c ****         smg.bits.e = 0;
+ 297:Core/Src/smg.c ****         smg.bits.f = 1;
+ 298:Core/Src/smg.c ****         smg.bits.g = 1;
+ 299:Core/Src/smg.c ****         smg.bits.dp = 0;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 9
+
+
+ 300:Core/Src/smg.c ****         break; // Q=9
+ 301:Core/Src/smg.c ****     case 'R':
+ 302:Core/Src/smg.c ****         smg.bits.a = 0;
+ 303:Core/Src/smg.c ****         smg.bits.b = 1;
+ 304:Core/Src/smg.c ****         smg.bits.c = 1;
+ 305:Core/Src/smg.c ****         smg.bits.d = 0;
+ 306:Core/Src/smg.c ****         smg.bits.e = 1;
+ 307:Core/Src/smg.c ****         smg.bits.f = 1;
+ 308:Core/Src/smg.c ****         smg.bits.g = 1;
+ 309:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 310:Core/Src/smg.c ****         break;
+ 311:Core/Src/smg.c ****     case 'S':
+ 312:Core/Src/smg.c ****         smg.bits.a = 1;
+ 313:Core/Src/smg.c ****         smg.bits.b = 0;
+ 314:Core/Src/smg.c ****         smg.bits.c = 0;
+ 315:Core/Src/smg.c ****         smg.bits.d = 1;
+ 316:Core/Src/smg.c ****         smg.bits.e = 1;
+ 317:Core/Src/smg.c ****         smg.bits.f = 1;
+ 318:Core/Src/smg.c ****         smg.bits.g = 1;
+ 319:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 320:Core/Src/smg.c ****         break;
+ 321:Core/Src/smg.c ****     case 'T':
+ 322:Core/Src/smg.c ****         smg.bits.a = 0;
+ 323:Core/Src/smg.c ****         smg.bits.b = 0;
+ 324:Core/Src/smg.c ****         smg.bits.c = 0;
+ 325:Core/Src/smg.c ****         smg.bits.d = 1;
+ 326:Core/Src/smg.c ****         smg.bits.e = 1;
+ 327:Core/Src/smg.c ****         smg.bits.f = 1;
+ 328:Core/Src/smg.c ****         smg.bits.g = 1;
+ 329:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 330:Core/Src/smg.c ****         break;
+ 331:Core/Src/smg.c ****     case 'U':
+ 332:Core/Src/smg.c ****         smg.bits.a = 0;
+ 333:Core/Src/smg.c ****         smg.bits.b = 1;
+ 334:Core/Src/smg.c ****         smg.bits.c = 1;
+ 335:Core/Src/smg.c ****         smg.bits.d = 1;
+ 336:Core/Src/smg.c ****         smg.bits.e = 1;
+ 337:Core/Src/smg.c ****         smg.bits.f = 1;
+ 338:Core/Src/smg.c ****         smg.bits.g = 0;
+ 339:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 340:Core/Src/smg.c ****         break;
+ 341:Core/Src/smg.c ****     case 'V':
+ 342:Core/Src/smg.c ****         smg.bits.a = 0;
+ 343:Core/Src/smg.c ****         smg.bits.b = 1;
+ 344:Core/Src/smg.c ****         smg.bits.c = 1;
+ 345:Core/Src/smg.c ****         smg.bits.d = 1;
+ 346:Core/Src/smg.c ****         smg.bits.e = 1;
+ 347:Core/Src/smg.c ****         smg.bits.f = 1;
+ 348:Core/Src/smg.c ****         smg.bits.g = 0;
+ 349:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 350:Core/Src/smg.c ****         break;
+ 351:Core/Src/smg.c ****     case 'W':
+ 352:Core/Src/smg.c ****         smg.bits.a = 0;
+ 353:Core/Src/smg.c ****         smg.bits.b = 1;
+ 354:Core/Src/smg.c ****         smg.bits.c = 1;
+ 355:Core/Src/smg.c ****         smg.bits.d = 1;
+ 356:Core/Src/smg.c ****         smg.bits.e = 1;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 10
+
+
+ 357:Core/Src/smg.c ****         smg.bits.f = 1;
+ 358:Core/Src/smg.c ****         smg.bits.g = 0;
+ 359:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 360:Core/Src/smg.c ****         break;
+ 361:Core/Src/smg.c ****     case 'X':
+ 362:Core/Src/smg.c ****         smg.bits.a = 0;
+ 363:Core/Src/smg.c ****         smg.bits.b = 1;
+ 364:Core/Src/smg.c ****         smg.bits.c = 1;
+ 365:Core/Src/smg.c ****         smg.bits.d = 0;
+ 366:Core/Src/smg.c ****         smg.bits.e = 1;
+ 367:Core/Src/smg.c ****         smg.bits.f = 1;
+ 368:Core/Src/smg.c ****         smg.bits.g = 1;
+ 369:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 370:Core/Src/smg.c ****         break;
+ 371:Core/Src/smg.c ****     case 'Y':
+ 372:Core/Src/smg.c ****         smg.bits.a = 0;
+ 373:Core/Src/smg.c ****         smg.bits.b = 1;
+ 374:Core/Src/smg.c ****         smg.bits.c = 1;
+ 375:Core/Src/smg.c ****         smg.bits.d = 1;
+ 376:Core/Src/smg.c ****         smg.bits.e = 0;
+ 377:Core/Src/smg.c ****         smg.bits.f = 1;
+ 378:Core/Src/smg.c ****         smg.bits.g = 1;
+ 379:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 380:Core/Src/smg.c ****         break;
+ 381:Core/Src/smg.c ****     case 'Z':
+ 382:Core/Src/smg.c ****         smg.bits.a = 1;
+ 383:Core/Src/smg.c ****         smg.bits.b = 1;
+ 384:Core/Src/smg.c ****         smg.bits.c = 0;
+ 385:Core/Src/smg.c ****         smg.bits.d = 1;
+ 386:Core/Src/smg.c ****         smg.bits.e = 1;
+ 387:Core/Src/smg.c ****         smg.bits.f = 0;
+ 388:Core/Src/smg.c ****         smg.bits.g = 1;
+ 389:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 390:Core/Src/smg.c ****         break; // z=2
+ 391:Core/Src/smg.c ****     case 'a':
+ 392:Core/Src/smg.c ****         smg.bits.a = 1;
+ 393:Core/Src/smg.c ****         smg.bits.b = 1;
+ 394:Core/Src/smg.c ****         smg.bits.c = 1;
+ 395:Core/Src/smg.c ****         smg.bits.d = 0;
+ 396:Core/Src/smg.c ****         smg.bits.e = 1;
+ 397:Core/Src/smg.c ****         smg.bits.f = 1;
+ 398:Core/Src/smg.c ****         smg.bits.g = 1;
+ 399:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 400:Core/Src/smg.c ****         break;
+ 401:Core/Src/smg.c ****     case 'b':
+ 402:Core/Src/smg.c ****         smg.bits.a = 0;
+ 403:Core/Src/smg.c ****         smg.bits.b = 0;
+ 404:Core/Src/smg.c ****         smg.bits.c = 1;
+ 405:Core/Src/smg.c ****         smg.bits.d = 1;
+ 406:Core/Src/smg.c ****         smg.bits.e = 1;
+ 407:Core/Src/smg.c ****         smg.bits.f = 1;
+ 408:Core/Src/smg.c ****         smg.bits.g = 1;
+ 409:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 410:Core/Src/smg.c ****         break;
+ 411:Core/Src/smg.c ****     case 'c':
+ 412:Core/Src/smg.c ****         smg.bits.a = 0;
+ 413:Core/Src/smg.c ****         smg.bits.b = 0;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 11
+
+
+ 414:Core/Src/smg.c ****         smg.bits.c = 0;
+ 415:Core/Src/smg.c ****         smg.bits.d = 1;
+ 416:Core/Src/smg.c ****         smg.bits.e = 1;
+ 417:Core/Src/smg.c ****         smg.bits.f = 0;
+ 418:Core/Src/smg.c ****         smg.bits.g = 1;
+ 419:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 420:Core/Src/smg.c ****         break;
+ 421:Core/Src/smg.c ****     case 'd':
+ 422:Core/Src/smg.c ****         smg.bits.a = 0;
+ 423:Core/Src/smg.c ****         smg.bits.b = 1;
+ 424:Core/Src/smg.c ****         smg.bits.c = 1;
+ 425:Core/Src/smg.c ****         smg.bits.d = 1;
+ 426:Core/Src/smg.c ****         smg.bits.e = 1;
+ 427:Core/Src/smg.c ****         smg.bits.f = 0;
+ 428:Core/Src/smg.c ****         smg.bits.g = 1;
+ 429:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 430:Core/Src/smg.c ****         break;
+ 431:Core/Src/smg.c ****     case 'e':
+ 432:Core/Src/smg.c ****         smg.bits.a = 1;
+ 433:Core/Src/smg.c ****         smg.bits.b = 1;
+ 434:Core/Src/smg.c ****         smg.bits.c = 0;
+ 435:Core/Src/smg.c ****         smg.bits.d = 1;
+ 436:Core/Src/smg.c ****         smg.bits.e = 1;
+ 437:Core/Src/smg.c ****         smg.bits.f = 1;
+ 438:Core/Src/smg.c ****         smg.bits.g = 1;
+ 439:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 440:Core/Src/smg.c ****         break;
+ 441:Core/Src/smg.c ****     case 'f':
+ 442:Core/Src/smg.c ****         smg.bits.a = 1;
+ 443:Core/Src/smg.c ****         smg.bits.b = 0;
+ 444:Core/Src/smg.c ****         smg.bits.c = 0;
+ 445:Core/Src/smg.c ****         smg.bits.d = 0;
+ 446:Core/Src/smg.c ****         smg.bits.e = 1;
+ 447:Core/Src/smg.c ****         smg.bits.f = 1;
+ 448:Core/Src/smg.c ****         smg.bits.g = 1;
+ 449:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 450:Core/Src/smg.c ****         break;
+ 451:Core/Src/smg.c ****     case 'g':
+ 452:Core/Src/smg.c ****         smg.bits.a = 1;
+ 453:Core/Src/smg.c ****         smg.bits.b = 1;
+ 454:Core/Src/smg.c ****         smg.bits.c = 1;
+ 455:Core/Src/smg.c ****         smg.bits.d = 1;
+ 456:Core/Src/smg.c ****         smg.bits.e = 0;
+ 457:Core/Src/smg.c ****         smg.bits.f = 1;
+ 458:Core/Src/smg.c ****         smg.bits.g = 1;
+ 459:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 460:Core/Src/smg.c ****         break; // q=g=9
+ 461:Core/Src/smg.c ****     case 'h':
+ 462:Core/Src/smg.c ****         smg.bits.a = 0;
+ 463:Core/Src/smg.c ****         smg.bits.b = 0;
+ 464:Core/Src/smg.c ****         smg.bits.c = 1;
+ 465:Core/Src/smg.c ****         smg.bits.d = 0;
+ 466:Core/Src/smg.c ****         smg.bits.e = 1;
+ 467:Core/Src/smg.c ****         smg.bits.f = 1;
+ 468:Core/Src/smg.c ****         smg.bits.g = 1;
+ 469:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 470:Core/Src/smg.c ****         break;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 12
+
+
+ 471:Core/Src/smg.c ****     case 'i':
+ 472:Core/Src/smg.c ****         smg.bits.a = 0;
+ 473:Core/Src/smg.c ****         smg.bits.b = 0;
+ 474:Core/Src/smg.c ****         smg.bits.c = 0;
+ 475:Core/Src/smg.c ****         smg.bits.d = 0;
+ 476:Core/Src/smg.c ****         smg.bits.e = 1;
+ 477:Core/Src/smg.c ****         smg.bits.f = 0;
+ 478:Core/Src/smg.c ****         smg.bits.g = 0;
+ 479:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 480:Core/Src/smg.c ****         break;
+ 481:Core/Src/smg.c ****     case 'j':
+ 482:Core/Src/smg.c ****         smg.bits.a = 0;
+ 483:Core/Src/smg.c ****         smg.bits.b = 1;
+ 484:Core/Src/smg.c ****         smg.bits.c = 1;
+ 485:Core/Src/smg.c ****         smg.bits.d = 1;
+ 486:Core/Src/smg.c ****         smg.bits.e = 1;
+ 487:Core/Src/smg.c ****         smg.bits.f = 0;
+ 488:Core/Src/smg.c ****         smg.bits.g = 0;
+ 489:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 490:Core/Src/smg.c ****         break;
+ 491:Core/Src/smg.c ****     case 'k':
+ 492:Core/Src/smg.c ****         smg.bits.a = 0;
+ 493:Core/Src/smg.c ****         smg.bits.b = 0;
+ 494:Core/Src/smg.c ****         smg.bits.c = 1;
+ 495:Core/Src/smg.c ****         smg.bits.d = 0;
+ 496:Core/Src/smg.c ****         smg.bits.e = 1;
+ 497:Core/Src/smg.c ****         smg.bits.f = 1;
+ 498:Core/Src/smg.c ****         smg.bits.g = 1;
+ 499:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 500:Core/Src/smg.c ****         break;
+ 501:Core/Src/smg.c ****     case 'l':
+ 502:Core/Src/smg.c ****         smg.bits.a = 0;
+ 503:Core/Src/smg.c ****         smg.bits.b = 0;
+ 504:Core/Src/smg.c ****         smg.bits.c = 0;
+ 505:Core/Src/smg.c ****         smg.bits.d = 1;
+ 506:Core/Src/smg.c ****         smg.bits.e = 1;
+ 507:Core/Src/smg.c ****         smg.bits.f = 0;
+ 508:Core/Src/smg.c ****         smg.bits.g = 0;
+ 509:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 510:Core/Src/smg.c ****         break;
+ 511:Core/Src/smg.c ****     case 'm':
+ 512:Core/Src/smg.c ****         smg.bits.a = 0;
+ 513:Core/Src/smg.c ****         smg.bits.b = 0;
+ 514:Core/Src/smg.c ****         smg.bits.c = 1;
+ 515:Core/Src/smg.c ****         smg.bits.d = 0;
+ 516:Core/Src/smg.c ****         smg.bits.e = 1;
+ 517:Core/Src/smg.c ****         smg.bits.f = 1;
+ 518:Core/Src/smg.c ****         smg.bits.g = 1;
+ 519:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 520:Core/Src/smg.c ****         break;
+ 521:Core/Src/smg.c ****     case 'n':
+ 522:Core/Src/smg.c ****         smg.bits.a = 0;
+ 523:Core/Src/smg.c ****         smg.bits.b = 0;
+ 524:Core/Src/smg.c ****         smg.bits.c = 1;
+ 525:Core/Src/smg.c ****         smg.bits.d = 0;
+ 526:Core/Src/smg.c ****         smg.bits.e = 1;
+ 527:Core/Src/smg.c ****         smg.bits.f = 0;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 13
+
+
+ 528:Core/Src/smg.c ****         smg.bits.g = 1;
+ 529:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 530:Core/Src/smg.c ****         break;
+ 531:Core/Src/smg.c ****     case 'o':
+ 532:Core/Src/smg.c ****         smg.bits.a = 0;
+ 533:Core/Src/smg.c ****         smg.bits.b = 0;
+ 534:Core/Src/smg.c ****         smg.bits.c = 1;
+ 535:Core/Src/smg.c ****         smg.bits.d = 1;
+ 536:Core/Src/smg.c ****         smg.bits.e = 1;
+ 537:Core/Src/smg.c ****         smg.bits.f = 0;
+ 538:Core/Src/smg.c ****         smg.bits.g = 1;
+ 539:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 540:Core/Src/smg.c ****         break;
+ 541:Core/Src/smg.c ****     case 'p':
+ 542:Core/Src/smg.c ****         smg.bits.a = 1;
+ 543:Core/Src/smg.c ****         smg.bits.b = 1;
+ 544:Core/Src/smg.c ****         smg.bits.c = 0;
+ 545:Core/Src/smg.c ****         smg.bits.d = 0;
+ 546:Core/Src/smg.c ****         smg.bits.e = 1;
+ 547:Core/Src/smg.c ****         smg.bits.f = 1;
+ 548:Core/Src/smg.c ****         smg.bits.g = 1;
+ 549:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 550:Core/Src/smg.c ****         break;
+ 551:Core/Src/smg.c ****     case 'q':
+ 552:Core/Src/smg.c ****         smg.bits.a = 1;
+ 553:Core/Src/smg.c ****         smg.bits.b = 1;
+ 554:Core/Src/smg.c ****         smg.bits.c = 1;
+ 555:Core/Src/smg.c ****         smg.bits.d = 0;
+ 556:Core/Src/smg.c ****         smg.bits.e = 0;
+ 557:Core/Src/smg.c ****         smg.bits.f = 1;
+ 558:Core/Src/smg.c ****         smg.bits.g = 1;
+ 559:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 560:Core/Src/smg.c ****         break;
+ 561:Core/Src/smg.c ****     case 'r':
+ 562:Core/Src/smg.c ****         smg.bits.a = 0;
+ 563:Core/Src/smg.c ****         smg.bits.b = 0;
+ 564:Core/Src/smg.c ****         smg.bits.c = 0;
+ 565:Core/Src/smg.c ****         smg.bits.d = 0;
+ 566:Core/Src/smg.c ****         smg.bits.e = 1;
+ 567:Core/Src/smg.c ****         smg.bits.f = 0;
+ 568:Core/Src/smg.c ****         smg.bits.g = 1;
+ 569:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 570:Core/Src/smg.c ****         break;
+ 571:Core/Src/smg.c ****     case 's':
+ 572:Core/Src/smg.c ****         smg.bits.a = 1;
+ 573:Core/Src/smg.c ****         smg.bits.b = 0;
+ 574:Core/Src/smg.c ****         smg.bits.c = 1;
+ 575:Core/Src/smg.c ****         smg.bits.d = 1;
+ 576:Core/Src/smg.c ****         smg.bits.e = 0;
+ 577:Core/Src/smg.c ****         smg.bits.f = 1;
+ 578:Core/Src/smg.c ****         smg.bits.g = 1;
+ 579:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 580:Core/Src/smg.c ****         break;
+ 581:Core/Src/smg.c ****     case 't':
+ 582:Core/Src/smg.c ****         smg.bits.a = 0;
+ 583:Core/Src/smg.c ****         smg.bits.b = 0;
+ 584:Core/Src/smg.c ****         smg.bits.c = 0;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 14
+
+
+ 585:Core/Src/smg.c ****         smg.bits.d = 1;
+ 586:Core/Src/smg.c ****         smg.bits.e = 1;
+ 587:Core/Src/smg.c ****         smg.bits.f = 1;
+ 588:Core/Src/smg.c ****         smg.bits.g = 1;
+ 589:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 590:Core/Src/smg.c ****         break;
+ 591:Core/Src/smg.c ****     case 'u':
+ 592:Core/Src/smg.c ****         smg.bits.a = 0;
+ 593:Core/Src/smg.c ****         smg.bits.b = 0;
+ 594:Core/Src/smg.c ****         smg.bits.c = 1;
+ 595:Core/Src/smg.c ****         smg.bits.d = 1;
+ 596:Core/Src/smg.c ****         smg.bits.e = 1;
+ 597:Core/Src/smg.c ****         smg.bits.f = 0;
+ 598:Core/Src/smg.c ****         smg.bits.g = 0;
+ 599:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 600:Core/Src/smg.c ****         break;
+ 601:Core/Src/smg.c ****     case 'v':
+ 602:Core/Src/smg.c ****         smg.bits.a = 0;
+ 603:Core/Src/smg.c ****         smg.bits.b = 0;
+ 604:Core/Src/smg.c ****         smg.bits.c = 1;
+ 605:Core/Src/smg.c ****         smg.bits.d = 1;
+ 606:Core/Src/smg.c ****         smg.bits.e = 1;
+ 607:Core/Src/smg.c ****         smg.bits.f = 0;
+ 608:Core/Src/smg.c ****         smg.bits.g = 0;
+ 609:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 610:Core/Src/smg.c ****         break;
+ 611:Core/Src/smg.c ****     case 'w':
+ 612:Core/Src/smg.c ****         smg.bits.a = 0;
+ 613:Core/Src/smg.c ****         smg.bits.b = 1;
+ 614:Core/Src/smg.c ****         smg.bits.c = 1;
+ 615:Core/Src/smg.c ****         smg.bits.d = 0;
+ 616:Core/Src/smg.c ****         smg.bits.e = 0;
+ 617:Core/Src/smg.c ****         smg.bits.f = 1;
+ 618:Core/Src/smg.c ****         smg.bits.g = 0;
+ 619:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 620:Core/Src/smg.c ****         break;
+ 621:Core/Src/smg.c ****     case 'x':
+ 622:Core/Src/smg.c ****         smg.bits.a = 0;
+ 623:Core/Src/smg.c ****         smg.bits.b = 1;
+ 624:Core/Src/smg.c ****         smg.bits.c = 1;
+ 625:Core/Src/smg.c ****         smg.bits.d = 0;
+ 626:Core/Src/smg.c ****         smg.bits.e = 1;
+ 627:Core/Src/smg.c ****         smg.bits.f = 1;
+ 628:Core/Src/smg.c ****         smg.bits.g = 1;
+ 629:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 630:Core/Src/smg.c ****         break;
+ 631:Core/Src/smg.c ****     case 'y':
+ 632:Core/Src/smg.c ****         smg.bits.a = 0;
+ 633:Core/Src/smg.c ****         smg.bits.b = 1;
+ 634:Core/Src/smg.c ****         smg.bits.c = 1;
+ 635:Core/Src/smg.c ****         smg.bits.d = 1;
+ 636:Core/Src/smg.c ****         smg.bits.e = 0;
+ 637:Core/Src/smg.c ****         smg.bits.f = 1;
+ 638:Core/Src/smg.c ****         smg.bits.g = 1;
+ 639:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 640:Core/Src/smg.c ****         break;
+ 641:Core/Src/smg.c ****     case 'z':
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 15
+
+
+ 642:Core/Src/smg.c ****         smg.bits.a = 1;
+ 643:Core/Src/smg.c ****         smg.bits.b = 1;
+ 644:Core/Src/smg.c ****         smg.bits.c = 0;
+ 645:Core/Src/smg.c ****         smg.bits.d = 0;
+ 646:Core/Src/smg.c ****         smg.bits.e = 1;
+ 647:Core/Src/smg.c ****         smg.bits.f = 0;
+ 648:Core/Src/smg.c ****         smg.bits.g = 1;
+ 649:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 650:Core/Src/smg.c ****         break;
+ 651:Core/Src/smg.c ****     case '-':
+ 652:Core/Src/smg.c ****         smg.bits.a = 0;
+ 653:Core/Src/smg.c ****         smg.bits.b = 0;
+ 654:Core/Src/smg.c ****         smg.bits.c = 0;
+ 655:Core/Src/smg.c ****         smg.bits.d = 0;
+ 656:Core/Src/smg.c ****         smg.bits.e = 0;
+ 657:Core/Src/smg.c ****         smg.bits.f = 0;
+ 658:Core/Src/smg.c ****         smg.bits.g = 1;
+ 659:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 660:Core/Src/smg.c ****         break;
+ 661:Core/Src/smg.c ****     case '.':
+ 662:Core/Src/smg.c ****         smg.bits.a = 0;
+ 663:Core/Src/smg.c ****         smg.bits.b = 0;
+ 664:Core/Src/smg.c ****         smg.bits.c = 0;
+ 665:Core/Src/smg.c ****         smg.bits.d = 0;
+ 666:Core/Src/smg.c ****         smg.bits.e = 0;
+ 667:Core/Src/smg.c ****         smg.bits.f = 0;
+ 668:Core/Src/smg.c ****         smg.bits.g = 0;
+ 669:Core/Src/smg.c ****         smg.bits.dp = 1;
+ 670:Core/Src/smg.c ****         break;
+ 671:Core/Src/smg.c ****     }
+ 672:Core/Src/smg.c **** 
+ 673:Core/Src/smg.c ****     return smg.byte;
+ 159              		.loc 1 673 5 view .LVU16
+ 160              		.loc 1 673 15 is_stmt 0 view .LVU17
+ 161 0014 D8B2     		uxtb	r0, r3
+ 674:Core/Src/smg.c **** }
+ 162              		.loc 1 674 1 view .LVU18
+ 163              		@ sp needed
+ 164 0016 00BD     		pop	{pc}
+ 165              	.LVL3:
+ 166              	.L65:
+  31:Core/Src/smg.c ****         smg.bits.b = 1;  //   |         |
+ 167              		.loc 1 31 9 is_stmt 1 view .LVU19
+  32:Core/Src/smg.c ****         smg.bits.c = 1;  //   f         b
+ 168              		.loc 1 32 9 view .LVU20
+  32:Core/Src/smg.c ****         smg.bits.c = 1;  //   f         b
+ 169              		.loc 1 32 20 is_stmt 0 view .LVU21
+ 170 0018 0123     		movs	r3, #1
+ 171 001a 0222     		movs	r2, #2
+ 172 001c 1343     		orrs	r3, r2
+  33:Core/Src/smg.c ****         smg.bits.d = 1;  //   |         |
+ 173              		.loc 1 33 9 is_stmt 1 view .LVU22
+  33:Core/Src/smg.c ****         smg.bits.d = 1;  //   |         |
+ 174              		.loc 1 33 20 is_stmt 0 view .LVU23
+ 175 001e 0422     		movs	r2, #4
+ 176 0020 1343     		orrs	r3, r2
+  34:Core/Src/smg.c ****         smg.bits.e = 1;  //    ----g----
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 16
+
+
+ 177              		.loc 1 34 9 is_stmt 1 view .LVU24
+  34:Core/Src/smg.c ****         smg.bits.e = 1;  //    ----g----
+ 178              		.loc 1 34 20 is_stmt 0 view .LVU25
+ 179 0022 0822     		movs	r2, #8
+ 180 0024 1343     		orrs	r3, r2
+  35:Core/Src/smg.c ****         smg.bits.f = 1;  //   |         |
+ 181              		.loc 1 35 9 is_stmt 1 view .LVU26
+  35:Core/Src/smg.c ****         smg.bits.f = 1;  //   |         |
+ 182              		.loc 1 35 20 is_stmt 0 view .LVU27
+ 183 0026 1020     		movs	r0, #16
+ 184 0028 0343     		orrs	r3, r0
+  36:Core/Src/smg.c ****         smg.bits.g = 0;  //   e         c
+ 185              		.loc 1 36 9 is_stmt 1 view .LVU28
+  37:Core/Src/smg.c ****         smg.bits.dp = 0; //   |         |
+ 186              		.loc 1 37 9 view .LVU29
+  37:Core/Src/smg.c ****         smg.bits.dp = 0; //   |         |
+ 187              		.loc 1 37 20 is_stmt 0 view .LVU30
+ 188 002a 2020     		movs	r0, #32
+ 189 002c 0343     		orrs	r3, r0
+  38:Core/Src/smg.c ****         break;           //----d----  dp
+ 190              		.loc 1 38 9 is_stmt 1 view .LVU31
+  38:Core/Src/smg.c ****         break;           //----d----  dp
+ 191              		.loc 1 38 21 is_stmt 0 view .LVU32
+ 192 002e 7F20     		movs	r0, #127
+ 193 0030 0340     		ands	r3, r0
+  39:Core/Src/smg.c **** 
+ 194              		.loc 1 39 9 is_stmt 1 view .LVU33
+ 195 0032 EFE7     		b	.L2
+ 196              	.L64:
+  42:Core/Src/smg.c ****         smg.bits.b = 1;
+ 197              		.loc 1 42 9 view .LVU34
+  43:Core/Src/smg.c ****         smg.bits.c = 1;
+ 198              		.loc 1 43 9 view .LVU35
+  44:Core/Src/smg.c ****         smg.bits.d = 0;
+ 199              		.loc 1 44 9 view .LVU36
+  45:Core/Src/smg.c ****         smg.bits.e = 0;
+ 200              		.loc 1 45 9 view .LVU37
+  46:Core/Src/smg.c ****         smg.bits.f = 0;
+ 201              		.loc 1 46 9 view .LVU38
+  47:Core/Src/smg.c ****         smg.bits.g = 0;
+ 202              		.loc 1 47 9 view .LVU39
+  48:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 203              		.loc 1 48 9 view .LVU40
+  48:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 204              		.loc 1 48 20 is_stmt 0 view .LVU41
+ 205 0034 0223     		movs	r3, #2
+ 206 0036 0420     		movs	r0, #4
+ 207 0038 0343     		orrs	r3, r0
+  49:Core/Src/smg.c ****         break;
+ 208              		.loc 1 49 9 is_stmt 1 view .LVU42
+  49:Core/Src/smg.c ****         break;
+ 209              		.loc 1 49 21 is_stmt 0 view .LVU43
+ 210 003a 7F20     		movs	r0, #127
+ 211 003c 0340     		ands	r3, r0
+  50:Core/Src/smg.c ****     case '2':
+ 212              		.loc 1 50 9 is_stmt 1 view .LVU44
+ 213 003e E9E7     		b	.L2
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 17
+
+
+ 214              	.L63:
+  52:Core/Src/smg.c ****         smg.bits.b = 1;
+ 215              		.loc 1 52 9 view .LVU45
+  53:Core/Src/smg.c ****         smg.bits.c = 0;
+ 216              		.loc 1 53 9 view .LVU46
+  54:Core/Src/smg.c ****         smg.bits.d = 1;
+ 217              		.loc 1 54 9 view .LVU47
+  54:Core/Src/smg.c ****         smg.bits.d = 1;
+ 218              		.loc 1 54 20 is_stmt 0 view .LVU48
+ 219 0040 0123     		movs	r3, #1
+ 220 0042 0222     		movs	r2, #2
+ 221 0044 1343     		orrs	r3, r2
+  55:Core/Src/smg.c ****         smg.bits.e = 1;
+ 222              		.loc 1 55 9 is_stmt 1 view .LVU49
+  55:Core/Src/smg.c ****         smg.bits.e = 1;
+ 223              		.loc 1 55 20 is_stmt 0 view .LVU50
+ 224 0046 0822     		movs	r2, #8
+ 225 0048 1343     		orrs	r3, r2
+  56:Core/Src/smg.c ****         smg.bits.f = 0;
+ 226              		.loc 1 56 9 is_stmt 1 view .LVU51
+  57:Core/Src/smg.c ****         smg.bits.g = 1;
+ 227              		.loc 1 57 9 view .LVU52
+  57:Core/Src/smg.c ****         smg.bits.g = 1;
+ 228              		.loc 1 57 20 is_stmt 0 view .LVU53
+ 229 004a 1020     		movs	r0, #16
+ 230 004c 0343     		orrs	r3, r0
+  58:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 231              		.loc 1 58 9 is_stmt 1 view .LVU54
+  58:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 232              		.loc 1 58 20 is_stmt 0 view .LVU55
+ 233 004e 4020     		movs	r0, #64
+ 234 0050 0343     		orrs	r3, r0
+  59:Core/Src/smg.c ****         break;
+ 235              		.loc 1 59 9 is_stmt 1 view .LVU56
+  59:Core/Src/smg.c ****         break;
+ 236              		.loc 1 59 21 is_stmt 0 view .LVU57
+ 237 0052 7F20     		movs	r0, #127
+ 238 0054 0340     		ands	r3, r0
+  60:Core/Src/smg.c ****     case '3':
+ 239              		.loc 1 60 9 is_stmt 1 view .LVU58
+ 240 0056 DDE7     		b	.L2
+ 241              	.L62:
+  62:Core/Src/smg.c ****         smg.bits.b = 1;
+ 242              		.loc 1 62 9 view .LVU59
+  63:Core/Src/smg.c ****         smg.bits.c = 1;
+ 243              		.loc 1 63 9 view .LVU60
+  63:Core/Src/smg.c ****         smg.bits.c = 1;
+ 244              		.loc 1 63 20 is_stmt 0 view .LVU61
+ 245 0058 0123     		movs	r3, #1
+ 246 005a 0222     		movs	r2, #2
+ 247 005c 1343     		orrs	r3, r2
+  64:Core/Src/smg.c ****         smg.bits.d = 1;
+ 248              		.loc 1 64 9 is_stmt 1 view .LVU62
+  64:Core/Src/smg.c ****         smg.bits.d = 1;
+ 249              		.loc 1 64 20 is_stmt 0 view .LVU63
+ 250 005e 0422     		movs	r2, #4
+ 251 0060 1343     		orrs	r3, r2
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 18
+
+
+  65:Core/Src/smg.c ****         smg.bits.e = 0;
+ 252              		.loc 1 65 9 is_stmt 1 view .LVU64
+  66:Core/Src/smg.c ****         smg.bits.f = 0;
+ 253              		.loc 1 66 9 view .LVU65
+  67:Core/Src/smg.c ****         smg.bits.g = 1;
+ 254              		.loc 1 67 9 view .LVU66
+  67:Core/Src/smg.c ****         smg.bits.g = 1;
+ 255              		.loc 1 67 20 is_stmt 0 view .LVU67
+ 256 0062 0820     		movs	r0, #8
+ 257 0064 0343     		orrs	r3, r0
+  68:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 258              		.loc 1 68 9 is_stmt 1 view .LVU68
+  68:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 259              		.loc 1 68 20 is_stmt 0 view .LVU69
+ 260 0066 4020     		movs	r0, #64
+ 261 0068 0343     		orrs	r3, r0
+  69:Core/Src/smg.c ****         break;
+ 262              		.loc 1 69 9 is_stmt 1 view .LVU70
+  69:Core/Src/smg.c ****         break;
+ 263              		.loc 1 69 21 is_stmt 0 view .LVU71
+ 264 006a 7F20     		movs	r0, #127
+ 265 006c 0340     		ands	r3, r0
+  70:Core/Src/smg.c ****     case '4':
+ 266              		.loc 1 70 9 is_stmt 1 view .LVU72
+ 267 006e D1E7     		b	.L2
+ 268              	.L61:
+  72:Core/Src/smg.c ****         smg.bits.b = 1;
+ 269              		.loc 1 72 9 view .LVU73
+  73:Core/Src/smg.c ****         smg.bits.c = 1;
+ 270              		.loc 1 73 9 view .LVU74
+  74:Core/Src/smg.c ****         smg.bits.d = 0;
+ 271              		.loc 1 74 9 view .LVU75
+  75:Core/Src/smg.c ****         smg.bits.e = 0;
+ 272              		.loc 1 75 9 view .LVU76
+  76:Core/Src/smg.c ****         smg.bits.f = 1;
+ 273              		.loc 1 76 9 view .LVU77
+  76:Core/Src/smg.c ****         smg.bits.f = 1;
+ 274              		.loc 1 76 20 is_stmt 0 view .LVU78
+ 275 0070 0223     		movs	r3, #2
+ 276 0072 0422     		movs	r2, #4
+ 277 0074 1343     		orrs	r3, r2
+  77:Core/Src/smg.c ****         smg.bits.g = 1;
+ 278              		.loc 1 77 9 is_stmt 1 view .LVU79
+  77:Core/Src/smg.c ****         smg.bits.g = 1;
+ 279              		.loc 1 77 20 is_stmt 0 view .LVU80
+ 280 0076 2020     		movs	r0, #32
+ 281 0078 0343     		orrs	r3, r0
+  78:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 282              		.loc 1 78 9 is_stmt 1 view .LVU81
+  78:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 283              		.loc 1 78 20 is_stmt 0 view .LVU82
+ 284 007a 4020     		movs	r0, #64
+ 285 007c 0343     		orrs	r3, r0
+  79:Core/Src/smg.c ****         break;
+ 286              		.loc 1 79 9 is_stmt 1 view .LVU83
+  79:Core/Src/smg.c ****         break;
+ 287              		.loc 1 79 21 is_stmt 0 view .LVU84
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 19
+
+
+ 288 007e 7F20     		movs	r0, #127
+ 289 0080 0340     		ands	r3, r0
+  80:Core/Src/smg.c ****     case '5':
+ 290              		.loc 1 80 9 is_stmt 1 view .LVU85
+ 291 0082 C7E7     		b	.L2
+ 292              	.L60:
+  82:Core/Src/smg.c ****         smg.bits.b = 0;
+ 293              		.loc 1 82 9 view .LVU86
+  83:Core/Src/smg.c ****         smg.bits.c = 1;
+ 294              		.loc 1 83 9 view .LVU87
+  84:Core/Src/smg.c ****         smg.bits.d = 1;
+ 295              		.loc 1 84 9 view .LVU88
+  84:Core/Src/smg.c ****         smg.bits.d = 1;
+ 296              		.loc 1 84 20 is_stmt 0 view .LVU89
+ 297 0084 0123     		movs	r3, #1
+ 298 0086 0422     		movs	r2, #4
+ 299 0088 1343     		orrs	r3, r2
+  85:Core/Src/smg.c ****         smg.bits.e = 0;
+ 300              		.loc 1 85 9 is_stmt 1 view .LVU90
+  86:Core/Src/smg.c ****         smg.bits.f = 1;
+ 301              		.loc 1 86 9 view .LVU91
+  86:Core/Src/smg.c ****         smg.bits.f = 1;
+ 302              		.loc 1 86 20 is_stmt 0 view .LVU92
+ 303 008a 0822     		movs	r2, #8
+ 304 008c 1343     		orrs	r3, r2
+  87:Core/Src/smg.c ****         smg.bits.g = 1;
+ 305              		.loc 1 87 9 is_stmt 1 view .LVU93
+  87:Core/Src/smg.c ****         smg.bits.g = 1;
+ 306              		.loc 1 87 20 is_stmt 0 view .LVU94
+ 307 008e 2020     		movs	r0, #32
+ 308 0090 0343     		orrs	r3, r0
+  88:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 309              		.loc 1 88 9 is_stmt 1 view .LVU95
+  88:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 310              		.loc 1 88 20 is_stmt 0 view .LVU96
+ 311 0092 4020     		movs	r0, #64
+ 312 0094 0343     		orrs	r3, r0
+  89:Core/Src/smg.c ****         break;
+ 313              		.loc 1 89 9 is_stmt 1 view .LVU97
+  89:Core/Src/smg.c ****         break;
+ 314              		.loc 1 89 21 is_stmt 0 view .LVU98
+ 315 0096 7F20     		movs	r0, #127
+ 316 0098 0340     		ands	r3, r0
+  90:Core/Src/smg.c ****     case '6':
+ 317              		.loc 1 90 9 is_stmt 1 view .LVU99
+ 318 009a BBE7     		b	.L2
+ 319              	.L59:
+  92:Core/Src/smg.c ****         smg.bits.b = 0;
+ 320              		.loc 1 92 9 view .LVU100
+  93:Core/Src/smg.c ****         smg.bits.c = 1;
+ 321              		.loc 1 93 9 view .LVU101
+  94:Core/Src/smg.c ****         smg.bits.d = 1;
+ 322              		.loc 1 94 9 view .LVU102
+  94:Core/Src/smg.c ****         smg.bits.d = 1;
+ 323              		.loc 1 94 20 is_stmt 0 view .LVU103
+ 324 009c 0123     		movs	r3, #1
+ 325 009e 0422     		movs	r2, #4
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 20
+
+
+ 326 00a0 1343     		orrs	r3, r2
+  95:Core/Src/smg.c ****         smg.bits.e = 1;
+ 327              		.loc 1 95 9 is_stmt 1 view .LVU104
+  95:Core/Src/smg.c ****         smg.bits.e = 1;
+ 328              		.loc 1 95 20 is_stmt 0 view .LVU105
+ 329 00a2 0822     		movs	r2, #8
+ 330 00a4 1343     		orrs	r3, r2
+  96:Core/Src/smg.c ****         smg.bits.f = 1;
+ 331              		.loc 1 96 9 is_stmt 1 view .LVU106
+  96:Core/Src/smg.c ****         smg.bits.f = 1;
+ 332              		.loc 1 96 20 is_stmt 0 view .LVU107
+ 333 00a6 1022     		movs	r2, #16
+ 334 00a8 1343     		orrs	r3, r2
+  97:Core/Src/smg.c ****         smg.bits.g = 1;
+ 335              		.loc 1 97 9 is_stmt 1 view .LVU108
+  97:Core/Src/smg.c ****         smg.bits.g = 1;
+ 336              		.loc 1 97 20 is_stmt 0 view .LVU109
+ 337 00aa 2020     		movs	r0, #32
+ 338 00ac 0343     		orrs	r3, r0
+  98:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 339              		.loc 1 98 9 is_stmt 1 view .LVU110
+  98:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 340              		.loc 1 98 20 is_stmt 0 view .LVU111
+ 341 00ae 4020     		movs	r0, #64
+ 342 00b0 0343     		orrs	r3, r0
+  99:Core/Src/smg.c ****         break;
+ 343              		.loc 1 99 9 is_stmt 1 view .LVU112
+  99:Core/Src/smg.c ****         break;
+ 344              		.loc 1 99 21 is_stmt 0 view .LVU113
+ 345 00b2 7F20     		movs	r0, #127
+ 346 00b4 0340     		ands	r3, r0
+ 100:Core/Src/smg.c ****     case '7':
+ 347              		.loc 1 100 9 is_stmt 1 view .LVU114
+ 348 00b6 ADE7     		b	.L2
+ 349              	.L58:
+ 102:Core/Src/smg.c ****         smg.bits.b = 1;
+ 350              		.loc 1 102 9 view .LVU115
+ 103:Core/Src/smg.c ****         smg.bits.c = 1;
+ 351              		.loc 1 103 9 view .LVU116
+ 103:Core/Src/smg.c ****         smg.bits.c = 1;
+ 352              		.loc 1 103 20 is_stmt 0 view .LVU117
+ 353 00b8 0123     		movs	r3, #1
+ 354 00ba 0220     		movs	r0, #2
+ 355 00bc 0343     		orrs	r3, r0
+ 104:Core/Src/smg.c ****         smg.bits.d = 0;
+ 356              		.loc 1 104 9 is_stmt 1 view .LVU118
+ 105:Core/Src/smg.c ****         smg.bits.e = 0;
+ 357              		.loc 1 105 9 view .LVU119
+ 106:Core/Src/smg.c ****         smg.bits.f = 0;
+ 358              		.loc 1 106 9 view .LVU120
+ 107:Core/Src/smg.c ****         smg.bits.g = 0;
+ 359              		.loc 1 107 9 view .LVU121
+ 108:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 360              		.loc 1 108 9 view .LVU122
+ 108:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 361              		.loc 1 108 20 is_stmt 0 view .LVU123
+ 362 00be 0420     		movs	r0, #4
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 21
+
+
+ 363 00c0 0343     		orrs	r3, r0
+ 109:Core/Src/smg.c ****         break;
+ 364              		.loc 1 109 9 is_stmt 1 view .LVU124
+ 109:Core/Src/smg.c ****         break;
+ 365              		.loc 1 109 21 is_stmt 0 view .LVU125
+ 366 00c2 7F20     		movs	r0, #127
+ 367 00c4 0340     		ands	r3, r0
+ 110:Core/Src/smg.c ****     case '8':
+ 368              		.loc 1 110 9 is_stmt 1 view .LVU126
+ 369 00c6 A5E7     		b	.L2
+ 370              	.L57:
+ 112:Core/Src/smg.c ****         smg.bits.b = 1;
+ 371              		.loc 1 112 9 view .LVU127
+ 113:Core/Src/smg.c ****         smg.bits.c = 1;
+ 372              		.loc 1 113 9 view .LVU128
+ 113:Core/Src/smg.c ****         smg.bits.c = 1;
+ 373              		.loc 1 113 20 is_stmt 0 view .LVU129
+ 374 00c8 0123     		movs	r3, #1
+ 375 00ca 0222     		movs	r2, #2
+ 376 00cc 1343     		orrs	r3, r2
+ 114:Core/Src/smg.c ****         smg.bits.d = 1;
+ 377              		.loc 1 114 9 is_stmt 1 view .LVU130
+ 114:Core/Src/smg.c ****         smg.bits.d = 1;
+ 378              		.loc 1 114 20 is_stmt 0 view .LVU131
+ 379 00ce 0422     		movs	r2, #4
+ 380 00d0 1343     		orrs	r3, r2
+ 115:Core/Src/smg.c ****         smg.bits.e = 1;
+ 381              		.loc 1 115 9 is_stmt 1 view .LVU132
+ 115:Core/Src/smg.c ****         smg.bits.e = 1;
+ 382              		.loc 1 115 20 is_stmt 0 view .LVU133
+ 383 00d2 0822     		movs	r2, #8
+ 384 00d4 1343     		orrs	r3, r2
+ 116:Core/Src/smg.c ****         smg.bits.f = 1;
+ 385              		.loc 1 116 9 is_stmt 1 view .LVU134
+ 116:Core/Src/smg.c ****         smg.bits.f = 1;
+ 386              		.loc 1 116 20 is_stmt 0 view .LVU135
+ 387 00d6 1022     		movs	r2, #16
+ 388 00d8 1343     		orrs	r3, r2
+ 117:Core/Src/smg.c ****         smg.bits.g = 1;
+ 389              		.loc 1 117 9 is_stmt 1 view .LVU136
+ 117:Core/Src/smg.c ****         smg.bits.g = 1;
+ 390              		.loc 1 117 20 is_stmt 0 view .LVU137
+ 391 00da 2020     		movs	r0, #32
+ 392 00dc 0343     		orrs	r3, r0
+ 118:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 393              		.loc 1 118 9 is_stmt 1 view .LVU138
+ 118:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 394              		.loc 1 118 20 is_stmt 0 view .LVU139
+ 395 00de 4020     		movs	r0, #64
+ 396 00e0 0343     		orrs	r3, r0
+ 119:Core/Src/smg.c ****         break;
+ 397              		.loc 1 119 9 is_stmt 1 view .LVU140
+ 119:Core/Src/smg.c ****         break;
+ 398              		.loc 1 119 21 is_stmt 0 view .LVU141
+ 399 00e2 7F20     		movs	r0, #127
+ 400 00e4 0340     		ands	r3, r0
+ 120:Core/Src/smg.c ****     case '9':
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 22
+
+
+ 401              		.loc 1 120 9 is_stmt 1 view .LVU142
+ 402 00e6 95E7     		b	.L2
+ 403              	.L56:
+ 122:Core/Src/smg.c ****         smg.bits.b = 1;
+ 404              		.loc 1 122 9 view .LVU143
+ 123:Core/Src/smg.c ****         smg.bits.c = 1;
+ 405              		.loc 1 123 9 view .LVU144
+ 123:Core/Src/smg.c ****         smg.bits.c = 1;
+ 406              		.loc 1 123 20 is_stmt 0 view .LVU145
+ 407 00e8 0123     		movs	r3, #1
+ 408 00ea 0222     		movs	r2, #2
+ 409 00ec 1343     		orrs	r3, r2
+ 124:Core/Src/smg.c ****         smg.bits.d = 1;
+ 410              		.loc 1 124 9 is_stmt 1 view .LVU146
+ 124:Core/Src/smg.c ****         smg.bits.d = 1;
+ 411              		.loc 1 124 20 is_stmt 0 view .LVU147
+ 412 00ee 0422     		movs	r2, #4
+ 413 00f0 1343     		orrs	r3, r2
+ 125:Core/Src/smg.c ****         smg.bits.e = 0;
+ 414              		.loc 1 125 9 is_stmt 1 view .LVU148
+ 126:Core/Src/smg.c ****         smg.bits.f = 1;
+ 415              		.loc 1 126 9 view .LVU149
+ 126:Core/Src/smg.c ****         smg.bits.f = 1;
+ 416              		.loc 1 126 20 is_stmt 0 view .LVU150
+ 417 00f2 0822     		movs	r2, #8
+ 418 00f4 1343     		orrs	r3, r2
+ 127:Core/Src/smg.c ****         smg.bits.g = 1;
+ 419              		.loc 1 127 9 is_stmt 1 view .LVU151
+ 127:Core/Src/smg.c ****         smg.bits.g = 1;
+ 420              		.loc 1 127 20 is_stmt 0 view .LVU152
+ 421 00f6 2020     		movs	r0, #32
+ 422 00f8 0343     		orrs	r3, r0
+ 128:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 423              		.loc 1 128 9 is_stmt 1 view .LVU153
+ 128:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 424              		.loc 1 128 20 is_stmt 0 view .LVU154
+ 425 00fa 4020     		movs	r0, #64
+ 426 00fc 0343     		orrs	r3, r0
+ 129:Core/Src/smg.c ****         break; // g=Q=9
+ 427              		.loc 1 129 9 is_stmt 1 view .LVU155
+ 129:Core/Src/smg.c ****         break; // g=Q=9
+ 428              		.loc 1 129 21 is_stmt 0 view .LVU156
+ 429 00fe 7F20     		movs	r0, #127
+ 430 0100 0340     		ands	r3, r0
+ 130:Core/Src/smg.c ****     case 'A':
+ 431              		.loc 1 130 9 is_stmt 1 view .LVU157
+ 432 0102 87E7     		b	.L2
+ 433              	.L55:
+ 132:Core/Src/smg.c ****         smg.bits.b = 1;
+ 434              		.loc 1 132 9 view .LVU158
+ 133:Core/Src/smg.c ****         smg.bits.c = 1;
+ 435              		.loc 1 133 9 view .LVU159
+ 133:Core/Src/smg.c ****         smg.bits.c = 1;
+ 436              		.loc 1 133 20 is_stmt 0 view .LVU160
+ 437 0104 0123     		movs	r3, #1
+ 438 0106 0222     		movs	r2, #2
+ 439 0108 1343     		orrs	r3, r2
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 23
+
+
+ 134:Core/Src/smg.c ****         smg.bits.d = 0;
+ 440              		.loc 1 134 9 is_stmt 1 view .LVU161
+ 135:Core/Src/smg.c ****         smg.bits.e = 1;
+ 441              		.loc 1 135 9 view .LVU162
+ 135:Core/Src/smg.c ****         smg.bits.e = 1;
+ 442              		.loc 1 135 20 is_stmt 0 view .LVU163
+ 443 010a 0422     		movs	r2, #4
+ 444 010c 1343     		orrs	r3, r2
+ 136:Core/Src/smg.c ****         smg.bits.f = 1;
+ 445              		.loc 1 136 9 is_stmt 1 view .LVU164
+ 136:Core/Src/smg.c ****         smg.bits.f = 1;
+ 446              		.loc 1 136 20 is_stmt 0 view .LVU165
+ 447 010e 1022     		movs	r2, #16
+ 448 0110 1343     		orrs	r3, r2
+ 137:Core/Src/smg.c ****         smg.bits.g = 1;
+ 449              		.loc 1 137 9 is_stmt 1 view .LVU166
+ 137:Core/Src/smg.c ****         smg.bits.g = 1;
+ 450              		.loc 1 137 20 is_stmt 0 view .LVU167
+ 451 0112 2020     		movs	r0, #32
+ 452 0114 0343     		orrs	r3, r0
+ 138:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 453              		.loc 1 138 9 is_stmt 1 view .LVU168
+ 138:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 454              		.loc 1 138 20 is_stmt 0 view .LVU169
+ 455 0116 4020     		movs	r0, #64
+ 456 0118 0343     		orrs	r3, r0
+ 139:Core/Src/smg.c ****         break;
+ 457              		.loc 1 139 9 is_stmt 1 view .LVU170
+ 139:Core/Src/smg.c ****         break;
+ 458              		.loc 1 139 21 is_stmt 0 view .LVU171
+ 459 011a 7F20     		movs	r0, #127
+ 460 011c 0340     		ands	r3, r0
+ 140:Core/Src/smg.c ****     case 'B':
+ 461              		.loc 1 140 9 is_stmt 1 view .LVU172
+ 462 011e 79E7     		b	.L2
+ 463              	.L54:
+ 142:Core/Src/smg.c ****         smg.bits.b = 0;
+ 464              		.loc 1 142 9 view .LVU173
+ 143:Core/Src/smg.c ****         smg.bits.c = 1;
+ 465              		.loc 1 143 9 view .LVU174
+ 144:Core/Src/smg.c ****         smg.bits.d = 1;
+ 466              		.loc 1 144 9 view .LVU175
+ 145:Core/Src/smg.c ****         smg.bits.e = 1;
+ 467              		.loc 1 145 9 view .LVU176
+ 145:Core/Src/smg.c ****         smg.bits.e = 1;
+ 468              		.loc 1 145 20 is_stmt 0 view .LVU177
+ 469 0120 0423     		movs	r3, #4
+ 470 0122 0822     		movs	r2, #8
+ 471 0124 1343     		orrs	r3, r2
+ 146:Core/Src/smg.c ****         smg.bits.f = 1;
+ 472              		.loc 1 146 9 is_stmt 1 view .LVU178
+ 146:Core/Src/smg.c ****         smg.bits.f = 1;
+ 473              		.loc 1 146 20 is_stmt 0 view .LVU179
+ 474 0126 1022     		movs	r2, #16
+ 475 0128 1343     		orrs	r3, r2
+ 147:Core/Src/smg.c ****         smg.bits.g = 1;
+ 476              		.loc 1 147 9 is_stmt 1 view .LVU180
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 24
+
+
+ 147:Core/Src/smg.c ****         smg.bits.g = 1;
+ 477              		.loc 1 147 20 is_stmt 0 view .LVU181
+ 478 012a 2020     		movs	r0, #32
+ 479 012c 0343     		orrs	r3, r0
+ 148:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 480              		.loc 1 148 9 is_stmt 1 view .LVU182
+ 148:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 481              		.loc 1 148 20 is_stmt 0 view .LVU183
+ 482 012e 4020     		movs	r0, #64
+ 483 0130 0343     		orrs	r3, r0
+ 149:Core/Src/smg.c ****         break;
+ 484              		.loc 1 149 9 is_stmt 1 view .LVU184
+ 149:Core/Src/smg.c ****         break;
+ 485              		.loc 1 149 21 is_stmt 0 view .LVU185
+ 486 0132 7F20     		movs	r0, #127
+ 487 0134 0340     		ands	r3, r0
+ 150:Core/Src/smg.c ****     case 'C':
+ 488              		.loc 1 150 9 is_stmt 1 view .LVU186
+ 489 0136 6DE7     		b	.L2
+ 490              	.L53:
+ 152:Core/Src/smg.c ****         smg.bits.b = 0;
+ 491              		.loc 1 152 9 view .LVU187
+ 153:Core/Src/smg.c ****         smg.bits.c = 0;
+ 492              		.loc 1 153 9 view .LVU188
+ 154:Core/Src/smg.c ****         smg.bits.d = 1;
+ 493              		.loc 1 154 9 view .LVU189
+ 155:Core/Src/smg.c ****         smg.bits.e = 1;
+ 494              		.loc 1 155 9 view .LVU190
+ 155:Core/Src/smg.c ****         smg.bits.e = 1;
+ 495              		.loc 1 155 20 is_stmt 0 view .LVU191
+ 496 0138 0123     		movs	r3, #1
+ 497 013a 0822     		movs	r2, #8
+ 498 013c 1343     		orrs	r3, r2
+ 156:Core/Src/smg.c ****         smg.bits.f = 1;
+ 499              		.loc 1 156 9 is_stmt 1 view .LVU192
+ 156:Core/Src/smg.c ****         smg.bits.f = 1;
+ 500              		.loc 1 156 20 is_stmt 0 view .LVU193
+ 501 013e 1020     		movs	r0, #16
+ 502 0140 0343     		orrs	r3, r0
+ 157:Core/Src/smg.c ****         smg.bits.g = 0;
+ 503              		.loc 1 157 9 is_stmt 1 view .LVU194
+ 158:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 504              		.loc 1 158 9 view .LVU195
+ 158:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 505              		.loc 1 158 20 is_stmt 0 view .LVU196
+ 506 0142 2020     		movs	r0, #32
+ 507 0144 0343     		orrs	r3, r0
+ 159:Core/Src/smg.c ****         break;
+ 508              		.loc 1 159 9 is_stmt 1 view .LVU197
+ 159:Core/Src/smg.c ****         break;
+ 509              		.loc 1 159 21 is_stmt 0 view .LVU198
+ 510 0146 7F20     		movs	r0, #127
+ 511 0148 0340     		ands	r3, r0
+ 160:Core/Src/smg.c ****     case 'D':
+ 512              		.loc 1 160 9 is_stmt 1 view .LVU199
+ 513 014a 63E7     		b	.L2
+ 514              	.L52:
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 25
+
+
+ 162:Core/Src/smg.c ****         smg.bits.b = 1;
+ 515              		.loc 1 162 9 view .LVU200
+ 163:Core/Src/smg.c ****         smg.bits.c = 1;
+ 516              		.loc 1 163 9 view .LVU201
+ 164:Core/Src/smg.c ****         smg.bits.d = 1;
+ 517              		.loc 1 164 9 view .LVU202
+ 164:Core/Src/smg.c ****         smg.bits.d = 1;
+ 518              		.loc 1 164 20 is_stmt 0 view .LVU203
+ 519 014c 0223     		movs	r3, #2
+ 520 014e 0422     		movs	r2, #4
+ 521 0150 1343     		orrs	r3, r2
+ 165:Core/Src/smg.c ****         smg.bits.e = 1;
+ 522              		.loc 1 165 9 is_stmt 1 view .LVU204
+ 165:Core/Src/smg.c ****         smg.bits.e = 1;
+ 523              		.loc 1 165 20 is_stmt 0 view .LVU205
+ 524 0152 0822     		movs	r2, #8
+ 525 0154 1343     		orrs	r3, r2
+ 166:Core/Src/smg.c ****         smg.bits.f = 0;
+ 526              		.loc 1 166 9 is_stmt 1 view .LVU206
+ 167:Core/Src/smg.c ****         smg.bits.g = 1;
+ 527              		.loc 1 167 9 view .LVU207
+ 167:Core/Src/smg.c ****         smg.bits.g = 1;
+ 528              		.loc 1 167 20 is_stmt 0 view .LVU208
+ 529 0156 1020     		movs	r0, #16
+ 530 0158 0343     		orrs	r3, r0
+ 168:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 531              		.loc 1 168 9 is_stmt 1 view .LVU209
+ 168:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 532              		.loc 1 168 20 is_stmt 0 view .LVU210
+ 533 015a 4020     		movs	r0, #64
+ 534 015c 0343     		orrs	r3, r0
+ 169:Core/Src/smg.c ****         break;
+ 535              		.loc 1 169 9 is_stmt 1 view .LVU211
+ 169:Core/Src/smg.c ****         break;
+ 536              		.loc 1 169 21 is_stmt 0 view .LVU212
+ 537 015e 7F20     		movs	r0, #127
+ 538 0160 0340     		ands	r3, r0
+ 170:Core/Src/smg.c ****     case 'E':
+ 539              		.loc 1 170 9 is_stmt 1 view .LVU213
+ 540 0162 57E7     		b	.L2
+ 541              	.L51:
+ 172:Core/Src/smg.c ****         smg.bits.b = 0;
+ 542              		.loc 1 172 9 view .LVU214
+ 173:Core/Src/smg.c ****         smg.bits.c = 0;
+ 543              		.loc 1 173 9 view .LVU215
+ 174:Core/Src/smg.c ****         smg.bits.d = 1;
+ 544              		.loc 1 174 9 view .LVU216
+ 175:Core/Src/smg.c ****         smg.bits.e = 1;
+ 545              		.loc 1 175 9 view .LVU217
+ 175:Core/Src/smg.c ****         smg.bits.e = 1;
+ 546              		.loc 1 175 20 is_stmt 0 view .LVU218
+ 547 0164 0123     		movs	r3, #1
+ 548 0166 0822     		movs	r2, #8
+ 549 0168 1343     		orrs	r3, r2
+ 176:Core/Src/smg.c ****         smg.bits.f = 1;
+ 550              		.loc 1 176 9 is_stmt 1 view .LVU219
+ 176:Core/Src/smg.c ****         smg.bits.f = 1;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 26
+
+
+ 551              		.loc 1 176 20 is_stmt 0 view .LVU220
+ 552 016a 1022     		movs	r2, #16
+ 553 016c 1343     		orrs	r3, r2
+ 177:Core/Src/smg.c ****         smg.bits.g = 1;
+ 554              		.loc 1 177 9 is_stmt 1 view .LVU221
+ 177:Core/Src/smg.c ****         smg.bits.g = 1;
+ 555              		.loc 1 177 20 is_stmt 0 view .LVU222
+ 556 016e 2020     		movs	r0, #32
+ 557 0170 0343     		orrs	r3, r0
+ 178:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 558              		.loc 1 178 9 is_stmt 1 view .LVU223
+ 178:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 559              		.loc 1 178 20 is_stmt 0 view .LVU224
+ 560 0172 4020     		movs	r0, #64
+ 561 0174 0343     		orrs	r3, r0
+ 179:Core/Src/smg.c ****         break;
+ 562              		.loc 1 179 9 is_stmt 1 view .LVU225
+ 179:Core/Src/smg.c ****         break;
+ 563              		.loc 1 179 21 is_stmt 0 view .LVU226
+ 564 0176 7F20     		movs	r0, #127
+ 565 0178 0340     		ands	r3, r0
+ 180:Core/Src/smg.c ****     case 'F':
+ 566              		.loc 1 180 9 is_stmt 1 view .LVU227
+ 567 017a 4BE7     		b	.L2
+ 568              	.L50:
+ 182:Core/Src/smg.c ****         smg.bits.b = 0;
+ 569              		.loc 1 182 9 view .LVU228
+ 183:Core/Src/smg.c ****         smg.bits.c = 0;
+ 570              		.loc 1 183 9 view .LVU229
+ 184:Core/Src/smg.c ****         smg.bits.d = 0;
+ 571              		.loc 1 184 9 view .LVU230
+ 185:Core/Src/smg.c ****         smg.bits.e = 1;
+ 572              		.loc 1 185 9 view .LVU231
+ 186:Core/Src/smg.c ****         smg.bits.f = 1;
+ 573              		.loc 1 186 9 view .LVU232
+ 186:Core/Src/smg.c ****         smg.bits.f = 1;
+ 574              		.loc 1 186 20 is_stmt 0 view .LVU233
+ 575 017c 0123     		movs	r3, #1
+ 576 017e 1022     		movs	r2, #16
+ 577 0180 1343     		orrs	r3, r2
+ 187:Core/Src/smg.c ****         smg.bits.g = 1;
+ 578              		.loc 1 187 9 is_stmt 1 view .LVU234
+ 187:Core/Src/smg.c ****         smg.bits.g = 1;
+ 579              		.loc 1 187 20 is_stmt 0 view .LVU235
+ 580 0182 2020     		movs	r0, #32
+ 581 0184 0343     		orrs	r3, r0
+ 188:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 582              		.loc 1 188 9 is_stmt 1 view .LVU236
+ 188:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 583              		.loc 1 188 20 is_stmt 0 view .LVU237
+ 584 0186 4020     		movs	r0, #64
+ 585 0188 0343     		orrs	r3, r0
+ 189:Core/Src/smg.c ****         break;
+ 586              		.loc 1 189 9 is_stmt 1 view .LVU238
+ 189:Core/Src/smg.c ****         break;
+ 587              		.loc 1 189 21 is_stmt 0 view .LVU239
+ 588 018a 7F20     		movs	r0, #127
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 27
+
+
+ 589 018c 0340     		ands	r3, r0
+ 190:Core/Src/smg.c ****     case 'G':
+ 590              		.loc 1 190 9 is_stmt 1 view .LVU240
+ 591 018e 41E7     		b	.L2
+ 592              	.L49:
+ 192:Core/Src/smg.c ****         smg.bits.b = 0;
+ 593              		.loc 1 192 9 view .LVU241
+ 193:Core/Src/smg.c ****         smg.bits.c = 0;
+ 594              		.loc 1 193 9 view .LVU242
+ 194:Core/Src/smg.c ****         smg.bits.d = 1;
+ 595              		.loc 1 194 9 view .LVU243
+ 195:Core/Src/smg.c ****         smg.bits.e = 1;
+ 596              		.loc 1 195 9 view .LVU244
+ 195:Core/Src/smg.c ****         smg.bits.e = 1;
+ 597              		.loc 1 195 20 is_stmt 0 view .LVU245
+ 598 0190 0123     		movs	r3, #1
+ 599 0192 0822     		movs	r2, #8
+ 600 0194 1343     		orrs	r3, r2
+ 196:Core/Src/smg.c ****         smg.bits.f = 1;
+ 601              		.loc 1 196 9 is_stmt 1 view .LVU246
+ 196:Core/Src/smg.c ****         smg.bits.f = 1;
+ 602              		.loc 1 196 20 is_stmt 0 view .LVU247
+ 603 0196 1022     		movs	r2, #16
+ 604 0198 1343     		orrs	r3, r2
+ 197:Core/Src/smg.c ****         smg.bits.g = 1;
+ 605              		.loc 1 197 9 is_stmt 1 view .LVU248
+ 197:Core/Src/smg.c ****         smg.bits.g = 1;
+ 606              		.loc 1 197 20 is_stmt 0 view .LVU249
+ 607 019a 2020     		movs	r0, #32
+ 608 019c 0343     		orrs	r3, r0
+ 198:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 609              		.loc 1 198 9 is_stmt 1 view .LVU250
+ 198:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 610              		.loc 1 198 20 is_stmt 0 view .LVU251
+ 611 019e 4020     		movs	r0, #64
+ 612 01a0 0343     		orrs	r3, r0
+ 199:Core/Src/smg.c ****         break;
+ 613              		.loc 1 199 9 is_stmt 1 view .LVU252
+ 199:Core/Src/smg.c ****         break;
+ 614              		.loc 1 199 21 is_stmt 0 view .LVU253
+ 615 01a2 7F20     		movs	r0, #127
+ 616 01a4 0340     		ands	r3, r0
+ 200:Core/Src/smg.c ****     case 'H':
+ 617              		.loc 1 200 9 is_stmt 1 view .LVU254
+ 618 01a6 35E7     		b	.L2
+ 619              	.L48:
+ 202:Core/Src/smg.c ****         smg.bits.b = 1;  //    |       |
+ 620              		.loc 1 202 9 view .LVU255
+ 203:Core/Src/smg.c ****         smg.bits.c = 1;  //    f       b
+ 621              		.loc 1 203 9 view .LVU256
+ 204:Core/Src/smg.c ****         smg.bits.d = 0;  //    |       |
+ 622              		.loc 1 204 9 view .LVU257
+ 205:Core/Src/smg.c ****         smg.bits.e = 1;  //     ---g---
+ 623              		.loc 1 205 9 view .LVU258
+ 205:Core/Src/smg.c ****         smg.bits.e = 1;  //     ---g---
+ 624              		.loc 1 205 20 is_stmt 0 view .LVU259
+ 625 01a8 0223     		movs	r3, #2
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 28
+
+
+ 626 01aa 0422     		movs	r2, #4
+ 627 01ac 1343     		orrs	r3, r2
+ 206:Core/Src/smg.c ****         smg.bits.f = 1;  //    |       |
+ 628              		.loc 1 206 9 is_stmt 1 view .LVU260
+ 206:Core/Src/smg.c ****         smg.bits.f = 1;  //    |       |
+ 629              		.loc 1 206 20 is_stmt 0 view .LVU261
+ 630 01ae 1022     		movs	r2, #16
+ 631 01b0 1343     		orrs	r3, r2
+ 207:Core/Src/smg.c ****         smg.bits.g = 1;  //    e       c
+ 632              		.loc 1 207 9 is_stmt 1 view .LVU262
+ 207:Core/Src/smg.c ****         smg.bits.g = 1;  //    e       c
+ 633              		.loc 1 207 20 is_stmt 0 view .LVU263
+ 634 01b2 2020     		movs	r0, #32
+ 635 01b4 0343     		orrs	r3, r0
+ 208:Core/Src/smg.c ****         smg.bits.dp = 0; //    |       |
+ 636              		.loc 1 208 9 is_stmt 1 view .LVU264
+ 208:Core/Src/smg.c ****         smg.bits.dp = 0; //    |       |
+ 637              		.loc 1 208 20 is_stmt 0 view .LVU265
+ 638 01b6 4020     		movs	r0, #64
+ 639 01b8 0343     		orrs	r3, r0
+ 209:Core/Src/smg.c ****         break;           //         ---d---  dp
+ 640              		.loc 1 209 9 is_stmt 1 view .LVU266
+ 209:Core/Src/smg.c ****         break;           //         ---d---  dp
+ 641              		.loc 1 209 21 is_stmt 0 view .LVU267
+ 642 01ba 7F20     		movs	r0, #127
+ 643 01bc 0340     		ands	r3, r0
+ 210:Core/Src/smg.c ****     case 'I':
+ 644              		.loc 1 210 9 is_stmt 1 view .LVU268
+ 645 01be 29E7     		b	.L2
+ 646              	.L47:
+ 212:Core/Src/smg.c ****         smg.bits.b = 1;
+ 647              		.loc 1 212 9 view .LVU269
+ 213:Core/Src/smg.c ****         smg.bits.c = 1;
+ 648              		.loc 1 213 9 view .LVU270
+ 214:Core/Src/smg.c ****         smg.bits.d = 0;
+ 649              		.loc 1 214 9 view .LVU271
+ 215:Core/Src/smg.c ****         smg.bits.e = 0;
+ 650              		.loc 1 215 9 view .LVU272
+ 216:Core/Src/smg.c ****         smg.bits.f = 0;
+ 651              		.loc 1 216 9 view .LVU273
+ 217:Core/Src/smg.c ****         smg.bits.g = 0;
+ 652              		.loc 1 217 9 view .LVU274
+ 218:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 653              		.loc 1 218 9 view .LVU275
+ 218:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 654              		.loc 1 218 20 is_stmt 0 view .LVU276
+ 655 01c0 0223     		movs	r3, #2
+ 656 01c2 0420     		movs	r0, #4
+ 657 01c4 0343     		orrs	r3, r0
+ 219:Core/Src/smg.c ****         break;
+ 658              		.loc 1 219 9 is_stmt 1 view .LVU277
+ 219:Core/Src/smg.c ****         break;
+ 659              		.loc 1 219 21 is_stmt 0 view .LVU278
+ 660 01c6 7F20     		movs	r0, #127
+ 661 01c8 0340     		ands	r3, r0
+ 220:Core/Src/smg.c ****     case 'J':
+ 662              		.loc 1 220 9 is_stmt 1 view .LVU279
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 29
+
+
+ 663 01ca 23E7     		b	.L2
+ 664              	.L46:
+ 222:Core/Src/smg.c ****         smg.bits.b = 1;
+ 665              		.loc 1 222 9 view .LVU280
+ 223:Core/Src/smg.c ****         smg.bits.c = 1;
+ 666              		.loc 1 223 9 view .LVU281
+ 224:Core/Src/smg.c ****         smg.bits.d = 1;
+ 667              		.loc 1 224 9 view .LVU282
+ 224:Core/Src/smg.c ****         smg.bits.d = 1;
+ 668              		.loc 1 224 20 is_stmt 0 view .LVU283
+ 669 01cc 0223     		movs	r3, #2
+ 670 01ce 0422     		movs	r2, #4
+ 671 01d0 1343     		orrs	r3, r2
+ 225:Core/Src/smg.c ****         smg.bits.e = 1;
+ 672              		.loc 1 225 9 is_stmt 1 view .LVU284
+ 225:Core/Src/smg.c ****         smg.bits.e = 1;
+ 673              		.loc 1 225 20 is_stmt 0 view .LVU285
+ 674 01d2 0820     		movs	r0, #8
+ 675 01d4 0343     		orrs	r3, r0
+ 226:Core/Src/smg.c ****         smg.bits.f = 0;
+ 676              		.loc 1 226 9 is_stmt 1 view .LVU286
+ 227:Core/Src/smg.c ****         smg.bits.g = 0;
+ 677              		.loc 1 227 9 view .LVU287
+ 228:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 678              		.loc 1 228 9 view .LVU288
+ 228:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 679              		.loc 1 228 20 is_stmt 0 view .LVU289
+ 680 01d6 1020     		movs	r0, #16
+ 681 01d8 0343     		orrs	r3, r0
+ 229:Core/Src/smg.c ****         break;
+ 682              		.loc 1 229 9 is_stmt 1 view .LVU290
+ 229:Core/Src/smg.c ****         break;
+ 683              		.loc 1 229 21 is_stmt 0 view .LVU291
+ 684 01da 7F20     		movs	r0, #127
+ 685 01dc 0340     		ands	r3, r0
+ 230:Core/Src/smg.c ****     case 'K':
+ 686              		.loc 1 230 9 is_stmt 1 view .LVU292
+ 687 01de 19E7     		b	.L2
+ 688              	.L45:
+ 232:Core/Src/smg.c ****         smg.bits.b = 1;
+ 689              		.loc 1 232 9 view .LVU293
+ 233:Core/Src/smg.c ****         smg.bits.c = 1;
+ 690              		.loc 1 233 9 view .LVU294
+ 234:Core/Src/smg.c ****         smg.bits.d = 0;
+ 691              		.loc 1 234 9 view .LVU295
+ 235:Core/Src/smg.c ****         smg.bits.e = 1;
+ 692              		.loc 1 235 9 view .LVU296
+ 235:Core/Src/smg.c ****         smg.bits.e = 1;
+ 693              		.loc 1 235 20 is_stmt 0 view .LVU297
+ 694 01e0 0223     		movs	r3, #2
+ 695 01e2 0422     		movs	r2, #4
+ 696 01e4 1343     		orrs	r3, r2
+ 236:Core/Src/smg.c ****         smg.bits.f = 1;
+ 697              		.loc 1 236 9 is_stmt 1 view .LVU298
+ 236:Core/Src/smg.c ****         smg.bits.f = 1;
+ 698              		.loc 1 236 20 is_stmt 0 view .LVU299
+ 699 01e6 1022     		movs	r2, #16
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 30
+
+
+ 700 01e8 1343     		orrs	r3, r2
+ 237:Core/Src/smg.c ****         smg.bits.g = 1;
+ 701              		.loc 1 237 9 is_stmt 1 view .LVU300
+ 237:Core/Src/smg.c ****         smg.bits.g = 1;
+ 702              		.loc 1 237 20 is_stmt 0 view .LVU301
+ 703 01ea 2020     		movs	r0, #32
+ 704 01ec 0343     		orrs	r3, r0
+ 238:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 705              		.loc 1 238 9 is_stmt 1 view .LVU302
+ 238:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 706              		.loc 1 238 20 is_stmt 0 view .LVU303
+ 707 01ee 4020     		movs	r0, #64
+ 708 01f0 0343     		orrs	r3, r0
+ 239:Core/Src/smg.c ****         break;
+ 709              		.loc 1 239 9 is_stmt 1 view .LVU304
+ 239:Core/Src/smg.c ****         break;
+ 710              		.loc 1 239 21 is_stmt 0 view .LVU305
+ 711 01f2 7F20     		movs	r0, #127
+ 712 01f4 0340     		ands	r3, r0
+ 240:Core/Src/smg.c ****     case 'L':
+ 713              		.loc 1 240 9 is_stmt 1 view .LVU306
+ 714 01f6 0DE7     		b	.L2
+ 715              	.L44:
+ 242:Core/Src/smg.c ****         smg.bits.b = 0;
+ 716              		.loc 1 242 9 view .LVU307
+ 243:Core/Src/smg.c ****         smg.bits.c = 0;
+ 717              		.loc 1 243 9 view .LVU308
+ 244:Core/Src/smg.c ****         smg.bits.d = 1;
+ 718              		.loc 1 244 9 view .LVU309
+ 245:Core/Src/smg.c ****         smg.bits.e = 1;
+ 719              		.loc 1 245 9 view .LVU310
+ 246:Core/Src/smg.c ****         smg.bits.f = 1;
+ 720              		.loc 1 246 9 view .LVU311
+ 246:Core/Src/smg.c ****         smg.bits.f = 1;
+ 721              		.loc 1 246 20 is_stmt 0 view .LVU312
+ 722 01f8 0823     		movs	r3, #8
+ 723 01fa 1020     		movs	r0, #16
+ 724 01fc 0343     		orrs	r3, r0
+ 247:Core/Src/smg.c ****         smg.bits.g = 0;
+ 725              		.loc 1 247 9 is_stmt 1 view .LVU313
+ 248:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 726              		.loc 1 248 9 view .LVU314
+ 248:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 727              		.loc 1 248 20 is_stmt 0 view .LVU315
+ 728 01fe 2020     		movs	r0, #32
+ 729 0200 0343     		orrs	r3, r0
+ 249:Core/Src/smg.c ****         break;
+ 730              		.loc 1 249 9 is_stmt 1 view .LVU316
+ 249:Core/Src/smg.c ****         break;
+ 731              		.loc 1 249 21 is_stmt 0 view .LVU317
+ 732 0202 7F20     		movs	r0, #127
+ 733 0204 0340     		ands	r3, r0
+ 250:Core/Src/smg.c ****     case 'M':
+ 734              		.loc 1 250 9 is_stmt 1 view .LVU318
+ 735 0206 05E7     		b	.L2
+ 736              	.L43:
+ 252:Core/Src/smg.c ****         smg.bits.b = 1;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 31
+
+
+ 737              		.loc 1 252 9 view .LVU319
+ 253:Core/Src/smg.c ****         smg.bits.c = 1;
+ 738              		.loc 1 253 9 view .LVU320
+ 254:Core/Src/smg.c ****         smg.bits.d = 0;
+ 739              		.loc 1 254 9 view .LVU321
+ 255:Core/Src/smg.c ****         smg.bits.e = 1;
+ 740              		.loc 1 255 9 view .LVU322
+ 255:Core/Src/smg.c ****         smg.bits.e = 1;
+ 741              		.loc 1 255 20 is_stmt 0 view .LVU323
+ 742 0208 0223     		movs	r3, #2
+ 743 020a 0422     		movs	r2, #4
+ 744 020c 1343     		orrs	r3, r2
+ 256:Core/Src/smg.c ****         smg.bits.f = 1;
+ 745              		.loc 1 256 9 is_stmt 1 view .LVU324
+ 256:Core/Src/smg.c ****         smg.bits.f = 1;
+ 746              		.loc 1 256 20 is_stmt 0 view .LVU325
+ 747 020e 1022     		movs	r2, #16
+ 748 0210 1343     		orrs	r3, r2
+ 257:Core/Src/smg.c ****         smg.bits.g = 1;
+ 749              		.loc 1 257 9 is_stmt 1 view .LVU326
+ 257:Core/Src/smg.c ****         smg.bits.g = 1;
+ 750              		.loc 1 257 20 is_stmt 0 view .LVU327
+ 751 0212 2020     		movs	r0, #32
+ 752 0214 0343     		orrs	r3, r0
+ 258:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 753              		.loc 1 258 9 is_stmt 1 view .LVU328
+ 258:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 754              		.loc 1 258 20 is_stmt 0 view .LVU329
+ 755 0216 4020     		movs	r0, #64
+ 756 0218 0343     		orrs	r3, r0
+ 259:Core/Src/smg.c ****         break;
+ 757              		.loc 1 259 9 is_stmt 1 view .LVU330
+ 259:Core/Src/smg.c ****         break;
+ 758              		.loc 1 259 21 is_stmt 0 view .LVU331
+ 759 021a 7F20     		movs	r0, #127
+ 760 021c 0340     		ands	r3, r0
+ 260:Core/Src/smg.c ****     case 'N':
+ 761              		.loc 1 260 9 is_stmt 1 view .LVU332
+ 762 021e F9E6     		b	.L2
+ 763              	.L42:
+ 262:Core/Src/smg.c ****         smg.bits.b = 1;
+ 764              		.loc 1 262 9 view .LVU333
+ 263:Core/Src/smg.c ****         smg.bits.c = 1;
+ 765              		.loc 1 263 9 view .LVU334
+ 264:Core/Src/smg.c ****         smg.bits.d = 0;
+ 766              		.loc 1 264 9 view .LVU335
+ 265:Core/Src/smg.c ****         smg.bits.e = 1;
+ 767              		.loc 1 265 9 view .LVU336
+ 265:Core/Src/smg.c ****         smg.bits.e = 1;
+ 768              		.loc 1 265 20 is_stmt 0 view .LVU337
+ 769 0220 0223     		movs	r3, #2
+ 770 0222 0422     		movs	r2, #4
+ 771 0224 1343     		orrs	r3, r2
+ 266:Core/Src/smg.c ****         smg.bits.f = 1;
+ 772              		.loc 1 266 9 is_stmt 1 view .LVU338
+ 266:Core/Src/smg.c ****         smg.bits.f = 1;
+ 773              		.loc 1 266 20 is_stmt 0 view .LVU339
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 32
+
+
+ 774 0226 1022     		movs	r2, #16
+ 775 0228 1343     		orrs	r3, r2
+ 267:Core/Src/smg.c ****         smg.bits.g = 1;
+ 776              		.loc 1 267 9 is_stmt 1 view .LVU340
+ 267:Core/Src/smg.c ****         smg.bits.g = 1;
+ 777              		.loc 1 267 20 is_stmt 0 view .LVU341
+ 778 022a 2020     		movs	r0, #32
+ 779 022c 0343     		orrs	r3, r0
+ 268:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 780              		.loc 1 268 9 is_stmt 1 view .LVU342
+ 268:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 781              		.loc 1 268 20 is_stmt 0 view .LVU343
+ 782 022e 4020     		movs	r0, #64
+ 783 0230 0343     		orrs	r3, r0
+ 269:Core/Src/smg.c ****         break;
+ 784              		.loc 1 269 9 is_stmt 1 view .LVU344
+ 269:Core/Src/smg.c ****         break;
+ 785              		.loc 1 269 21 is_stmt 0 view .LVU345
+ 786 0232 7F20     		movs	r0, #127
+ 787 0234 0340     		ands	r3, r0
+ 270:Core/Src/smg.c ****     case 'O':
+ 788              		.loc 1 270 9 is_stmt 1 view .LVU346
+ 789 0236 EDE6     		b	.L2
+ 790              	.L41:
+ 272:Core/Src/smg.c ****         smg.bits.b = 1;
+ 791              		.loc 1 272 9 view .LVU347
+ 273:Core/Src/smg.c ****         smg.bits.c = 1;
+ 792              		.loc 1 273 9 view .LVU348
+ 273:Core/Src/smg.c ****         smg.bits.c = 1;
+ 793              		.loc 1 273 20 is_stmt 0 view .LVU349
+ 794 0238 0123     		movs	r3, #1
+ 795 023a 0222     		movs	r2, #2
+ 796 023c 1343     		orrs	r3, r2
+ 274:Core/Src/smg.c ****         smg.bits.d = 1;
+ 797              		.loc 1 274 9 is_stmt 1 view .LVU350
+ 274:Core/Src/smg.c ****         smg.bits.d = 1;
+ 798              		.loc 1 274 20 is_stmt 0 view .LVU351
+ 799 023e 0422     		movs	r2, #4
+ 800 0240 1343     		orrs	r3, r2
+ 275:Core/Src/smg.c ****         smg.bits.e = 1;
+ 801              		.loc 1 275 9 is_stmt 1 view .LVU352
+ 275:Core/Src/smg.c ****         smg.bits.e = 1;
+ 802              		.loc 1 275 20 is_stmt 0 view .LVU353
+ 803 0242 0822     		movs	r2, #8
+ 804 0244 1343     		orrs	r3, r2
+ 276:Core/Src/smg.c ****         smg.bits.f = 1;
+ 805              		.loc 1 276 9 is_stmt 1 view .LVU354
+ 276:Core/Src/smg.c ****         smg.bits.f = 1;
+ 806              		.loc 1 276 20 is_stmt 0 view .LVU355
+ 807 0246 1020     		movs	r0, #16
+ 808 0248 0343     		orrs	r3, r0
+ 277:Core/Src/smg.c ****         smg.bits.g = 0;
+ 809              		.loc 1 277 9 is_stmt 1 view .LVU356
+ 278:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 810              		.loc 1 278 9 view .LVU357
+ 278:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 811              		.loc 1 278 20 is_stmt 0 view .LVU358
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 33
+
+
+ 812 024a 2020     		movs	r0, #32
+ 813 024c 0343     		orrs	r3, r0
+ 279:Core/Src/smg.c ****         break;
+ 814              		.loc 1 279 9 is_stmt 1 view .LVU359
+ 279:Core/Src/smg.c ****         break;
+ 815              		.loc 1 279 21 is_stmt 0 view .LVU360
+ 816 024e 7F20     		movs	r0, #127
+ 817 0250 0340     		ands	r3, r0
+ 280:Core/Src/smg.c ****     case 'P':
+ 818              		.loc 1 280 9 is_stmt 1 view .LVU361
+ 819 0252 DFE6     		b	.L2
+ 820              	.L40:
+ 282:Core/Src/smg.c ****         smg.bits.b = 1;
+ 821              		.loc 1 282 9 view .LVU362
+ 283:Core/Src/smg.c ****         smg.bits.c = 0;
+ 822              		.loc 1 283 9 view .LVU363
+ 284:Core/Src/smg.c ****         smg.bits.d = 0;
+ 823              		.loc 1 284 9 view .LVU364
+ 285:Core/Src/smg.c ****         smg.bits.e = 1;
+ 824              		.loc 1 285 9 view .LVU365
+ 285:Core/Src/smg.c ****         smg.bits.e = 1;
+ 825              		.loc 1 285 20 is_stmt 0 view .LVU366
+ 826 0254 0123     		movs	r3, #1
+ 827 0256 0222     		movs	r2, #2
+ 828 0258 1343     		orrs	r3, r2
+ 286:Core/Src/smg.c ****         smg.bits.f = 1;
+ 829              		.loc 1 286 9 is_stmt 1 view .LVU367
+ 286:Core/Src/smg.c ****         smg.bits.f = 1;
+ 830              		.loc 1 286 20 is_stmt 0 view .LVU368
+ 831 025a 1022     		movs	r2, #16
+ 832 025c 1343     		orrs	r3, r2
+ 287:Core/Src/smg.c ****         smg.bits.g = 1;
+ 833              		.loc 1 287 9 is_stmt 1 view .LVU369
+ 287:Core/Src/smg.c ****         smg.bits.g = 1;
+ 834              		.loc 1 287 20 is_stmt 0 view .LVU370
+ 835 025e 2020     		movs	r0, #32
+ 836 0260 0343     		orrs	r3, r0
+ 288:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 837              		.loc 1 288 9 is_stmt 1 view .LVU371
+ 288:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 838              		.loc 1 288 20 is_stmt 0 view .LVU372
+ 839 0262 4020     		movs	r0, #64
+ 840 0264 0343     		orrs	r3, r0
+ 289:Core/Src/smg.c ****         break;
+ 841              		.loc 1 289 9 is_stmt 1 view .LVU373
+ 289:Core/Src/smg.c ****         break;
+ 842              		.loc 1 289 21 is_stmt 0 view .LVU374
+ 843 0266 7F20     		movs	r0, #127
+ 844 0268 0340     		ands	r3, r0
+ 290:Core/Src/smg.c ****     case 'Q':
+ 845              		.loc 1 290 9 is_stmt 1 view .LVU375
+ 846 026a D3E6     		b	.L2
+ 847              	.L39:
+ 292:Core/Src/smg.c ****         smg.bits.b = 1;
+ 848              		.loc 1 292 9 view .LVU376
+ 293:Core/Src/smg.c ****         smg.bits.c = 1;
+ 849              		.loc 1 293 9 view .LVU377
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 34
+
+
+ 293:Core/Src/smg.c ****         smg.bits.c = 1;
+ 850              		.loc 1 293 20 is_stmt 0 view .LVU378
+ 851 026c 0123     		movs	r3, #1
+ 852 026e 0222     		movs	r2, #2
+ 853 0270 1343     		orrs	r3, r2
+ 294:Core/Src/smg.c ****         smg.bits.d = 1;
+ 854              		.loc 1 294 9 is_stmt 1 view .LVU379
+ 294:Core/Src/smg.c ****         smg.bits.d = 1;
+ 855              		.loc 1 294 20 is_stmt 0 view .LVU380
+ 856 0272 0422     		movs	r2, #4
+ 857 0274 1343     		orrs	r3, r2
+ 295:Core/Src/smg.c ****         smg.bits.e = 0;
+ 858              		.loc 1 295 9 is_stmt 1 view .LVU381
+ 296:Core/Src/smg.c ****         smg.bits.f = 1;
+ 859              		.loc 1 296 9 view .LVU382
+ 296:Core/Src/smg.c ****         smg.bits.f = 1;
+ 860              		.loc 1 296 20 is_stmt 0 view .LVU383
+ 861 0276 0822     		movs	r2, #8
+ 862 0278 1343     		orrs	r3, r2
+ 297:Core/Src/smg.c ****         smg.bits.g = 1;
+ 863              		.loc 1 297 9 is_stmt 1 view .LVU384
+ 297:Core/Src/smg.c ****         smg.bits.g = 1;
+ 864              		.loc 1 297 20 is_stmt 0 view .LVU385
+ 865 027a 2020     		movs	r0, #32
+ 866 027c 0343     		orrs	r3, r0
+ 298:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 867              		.loc 1 298 9 is_stmt 1 view .LVU386
+ 298:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 868              		.loc 1 298 20 is_stmt 0 view .LVU387
+ 869 027e 4020     		movs	r0, #64
+ 870 0280 0343     		orrs	r3, r0
+ 299:Core/Src/smg.c ****         break; // Q=9
+ 871              		.loc 1 299 9 is_stmt 1 view .LVU388
+ 299:Core/Src/smg.c ****         break; // Q=9
+ 872              		.loc 1 299 21 is_stmt 0 view .LVU389
+ 873 0282 7F20     		movs	r0, #127
+ 874 0284 0340     		ands	r3, r0
+ 300:Core/Src/smg.c ****     case 'R':
+ 875              		.loc 1 300 9 is_stmt 1 view .LVU390
+ 876 0286 C5E6     		b	.L2
+ 877              	.L38:
+ 302:Core/Src/smg.c ****         smg.bits.b = 1;
+ 878              		.loc 1 302 9 view .LVU391
+ 303:Core/Src/smg.c ****         smg.bits.c = 1;
+ 879              		.loc 1 303 9 view .LVU392
+ 304:Core/Src/smg.c ****         smg.bits.d = 0;
+ 880              		.loc 1 304 9 view .LVU393
+ 305:Core/Src/smg.c ****         smg.bits.e = 1;
+ 881              		.loc 1 305 9 view .LVU394
+ 305:Core/Src/smg.c ****         smg.bits.e = 1;
+ 882              		.loc 1 305 20 is_stmt 0 view .LVU395
+ 883 0288 0223     		movs	r3, #2
+ 884 028a 0422     		movs	r2, #4
+ 885 028c 1343     		orrs	r3, r2
+ 306:Core/Src/smg.c ****         smg.bits.f = 1;
+ 886              		.loc 1 306 9 is_stmt 1 view .LVU396
+ 306:Core/Src/smg.c ****         smg.bits.f = 1;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 35
+
+
+ 887              		.loc 1 306 20 is_stmt 0 view .LVU397
+ 888 028e 1022     		movs	r2, #16
+ 889 0290 1343     		orrs	r3, r2
+ 307:Core/Src/smg.c ****         smg.bits.g = 1;
+ 890              		.loc 1 307 9 is_stmt 1 view .LVU398
+ 307:Core/Src/smg.c ****         smg.bits.g = 1;
+ 891              		.loc 1 307 20 is_stmt 0 view .LVU399
+ 892 0292 2020     		movs	r0, #32
+ 893 0294 0343     		orrs	r3, r0
+ 308:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 894              		.loc 1 308 9 is_stmt 1 view .LVU400
+ 308:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 895              		.loc 1 308 20 is_stmt 0 view .LVU401
+ 896 0296 4020     		movs	r0, #64
+ 897 0298 0343     		orrs	r3, r0
+ 309:Core/Src/smg.c ****         break;
+ 898              		.loc 1 309 9 is_stmt 1 view .LVU402
+ 309:Core/Src/smg.c ****         break;
+ 899              		.loc 1 309 21 is_stmt 0 view .LVU403
+ 900 029a 7F20     		movs	r0, #127
+ 901 029c 0340     		ands	r3, r0
+ 310:Core/Src/smg.c ****     case 'S':
+ 902              		.loc 1 310 9 is_stmt 1 view .LVU404
+ 903 029e B9E6     		b	.L2
+ 904              	.L37:
+ 312:Core/Src/smg.c ****         smg.bits.b = 0;
+ 905              		.loc 1 312 9 view .LVU405
+ 313:Core/Src/smg.c ****         smg.bits.c = 0;
+ 906              		.loc 1 313 9 view .LVU406
+ 314:Core/Src/smg.c ****         smg.bits.d = 1;
+ 907              		.loc 1 314 9 view .LVU407
+ 315:Core/Src/smg.c ****         smg.bits.e = 1;
+ 908              		.loc 1 315 9 view .LVU408
+ 315:Core/Src/smg.c ****         smg.bits.e = 1;
+ 909              		.loc 1 315 20 is_stmt 0 view .LVU409
+ 910 02a0 0123     		movs	r3, #1
+ 911 02a2 0822     		movs	r2, #8
+ 912 02a4 1343     		orrs	r3, r2
+ 316:Core/Src/smg.c ****         smg.bits.f = 1;
+ 913              		.loc 1 316 9 is_stmt 1 view .LVU410
+ 316:Core/Src/smg.c ****         smg.bits.f = 1;
+ 914              		.loc 1 316 20 is_stmt 0 view .LVU411
+ 915 02a6 1022     		movs	r2, #16
+ 916 02a8 1343     		orrs	r3, r2
+ 317:Core/Src/smg.c ****         smg.bits.g = 1;
+ 917              		.loc 1 317 9 is_stmt 1 view .LVU412
+ 317:Core/Src/smg.c ****         smg.bits.g = 1;
+ 918              		.loc 1 317 20 is_stmt 0 view .LVU413
+ 919 02aa 2020     		movs	r0, #32
+ 920 02ac 0343     		orrs	r3, r0
+ 318:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 921              		.loc 1 318 9 is_stmt 1 view .LVU414
+ 318:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 922              		.loc 1 318 20 is_stmt 0 view .LVU415
+ 923 02ae 4020     		movs	r0, #64
+ 924 02b0 0343     		orrs	r3, r0
+ 319:Core/Src/smg.c ****         break;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 36
+
+
+ 925              		.loc 1 319 9 is_stmt 1 view .LVU416
+ 319:Core/Src/smg.c ****         break;
+ 926              		.loc 1 319 21 is_stmt 0 view .LVU417
+ 927 02b2 7F20     		movs	r0, #127
+ 928 02b4 0340     		ands	r3, r0
+ 320:Core/Src/smg.c ****     case 'T':
+ 929              		.loc 1 320 9 is_stmt 1 view .LVU418
+ 930 02b6 ADE6     		b	.L2
+ 931              	.L36:
+ 322:Core/Src/smg.c ****         smg.bits.b = 0;
+ 932              		.loc 1 322 9 view .LVU419
+ 323:Core/Src/smg.c ****         smg.bits.c = 0;
+ 933              		.loc 1 323 9 view .LVU420
+ 324:Core/Src/smg.c ****         smg.bits.d = 1;
+ 934              		.loc 1 324 9 view .LVU421
+ 325:Core/Src/smg.c ****         smg.bits.e = 1;
+ 935              		.loc 1 325 9 view .LVU422
+ 326:Core/Src/smg.c ****         smg.bits.f = 1;
+ 936              		.loc 1 326 9 view .LVU423
+ 326:Core/Src/smg.c ****         smg.bits.f = 1;
+ 937              		.loc 1 326 20 is_stmt 0 view .LVU424
+ 938 02b8 0823     		movs	r3, #8
+ 939 02ba 1022     		movs	r2, #16
+ 940 02bc 1343     		orrs	r3, r2
+ 327:Core/Src/smg.c ****         smg.bits.g = 1;
+ 941              		.loc 1 327 9 is_stmt 1 view .LVU425
+ 327:Core/Src/smg.c ****         smg.bits.g = 1;
+ 942              		.loc 1 327 20 is_stmt 0 view .LVU426
+ 943 02be 2020     		movs	r0, #32
+ 944 02c0 0343     		orrs	r3, r0
+ 328:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 945              		.loc 1 328 9 is_stmt 1 view .LVU427
+ 328:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 946              		.loc 1 328 20 is_stmt 0 view .LVU428
+ 947 02c2 4020     		movs	r0, #64
+ 948 02c4 0343     		orrs	r3, r0
+ 329:Core/Src/smg.c ****         break;
+ 949              		.loc 1 329 9 is_stmt 1 view .LVU429
+ 329:Core/Src/smg.c ****         break;
+ 950              		.loc 1 329 21 is_stmt 0 view .LVU430
+ 951 02c6 7F20     		movs	r0, #127
+ 952 02c8 0340     		ands	r3, r0
+ 330:Core/Src/smg.c ****     case 'U':
+ 953              		.loc 1 330 9 is_stmt 1 view .LVU431
+ 954 02ca A3E6     		b	.L2
+ 955              	.L35:
+ 332:Core/Src/smg.c ****         smg.bits.b = 1;
+ 956              		.loc 1 332 9 view .LVU432
+ 333:Core/Src/smg.c ****         smg.bits.c = 1;
+ 957              		.loc 1 333 9 view .LVU433
+ 334:Core/Src/smg.c ****         smg.bits.d = 1;
+ 958              		.loc 1 334 9 view .LVU434
+ 334:Core/Src/smg.c ****         smg.bits.d = 1;
+ 959              		.loc 1 334 20 is_stmt 0 view .LVU435
+ 960 02cc 0223     		movs	r3, #2
+ 961 02ce 0422     		movs	r2, #4
+ 962 02d0 1343     		orrs	r3, r2
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 37
+
+
+ 335:Core/Src/smg.c ****         smg.bits.e = 1;
+ 963              		.loc 1 335 9 is_stmt 1 view .LVU436
+ 335:Core/Src/smg.c ****         smg.bits.e = 1;
+ 964              		.loc 1 335 20 is_stmt 0 view .LVU437
+ 965 02d2 0822     		movs	r2, #8
+ 966 02d4 1343     		orrs	r3, r2
+ 336:Core/Src/smg.c ****         smg.bits.f = 1;
+ 967              		.loc 1 336 9 is_stmt 1 view .LVU438
+ 336:Core/Src/smg.c ****         smg.bits.f = 1;
+ 968              		.loc 1 336 20 is_stmt 0 view .LVU439
+ 969 02d6 1020     		movs	r0, #16
+ 970 02d8 0343     		orrs	r3, r0
+ 337:Core/Src/smg.c ****         smg.bits.g = 0;
+ 971              		.loc 1 337 9 is_stmt 1 view .LVU440
+ 338:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 972              		.loc 1 338 9 view .LVU441
+ 338:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 973              		.loc 1 338 20 is_stmt 0 view .LVU442
+ 974 02da 2020     		movs	r0, #32
+ 975 02dc 0343     		orrs	r3, r0
+ 339:Core/Src/smg.c ****         break;
+ 976              		.loc 1 339 9 is_stmt 1 view .LVU443
+ 339:Core/Src/smg.c ****         break;
+ 977              		.loc 1 339 21 is_stmt 0 view .LVU444
+ 978 02de 7F20     		movs	r0, #127
+ 979 02e0 0340     		ands	r3, r0
+ 340:Core/Src/smg.c ****     case 'V':
+ 980              		.loc 1 340 9 is_stmt 1 view .LVU445
+ 981 02e2 97E6     		b	.L2
+ 982              	.L34:
+ 342:Core/Src/smg.c ****         smg.bits.b = 1;
+ 983              		.loc 1 342 9 view .LVU446
+ 343:Core/Src/smg.c ****         smg.bits.c = 1;
+ 984              		.loc 1 343 9 view .LVU447
+ 344:Core/Src/smg.c ****         smg.bits.d = 1;
+ 985              		.loc 1 344 9 view .LVU448
+ 344:Core/Src/smg.c ****         smg.bits.d = 1;
+ 986              		.loc 1 344 20 is_stmt 0 view .LVU449
+ 987 02e4 0223     		movs	r3, #2
+ 988 02e6 0422     		movs	r2, #4
+ 989 02e8 1343     		orrs	r3, r2
+ 345:Core/Src/smg.c ****         smg.bits.e = 1;
+ 990              		.loc 1 345 9 is_stmt 1 view .LVU450
+ 345:Core/Src/smg.c ****         smg.bits.e = 1;
+ 991              		.loc 1 345 20 is_stmt 0 view .LVU451
+ 992 02ea 0822     		movs	r2, #8
+ 993 02ec 1343     		orrs	r3, r2
+ 346:Core/Src/smg.c ****         smg.bits.f = 1;
+ 994              		.loc 1 346 9 is_stmt 1 view .LVU452
+ 346:Core/Src/smg.c ****         smg.bits.f = 1;
+ 995              		.loc 1 346 20 is_stmt 0 view .LVU453
+ 996 02ee 1020     		movs	r0, #16
+ 997 02f0 0343     		orrs	r3, r0
+ 347:Core/Src/smg.c ****         smg.bits.g = 0;
+ 998              		.loc 1 347 9 is_stmt 1 view .LVU454
+ 348:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 999              		.loc 1 348 9 view .LVU455
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 38
+
+
+ 348:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1000              		.loc 1 348 20 is_stmt 0 view .LVU456
+ 1001 02f2 2020     		movs	r0, #32
+ 1002 02f4 0343     		orrs	r3, r0
+ 349:Core/Src/smg.c ****         break;
+ 1003              		.loc 1 349 9 is_stmt 1 view .LVU457
+ 349:Core/Src/smg.c ****         break;
+ 1004              		.loc 1 349 21 is_stmt 0 view .LVU458
+ 1005 02f6 7F20     		movs	r0, #127
+ 1006 02f8 0340     		ands	r3, r0
+ 350:Core/Src/smg.c ****     case 'W':
+ 1007              		.loc 1 350 9 is_stmt 1 view .LVU459
+ 1008 02fa 8BE6     		b	.L2
+ 1009              	.L33:
+ 352:Core/Src/smg.c ****         smg.bits.b = 1;
+ 1010              		.loc 1 352 9 view .LVU460
+ 353:Core/Src/smg.c ****         smg.bits.c = 1;
+ 1011              		.loc 1 353 9 view .LVU461
+ 354:Core/Src/smg.c ****         smg.bits.d = 1;
+ 1012              		.loc 1 354 9 view .LVU462
+ 354:Core/Src/smg.c ****         smg.bits.d = 1;
+ 1013              		.loc 1 354 20 is_stmt 0 view .LVU463
+ 1014 02fc 0223     		movs	r3, #2
+ 1015 02fe 0422     		movs	r2, #4
+ 1016 0300 1343     		orrs	r3, r2
+ 355:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1017              		.loc 1 355 9 is_stmt 1 view .LVU464
+ 355:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1018              		.loc 1 355 20 is_stmt 0 view .LVU465
+ 1019 0302 0822     		movs	r2, #8
+ 1020 0304 1343     		orrs	r3, r2
+ 356:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1021              		.loc 1 356 9 is_stmt 1 view .LVU466
+ 356:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1022              		.loc 1 356 20 is_stmt 0 view .LVU467
+ 1023 0306 1020     		movs	r0, #16
+ 1024 0308 0343     		orrs	r3, r0
+ 357:Core/Src/smg.c ****         smg.bits.g = 0;
+ 1025              		.loc 1 357 9 is_stmt 1 view .LVU468
+ 358:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1026              		.loc 1 358 9 view .LVU469
+ 358:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1027              		.loc 1 358 20 is_stmt 0 view .LVU470
+ 1028 030a 2020     		movs	r0, #32
+ 1029 030c 0343     		orrs	r3, r0
+ 359:Core/Src/smg.c ****         break;
+ 1030              		.loc 1 359 9 is_stmt 1 view .LVU471
+ 359:Core/Src/smg.c ****         break;
+ 1031              		.loc 1 359 21 is_stmt 0 view .LVU472
+ 1032 030e 7F20     		movs	r0, #127
+ 1033 0310 0340     		ands	r3, r0
+ 360:Core/Src/smg.c ****     case 'X':
+ 1034              		.loc 1 360 9 is_stmt 1 view .LVU473
+ 1035 0312 7FE6     		b	.L2
+ 1036              	.L32:
+ 362:Core/Src/smg.c ****         smg.bits.b = 1;
+ 1037              		.loc 1 362 9 view .LVU474
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 39
+
+
+ 363:Core/Src/smg.c ****         smg.bits.c = 1;
+ 1038              		.loc 1 363 9 view .LVU475
+ 364:Core/Src/smg.c ****         smg.bits.d = 0;
+ 1039              		.loc 1 364 9 view .LVU476
+ 365:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1040              		.loc 1 365 9 view .LVU477
+ 365:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1041              		.loc 1 365 20 is_stmt 0 view .LVU478
+ 1042 0314 0223     		movs	r3, #2
+ 1043 0316 0422     		movs	r2, #4
+ 1044 0318 1343     		orrs	r3, r2
+ 366:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1045              		.loc 1 366 9 is_stmt 1 view .LVU479
+ 366:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1046              		.loc 1 366 20 is_stmt 0 view .LVU480
+ 1047 031a 1022     		movs	r2, #16
+ 1048 031c 1343     		orrs	r3, r2
+ 367:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1049              		.loc 1 367 9 is_stmt 1 view .LVU481
+ 367:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1050              		.loc 1 367 20 is_stmt 0 view .LVU482
+ 1051 031e 2020     		movs	r0, #32
+ 1052 0320 0343     		orrs	r3, r0
+ 368:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1053              		.loc 1 368 9 is_stmt 1 view .LVU483
+ 368:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1054              		.loc 1 368 20 is_stmt 0 view .LVU484
+ 1055 0322 4020     		movs	r0, #64
+ 1056 0324 0343     		orrs	r3, r0
+ 369:Core/Src/smg.c ****         break;
+ 1057              		.loc 1 369 9 is_stmt 1 view .LVU485
+ 369:Core/Src/smg.c ****         break;
+ 1058              		.loc 1 369 21 is_stmt 0 view .LVU486
+ 1059 0326 7F20     		movs	r0, #127
+ 1060 0328 0340     		ands	r3, r0
+ 370:Core/Src/smg.c ****     case 'Y':
+ 1061              		.loc 1 370 9 is_stmt 1 view .LVU487
+ 1062 032a 73E6     		b	.L2
+ 1063              	.L31:
+ 372:Core/Src/smg.c ****         smg.bits.b = 1;
+ 1064              		.loc 1 372 9 view .LVU488
+ 373:Core/Src/smg.c ****         smg.bits.c = 1;
+ 1065              		.loc 1 373 9 view .LVU489
+ 374:Core/Src/smg.c ****         smg.bits.d = 1;
+ 1066              		.loc 1 374 9 view .LVU490
+ 374:Core/Src/smg.c ****         smg.bits.d = 1;
+ 1067              		.loc 1 374 20 is_stmt 0 view .LVU491
+ 1068 032c 0223     		movs	r3, #2
+ 1069 032e 0422     		movs	r2, #4
+ 1070 0330 1343     		orrs	r3, r2
+ 375:Core/Src/smg.c ****         smg.bits.e = 0;
+ 1071              		.loc 1 375 9 is_stmt 1 view .LVU492
+ 376:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1072              		.loc 1 376 9 view .LVU493
+ 376:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1073              		.loc 1 376 20 is_stmt 0 view .LVU494
+ 1074 0332 0822     		movs	r2, #8
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 40
+
+
+ 1075 0334 1343     		orrs	r3, r2
+ 377:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1076              		.loc 1 377 9 is_stmt 1 view .LVU495
+ 377:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1077              		.loc 1 377 20 is_stmt 0 view .LVU496
+ 1078 0336 2020     		movs	r0, #32
+ 1079 0338 0343     		orrs	r3, r0
+ 378:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1080              		.loc 1 378 9 is_stmt 1 view .LVU497
+ 378:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1081              		.loc 1 378 20 is_stmt 0 view .LVU498
+ 1082 033a 4020     		movs	r0, #64
+ 1083 033c 0343     		orrs	r3, r0
+ 379:Core/Src/smg.c ****         break;
+ 1084              		.loc 1 379 9 is_stmt 1 view .LVU499
+ 379:Core/Src/smg.c ****         break;
+ 1085              		.loc 1 379 21 is_stmt 0 view .LVU500
+ 1086 033e 7F20     		movs	r0, #127
+ 1087 0340 0340     		ands	r3, r0
+ 380:Core/Src/smg.c ****     case 'Z':
+ 1088              		.loc 1 380 9 is_stmt 1 view .LVU501
+ 1089 0342 67E6     		b	.L2
+ 1090              	.L30:
+ 382:Core/Src/smg.c ****         smg.bits.b = 1;
+ 1091              		.loc 1 382 9 view .LVU502
+ 383:Core/Src/smg.c ****         smg.bits.c = 0;
+ 1092              		.loc 1 383 9 view .LVU503
+ 384:Core/Src/smg.c ****         smg.bits.d = 1;
+ 1093              		.loc 1 384 9 view .LVU504
+ 384:Core/Src/smg.c ****         smg.bits.d = 1;
+ 1094              		.loc 1 384 20 is_stmt 0 view .LVU505
+ 1095 0344 0123     		movs	r3, #1
+ 1096 0346 0222     		movs	r2, #2
+ 1097 0348 1343     		orrs	r3, r2
+ 385:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1098              		.loc 1 385 9 is_stmt 1 view .LVU506
+ 385:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1099              		.loc 1 385 20 is_stmt 0 view .LVU507
+ 1100 034a 0822     		movs	r2, #8
+ 1101 034c 1343     		orrs	r3, r2
+ 386:Core/Src/smg.c ****         smg.bits.f = 0;
+ 1102              		.loc 1 386 9 is_stmt 1 view .LVU508
+ 387:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1103              		.loc 1 387 9 view .LVU509
+ 387:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1104              		.loc 1 387 20 is_stmt 0 view .LVU510
+ 1105 034e 1020     		movs	r0, #16
+ 1106 0350 0343     		orrs	r3, r0
+ 388:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1107              		.loc 1 388 9 is_stmt 1 view .LVU511
+ 388:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1108              		.loc 1 388 20 is_stmt 0 view .LVU512
+ 1109 0352 4020     		movs	r0, #64
+ 1110 0354 0343     		orrs	r3, r0
+ 389:Core/Src/smg.c ****         break; // z=2
+ 1111              		.loc 1 389 9 is_stmt 1 view .LVU513
+ 389:Core/Src/smg.c ****         break; // z=2
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 41
+
+
+ 1112              		.loc 1 389 21 is_stmt 0 view .LVU514
+ 1113 0356 7F20     		movs	r0, #127
+ 1114 0358 0340     		ands	r3, r0
+ 390:Core/Src/smg.c ****     case 'a':
+ 1115              		.loc 1 390 9 is_stmt 1 view .LVU515
+ 1116 035a 5BE6     		b	.L2
+ 1117              	.L29:
+ 392:Core/Src/smg.c ****         smg.bits.b = 1;
+ 1118              		.loc 1 392 9 view .LVU516
+ 393:Core/Src/smg.c ****         smg.bits.c = 1;
+ 1119              		.loc 1 393 9 view .LVU517
+ 393:Core/Src/smg.c ****         smg.bits.c = 1;
+ 1120              		.loc 1 393 20 is_stmt 0 view .LVU518
+ 1121 035c 0123     		movs	r3, #1
+ 1122 035e 0222     		movs	r2, #2
+ 1123 0360 1343     		orrs	r3, r2
+ 394:Core/Src/smg.c ****         smg.bits.d = 0;
+ 1124              		.loc 1 394 9 is_stmt 1 view .LVU519
+ 395:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1125              		.loc 1 395 9 view .LVU520
+ 395:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1126              		.loc 1 395 20 is_stmt 0 view .LVU521
+ 1127 0362 0422     		movs	r2, #4
+ 1128 0364 1343     		orrs	r3, r2
+ 396:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1129              		.loc 1 396 9 is_stmt 1 view .LVU522
+ 396:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1130              		.loc 1 396 20 is_stmt 0 view .LVU523
+ 1131 0366 1022     		movs	r2, #16
+ 1132 0368 1343     		orrs	r3, r2
+ 397:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1133              		.loc 1 397 9 is_stmt 1 view .LVU524
+ 397:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1134              		.loc 1 397 20 is_stmt 0 view .LVU525
+ 1135 036a 2020     		movs	r0, #32
+ 1136 036c 0343     		orrs	r3, r0
+ 398:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1137              		.loc 1 398 9 is_stmt 1 view .LVU526
+ 398:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1138              		.loc 1 398 20 is_stmt 0 view .LVU527
+ 1139 036e 4020     		movs	r0, #64
+ 1140 0370 0343     		orrs	r3, r0
+ 399:Core/Src/smg.c ****         break;
+ 1141              		.loc 1 399 9 is_stmt 1 view .LVU528
+ 399:Core/Src/smg.c ****         break;
+ 1142              		.loc 1 399 21 is_stmt 0 view .LVU529
+ 1143 0372 7F20     		movs	r0, #127
+ 1144 0374 0340     		ands	r3, r0
+ 400:Core/Src/smg.c ****     case 'b':
+ 1145              		.loc 1 400 9 is_stmt 1 view .LVU530
+ 1146 0376 4DE6     		b	.L2
+ 1147              	.L70:
+ 1148              		.align	2
+ 1149              	.L69:
+ 1150 0378 00000000 		.word	.L4
+ 1151              	.L28:
+ 402:Core/Src/smg.c ****         smg.bits.b = 0;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 42
+
+
+ 1152              		.loc 1 402 9 view .LVU531
+ 403:Core/Src/smg.c ****         smg.bits.c = 1;
+ 1153              		.loc 1 403 9 view .LVU532
+ 404:Core/Src/smg.c ****         smg.bits.d = 1;
+ 1154              		.loc 1 404 9 view .LVU533
+ 405:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1155              		.loc 1 405 9 view .LVU534
+ 405:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1156              		.loc 1 405 20 is_stmt 0 view .LVU535
+ 1157 037c 0423     		movs	r3, #4
+ 1158 037e 0822     		movs	r2, #8
+ 1159 0380 1343     		orrs	r3, r2
+ 406:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1160              		.loc 1 406 9 is_stmt 1 view .LVU536
+ 406:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1161              		.loc 1 406 20 is_stmt 0 view .LVU537
+ 1162 0382 1022     		movs	r2, #16
+ 1163 0384 1343     		orrs	r3, r2
+ 407:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1164              		.loc 1 407 9 is_stmt 1 view .LVU538
+ 407:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1165              		.loc 1 407 20 is_stmt 0 view .LVU539
+ 1166 0386 2020     		movs	r0, #32
+ 1167 0388 0343     		orrs	r3, r0
+ 408:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1168              		.loc 1 408 9 is_stmt 1 view .LVU540
+ 408:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1169              		.loc 1 408 20 is_stmt 0 view .LVU541
+ 1170 038a 4020     		movs	r0, #64
+ 1171 038c 0343     		orrs	r3, r0
+ 409:Core/Src/smg.c ****         break;
+ 1172              		.loc 1 409 9 is_stmt 1 view .LVU542
+ 409:Core/Src/smg.c ****         break;
+ 1173              		.loc 1 409 21 is_stmt 0 view .LVU543
+ 1174 038e 7F20     		movs	r0, #127
+ 1175 0390 0340     		ands	r3, r0
+ 410:Core/Src/smg.c ****     case 'c':
+ 1176              		.loc 1 410 9 is_stmt 1 view .LVU544
+ 1177 0392 3FE6     		b	.L2
+ 1178              	.L27:
+ 412:Core/Src/smg.c ****         smg.bits.b = 0;
+ 1179              		.loc 1 412 9 view .LVU545
+ 413:Core/Src/smg.c ****         smg.bits.c = 0;
+ 1180              		.loc 1 413 9 view .LVU546
+ 414:Core/Src/smg.c ****         smg.bits.d = 1;
+ 1181              		.loc 1 414 9 view .LVU547
+ 415:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1182              		.loc 1 415 9 view .LVU548
+ 416:Core/Src/smg.c ****         smg.bits.f = 0;
+ 1183              		.loc 1 416 9 view .LVU549
+ 417:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1184              		.loc 1 417 9 view .LVU550
+ 417:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1185              		.loc 1 417 20 is_stmt 0 view .LVU551
+ 1186 0394 0823     		movs	r3, #8
+ 1187 0396 1020     		movs	r0, #16
+ 1188 0398 0343     		orrs	r3, r0
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 43
+
+
+ 418:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1189              		.loc 1 418 9 is_stmt 1 view .LVU552
+ 418:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1190              		.loc 1 418 20 is_stmt 0 view .LVU553
+ 1191 039a 4020     		movs	r0, #64
+ 1192 039c 0343     		orrs	r3, r0
+ 419:Core/Src/smg.c ****         break;
+ 1193              		.loc 1 419 9 is_stmt 1 view .LVU554
+ 419:Core/Src/smg.c ****         break;
+ 1194              		.loc 1 419 21 is_stmt 0 view .LVU555
+ 1195 039e 7F20     		movs	r0, #127
+ 1196 03a0 0340     		ands	r3, r0
+ 420:Core/Src/smg.c ****     case 'd':
+ 1197              		.loc 1 420 9 is_stmt 1 view .LVU556
+ 1198 03a2 37E6     		b	.L2
+ 1199              	.L26:
+ 422:Core/Src/smg.c ****         smg.bits.b = 1;
+ 1200              		.loc 1 422 9 view .LVU557
+ 423:Core/Src/smg.c ****         smg.bits.c = 1;
+ 1201              		.loc 1 423 9 view .LVU558
+ 424:Core/Src/smg.c ****         smg.bits.d = 1;
+ 1202              		.loc 1 424 9 view .LVU559
+ 424:Core/Src/smg.c ****         smg.bits.d = 1;
+ 1203              		.loc 1 424 20 is_stmt 0 view .LVU560
+ 1204 03a4 0223     		movs	r3, #2
+ 1205 03a6 0422     		movs	r2, #4
+ 1206 03a8 1343     		orrs	r3, r2
+ 425:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1207              		.loc 1 425 9 is_stmt 1 view .LVU561
+ 425:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1208              		.loc 1 425 20 is_stmt 0 view .LVU562
+ 1209 03aa 0822     		movs	r2, #8
+ 1210 03ac 1343     		orrs	r3, r2
+ 426:Core/Src/smg.c ****         smg.bits.f = 0;
+ 1211              		.loc 1 426 9 is_stmt 1 view .LVU563
+ 427:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1212              		.loc 1 427 9 view .LVU564
+ 427:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1213              		.loc 1 427 20 is_stmt 0 view .LVU565
+ 1214 03ae 1020     		movs	r0, #16
+ 1215 03b0 0343     		orrs	r3, r0
+ 428:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1216              		.loc 1 428 9 is_stmt 1 view .LVU566
+ 428:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1217              		.loc 1 428 20 is_stmt 0 view .LVU567
+ 1218 03b2 4020     		movs	r0, #64
+ 1219 03b4 0343     		orrs	r3, r0
+ 429:Core/Src/smg.c ****         break;
+ 1220              		.loc 1 429 9 is_stmt 1 view .LVU568
+ 429:Core/Src/smg.c ****         break;
+ 1221              		.loc 1 429 21 is_stmt 0 view .LVU569
+ 1222 03b6 7F20     		movs	r0, #127
+ 1223 03b8 0340     		ands	r3, r0
+ 430:Core/Src/smg.c ****     case 'e':
+ 1224              		.loc 1 430 9 is_stmt 1 view .LVU570
+ 1225 03ba 2BE6     		b	.L2
+ 1226              	.L25:
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 44
+
+
+ 432:Core/Src/smg.c ****         smg.bits.b = 1;
+ 1227              		.loc 1 432 9 view .LVU571
+ 433:Core/Src/smg.c ****         smg.bits.c = 0;
+ 1228              		.loc 1 433 9 view .LVU572
+ 434:Core/Src/smg.c ****         smg.bits.d = 1;
+ 1229              		.loc 1 434 9 view .LVU573
+ 434:Core/Src/smg.c ****         smg.bits.d = 1;
+ 1230              		.loc 1 434 20 is_stmt 0 view .LVU574
+ 1231 03bc 0123     		movs	r3, #1
+ 1232 03be 0222     		movs	r2, #2
+ 1233 03c0 1343     		orrs	r3, r2
+ 435:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1234              		.loc 1 435 9 is_stmt 1 view .LVU575
+ 435:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1235              		.loc 1 435 20 is_stmt 0 view .LVU576
+ 1236 03c2 0822     		movs	r2, #8
+ 1237 03c4 1343     		orrs	r3, r2
+ 436:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1238              		.loc 1 436 9 is_stmt 1 view .LVU577
+ 436:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1239              		.loc 1 436 20 is_stmt 0 view .LVU578
+ 1240 03c6 1022     		movs	r2, #16
+ 1241 03c8 1343     		orrs	r3, r2
+ 437:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1242              		.loc 1 437 9 is_stmt 1 view .LVU579
+ 437:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1243              		.loc 1 437 20 is_stmt 0 view .LVU580
+ 1244 03ca 2020     		movs	r0, #32
+ 1245 03cc 0343     		orrs	r3, r0
+ 438:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1246              		.loc 1 438 9 is_stmt 1 view .LVU581
+ 438:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1247              		.loc 1 438 20 is_stmt 0 view .LVU582
+ 1248 03ce 4020     		movs	r0, #64
+ 1249 03d0 0343     		orrs	r3, r0
+ 439:Core/Src/smg.c ****         break;
+ 1250              		.loc 1 439 9 is_stmt 1 view .LVU583
+ 439:Core/Src/smg.c ****         break;
+ 1251              		.loc 1 439 21 is_stmt 0 view .LVU584
+ 1252 03d2 7F20     		movs	r0, #127
+ 1253 03d4 0340     		ands	r3, r0
+ 440:Core/Src/smg.c ****     case 'f':
+ 1254              		.loc 1 440 9 is_stmt 1 view .LVU585
+ 1255 03d6 1DE6     		b	.L2
+ 1256              	.L24:
+ 442:Core/Src/smg.c ****         smg.bits.b = 0;
+ 1257              		.loc 1 442 9 view .LVU586
+ 443:Core/Src/smg.c ****         smg.bits.c = 0;
+ 1258              		.loc 1 443 9 view .LVU587
+ 444:Core/Src/smg.c ****         smg.bits.d = 0;
+ 1259              		.loc 1 444 9 view .LVU588
+ 445:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1260              		.loc 1 445 9 view .LVU589
+ 446:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1261              		.loc 1 446 9 view .LVU590
+ 446:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1262              		.loc 1 446 20 is_stmt 0 view .LVU591
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 45
+
+
+ 1263 03d8 0123     		movs	r3, #1
+ 1264 03da 1022     		movs	r2, #16
+ 1265 03dc 1343     		orrs	r3, r2
+ 447:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1266              		.loc 1 447 9 is_stmt 1 view .LVU592
+ 447:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1267              		.loc 1 447 20 is_stmt 0 view .LVU593
+ 1268 03de 2020     		movs	r0, #32
+ 1269 03e0 0343     		orrs	r3, r0
+ 448:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1270              		.loc 1 448 9 is_stmt 1 view .LVU594
+ 448:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1271              		.loc 1 448 20 is_stmt 0 view .LVU595
+ 1272 03e2 4020     		movs	r0, #64
+ 1273 03e4 0343     		orrs	r3, r0
+ 449:Core/Src/smg.c ****         break;
+ 1274              		.loc 1 449 9 is_stmt 1 view .LVU596
+ 449:Core/Src/smg.c ****         break;
+ 1275              		.loc 1 449 21 is_stmt 0 view .LVU597
+ 1276 03e6 7F20     		movs	r0, #127
+ 1277 03e8 0340     		ands	r3, r0
+ 450:Core/Src/smg.c ****     case 'g':
+ 1278              		.loc 1 450 9 is_stmt 1 view .LVU598
+ 1279 03ea 13E6     		b	.L2
+ 1280              	.L23:
+ 452:Core/Src/smg.c ****         smg.bits.b = 1;
+ 1281              		.loc 1 452 9 view .LVU599
+ 453:Core/Src/smg.c ****         smg.bits.c = 1;
+ 1282              		.loc 1 453 9 view .LVU600
+ 453:Core/Src/smg.c ****         smg.bits.c = 1;
+ 1283              		.loc 1 453 20 is_stmt 0 view .LVU601
+ 1284 03ec 0123     		movs	r3, #1
+ 1285 03ee 0222     		movs	r2, #2
+ 1286 03f0 1343     		orrs	r3, r2
+ 454:Core/Src/smg.c ****         smg.bits.d = 1;
+ 1287              		.loc 1 454 9 is_stmt 1 view .LVU602
+ 454:Core/Src/smg.c ****         smg.bits.d = 1;
+ 1288              		.loc 1 454 20 is_stmt 0 view .LVU603
+ 1289 03f2 0422     		movs	r2, #4
+ 1290 03f4 1343     		orrs	r3, r2
+ 455:Core/Src/smg.c ****         smg.bits.e = 0;
+ 1291              		.loc 1 455 9 is_stmt 1 view .LVU604
+ 456:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1292              		.loc 1 456 9 view .LVU605
+ 456:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1293              		.loc 1 456 20 is_stmt 0 view .LVU606
+ 1294 03f6 0822     		movs	r2, #8
+ 1295 03f8 1343     		orrs	r3, r2
+ 457:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1296              		.loc 1 457 9 is_stmt 1 view .LVU607
+ 457:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1297              		.loc 1 457 20 is_stmt 0 view .LVU608
+ 1298 03fa 2020     		movs	r0, #32
+ 1299 03fc 0343     		orrs	r3, r0
+ 458:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1300              		.loc 1 458 9 is_stmt 1 view .LVU609
+ 458:Core/Src/smg.c ****         smg.bits.dp = 0;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 46
+
+
+ 1301              		.loc 1 458 20 is_stmt 0 view .LVU610
+ 1302 03fe 4020     		movs	r0, #64
+ 1303 0400 0343     		orrs	r3, r0
+ 459:Core/Src/smg.c ****         break; // q=g=9
+ 1304              		.loc 1 459 9 is_stmt 1 view .LVU611
+ 459:Core/Src/smg.c ****         break; // q=g=9
+ 1305              		.loc 1 459 21 is_stmt 0 view .LVU612
+ 1306 0402 7F20     		movs	r0, #127
+ 1307 0404 0340     		ands	r3, r0
+ 460:Core/Src/smg.c ****     case 'h':
+ 1308              		.loc 1 460 9 is_stmt 1 view .LVU613
+ 1309 0406 05E6     		b	.L2
+ 1310              	.L22:
+ 462:Core/Src/smg.c ****         smg.bits.b = 0;
+ 1311              		.loc 1 462 9 view .LVU614
+ 463:Core/Src/smg.c ****         smg.bits.c = 1;
+ 1312              		.loc 1 463 9 view .LVU615
+ 464:Core/Src/smg.c ****         smg.bits.d = 0;
+ 1313              		.loc 1 464 9 view .LVU616
+ 465:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1314              		.loc 1 465 9 view .LVU617
+ 466:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1315              		.loc 1 466 9 view .LVU618
+ 466:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1316              		.loc 1 466 20 is_stmt 0 view .LVU619
+ 1317 0408 0423     		movs	r3, #4
+ 1318 040a 1022     		movs	r2, #16
+ 1319 040c 1343     		orrs	r3, r2
+ 467:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1320              		.loc 1 467 9 is_stmt 1 view .LVU620
+ 467:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1321              		.loc 1 467 20 is_stmt 0 view .LVU621
+ 1322 040e 2020     		movs	r0, #32
+ 1323 0410 0343     		orrs	r3, r0
+ 468:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1324              		.loc 1 468 9 is_stmt 1 view .LVU622
+ 468:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1325              		.loc 1 468 20 is_stmt 0 view .LVU623
+ 1326 0412 4020     		movs	r0, #64
+ 1327 0414 0343     		orrs	r3, r0
+ 469:Core/Src/smg.c ****         break;
+ 1328              		.loc 1 469 9 is_stmt 1 view .LVU624
+ 469:Core/Src/smg.c ****         break;
+ 1329              		.loc 1 469 21 is_stmt 0 view .LVU625
+ 1330 0416 7F20     		movs	r0, #127
+ 1331 0418 0340     		ands	r3, r0
+ 470:Core/Src/smg.c ****     case 'i':
+ 1332              		.loc 1 470 9 is_stmt 1 view .LVU626
+ 1333 041a FBE5     		b	.L2
+ 1334              	.L21:
+ 472:Core/Src/smg.c ****         smg.bits.b = 0;
+ 1335              		.loc 1 472 9 view .LVU627
+ 473:Core/Src/smg.c ****         smg.bits.c = 0;
+ 1336              		.loc 1 473 9 view .LVU628
+ 474:Core/Src/smg.c ****         smg.bits.d = 0;
+ 1337              		.loc 1 474 9 view .LVU629
+ 475:Core/Src/smg.c ****         smg.bits.e = 1;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 47
+
+
+ 1338              		.loc 1 475 9 view .LVU630
+ 476:Core/Src/smg.c ****         smg.bits.f = 0;
+ 1339              		.loc 1 476 9 view .LVU631
+ 477:Core/Src/smg.c ****         smg.bits.g = 0;
+ 1340              		.loc 1 477 9 view .LVU632
+ 478:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1341              		.loc 1 478 9 view .LVU633
+ 479:Core/Src/smg.c ****         break;
+ 1342              		.loc 1 479 9 view .LVU634
+ 479:Core/Src/smg.c ****         break;
+ 1343              		.loc 1 479 21 is_stmt 0 view .LVU635
+ 1344 041c 1023     		movs	r3, #16
+ 480:Core/Src/smg.c ****     case 'j':
+ 1345              		.loc 1 480 9 is_stmt 1 view .LVU636
+ 1346 041e F9E5     		b	.L2
+ 1347              	.L20:
+ 482:Core/Src/smg.c ****         smg.bits.b = 1;
+ 1348              		.loc 1 482 9 view .LVU637
+ 483:Core/Src/smg.c ****         smg.bits.c = 1;
+ 1349              		.loc 1 483 9 view .LVU638
+ 484:Core/Src/smg.c ****         smg.bits.d = 1;
+ 1350              		.loc 1 484 9 view .LVU639
+ 484:Core/Src/smg.c ****         smg.bits.d = 1;
+ 1351              		.loc 1 484 20 is_stmt 0 view .LVU640
+ 1352 0420 0223     		movs	r3, #2
+ 1353 0422 0422     		movs	r2, #4
+ 1354 0424 1343     		orrs	r3, r2
+ 485:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1355              		.loc 1 485 9 is_stmt 1 view .LVU641
+ 485:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1356              		.loc 1 485 20 is_stmt 0 view .LVU642
+ 1357 0426 0820     		movs	r0, #8
+ 1358 0428 0343     		orrs	r3, r0
+ 486:Core/Src/smg.c ****         smg.bits.f = 0;
+ 1359              		.loc 1 486 9 is_stmt 1 view .LVU643
+ 487:Core/Src/smg.c ****         smg.bits.g = 0;
+ 1360              		.loc 1 487 9 view .LVU644
+ 488:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1361              		.loc 1 488 9 view .LVU645
+ 488:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1362              		.loc 1 488 20 is_stmt 0 view .LVU646
+ 1363 042a 1020     		movs	r0, #16
+ 1364 042c 0343     		orrs	r3, r0
+ 489:Core/Src/smg.c ****         break;
+ 1365              		.loc 1 489 9 is_stmt 1 view .LVU647
+ 489:Core/Src/smg.c ****         break;
+ 1366              		.loc 1 489 21 is_stmt 0 view .LVU648
+ 1367 042e 7F20     		movs	r0, #127
+ 1368 0430 0340     		ands	r3, r0
+ 490:Core/Src/smg.c ****     case 'k':
+ 1369              		.loc 1 490 9 is_stmt 1 view .LVU649
+ 1370 0432 EFE5     		b	.L2
+ 1371              	.L19:
+ 492:Core/Src/smg.c ****         smg.bits.b = 0;
+ 1372              		.loc 1 492 9 view .LVU650
+ 493:Core/Src/smg.c ****         smg.bits.c = 1;
+ 1373              		.loc 1 493 9 view .LVU651
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 48
+
+
+ 494:Core/Src/smg.c ****         smg.bits.d = 0;
+ 1374              		.loc 1 494 9 view .LVU652
+ 495:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1375              		.loc 1 495 9 view .LVU653
+ 496:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1376              		.loc 1 496 9 view .LVU654
+ 496:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1377              		.loc 1 496 20 is_stmt 0 view .LVU655
+ 1378 0434 0423     		movs	r3, #4
+ 1379 0436 1022     		movs	r2, #16
+ 1380 0438 1343     		orrs	r3, r2
+ 497:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1381              		.loc 1 497 9 is_stmt 1 view .LVU656
+ 497:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1382              		.loc 1 497 20 is_stmt 0 view .LVU657
+ 1383 043a 2020     		movs	r0, #32
+ 1384 043c 0343     		orrs	r3, r0
+ 498:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1385              		.loc 1 498 9 is_stmt 1 view .LVU658
+ 498:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1386              		.loc 1 498 20 is_stmt 0 view .LVU659
+ 1387 043e 4020     		movs	r0, #64
+ 1388 0440 0343     		orrs	r3, r0
+ 499:Core/Src/smg.c ****         break;
+ 1389              		.loc 1 499 9 is_stmt 1 view .LVU660
+ 499:Core/Src/smg.c ****         break;
+ 1390              		.loc 1 499 21 is_stmt 0 view .LVU661
+ 1391 0442 7F20     		movs	r0, #127
+ 1392 0444 0340     		ands	r3, r0
+ 500:Core/Src/smg.c ****     case 'l':
+ 1393              		.loc 1 500 9 is_stmt 1 view .LVU662
+ 1394 0446 E5E5     		b	.L2
+ 1395              	.L18:
+ 502:Core/Src/smg.c ****         smg.bits.b = 0;
+ 1396              		.loc 1 502 9 view .LVU663
+ 503:Core/Src/smg.c ****         smg.bits.c = 0;
+ 1397              		.loc 1 503 9 view .LVU664
+ 504:Core/Src/smg.c ****         smg.bits.d = 1;
+ 1398              		.loc 1 504 9 view .LVU665
+ 505:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1399              		.loc 1 505 9 view .LVU666
+ 506:Core/Src/smg.c ****         smg.bits.f = 0;
+ 1400              		.loc 1 506 9 view .LVU667
+ 507:Core/Src/smg.c ****         smg.bits.g = 0;
+ 1401              		.loc 1 507 9 view .LVU668
+ 508:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1402              		.loc 1 508 9 view .LVU669
+ 508:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1403              		.loc 1 508 20 is_stmt 0 view .LVU670
+ 1404 0448 0823     		movs	r3, #8
+ 1405 044a 1020     		movs	r0, #16
+ 1406 044c 0343     		orrs	r3, r0
+ 509:Core/Src/smg.c ****         break;
+ 1407              		.loc 1 509 9 is_stmt 1 view .LVU671
+ 509:Core/Src/smg.c ****         break;
+ 1408              		.loc 1 509 21 is_stmt 0 view .LVU672
+ 1409 044e 7F20     		movs	r0, #127
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 49
+
+
+ 1410 0450 0340     		ands	r3, r0
+ 510:Core/Src/smg.c ****     case 'm':
+ 1411              		.loc 1 510 9 is_stmt 1 view .LVU673
+ 1412 0452 DFE5     		b	.L2
+ 1413              	.L17:
+ 512:Core/Src/smg.c ****         smg.bits.b = 0;
+ 1414              		.loc 1 512 9 view .LVU674
+ 513:Core/Src/smg.c ****         smg.bits.c = 1;
+ 1415              		.loc 1 513 9 view .LVU675
+ 514:Core/Src/smg.c ****         smg.bits.d = 0;
+ 1416              		.loc 1 514 9 view .LVU676
+ 515:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1417              		.loc 1 515 9 view .LVU677
+ 516:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1418              		.loc 1 516 9 view .LVU678
+ 516:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1419              		.loc 1 516 20 is_stmt 0 view .LVU679
+ 1420 0454 0423     		movs	r3, #4
+ 1421 0456 1022     		movs	r2, #16
+ 1422 0458 1343     		orrs	r3, r2
+ 517:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1423              		.loc 1 517 9 is_stmt 1 view .LVU680
+ 517:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1424              		.loc 1 517 20 is_stmt 0 view .LVU681
+ 1425 045a 2020     		movs	r0, #32
+ 1426 045c 0343     		orrs	r3, r0
+ 518:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1427              		.loc 1 518 9 is_stmt 1 view .LVU682
+ 518:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1428              		.loc 1 518 20 is_stmt 0 view .LVU683
+ 1429 045e 4020     		movs	r0, #64
+ 1430 0460 0343     		orrs	r3, r0
+ 519:Core/Src/smg.c ****         break;
+ 1431              		.loc 1 519 9 is_stmt 1 view .LVU684
+ 519:Core/Src/smg.c ****         break;
+ 1432              		.loc 1 519 21 is_stmt 0 view .LVU685
+ 1433 0462 7F20     		movs	r0, #127
+ 1434 0464 0340     		ands	r3, r0
+ 520:Core/Src/smg.c ****     case 'n':
+ 1435              		.loc 1 520 9 is_stmt 1 view .LVU686
+ 1436 0466 D5E5     		b	.L2
+ 1437              	.L16:
+ 522:Core/Src/smg.c ****         smg.bits.b = 0;
+ 1438              		.loc 1 522 9 view .LVU687
+ 523:Core/Src/smg.c ****         smg.bits.c = 1;
+ 1439              		.loc 1 523 9 view .LVU688
+ 524:Core/Src/smg.c ****         smg.bits.d = 0;
+ 1440              		.loc 1 524 9 view .LVU689
+ 525:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1441              		.loc 1 525 9 view .LVU690
+ 526:Core/Src/smg.c ****         smg.bits.f = 0;
+ 1442              		.loc 1 526 9 view .LVU691
+ 527:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1443              		.loc 1 527 9 view .LVU692
+ 527:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1444              		.loc 1 527 20 is_stmt 0 view .LVU693
+ 1445 0468 0423     		movs	r3, #4
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 50
+
+
+ 1446 046a 1020     		movs	r0, #16
+ 1447 046c 0343     		orrs	r3, r0
+ 528:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1448              		.loc 1 528 9 is_stmt 1 view .LVU694
+ 528:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1449              		.loc 1 528 20 is_stmt 0 view .LVU695
+ 1450 046e 4020     		movs	r0, #64
+ 1451 0470 0343     		orrs	r3, r0
+ 529:Core/Src/smg.c ****         break;
+ 1452              		.loc 1 529 9 is_stmt 1 view .LVU696
+ 529:Core/Src/smg.c ****         break;
+ 1453              		.loc 1 529 21 is_stmt 0 view .LVU697
+ 1454 0472 7F20     		movs	r0, #127
+ 1455 0474 0340     		ands	r3, r0
+ 530:Core/Src/smg.c ****     case 'o':
+ 1456              		.loc 1 530 9 is_stmt 1 view .LVU698
+ 1457 0476 CDE5     		b	.L2
+ 1458              	.L15:
+ 532:Core/Src/smg.c ****         smg.bits.b = 0;
+ 1459              		.loc 1 532 9 view .LVU699
+ 533:Core/Src/smg.c ****         smg.bits.c = 1;
+ 1460              		.loc 1 533 9 view .LVU700
+ 534:Core/Src/smg.c ****         smg.bits.d = 1;
+ 1461              		.loc 1 534 9 view .LVU701
+ 535:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1462              		.loc 1 535 9 view .LVU702
+ 535:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1463              		.loc 1 535 20 is_stmt 0 view .LVU703
+ 1464 0478 0423     		movs	r3, #4
+ 1465 047a 0822     		movs	r2, #8
+ 1466 047c 1343     		orrs	r3, r2
+ 536:Core/Src/smg.c ****         smg.bits.f = 0;
+ 1467              		.loc 1 536 9 is_stmt 1 view .LVU704
+ 537:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1468              		.loc 1 537 9 view .LVU705
+ 537:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1469              		.loc 1 537 20 is_stmt 0 view .LVU706
+ 1470 047e 1020     		movs	r0, #16
+ 1471 0480 0343     		orrs	r3, r0
+ 538:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1472              		.loc 1 538 9 is_stmt 1 view .LVU707
+ 538:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1473              		.loc 1 538 20 is_stmt 0 view .LVU708
+ 1474 0482 4020     		movs	r0, #64
+ 1475 0484 0343     		orrs	r3, r0
+ 539:Core/Src/smg.c ****         break;
+ 1476              		.loc 1 539 9 is_stmt 1 view .LVU709
+ 539:Core/Src/smg.c ****         break;
+ 1477              		.loc 1 539 21 is_stmt 0 view .LVU710
+ 1478 0486 7F20     		movs	r0, #127
+ 1479 0488 0340     		ands	r3, r0
+ 540:Core/Src/smg.c ****     case 'p':
+ 1480              		.loc 1 540 9 is_stmt 1 view .LVU711
+ 1481 048a C3E5     		b	.L2
+ 1482              	.L14:
+ 542:Core/Src/smg.c ****         smg.bits.b = 1;
+ 1483              		.loc 1 542 9 view .LVU712
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 51
+
+
+ 543:Core/Src/smg.c ****         smg.bits.c = 0;
+ 1484              		.loc 1 543 9 view .LVU713
+ 544:Core/Src/smg.c ****         smg.bits.d = 0;
+ 1485              		.loc 1 544 9 view .LVU714
+ 545:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1486              		.loc 1 545 9 view .LVU715
+ 545:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1487              		.loc 1 545 20 is_stmt 0 view .LVU716
+ 1488 048c 0123     		movs	r3, #1
+ 1489 048e 0222     		movs	r2, #2
+ 1490 0490 1343     		orrs	r3, r2
+ 546:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1491              		.loc 1 546 9 is_stmt 1 view .LVU717
+ 546:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1492              		.loc 1 546 20 is_stmt 0 view .LVU718
+ 1493 0492 1022     		movs	r2, #16
+ 1494 0494 1343     		orrs	r3, r2
+ 547:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1495              		.loc 1 547 9 is_stmt 1 view .LVU719
+ 547:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1496              		.loc 1 547 20 is_stmt 0 view .LVU720
+ 1497 0496 2020     		movs	r0, #32
+ 1498 0498 0343     		orrs	r3, r0
+ 548:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1499              		.loc 1 548 9 is_stmt 1 view .LVU721
+ 548:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1500              		.loc 1 548 20 is_stmt 0 view .LVU722
+ 1501 049a 4020     		movs	r0, #64
+ 1502 049c 0343     		orrs	r3, r0
+ 549:Core/Src/smg.c ****         break;
+ 1503              		.loc 1 549 9 is_stmt 1 view .LVU723
+ 549:Core/Src/smg.c ****         break;
+ 1504              		.loc 1 549 21 is_stmt 0 view .LVU724
+ 1505 049e 7F20     		movs	r0, #127
+ 1506 04a0 0340     		ands	r3, r0
+ 550:Core/Src/smg.c ****     case 'q':
+ 1507              		.loc 1 550 9 is_stmt 1 view .LVU725
+ 1508 04a2 B7E5     		b	.L2
+ 1509              	.L13:
+ 552:Core/Src/smg.c ****         smg.bits.b = 1;
+ 1510              		.loc 1 552 9 view .LVU726
+ 553:Core/Src/smg.c ****         smg.bits.c = 1;
+ 1511              		.loc 1 553 9 view .LVU727
+ 553:Core/Src/smg.c ****         smg.bits.c = 1;
+ 1512              		.loc 1 553 20 is_stmt 0 view .LVU728
+ 1513 04a4 0123     		movs	r3, #1
+ 1514 04a6 0222     		movs	r2, #2
+ 1515 04a8 1343     		orrs	r3, r2
+ 554:Core/Src/smg.c ****         smg.bits.d = 0;
+ 1516              		.loc 1 554 9 is_stmt 1 view .LVU729
+ 555:Core/Src/smg.c ****         smg.bits.e = 0;
+ 1517              		.loc 1 555 9 view .LVU730
+ 556:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1518              		.loc 1 556 9 view .LVU731
+ 556:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1519              		.loc 1 556 20 is_stmt 0 view .LVU732
+ 1520 04aa 0422     		movs	r2, #4
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 52
+
+
+ 1521 04ac 1343     		orrs	r3, r2
+ 557:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1522              		.loc 1 557 9 is_stmt 1 view .LVU733
+ 557:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1523              		.loc 1 557 20 is_stmt 0 view .LVU734
+ 1524 04ae 2020     		movs	r0, #32
+ 1525 04b0 0343     		orrs	r3, r0
+ 558:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1526              		.loc 1 558 9 is_stmt 1 view .LVU735
+ 558:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1527              		.loc 1 558 20 is_stmt 0 view .LVU736
+ 1528 04b2 4020     		movs	r0, #64
+ 1529 04b4 0343     		orrs	r3, r0
+ 559:Core/Src/smg.c ****         break;
+ 1530              		.loc 1 559 9 is_stmt 1 view .LVU737
+ 559:Core/Src/smg.c ****         break;
+ 1531              		.loc 1 559 21 is_stmt 0 view .LVU738
+ 1532 04b6 7F20     		movs	r0, #127
+ 1533 04b8 0340     		ands	r3, r0
+ 560:Core/Src/smg.c ****     case 'r':
+ 1534              		.loc 1 560 9 is_stmt 1 view .LVU739
+ 1535 04ba ABE5     		b	.L2
+ 1536              	.L12:
+ 562:Core/Src/smg.c ****         smg.bits.b = 0;
+ 1537              		.loc 1 562 9 view .LVU740
+ 563:Core/Src/smg.c ****         smg.bits.c = 0;
+ 1538              		.loc 1 563 9 view .LVU741
+ 564:Core/Src/smg.c ****         smg.bits.d = 0;
+ 1539              		.loc 1 564 9 view .LVU742
+ 565:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1540              		.loc 1 565 9 view .LVU743
+ 566:Core/Src/smg.c ****         smg.bits.f = 0;
+ 1541              		.loc 1 566 9 view .LVU744
+ 567:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1542              		.loc 1 567 9 view .LVU745
+ 568:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1543              		.loc 1 568 9 view .LVU746
+ 568:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1544              		.loc 1 568 20 is_stmt 0 view .LVU747
+ 1545 04bc 1023     		movs	r3, #16
+ 1546 04be 4020     		movs	r0, #64
+ 1547 04c0 0343     		orrs	r3, r0
+ 569:Core/Src/smg.c ****         break;
+ 1548              		.loc 1 569 9 is_stmt 1 view .LVU748
+ 569:Core/Src/smg.c ****         break;
+ 1549              		.loc 1 569 21 is_stmt 0 view .LVU749
+ 1550 04c2 7F20     		movs	r0, #127
+ 1551 04c4 0340     		ands	r3, r0
+ 570:Core/Src/smg.c ****     case 's':
+ 1552              		.loc 1 570 9 is_stmt 1 view .LVU750
+ 1553 04c6 A5E5     		b	.L2
+ 1554              	.L11:
+ 572:Core/Src/smg.c ****         smg.bits.b = 0;
+ 1555              		.loc 1 572 9 view .LVU751
+ 573:Core/Src/smg.c ****         smg.bits.c = 1;
+ 1556              		.loc 1 573 9 view .LVU752
+ 574:Core/Src/smg.c ****         smg.bits.d = 1;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 53
+
+
+ 1557              		.loc 1 574 9 view .LVU753
+ 574:Core/Src/smg.c ****         smg.bits.d = 1;
+ 1558              		.loc 1 574 20 is_stmt 0 view .LVU754
+ 1559 04c8 0123     		movs	r3, #1
+ 1560 04ca 0422     		movs	r2, #4
+ 1561 04cc 1343     		orrs	r3, r2
+ 575:Core/Src/smg.c ****         smg.bits.e = 0;
+ 1562              		.loc 1 575 9 is_stmt 1 view .LVU755
+ 576:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1563              		.loc 1 576 9 view .LVU756
+ 576:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1564              		.loc 1 576 20 is_stmt 0 view .LVU757
+ 1565 04ce 0822     		movs	r2, #8
+ 1566 04d0 1343     		orrs	r3, r2
+ 577:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1567              		.loc 1 577 9 is_stmt 1 view .LVU758
+ 577:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1568              		.loc 1 577 20 is_stmt 0 view .LVU759
+ 1569 04d2 2020     		movs	r0, #32
+ 1570 04d4 0343     		orrs	r3, r0
+ 578:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1571              		.loc 1 578 9 is_stmt 1 view .LVU760
+ 578:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1572              		.loc 1 578 20 is_stmt 0 view .LVU761
+ 1573 04d6 4020     		movs	r0, #64
+ 1574 04d8 0343     		orrs	r3, r0
+ 579:Core/Src/smg.c ****         break;
+ 1575              		.loc 1 579 9 is_stmt 1 view .LVU762
+ 579:Core/Src/smg.c ****         break;
+ 1576              		.loc 1 579 21 is_stmt 0 view .LVU763
+ 1577 04da 7F20     		movs	r0, #127
+ 1578 04dc 0340     		ands	r3, r0
+ 580:Core/Src/smg.c ****     case 't':
+ 1579              		.loc 1 580 9 is_stmt 1 view .LVU764
+ 1580 04de 99E5     		b	.L2
+ 1581              	.L10:
+ 582:Core/Src/smg.c ****         smg.bits.b = 0;
+ 1582              		.loc 1 582 9 view .LVU765
+ 583:Core/Src/smg.c ****         smg.bits.c = 0;
+ 1583              		.loc 1 583 9 view .LVU766
+ 584:Core/Src/smg.c ****         smg.bits.d = 1;
+ 1584              		.loc 1 584 9 view .LVU767
+ 585:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1585              		.loc 1 585 9 view .LVU768
+ 586:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1586              		.loc 1 586 9 view .LVU769
+ 586:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1587              		.loc 1 586 20 is_stmt 0 view .LVU770
+ 1588 04e0 0823     		movs	r3, #8
+ 1589 04e2 1022     		movs	r2, #16
+ 1590 04e4 1343     		orrs	r3, r2
+ 587:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1591              		.loc 1 587 9 is_stmt 1 view .LVU771
+ 587:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1592              		.loc 1 587 20 is_stmt 0 view .LVU772
+ 1593 04e6 2020     		movs	r0, #32
+ 1594 04e8 0343     		orrs	r3, r0
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 54
+
+
+ 588:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1595              		.loc 1 588 9 is_stmt 1 view .LVU773
+ 588:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1596              		.loc 1 588 20 is_stmt 0 view .LVU774
+ 1597 04ea 4020     		movs	r0, #64
+ 1598 04ec 0343     		orrs	r3, r0
+ 589:Core/Src/smg.c ****         break;
+ 1599              		.loc 1 589 9 is_stmt 1 view .LVU775
+ 589:Core/Src/smg.c ****         break;
+ 1600              		.loc 1 589 21 is_stmt 0 view .LVU776
+ 1601 04ee 7F20     		movs	r0, #127
+ 1602 04f0 0340     		ands	r3, r0
+ 590:Core/Src/smg.c ****     case 'u':
+ 1603              		.loc 1 590 9 is_stmt 1 view .LVU777
+ 1604 04f2 8FE5     		b	.L2
+ 1605              	.L9:
+ 592:Core/Src/smg.c ****         smg.bits.b = 0;
+ 1606              		.loc 1 592 9 view .LVU778
+ 593:Core/Src/smg.c ****         smg.bits.c = 1;
+ 1607              		.loc 1 593 9 view .LVU779
+ 594:Core/Src/smg.c ****         smg.bits.d = 1;
+ 1608              		.loc 1 594 9 view .LVU780
+ 595:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1609              		.loc 1 595 9 view .LVU781
+ 595:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1610              		.loc 1 595 20 is_stmt 0 view .LVU782
+ 1611 04f4 0423     		movs	r3, #4
+ 1612 04f6 0820     		movs	r0, #8
+ 1613 04f8 0343     		orrs	r3, r0
+ 596:Core/Src/smg.c ****         smg.bits.f = 0;
+ 1614              		.loc 1 596 9 is_stmt 1 view .LVU783
+ 597:Core/Src/smg.c ****         smg.bits.g = 0;
+ 1615              		.loc 1 597 9 view .LVU784
+ 598:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1616              		.loc 1 598 9 view .LVU785
+ 598:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1617              		.loc 1 598 20 is_stmt 0 view .LVU786
+ 1618 04fa 1020     		movs	r0, #16
+ 1619 04fc 0343     		orrs	r3, r0
+ 599:Core/Src/smg.c ****         break;
+ 1620              		.loc 1 599 9 is_stmt 1 view .LVU787
+ 599:Core/Src/smg.c ****         break;
+ 1621              		.loc 1 599 21 is_stmt 0 view .LVU788
+ 1622 04fe 7F20     		movs	r0, #127
+ 1623 0500 0340     		ands	r3, r0
+ 600:Core/Src/smg.c ****     case 'v':
+ 1624              		.loc 1 600 9 is_stmt 1 view .LVU789
+ 1625 0502 87E5     		b	.L2
+ 1626              	.L8:
+ 602:Core/Src/smg.c ****         smg.bits.b = 0;
+ 1627              		.loc 1 602 9 view .LVU790
+ 603:Core/Src/smg.c ****         smg.bits.c = 1;
+ 1628              		.loc 1 603 9 view .LVU791
+ 604:Core/Src/smg.c ****         smg.bits.d = 1;
+ 1629              		.loc 1 604 9 view .LVU792
+ 605:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1630              		.loc 1 605 9 view .LVU793
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 55
+
+
+ 605:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1631              		.loc 1 605 20 is_stmt 0 view .LVU794
+ 1632 0504 0423     		movs	r3, #4
+ 1633 0506 0820     		movs	r0, #8
+ 1634 0508 0343     		orrs	r3, r0
+ 606:Core/Src/smg.c ****         smg.bits.f = 0;
+ 1635              		.loc 1 606 9 is_stmt 1 view .LVU795
+ 607:Core/Src/smg.c ****         smg.bits.g = 0;
+ 1636              		.loc 1 607 9 view .LVU796
+ 608:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1637              		.loc 1 608 9 view .LVU797
+ 608:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1638              		.loc 1 608 20 is_stmt 0 view .LVU798
+ 1639 050a 1020     		movs	r0, #16
+ 1640 050c 0343     		orrs	r3, r0
+ 609:Core/Src/smg.c ****         break;
+ 1641              		.loc 1 609 9 is_stmt 1 view .LVU799
+ 609:Core/Src/smg.c ****         break;
+ 1642              		.loc 1 609 21 is_stmt 0 view .LVU800
+ 1643 050e 7F20     		movs	r0, #127
+ 1644 0510 0340     		ands	r3, r0
+ 610:Core/Src/smg.c ****     case 'w':
+ 1645              		.loc 1 610 9 is_stmt 1 view .LVU801
+ 1646 0512 7FE5     		b	.L2
+ 1647              	.L7:
+ 612:Core/Src/smg.c ****         smg.bits.b = 1;
+ 1648              		.loc 1 612 9 view .LVU802
+ 613:Core/Src/smg.c ****         smg.bits.c = 1;
+ 1649              		.loc 1 613 9 view .LVU803
+ 614:Core/Src/smg.c ****         smg.bits.d = 0;
+ 1650              		.loc 1 614 9 view .LVU804
+ 615:Core/Src/smg.c ****         smg.bits.e = 0;
+ 1651              		.loc 1 615 9 view .LVU805
+ 616:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1652              		.loc 1 616 9 view .LVU806
+ 616:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1653              		.loc 1 616 20 is_stmt 0 view .LVU807
+ 1654 0514 0223     		movs	r3, #2
+ 1655 0516 0420     		movs	r0, #4
+ 1656 0518 0343     		orrs	r3, r0
+ 617:Core/Src/smg.c ****         smg.bits.g = 0;
+ 1657              		.loc 1 617 9 is_stmt 1 view .LVU808
+ 618:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1658              		.loc 1 618 9 view .LVU809
+ 618:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1659              		.loc 1 618 20 is_stmt 0 view .LVU810
+ 1660 051a 2020     		movs	r0, #32
+ 1661 051c 0343     		orrs	r3, r0
+ 619:Core/Src/smg.c ****         break;
+ 1662              		.loc 1 619 9 is_stmt 1 view .LVU811
+ 619:Core/Src/smg.c ****         break;
+ 1663              		.loc 1 619 21 is_stmt 0 view .LVU812
+ 1664 051e 7F20     		movs	r0, #127
+ 1665 0520 0340     		ands	r3, r0
+ 620:Core/Src/smg.c ****     case 'x':
+ 1666              		.loc 1 620 9 is_stmt 1 view .LVU813
+ 1667 0522 77E5     		b	.L2
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 56
+
+
+ 1668              	.L6:
+ 622:Core/Src/smg.c ****         smg.bits.b = 1;
+ 1669              		.loc 1 622 9 view .LVU814
+ 623:Core/Src/smg.c ****         smg.bits.c = 1;
+ 1670              		.loc 1 623 9 view .LVU815
+ 624:Core/Src/smg.c ****         smg.bits.d = 0;
+ 1671              		.loc 1 624 9 view .LVU816
+ 625:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1672              		.loc 1 625 9 view .LVU817
+ 625:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1673              		.loc 1 625 20 is_stmt 0 view .LVU818
+ 1674 0524 0223     		movs	r3, #2
+ 1675 0526 0422     		movs	r2, #4
+ 1676 0528 1343     		orrs	r3, r2
+ 626:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1677              		.loc 1 626 9 is_stmt 1 view .LVU819
+ 626:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1678              		.loc 1 626 20 is_stmt 0 view .LVU820
+ 1679 052a 1022     		movs	r2, #16
+ 1680 052c 1343     		orrs	r3, r2
+ 627:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1681              		.loc 1 627 9 is_stmt 1 view .LVU821
+ 627:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1682              		.loc 1 627 20 is_stmt 0 view .LVU822
+ 1683 052e 2020     		movs	r0, #32
+ 1684 0530 0343     		orrs	r3, r0
+ 628:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1685              		.loc 1 628 9 is_stmt 1 view .LVU823
+ 628:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1686              		.loc 1 628 20 is_stmt 0 view .LVU824
+ 1687 0532 4020     		movs	r0, #64
+ 1688 0534 0343     		orrs	r3, r0
+ 629:Core/Src/smg.c ****         break;
+ 1689              		.loc 1 629 9 is_stmt 1 view .LVU825
+ 629:Core/Src/smg.c ****         break;
+ 1690              		.loc 1 629 21 is_stmt 0 view .LVU826
+ 1691 0536 7F20     		movs	r0, #127
+ 1692 0538 0340     		ands	r3, r0
+ 630:Core/Src/smg.c ****     case 'y':
+ 1693              		.loc 1 630 9 is_stmt 1 view .LVU827
+ 1694 053a 6BE5     		b	.L2
+ 1695              	.L5:
+ 632:Core/Src/smg.c ****         smg.bits.b = 1;
+ 1696              		.loc 1 632 9 view .LVU828
+ 633:Core/Src/smg.c ****         smg.bits.c = 1;
+ 1697              		.loc 1 633 9 view .LVU829
+ 634:Core/Src/smg.c ****         smg.bits.d = 1;
+ 1698              		.loc 1 634 9 view .LVU830
+ 634:Core/Src/smg.c ****         smg.bits.d = 1;
+ 1699              		.loc 1 634 20 is_stmt 0 view .LVU831
+ 1700 053c 0223     		movs	r3, #2
+ 1701 053e 0422     		movs	r2, #4
+ 1702 0540 1343     		orrs	r3, r2
+ 635:Core/Src/smg.c ****         smg.bits.e = 0;
+ 1703              		.loc 1 635 9 is_stmt 1 view .LVU832
+ 636:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1704              		.loc 1 636 9 view .LVU833
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 57
+
+
+ 636:Core/Src/smg.c ****         smg.bits.f = 1;
+ 1705              		.loc 1 636 20 is_stmt 0 view .LVU834
+ 1706 0542 0822     		movs	r2, #8
+ 1707 0544 1343     		orrs	r3, r2
+ 637:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1708              		.loc 1 637 9 is_stmt 1 view .LVU835
+ 637:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1709              		.loc 1 637 20 is_stmt 0 view .LVU836
+ 1710 0546 2020     		movs	r0, #32
+ 1711 0548 0343     		orrs	r3, r0
+ 638:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1712              		.loc 1 638 9 is_stmt 1 view .LVU837
+ 638:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1713              		.loc 1 638 20 is_stmt 0 view .LVU838
+ 1714 054a 4020     		movs	r0, #64
+ 1715 054c 0343     		orrs	r3, r0
+ 639:Core/Src/smg.c ****         break;
+ 1716              		.loc 1 639 9 is_stmt 1 view .LVU839
+ 639:Core/Src/smg.c ****         break;
+ 1717              		.loc 1 639 21 is_stmt 0 view .LVU840
+ 1718 054e 7F20     		movs	r0, #127
+ 1719 0550 0340     		ands	r3, r0
+ 640:Core/Src/smg.c ****     case 'z':
+ 1720              		.loc 1 640 9 is_stmt 1 view .LVU841
+ 1721 0552 5FE5     		b	.L2
+ 1722              	.L3:
+ 642:Core/Src/smg.c ****         smg.bits.b = 1;
+ 1723              		.loc 1 642 9 view .LVU842
+ 643:Core/Src/smg.c ****         smg.bits.c = 0;
+ 1724              		.loc 1 643 9 view .LVU843
+ 644:Core/Src/smg.c ****         smg.bits.d = 0;
+ 1725              		.loc 1 644 9 view .LVU844
+ 645:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1726              		.loc 1 645 9 view .LVU845
+ 645:Core/Src/smg.c ****         smg.bits.e = 1;
+ 1727              		.loc 1 645 20 is_stmt 0 view .LVU846
+ 1728 0554 0123     		movs	r3, #1
+ 1729 0556 0222     		movs	r2, #2
+ 1730 0558 1343     		orrs	r3, r2
+ 646:Core/Src/smg.c ****         smg.bits.f = 0;
+ 1731              		.loc 1 646 9 is_stmt 1 view .LVU847
+ 647:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1732              		.loc 1 647 9 view .LVU848
+ 647:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1733              		.loc 1 647 20 is_stmt 0 view .LVU849
+ 1734 055a 1020     		movs	r0, #16
+ 1735 055c 0343     		orrs	r3, r0
+ 648:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1736              		.loc 1 648 9 is_stmt 1 view .LVU850
+ 648:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1737              		.loc 1 648 20 is_stmt 0 view .LVU851
+ 1738 055e 4020     		movs	r0, #64
+ 1739 0560 0343     		orrs	r3, r0
+ 649:Core/Src/smg.c ****         break;
+ 1740              		.loc 1 649 9 is_stmt 1 view .LVU852
+ 649:Core/Src/smg.c ****         break;
+ 1741              		.loc 1 649 21 is_stmt 0 view .LVU853
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 58
+
+
+ 1742 0562 7F20     		movs	r0, #127
+ 1743 0564 0340     		ands	r3, r0
+ 650:Core/Src/smg.c ****     case '-':
+ 1744              		.loc 1 650 9 is_stmt 1 view .LVU854
+ 1745 0566 55E5     		b	.L2
+ 1746              	.L67:
+ 652:Core/Src/smg.c ****         smg.bits.b = 0;
+ 1747              		.loc 1 652 9 view .LVU855
+ 653:Core/Src/smg.c ****         smg.bits.c = 0;
+ 1748              		.loc 1 653 9 view .LVU856
+ 654:Core/Src/smg.c ****         smg.bits.d = 0;
+ 1749              		.loc 1 654 9 view .LVU857
+ 655:Core/Src/smg.c ****         smg.bits.e = 0;
+ 1750              		.loc 1 655 9 view .LVU858
+ 656:Core/Src/smg.c ****         smg.bits.f = 0;
+ 1751              		.loc 1 656 9 view .LVU859
+ 657:Core/Src/smg.c ****         smg.bits.g = 1;
+ 1752              		.loc 1 657 9 view .LVU860
+ 658:Core/Src/smg.c ****         smg.bits.dp = 0;
+ 1753              		.loc 1 658 9 view .LVU861
+ 659:Core/Src/smg.c ****         break;
+ 1754              		.loc 1 659 9 view .LVU862
+ 659:Core/Src/smg.c ****         break;
+ 1755              		.loc 1 659 21 is_stmt 0 view .LVU863
+ 1756 0568 4023     		movs	r3, #64
+ 660:Core/Src/smg.c ****     case '.':
+ 1757              		.loc 1 660 9 is_stmt 1 view .LVU864
+ 1758 056a 53E5     		b	.L2
+ 1759              	.L66:
+ 662:Core/Src/smg.c ****         smg.bits.b = 0;
+ 1760              		.loc 1 662 9 view .LVU865
+ 663:Core/Src/smg.c ****         smg.bits.c = 0;
+ 1761              		.loc 1 663 9 view .LVU866
+ 664:Core/Src/smg.c ****         smg.bits.d = 0;
+ 1762              		.loc 1 664 9 view .LVU867
+ 665:Core/Src/smg.c ****         smg.bits.e = 0;
+ 1763              		.loc 1 665 9 view .LVU868
+ 666:Core/Src/smg.c ****         smg.bits.f = 0;
+ 1764              		.loc 1 666 9 view .LVU869
+ 667:Core/Src/smg.c ****         smg.bits.g = 0;
+ 1765              		.loc 1 667 9 view .LVU870
+ 668:Core/Src/smg.c ****         smg.bits.dp = 1;
+ 1766              		.loc 1 668 9 view .LVU871
+ 669:Core/Src/smg.c ****         break;
+ 1767              		.loc 1 669 9 view .LVU872
+ 669:Core/Src/smg.c ****         break;
+ 1768              		.loc 1 669 21 is_stmt 0 view .LVU873
+ 1769 056c 8023     		movs	r3, #128
+ 670:Core/Src/smg.c ****     }
+ 1770              		.loc 1 670 9 is_stmt 1 view .LVU874
+ 1771 056e 51E5     		b	.L2
+ 1772              		.cfi_endproc
+ 1773              	.LFE43:
+ 1775              		.section	.text.getdisplaycode,"ax",%progbits
+ 1776              		.align	1
+ 1777              		.global	getdisplaycode
+ 1778              		.syntax unified
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 59
+
+
+ 1779              		.code	16
+ 1780              		.thumb_func
+ 1782              	getdisplaycode:
+ 1783              	.LVL4:
+ 1784              	.LFB44:
+ 675:Core/Src/smg.c **** 
+ 676:Core/Src/smg.c **** // 显示字符串
+ 677:Core/Src/smg.c **** // smgblock:
+ 678:Core/Src/smg.c **** // #define smg1 0xC0
+ 679:Core/Src/smg.c **** // #define smg2 0xC4
+ 680:Core/Src/smg.c **** // #define smg3 0xC8
+ 681:Core/Src/smg.c **** void getdisplaycode(char smgblock, char *pstr)
+ 682:Core/Src/smg.c **** {
+ 1785              		.loc 1 682 1 view -0
+ 1786              		.cfi_startproc
+ 1787              		@ args = 0, pretend = 0, frame = 0
+ 1788              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1789              		.loc 1 682 1 is_stmt 0 view .LVU876
+ 1790 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 1791              	.LCFI1:
+ 1792              		.cfi_def_cfa_offset 24
+ 1793              		.cfi_offset 3, -24
+ 1794              		.cfi_offset 4, -20
+ 1795              		.cfi_offset 5, -16
+ 1796              		.cfi_offset 6, -12
+ 1797              		.cfi_offset 7, -8
+ 1798              		.cfi_offset 14, -4
+ 1799 0002 CE46     		mov	lr, r9
+ 1800 0004 4746     		mov	r7, r8
+ 1801 0006 80B5     		push	{r7, lr}
+ 1802              	.LCFI2:
+ 1803              		.cfi_def_cfa_offset 32
+ 1804              		.cfi_offset 8, -32
+ 1805              		.cfi_offset 9, -28
+ 1806 0008 8146     		mov	r9, r0
+ 1807 000a 0D00     		movs	r5, r1
+ 683:Core/Src/smg.c ****     int i = 0;
+ 1808              		.loc 1 683 5 is_stmt 1 view .LVU877
+ 1809              	.LVL5:
+ 684:Core/Src/smg.c ****     int j = 0;
+ 1810              		.loc 1 684 5 view .LVU878
+ 685:Core/Src/smg.c ****     SmgType smgcode;
+ 1811              		.loc 1 685 5 view .LVU879
+ 686:Core/Src/smg.c ****     smgcode.byte = 0;
+ 1812              		.loc 1 686 5 view .LVU880
+ 687:Core/Src/smg.c ****     TM1640Start();
+ 1813              		.loc 1 687 5 view .LVU881
+ 1814 000c FFF7FEFF 		bl	TM1640Start
+ 1815              	.LVL6:
+ 688:Core/Src/smg.c ****     TM1640WriteByte(0x44);
+ 1816              		.loc 1 688 5 view .LVU882
+ 1817 0010 4420     		movs	r0, #68
+ 1818 0012 FFF7FEFF 		bl	TM1640WriteByte
+ 1819              	.LVL7:
+ 689:Core/Src/smg.c ****     TM1640Stop();
+ 1820              		.loc 1 689 5 view .LVU883
+ 1821 0016 FFF7FEFF 		bl	TM1640Stop
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 60
+
+
+ 1822              	.LVL8:
+ 690:Core/Src/smg.c ****     for (i = 0; pstr[i] != '\0'; i++, j++)
+ 1823              		.loc 1 690 5 view .LVU884
+ 684:Core/Src/smg.c ****     SmgType smgcode;
+ 1824              		.loc 1 684 9 is_stmt 0 view .LVU885
+ 1825 001a 0026     		movs	r6, #0
+ 1826              		.loc 1 690 12 view .LVU886
+ 1827 001c 0024     		movs	r4, #0
+ 1828              		.loc 1 690 5 view .LVU887
+ 1829 001e 06E0     		b	.L72
+ 1830              	.LVL9:
+ 1831              	.L74:
+ 691:Core/Src/smg.c ****     {
+ 692:Core/Src/smg.c ****         if (j >= 4) // 一片4个数码管的数码管块只能显示4个字符
+ 693:Core/Src/smg.c ****         {
+ 694:Core/Src/smg.c ****             break;
+ 695:Core/Src/smg.c ****         }
+ 696:Core/Src/smg.c ****         TM1640Start();
+ 697:Core/Src/smg.c ****         TM1640WriteByte(smgblock + j);
+ 698:Core/Src/smg.c ****         smgcode.byte = GetSmgOneData(pstr[i]);
+ 699:Core/Src/smg.c ****         if (pstr[i + 1] == '.') // 下一个是点的话
+ 700:Core/Src/smg.c ****         {
+ 701:Core/Src/smg.c ****             i++;                 // 跳过
+ 702:Core/Src/smg.c ****             smgcode.bits.dp = 1; // 当前补上小数点
+ 703:Core/Src/smg.c ****         }
+ 704:Core/Src/smg.c ****         TM1640WriteByte(smgcode.byte);
+ 1832              		.loc 1 704 9 is_stmt 1 discriminator 2 view .LVU888
+ 1833              		.loc 1 704 9 is_stmt 0 discriminator 2 view .LVU889
+ 1834 0020 D8B2     		uxtb	r0, r3
+ 1835              	.LVL10:
+ 1836              		.loc 1 704 9 discriminator 2 view .LVU890
+ 1837 0022 FFF7FEFF 		bl	TM1640WriteByte
+ 1838              	.LVL11:
+ 705:Core/Src/smg.c ****         TM1640Stop();
+ 1839              		.loc 1 705 9 is_stmt 1 discriminator 2 view .LVU891
+ 1840 0026 FFF7FEFF 		bl	TM1640Stop
+ 1841              	.LVL12:
+ 690:Core/Src/smg.c ****     {
+ 1842              		.loc 1 690 34 discriminator 2 view .LVU892
+ 690:Core/Src/smg.c ****     {
+ 1843              		.loc 1 690 35 is_stmt 0 discriminator 2 view .LVU893
+ 1844 002a 0134     		adds	r4, r4, #1
+ 1845              	.LVL13:
+ 690:Core/Src/smg.c ****     {
+ 1846              		.loc 1 690 40 discriminator 2 view .LVU894
+ 1847 002c 0136     		adds	r6, r6, #1
+ 1848              	.LVL14:
+ 1849              	.L72:
+ 690:Core/Src/smg.c ****     {
+ 1850              		.loc 1 690 17 is_stmt 1 discriminator 1 view .LVU895
+ 690:Core/Src/smg.c ****     {
+ 1851              		.loc 1 690 21 is_stmt 0 discriminator 1 view .LVU896
+ 1852 002e A046     		mov	r8, r4
+ 1853 0030 2F19     		adds	r7, r5, r4
+ 1854 0032 2B5D     		ldrb	r3, [r5, r4]
+ 690:Core/Src/smg.c ****     {
+ 1855              		.loc 1 690 5 discriminator 1 view .LVU897
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 61
+
+
+ 1856 0034 002B     		cmp	r3, #0
+ 1857 0036 16D0     		beq	.L73
+ 692:Core/Src/smg.c ****         {
+ 1858              		.loc 1 692 9 is_stmt 1 view .LVU898
+ 692:Core/Src/smg.c ****         {
+ 1859              		.loc 1 692 12 is_stmt 0 view .LVU899
+ 1860 0038 032E     		cmp	r6, #3
+ 1861 003a 14DC     		bgt	.L73
+ 696:Core/Src/smg.c ****         TM1640WriteByte(smgblock + j);
+ 1862              		.loc 1 696 9 is_stmt 1 view .LVU900
+ 1863 003c FFF7FEFF 		bl	TM1640Start
+ 1864              	.LVL15:
+ 697:Core/Src/smg.c ****         smgcode.byte = GetSmgOneData(pstr[i]);
+ 1865              		.loc 1 697 9 view .LVU901
+ 1866 0040 4B46     		mov	r3, r9
+ 1867 0042 9819     		adds	r0, r3, r6
+ 1868 0044 C0B2     		uxtb	r0, r0
+ 1869 0046 FFF7FEFF 		bl	TM1640WriteByte
+ 1870              	.LVL16:
+ 698:Core/Src/smg.c ****         if (pstr[i + 1] == '.') // 下一个是点的话
+ 1871              		.loc 1 698 9 view .LVU902
+ 698:Core/Src/smg.c ****         if (pstr[i + 1] == '.') // 下一个是点的话
+ 1872              		.loc 1 698 24 is_stmt 0 view .LVU903
+ 1873 004a 3878     		ldrb	r0, [r7]
+ 1874 004c FFF7FEFF 		bl	GetSmgOneData
+ 1875              	.LVL17:
+ 698:Core/Src/smg.c ****         if (pstr[i + 1] == '.') // 下一个是点的话
+ 1876              		.loc 1 698 22 view .LVU904
+ 1877 0050 031C     		adds	r3, r0, #0
+ 699:Core/Src/smg.c ****         {
+ 1878              		.loc 1 699 9 is_stmt 1 view .LVU905
+ 699:Core/Src/smg.c ****         {
+ 1879              		.loc 1 699 17 is_stmt 0 view .LVU906
+ 1880 0052 4246     		mov	r2, r8
+ 1881 0054 AA18     		adds	r2, r5, r2
+ 1882 0056 5278     		ldrb	r2, [r2, #1]
+ 699:Core/Src/smg.c ****         {
+ 1883              		.loc 1 699 12 view .LVU907
+ 1884 0058 2E2A     		cmp	r2, #46
+ 1885 005a E1D1     		bne	.L74
+ 701:Core/Src/smg.c ****             smgcode.bits.dp = 1; // 当前补上小数点
+ 1886              		.loc 1 701 13 is_stmt 1 view .LVU908
+ 701:Core/Src/smg.c ****             smgcode.bits.dp = 1; // 当前补上小数点
+ 1887              		.loc 1 701 14 is_stmt 0 view .LVU909
+ 1888 005c 0134     		adds	r4, r4, #1
+ 1889              	.LVL18:
+ 702:Core/Src/smg.c ****         }
+ 1890              		.loc 1 702 13 is_stmt 1 view .LVU910
+ 702:Core/Src/smg.c ****         }
+ 1891              		.loc 1 702 29 is_stmt 0 view .LVU911
+ 1892 005e 8023     		movs	r3, #128
+ 1893 0060 5B42     		rsbs	r3, r3, #0
+ 1894 0062 0343     		orrs	r3, r0
+ 702:Core/Src/smg.c ****         }
+ 1895              		.loc 1 702 29 view .LVU912
+ 1896 0064 DCE7     		b	.L74
+ 1897              	.L73:
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 62
+
+
+ 706:Core/Src/smg.c ****     }
+ 707:Core/Src/smg.c **** 
+ 708:Core/Src/smg.c ****     TM1640Start();
+ 1898              		.loc 1 708 5 is_stmt 1 view .LVU913
+ 1899 0066 FFF7FEFF 		bl	TM1640Start
+ 1900              	.LVL19:
+ 709:Core/Src/smg.c ****     TM1640WriteByte(0x8b);
+ 1901              		.loc 1 709 5 view .LVU914
+ 1902 006a 8B20     		movs	r0, #139
+ 1903 006c FFF7FEFF 		bl	TM1640WriteByte
+ 1904              	.LVL20:
+ 710:Core/Src/smg.c ****     TM1640Stop();
+ 1905              		.loc 1 710 5 view .LVU915
+ 1906 0070 FFF7FEFF 		bl	TM1640Stop
+ 1907              	.LVL21:
+ 711:Core/Src/smg.c **** }
+ 1908              		.loc 1 711 1 is_stmt 0 view .LVU916
+ 1909              		@ sp needed
+ 1910              	.LVL22:
+ 1911              	.LVL23:
+ 1912              	.LVL24:
+ 1913              	.LVL25:
+ 1914              		.loc 1 711 1 view .LVU917
+ 1915 0074 C0BC     		pop	{r6, r7}
+ 1916 0076 B946     		mov	r9, r7
+ 1917 0078 B046     		mov	r8, r6
+ 1918 007a F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1919              		.cfi_endproc
+ 1920              	.LFE44:
+ 1922              		.section	.rodata.setShowsetDot.str1.4,"aMS",%progbits,1
+ 1923              		.align	2
+ 1924              	.LC1:
+ 1925 0000 25346400 		.ascii	"%4d\000"
+ 1926              		.section	.text.setShowsetDot,"ax",%progbits
+ 1927              		.align	1
+ 1928              		.global	setShowsetDot
+ 1929              		.syntax unified
+ 1930              		.code	16
+ 1931              		.thumb_func
+ 1933              	setShowsetDot:
+ 1934              	.LVL26:
+ 1935              	.LFB45:
+ 712:Core/Src/smg.c **** 
+ 713:Core/Src/smg.c **** // 在倒数第二个字符中插入小数点
+ 714:Core/Src/smg.c **** void setShowsetDot(char *pstr, signed int sT)
+ 715:Core/Src/smg.c **** {
+ 1936              		.loc 1 715 1 is_stmt 1 view -0
+ 1937              		.cfi_startproc
+ 1938              		@ args = 0, pretend = 0, frame = 0
+ 1939              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1940              		.loc 1 715 1 is_stmt 0 view .LVU919
+ 1941 0000 70B5     		push	{r4, r5, r6, lr}
+ 1942              	.LCFI3:
+ 1943              		.cfi_def_cfa_offset 16
+ 1944              		.cfi_offset 4, -16
+ 1945              		.cfi_offset 5, -12
+ 1946              		.cfi_offset 6, -8
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 63
+
+
+ 1947              		.cfi_offset 14, -4
+ 1948 0002 0400     		movs	r4, r0
+ 1949 0004 0D00     		movs	r5, r1
+ 716:Core/Src/smg.c **** 
+ 717:Core/Src/smg.c ****     sprintf(pstr, "%4d", sT); // 右对齐，不足4位前面补空格
+ 1950              		.loc 1 717 5 is_stmt 1 view .LVU920
+ 1951 0006 0A00     		movs	r2, r1
+ 1952 0008 1449     		ldr	r1, .L80
+ 1953              	.LVL27:
+ 1954              		.loc 1 717 5 is_stmt 0 view .LVU921
+ 1955 000a FFF7FEFF 		bl	sprintf
+ 1956              	.LVL28:
+ 718:Core/Src/smg.c ****     if (sT > -10 && sT < 10)  // 补上0.
+ 1957              		.loc 1 718 5 is_stmt 1 view .LVU922
+ 1958              		.loc 1 718 18 is_stmt 0 view .LVU923
+ 1959 000e 2B00     		movs	r3, r5
+ 1960 0010 0933     		adds	r3, r3, #9
+ 1961              		.loc 1 718 8 view .LVU924
+ 1962 0012 122B     		cmp	r3, #18
+ 1963 0014 0AD8     		bhi	.L77
+ 719:Core/Src/smg.c ****     {
+ 720:Core/Src/smg.c ****         pstr[4] = pstr[3];
+ 1964              		.loc 1 720 9 is_stmt 1 view .LVU925
+ 1965              		.loc 1 720 17 is_stmt 0 view .LVU926
+ 1966 0016 E378     		ldrb	r3, [r4, #3]
+ 1967 0018 2371     		strb	r3, [r4, #4]
+ 721:Core/Src/smg.c ****         pstr[3] = '.';
+ 1968              		.loc 1 721 9 is_stmt 1 view .LVU927
+ 1969              		.loc 1 721 17 is_stmt 0 view .LVU928
+ 1970 001a 2E23     		movs	r3, #46
+ 1971 001c E370     		strb	r3, [r4, #3]
+ 722:Core/Src/smg.c ****         pstr[1] = pstr[2];
+ 1972              		.loc 1 722 9 is_stmt 1 view .LVU929
+ 1973              		.loc 1 722 17 is_stmt 0 view .LVU930
+ 1974 001e A378     		ldrb	r3, [r4, #2]
+ 1975 0020 6370     		strb	r3, [r4, #1]
+ 723:Core/Src/smg.c ****         pstr[2] = '0';
+ 1976              		.loc 1 723 9 is_stmt 1 view .LVU931
+ 1977              		.loc 1 723 17 is_stmt 0 view .LVU932
+ 1978 0022 3023     		movs	r3, #48
+ 1979 0024 A370     		strb	r3, [r4, #2]
+ 724:Core/Src/smg.c ****         pstr[5] = 0;
+ 1980              		.loc 1 724 9 is_stmt 1 view .LVU933
+ 1981              		.loc 1 724 17 is_stmt 0 view .LVU934
+ 1982 0026 0023     		movs	r3, #0
+ 1983 0028 6371     		strb	r3, [r4, #5]
+ 1984              	.LVL29:
+ 1985              	.L76:
+ 725:Core/Src/smg.c ****     }
+ 726:Core/Src/smg.c ****     else if (sT > -999 && sT < 9999) // 插入小数点
+ 727:Core/Src/smg.c ****     {
+ 728:Core/Src/smg.c ****         pstr[4] = pstr[3];
+ 729:Core/Src/smg.c ****         pstr[3] = '.';
+ 730:Core/Src/smg.c ****         pstr[5] = 0;
+ 731:Core/Src/smg.c ****     }
+ 732:Core/Src/smg.c ****     else //
+ 733:Core/Src/smg.c ****     {
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 64
+
+
+ 734:Core/Src/smg.c ****         pstr[0] = '9';
+ 735:Core/Src/smg.c ****         pstr[1] = '9';
+ 736:Core/Src/smg.c ****         pstr[2] = '9';
+ 737:Core/Src/smg.c ****         pstr[3] = '9';
+ 738:Core/Src/smg.c ****         pstr[4] = '.';
+ 739:Core/Src/smg.c ****         pstr[5] = 0;
+ 740:Core/Src/smg.c ****     }
+ 741:Core/Src/smg.c **** }...
+ 1986              		.loc 1 741 1 view .LVU935
+ 1987              		@ sp needed
+ 1988              	.LVL30:
+ 1989              		.loc 1 741 1 view .LVU936
+ 1990 002a 70BD     		pop	{r4, r5, r6, pc}
+ 1991              	.LVL31:
+ 1992              	.L77:
+ 726:Core/Src/smg.c ****     else if (sT > -999 && sT < 9999) // 插入小数点
+ 1993              		.loc 1 726 10 is_stmt 1 view .LVU937
+ 726:Core/Src/smg.c ****     else if (sT > -999 && sT < 9999) // 插入小数点
+ 1994              		.loc 1 726 24 is_stmt 0 view .LVU938
+ 1995 002c 0C4B     		ldr	r3, .L80+4
+ 1996 002e 9C46     		mov	ip, r3
+ 1997 0030 6544     		add	r5, r5, ip
+ 1998              	.LVL32:
+ 726:Core/Src/smg.c ****     else if (sT > -999 && sT < 9999) // 插入小数点
+ 1999              		.loc 1 726 13 view .LVU939
+ 2000 0032 0C4B     		ldr	r3, .L80+8
+ 2001 0034 9D42     		cmp	r5, r3
+ 2002 0036 06D8     		bhi	.L79
+ 728:Core/Src/smg.c ****         pstr[4] = pstr[3];
+ 2003              		.loc 1 728 9 is_stmt 1 view .LVU940
+ 728:Core/Src/smg.c ****         pstr[4] = pstr[3];
+ 2004              		.loc 1 728 17 is_stmt 0 view .LVU941
+ 2005 0038 E378     		ldrb	r3, [r4, #3]
+ 2006 003a 2371     		strb	r3, [r4, #4]
+ 729:Core/Src/smg.c ****         pstr[3] = '.';
+ 2007              		.loc 1 729 9 is_stmt 1 view .LVU942
+ 729:Core/Src/smg.c ****         pstr[3] = '.';
+ 2008              		.loc 1 729 17 is_stmt 0 view .LVU943
+ 2009 003c 2E23     		movs	r3, #46
+ 2010 003e E370     		strb	r3, [r4, #3]
+ 730:Core/Src/smg.c ****         pstr[5] = 0;
+ 2011              		.loc 1 730 9 is_stmt 1 view .LVU944
+ 730:Core/Src/smg.c ****         pstr[5] = 0;
+ 2012              		.loc 1 730 17 is_stmt 0 view .LVU945
+ 2013 0040 0023     		movs	r3, #0
+ 2014 0042 6371     		strb	r3, [r4, #5]
+ 2015 0044 F1E7     		b	.L76
+ 2016              	.L79:
+ 734:Core/Src/smg.c ****         pstr[0] = '9';
+ 2017              		.loc 1 734 9 is_stmt 1 view .LVU946
+ 734:Core/Src/smg.c ****         pstr[0] = '9';
+ 2018              		.loc 1 734 17 is_stmt 0 view .LVU947
+ 2019 0046 3923     		movs	r3, #57
+ 2020 0048 2370     		strb	r3, [r4]
+ 735:Core/Src/smg.c ****         pstr[1] = '9';
+ 2021              		.loc 1 735 9 is_stmt 1 view .LVU948
+ 735:Core/Src/smg.c ****         pstr[1] = '9';
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 65
+
+
+ 2022              		.loc 1 735 17 is_stmt 0 view .LVU949
+ 2023 004a 6370     		strb	r3, [r4, #1]
+ 736:Core/Src/smg.c ****         pstr[2] = '9';
+ 2024              		.loc 1 736 9 is_stmt 1 view .LVU950
+ 736:Core/Src/smg.c ****         pstr[2] = '9';
+ 2025              		.loc 1 736 17 is_stmt 0 view .LVU951
+ 2026 004c A370     		strb	r3, [r4, #2]
+ 737:Core/Src/smg.c ****         pstr[3] = '9';
+ 2027              		.loc 1 737 9 is_stmt 1 view .LVU952
+ 737:Core/Src/smg.c ****         pstr[3] = '9';
+ 2028              		.loc 1 737 17 is_stmt 0 view .LVU953
+ 2029 004e E370     		strb	r3, [r4, #3]
+ 738:Core/Src/smg.c ****         pstr[4] = '.';
+ 2030              		.loc 1 738 9 is_stmt 1 view .LVU954
+ 738:Core/Src/smg.c ****         pstr[4] = '.';
+ 2031              		.loc 1 738 17 is_stmt 0 view .LVU955
+ 2032 0050 0B3B     		subs	r3, r3, #11
+ 2033 0052 2371     		strb	r3, [r4, #4]
+ 739:Core/Src/smg.c ****         pstr[5] = 0;
+ 2034              		.loc 1 739 9 is_stmt 1 view .LVU956
+ 739:Core/Src/smg.c ****         pstr[5] = 0;
+ 2035              		.loc 1 739 17 is_stmt 0 view .LVU957
+ 2036 0054 0023     		movs	r3, #0
+ 2037 0056 6371     		strb	r3, [r4, #5]
+ 2038              		.loc 1 741 1 view .LVU958
+ 2039 0058 E7E7     		b	.L76
+ 2040              	.L81:
+ 2041 005a C046     		.align	2
+ 2042              	.L80:
+ 2043 005c 00000000 		.word	.LC1
+ 2044 0060 E6030000 		.word	998
+ 2045 0064 F42A0000 		.word	10996
+ 2046              		.cfi_endproc
+ 2047              	.LFE45:
+ 2049              		.text
+ 2050              	.Letext0:
+ 2051              		.file 2 "Core/Inc/TM1640.h"
+ 2052              		.file 3 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\stdio.h"
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccj3seoh.s 			page 66
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 smg.c
+C:\Users\57298\AppData\Local\Temp\ccj3seoh.s:18     .text.GetSmgOneData:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccj3seoh.s:24     .text.GetSmgOneData:00000000 GetSmgOneData
+C:\Users\57298\AppData\Local\Temp\ccj3seoh.s:51     .rodata.GetSmgOneData:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccj3seoh.s:1150   .text.GetSmgOneData:00000378 $d
+C:\Users\57298\AppData\Local\Temp\ccj3seoh.s:1157   .text.GetSmgOneData:0000037c $t
+C:\Users\57298\AppData\Local\Temp\ccj3seoh.s:1776   .text.getdisplaycode:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccj3seoh.s:1782   .text.getdisplaycode:00000000 getdisplaycode
+C:\Users\57298\AppData\Local\Temp\ccj3seoh.s:1923   .rodata.setShowsetDot.str1.4:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccj3seoh.s:1927   .text.setShowsetDot:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccj3seoh.s:1933   .text.setShowsetDot:00000000 setShowsetDot
+C:\Users\57298\AppData\Local\Temp\ccj3seoh.s:2043   .text.setShowsetDot:0000005c $d
+
+UNDEFINED SYMBOLS
+TM1640Start
+TM1640WriteByte
+TM1640Stop
+sprintf

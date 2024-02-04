@@ -1,0 +1,1947 @@
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.arch armv6s-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.file	"u2com.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.CRC16x,"ax",%progbits
+  18              		.align	1
+  19              		.global	CRC16x
+  20              		.syntax unified
+  21              		.code	16
+  22              		.thumb_func
+  24              	CRC16x:
+  25              	.LVL0:
+  26              	.LFB43:
+  27              		.file 1 "Core/Src/u2com.c"
+   1:Core/Src/u2com.c **** #include "u2com.h"
+   2:Core/Src/u2com.c **** 
+   3:Core/Src/u2com.c **** RUDATA sRundata;
+   4:Core/Src/u2com.c **** 
+   5:Core/Src/u2com.c **** unsigned char RxBufU2[MAXRXU2];
+   6:Core/Src/u2com.c **** unsigned char TxBufU2[200];
+   7:Core/Src/u2com.c **** unsigned short RxLenU2 = 0;
+   8:Core/Src/u2com.c **** unsigned short rsRxIndex = 0;
+   9:Core/Src/u2com.c **** unsigned char rsPackFlag = 0;
+  10:Core/Src/u2com.c **** unsigned short rsRxTime = 0;
+  11:Core/Src/u2com.c **** unsigned short rsRxLen = 0;
+  12:Core/Src/u2com.c **** unsigned char rsRxBuf[200];
+  13:Core/Src/u2com.c **** static const unsigned char aucCRCHi[] = {
+  14:Core/Src/u2com.c ****     0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
+  15:Core/Src/u2com.c ****     0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40,
+  16:Core/Src/u2com.c ****     0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
+  17:Core/Src/u2com.c ****     0x00, 0xC1, 0x81, 0x40, 0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41,
+  18:Core/Src/u2com.c ****     0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
+  19:Core/Src/u2com.c ****     0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40,
+  20:Core/Src/u2com.c ****     0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40,
+  21:Core/Src/u2com.c ****     0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40,
+  22:Core/Src/u2com.c ****     0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
+  23:Core/Src/u2com.c ****     0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40,
+  24:Core/Src/u2com.c ****     0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
+  25:Core/Src/u2com.c ****     0x00, 0xC1, 0x81, 0x40, 0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41,
+  26:Core/Src/u2com.c ****     0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
+  27:Core/Src/u2com.c ****     0x00, 0xC1, 0x81, 0x40, 0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41,
+  28:Core/Src/u2com.c ****     0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41,
+  29:Core/Src/u2com.c ****     0x00, 0xC1, 0x81, 0x40, 0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41,
+  30:Core/Src/u2com.c ****     0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
+  31:Core/Src/u2com.c ****     0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40,
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 2
+
+
+  32:Core/Src/u2com.c ****     0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
+  33:Core/Src/u2com.c ****     0x00, 0xC1, 0x81, 0x40, 0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41,
+  34:Core/Src/u2com.c ****     0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
+  35:Core/Src/u2com.c ****     0x00, 0xC1, 0x81, 0x40};
+  36:Core/Src/u2com.c **** 
+  37:Core/Src/u2com.c **** static const unsigned char aucCRCLo[] = {
+  38:Core/Src/u2com.c ****     0x00, 0xC0, 0xC1, 0x01, 0xC3, 0x03, 0x02, 0xC2, 0xC6, 0x06, 0x07, 0xC7,
+  39:Core/Src/u2com.c ****     0x05, 0xC5, 0xC4, 0x04, 0xCC, 0x0C, 0x0D, 0xCD, 0x0F, 0xCF, 0xCE, 0x0E,
+  40:Core/Src/u2com.c ****     0x0A, 0xCA, 0xCB, 0x0B, 0xC9, 0x09, 0x08, 0xC8, 0xD8, 0x18, 0x19, 0xD9,
+  41:Core/Src/u2com.c ****     0x1B, 0xDB, 0xDA, 0x1A, 0x1E, 0xDE, 0xDF, 0x1F, 0xDD, 0x1D, 0x1C, 0xDC,
+  42:Core/Src/u2com.c ****     0x14, 0xD4, 0xD5, 0x15, 0xD7, 0x17, 0x16, 0xD6, 0xD2, 0x12, 0x13, 0xD3,
+  43:Core/Src/u2com.c ****     0x11, 0xD1, 0xD0, 0x10, 0xF0, 0x30, 0x31, 0xF1, 0x33, 0xF3, 0xF2, 0x32,
+  44:Core/Src/u2com.c ****     0x36, 0xF6, 0xF7, 0x37, 0xF5, 0x35, 0x34, 0xF4, 0x3C, 0xFC, 0xFD, 0x3D,
+  45:Core/Src/u2com.c ****     0xFF, 0x3F, 0x3E, 0xFE, 0xFA, 0x3A, 0x3B, 0xFB, 0x39, 0xF9, 0xF8, 0x38,
+  46:Core/Src/u2com.c ****     0x28, 0xE8, 0xE9, 0x29, 0xEB, 0x2B, 0x2A, 0xEA, 0xEE, 0x2E, 0x2F, 0xEF,
+  47:Core/Src/u2com.c ****     0x2D, 0xED, 0xEC, 0x2C, 0xE4, 0x24, 0x25, 0xE5, 0x27, 0xE7, 0xE6, 0x26,
+  48:Core/Src/u2com.c ****     0x22, 0xE2, 0xE3, 0x23, 0xE1, 0x21, 0x20, 0xE0, 0xA0, 0x60, 0x61, 0xA1,
+  49:Core/Src/u2com.c ****     0x63, 0xA3, 0xA2, 0x62, 0x66, 0xA6, 0xA7, 0x67, 0xA5, 0x65, 0x64, 0xA4,
+  50:Core/Src/u2com.c ****     0x6C, 0xAC, 0xAD, 0x6D, 0xAF, 0x6F, 0x6E, 0xAE, 0xAA, 0x6A, 0x6B, 0xAB,
+  51:Core/Src/u2com.c ****     0x69, 0xA9, 0xA8, 0x68, 0x78, 0xB8, 0xB9, 0x79, 0xBB, 0x7B, 0x7A, 0xBA,
+  52:Core/Src/u2com.c ****     0xBE, 0x7E, 0x7F, 0xBF, 0x7D, 0xBD, 0xBC, 0x7C, 0xB4, 0x74, 0x75, 0xB5,
+  53:Core/Src/u2com.c ****     0x77, 0xB7, 0xB6, 0x76, 0x72, 0xB2, 0xB3, 0x73, 0xB1, 0x71, 0x70, 0xB0,
+  54:Core/Src/u2com.c ****     0x50, 0x90, 0x91, 0x51, 0x93, 0x53, 0x52, 0x92, 0x96, 0x56, 0x57, 0x97,
+  55:Core/Src/u2com.c ****     0x55, 0x95, 0x94, 0x54, 0x9C, 0x5C, 0x5D, 0x9D, 0x5F, 0x9F, 0x9E, 0x5E,
+  56:Core/Src/u2com.c ****     0x5A, 0x9A, 0x9B, 0x5B, 0x99, 0x59, 0x58, 0x98, 0x88, 0x48, 0x49, 0x89,
+  57:Core/Src/u2com.c ****     0x4B, 0x8B, 0x8A, 0x4A, 0x4E, 0x8E, 0x8F, 0x4F, 0x8D, 0x4D, 0x4C, 0x8C,
+  58:Core/Src/u2com.c ****     0x44, 0x84, 0x85, 0x45, 0x87, 0x47, 0x46, 0x86, 0x82, 0x42, 0x43, 0x83,
+  59:Core/Src/u2com.c ****     0x41, 0x81, 0x80, 0x40};
+  60:Core/Src/u2com.c **** 
+  61:Core/Src/u2com.c **** unsigned short CRC16x(unsigned char *pucFrame, unsigned short usLen)
+  62:Core/Src/u2com.c **** {
+  28              		.loc 1 62 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		.loc 1 62 1 is_stmt 0 view .LVU1
+  33 0000 30B5     		push	{r4, r5, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 12
+  36              		.cfi_offset 4, -12
+  37              		.cfi_offset 5, -8
+  38              		.cfi_offset 14, -4
+  63:Core/Src/u2com.c ****     unsigned char ucCRCHi = 0xFF;
+  39              		.loc 1 63 5 is_stmt 1 view .LVU2
+  40              	.LVL1:
+  64:Core/Src/u2com.c ****     unsigned char ucCRCLo = 0xFF;
+  41              		.loc 1 64 5 view .LVU3
+  65:Core/Src/u2com.c ****     int iIndex;
+  42              		.loc 1 65 5 view .LVU4
+  66:Core/Src/u2com.c **** 
+  67:Core/Src/u2com.c ****     while (usLen--)
+  43              		.loc 1 67 5 view .LVU5
+  64:Core/Src/u2com.c ****     int iIndex;
+  44              		.loc 1 64 19 is_stmt 0 view .LVU6
+  45 0002 FF24     		movs	r4, #255
+  63:Core/Src/u2com.c ****     unsigned char ucCRCLo = 0xFF;
+  46              		.loc 1 63 19 view .LVU7
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 3
+
+
+  47 0004 FF25     		movs	r5, #255
+  48              		.loc 1 67 11 view .LVU8
+  49 0006 08E0     		b	.L2
+  50              	.LVL2:
+  51              	.L3:
+  68:Core/Src/u2com.c ****     {
+  69:Core/Src/u2com.c ****         iIndex = ucCRCLo ^ *(pucFrame++);
+  52              		.loc 1 69 9 is_stmt 1 view .LVU9
+  53              		.loc 1 69 28 is_stmt 0 view .LVU10
+  54 0008 0378     		ldrb	r3, [r0]
+  55              		.loc 1 69 26 view .LVU11
+  56 000a 6340     		eors	r3, r4
+  57              	.LVL3:
+  70:Core/Src/u2com.c ****         ucCRCLo = (unsigned char)(ucCRCHi ^ aucCRCHi[iIndex]);
+  58              		.loc 1 70 9 is_stmt 1 view .LVU12
+  59              		.loc 1 70 53 is_stmt 0 view .LVU13
+  60 000c 0749     		ldr	r1, .L4
+  61 000e CC5C     		ldrb	r4, [r1, r3]
+  62              	.LVL4:
+  63              		.loc 1 70 17 view .LVU14
+  64 0010 6C40     		eors	r4, r5
+  65              	.LVL5:
+  71:Core/Src/u2com.c ****         ucCRCHi = aucCRCLo[iIndex];
+  66              		.loc 1 71 9 is_stmt 1 view .LVU15
+  67              		.loc 1 71 17 is_stmt 0 view .LVU16
+  68 0012 0749     		ldr	r1, .L4+4
+  69 0014 CD5C     		ldrb	r5, [r1, r3]
+  70              	.LVL6:
+  67:Core/Src/u2com.c ****     {
+  71              		.loc 1 67 17 view .LVU17
+  72 0016 1100     		movs	r1, r2
+  69:Core/Src/u2com.c ****         ucCRCLo = (unsigned char)(ucCRCHi ^ aucCRCHi[iIndex]);
+  73              		.loc 1 69 38 view .LVU18
+  74 0018 0130     		adds	r0, r0, #1
+  75              	.LVL7:
+  76              	.L2:
+  67:Core/Src/u2com.c ****     {
+  77              		.loc 1 67 11 is_stmt 1 view .LVU19
+  67:Core/Src/u2com.c ****     {
+  78              		.loc 1 67 17 is_stmt 0 view .LVU20
+  79 001a 4A1E     		subs	r2, r1, #1
+  80 001c 92B2     		uxth	r2, r2
+  81              	.LVL8:
+  67:Core/Src/u2com.c ****     {
+  82              		.loc 1 67 11 view .LVU21
+  83 001e 0029     		cmp	r1, #0
+  84 0020 F2D1     		bne	.L3
+  72:Core/Src/u2com.c ****     }
+  73:Core/Src/u2com.c ****     return (unsigned short)(ucCRCHi << 8 | ucCRCLo);
+  85              		.loc 1 73 5 is_stmt 1 view .LVU22
+  86              		.loc 1 73 37 is_stmt 0 view .LVU23
+  87 0022 2802     		lsls	r0, r5, #8
+  88              	.LVL9:
+  89              		.loc 1 73 42 view .LVU24
+  90 0024 2043     		orrs	r0, r4
+  91              		.loc 1 73 12 view .LVU25
+  92 0026 80B2     		uxth	r0, r0
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 4
+
+
+  74:Core/Src/u2com.c **** }
+  93              		.loc 1 74 1 view .LVU26
+  94              		@ sp needed
+  95              	.LVL10:
+  96              	.LVL11:
+  97              		.loc 1 74 1 view .LVU27
+  98 0028 30BD     		pop	{r4, r5, pc}
+  99              	.L5:
+ 100 002a C046     		.align	2
+ 101              	.L4:
+ 102 002c 00000000 		.word	aucCRCHi
+ 103 0030 00000000 		.word	aucCRCLo
+ 104              		.cfi_endproc
+ 105              	.LFE43:
+ 107              		.global	__aeabi_f2iz
+ 108              		.section	.text.LoadReadData,"ax",%progbits
+ 109              		.align	1
+ 110              		.global	LoadReadData
+ 111              		.syntax unified
+ 112              		.code	16
+ 113              		.thumb_func
+ 115              	LoadReadData:
+ 116              	.LFB44:
+  75:Core/Src/u2com.c **** void LoadReadData(void)
+  76:Core/Src/u2com.c **** {
+ 117              		.loc 1 76 1 is_stmt 1 view -0
+ 118              		.cfi_startproc
+ 119              		@ args = 0, pretend = 0, frame = 0
+ 120              		@ frame_needed = 0, uses_anonymous_args = 0
+ 121 0000 10B5     		push	{r4, lr}
+ 122              	.LCFI1:
+ 123              		.cfi_def_cfa_offset 8
+ 124              		.cfi_offset 4, -8
+ 125              		.cfi_offset 14, -4
+  77:Core/Src/u2com.c ****     sRundata.Ta = Ta;
+ 126              		.loc 1 77 5 view .LVU29
+ 127              		.loc 1 77 17 is_stmt 0 view .LVU30
+ 128 0002 5C4C     		ldr	r4, .L7
+ 129 0004 5C4B     		ldr	r3, .L7+4
+ 130 0006 1B68     		ldr	r3, [r3]
+ 131 0008 2360     		str	r3, [r4]
+  78:Core/Src/u2com.c ****     sRundata.Tb = Tb;
+ 132              		.loc 1 78 5 is_stmt 1 view .LVU31
+ 133              		.loc 1 78 17 is_stmt 0 view .LVU32
+ 134 000a 5C4B     		ldr	r3, .L7+8
+ 135 000c 1B68     		ldr	r3, [r3]
+ 136 000e 6360     		str	r3, [r4, #4]
+  79:Core/Src/u2com.c ****     sRundata.Tc = Tc;
+ 137              		.loc 1 79 5 is_stmt 1 view .LVU33
+ 138              		.loc 1 79 17 is_stmt 0 view .LVU34
+ 139 0010 5B4B     		ldr	r3, .L7+12
+ 140 0012 1B68     		ldr	r3, [r3]
+ 141 0014 A360     		str	r3, [r4, #8]
+  80:Core/Src/u2com.c ****     sRundata.pTa = pTa;
+ 142              		.loc 1 80 5 is_stmt 1 view .LVU35
+ 143              		.loc 1 80 18 is_stmt 0 view .LVU36
+ 144 0016 5B4B     		ldr	r3, .L7+16
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 5
+
+
+ 145 0018 1B68     		ldr	r3, [r3]
+ 146 001a E360     		str	r3, [r4, #12]
+  81:Core/Src/u2com.c ****     sRundata.pTb = pTb;
+ 147              		.loc 1 81 5 is_stmt 1 view .LVU37
+ 148              		.loc 1 81 18 is_stmt 0 view .LVU38
+ 149 001c 5A4B     		ldr	r3, .L7+20
+ 150 001e 1B68     		ldr	r3, [r3]
+ 151 0020 2361     		str	r3, [r4, #16]
+  82:Core/Src/u2com.c ****     sRundata.pTc = pTc;
+ 152              		.loc 1 82 5 is_stmt 1 view .LVU39
+ 153              		.loc 1 82 18 is_stmt 0 view .LVU40
+ 154 0022 5A4B     		ldr	r3, .L7+24
+ 155 0024 1B68     		ldr	r3, [r3]
+ 156 0026 6361     		str	r3, [r4, #20]
+  83:Core/Src/u2com.c **** 
+  84:Core/Src/u2com.c ****     sRundata.FenH = FenH;
+ 157              		.loc 1 84 5 is_stmt 1 view .LVU41
+ 158              		.loc 1 84 19 is_stmt 0 view .LVU42
+ 159 0028 594B     		ldr	r3, .L7+28
+ 160 002a 1B68     		ldr	r3, [r3]
+ 161 002c A361     		str	r3, [r4, #24]
+  85:Core/Src/u2com.c ****     sRundata.FenM = FenM;
+ 162              		.loc 1 85 5 is_stmt 1 view .LVU43
+ 163              		.loc 1 85 19 is_stmt 0 view .LVU44
+ 164 002e 594B     		ldr	r3, .L7+32
+ 165 0030 1B68     		ldr	r3, [r3]
+ 166 0032 E361     		str	r3, [r4, #28]
+  86:Core/Src/u2com.c ****     sRundata.Tcala1 = Tcala1;
+ 167              		.loc 1 86 5 is_stmt 1 view .LVU45
+ 168              		.loc 1 86 21 is_stmt 0 view .LVU46
+ 169 0034 584B     		ldr	r3, .L7+36
+ 170 0036 1B68     		ldr	r3, [r3]
+ 171 0038 2362     		str	r3, [r4, #32]
+  87:Core/Src/u2com.c ****     sRundata.Tcala2 = Tcala2;
+ 172              		.loc 1 87 5 is_stmt 1 view .LVU47
+ 173              		.loc 1 87 21 is_stmt 0 view .LVU48
+ 174 003a 584B     		ldr	r3, .L7+40
+ 175 003c 1B68     		ldr	r3, [r3]
+ 176 003e 6362     		str	r3, [r4, #36]
+  88:Core/Src/u2com.c ****     sRundata.Tcala3 = Tcala3;
+ 177              		.loc 1 88 5 is_stmt 1 view .LVU49
+ 178              		.loc 1 88 21 is_stmt 0 view .LVU50
+ 179 0040 574B     		ldr	r3, .L7+44
+ 180 0042 1B68     		ldr	r3, [r3]
+ 181 0044 A362     		str	r3, [r4, #40]
+  89:Core/Src/u2com.c ****     sRundata.Tset1 = Tset1;
+ 182              		.loc 1 89 5 is_stmt 1 view .LVU51
+ 183              		.loc 1 89 20 is_stmt 0 view .LVU52
+ 184 0046 574B     		ldr	r3, .L7+48
+ 185 0048 1B68     		ldr	r3, [r3]
+ 186 004a E362     		str	r3, [r4, #44]
+  90:Core/Src/u2com.c ****     sRundata.Tset2 = Tset2;
+ 187              		.loc 1 90 5 is_stmt 1 view .LVU53
+ 188              		.loc 1 90 20 is_stmt 0 view .LVU54
+ 189 004c 564B     		ldr	r3, .L7+52
+ 190 004e 1B68     		ldr	r3, [r3]
+ 191 0050 2363     		str	r3, [r4, #48]
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 6
+
+
+  91:Core/Src/u2com.c ****     sRundata.Tset3 = Tset3;
+ 192              		.loc 1 91 5 is_stmt 1 view .LVU55
+ 193              		.loc 1 91 20 is_stmt 0 view .LVU56
+ 194 0052 564B     		ldr	r3, .L7+56
+ 195 0054 1B68     		ldr	r3, [r3]
+ 196 0056 6363     		str	r3, [r4, #52]
+  92:Core/Src/u2com.c ****     sRundata.Tset4 = Tset4;
+ 197              		.loc 1 92 5 is_stmt 1 view .LVU57
+ 198              		.loc 1 92 20 is_stmt 0 view .LVU58
+ 199 0058 554B     		ldr	r3, .L7+60
+ 200 005a 1B68     		ldr	r3, [r3]
+ 201 005c A363     		str	r3, [r4, #56]
+  93:Core/Src/u2com.c ****     sRundata.cshuiCha = cshuiCha;
+ 202              		.loc 1 93 5 is_stmt 1 view .LVU59
+ 203              		.loc 1 93 23 is_stmt 0 view .LVU60
+ 204 005e 554B     		ldr	r3, .L7+64
+ 205 0060 1B68     		ldr	r3, [r3]
+ 206 0062 E363     		str	r3, [r4, #60]
+  94:Core/Src/u2com.c ****     sRundata.cwhuiCha = cwhuiCha;
+ 207              		.loc 1 94 5 is_stmt 1 view .LVU61
+ 208              		.loc 1 94 23 is_stmt 0 view .LVU62
+ 209 0064 544B     		ldr	r3, .L7+68
+ 210 0066 1B68     		ldr	r3, [r3]
+ 211 0068 2364     		str	r3, [r4, #64]
+  95:Core/Src/u2com.c ****     sRundata.tzhuiCha = tzhuiCha;
+ 212              		.loc 1 95 5 is_stmt 1 view .LVU63
+ 213              		.loc 1 95 23 is_stmt 0 view .LVU64
+ 214 006a 544B     		ldr	r3, .L7+72
+ 215 006c 1B68     		ldr	r3, [r3]
+ 216 006e 6364     		str	r3, [r4, #68]
+  96:Core/Src/u2com.c ****     sRundata.MnTest = MnTest;
+ 217              		.loc 1 96 5 is_stmt 1 view .LVU65
+ 218              		.loc 1 96 21 is_stmt 0 view .LVU66
+ 219 0070 534B     		ldr	r3, .L7+76
+ 220 0072 1B68     		ldr	r3, [r3]
+ 221 0074 A364     		str	r3, [r4, #72]
+  97:Core/Src/u2com.c **** 
+  98:Core/Src/u2com.c ****     sRundata.addr = addr;
+ 222              		.loc 1 98 5 is_stmt 1 view .LVU67
+ 223              		.loc 1 98 19 is_stmt 0 view .LVU68
+ 224 0076 534B     		ldr	r3, .L7+80
+ 225 0078 1B68     		ldr	r3, [r3]
+ 226 007a E364     		str	r3, [r4, #76]
+  99:Core/Src/u2com.c ****     sRundata.jojy = jojy;
+ 227              		.loc 1 99 5 is_stmt 1 view .LVU69
+ 228              		.loc 1 99 19 is_stmt 0 view .LVU70
+ 229 007c 524B     		ldr	r3, .L7+84
+ 230 007e 1B68     		ldr	r3, [r3]
+ 231 0080 2365     		str	r3, [r4, #80]
+ 100:Core/Src/u2com.c ****     sRundata.btlv = btlv;
+ 232              		.loc 1 100 5 is_stmt 1 view .LVU71
+ 233              		.loc 1 100 19 is_stmt 0 view .LVU72
+ 234 0082 524B     		ldr	r3, .L7+88
+ 235 0084 1B68     		ldr	r3, [r3]
+ 236 0086 6365     		str	r3, [r4, #84]
+ 101:Core/Src/u2com.c **** 
+ 102:Core/Src/u2com.c ****     sRundata.k1 = (signed int)k1 * 10;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 7
+
+
+ 237              		.loc 1 102 5 is_stmt 1 view .LVU73
+ 238              		.loc 1 102 19 is_stmt 0 view .LVU74
+ 239 0088 514B     		ldr	r3, .L7+92
+ 240 008a 1868     		ldr	r0, [r3]
+ 241 008c FFF7FEFF 		bl	__aeabi_f2iz
+ 242              	.LVL12:
+ 243 0090 0300     		movs	r3, r0
+ 244              		.loc 1 102 34 view .LVU75
+ 245 0092 8000     		lsls	r0, r0, #2
+ 246 0094 C018     		adds	r0, r0, r3
+ 247 0096 4000     		lsls	r0, r0, #1
+ 248              		.loc 1 102 17 view .LVU76
+ 249 0098 A065     		str	r0, [r4, #88]
+ 103:Core/Src/u2com.c ****     sRundata.k2 = (signed int)k2 * 10;
+ 250              		.loc 1 103 5 is_stmt 1 view .LVU77
+ 251              		.loc 1 103 19 is_stmt 0 view .LVU78
+ 252 009a 4E4B     		ldr	r3, .L7+96
+ 253 009c 1868     		ldr	r0, [r3]
+ 254 009e FFF7FEFF 		bl	__aeabi_f2iz
+ 255              	.LVL13:
+ 256 00a2 0300     		movs	r3, r0
+ 257              		.loc 1 103 34 view .LVU79
+ 258 00a4 8000     		lsls	r0, r0, #2
+ 259 00a6 C018     		adds	r0, r0, r3
+ 260 00a8 4000     		lsls	r0, r0, #1
+ 261              		.loc 1 103 17 view .LVU80
+ 262 00aa E065     		str	r0, [r4, #92]
+ 104:Core/Src/u2com.c ****     sRundata.k3 = (signed int)k3 * 10;
+ 263              		.loc 1 104 5 is_stmt 1 view .LVU81
+ 264              		.loc 1 104 19 is_stmt 0 view .LVU82
+ 265 00ac 4A4B     		ldr	r3, .L7+100
+ 266 00ae 1868     		ldr	r0, [r3]
+ 267 00b0 FFF7FEFF 		bl	__aeabi_f2iz
+ 268              	.LVL14:
+ 269 00b4 0300     		movs	r3, r0
+ 270              		.loc 1 104 34 view .LVU83
+ 271 00b6 8000     		lsls	r0, r0, #2
+ 272 00b8 C018     		adds	r0, r0, r3
+ 273 00ba 4000     		lsls	r0, r0, #1
+ 274              		.loc 1 104 17 view .LVU84
+ 275 00bc 2066     		str	r0, [r4, #96]
+ 105:Core/Src/u2com.c ****     sRundata.b1 = (signed int)b1 * 10;
+ 276              		.loc 1 105 5 is_stmt 1 view .LVU85
+ 277              		.loc 1 105 19 is_stmt 0 view .LVU86
+ 278 00be 474B     		ldr	r3, .L7+104
+ 279 00c0 1868     		ldr	r0, [r3]
+ 280 00c2 FFF7FEFF 		bl	__aeabi_f2iz
+ 281              	.LVL15:
+ 282 00c6 0300     		movs	r3, r0
+ 283              		.loc 1 105 34 view .LVU87
+ 284 00c8 8000     		lsls	r0, r0, #2
+ 285 00ca C018     		adds	r0, r0, r3
+ 286 00cc 4000     		lsls	r0, r0, #1
+ 287              		.loc 1 105 17 view .LVU88
+ 288 00ce 6066     		str	r0, [r4, #100]
+ 106:Core/Src/u2com.c ****     sRundata.b2 = (signed int)b2 * 10;
+ 289              		.loc 1 106 5 is_stmt 1 view .LVU89
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 8
+
+
+ 290              		.loc 1 106 19 is_stmt 0 view .LVU90
+ 291 00d0 434B     		ldr	r3, .L7+108
+ 292 00d2 1868     		ldr	r0, [r3]
+ 293 00d4 FFF7FEFF 		bl	__aeabi_f2iz
+ 294              	.LVL16:
+ 295 00d8 0300     		movs	r3, r0
+ 296              		.loc 1 106 34 view .LVU91
+ 297 00da 8000     		lsls	r0, r0, #2
+ 298 00dc C018     		adds	r0, r0, r3
+ 299 00de 4000     		lsls	r0, r0, #1
+ 300              		.loc 1 106 17 view .LVU92
+ 301 00e0 A066     		str	r0, [r4, #104]
+ 107:Core/Src/u2com.c ****     sRundata.b3 = (signed int)b3 * 10;
+ 302              		.loc 1 107 5 is_stmt 1 view .LVU93
+ 303              		.loc 1 107 19 is_stmt 0 view .LVU94
+ 304 00e2 404B     		ldr	r3, .L7+112
+ 305 00e4 1868     		ldr	r0, [r3]
+ 306 00e6 FFF7FEFF 		bl	__aeabi_f2iz
+ 307              	.LVL17:
+ 308 00ea 0300     		movs	r3, r0
+ 309              		.loc 1 107 34 view .LVU95
+ 310 00ec 8000     		lsls	r0, r0, #2
+ 311 00ee C018     		adds	r0, r0, r3
+ 312 00f0 4000     		lsls	r0, r0, #1
+ 313              		.loc 1 107 17 view .LVU96
+ 314 00f2 E066     		str	r0, [r4, #108]
+ 108:Core/Src/u2com.c **** 
+ 109:Core/Src/u2com.c ****     sRundata.macFlag[0] = FengJiSW;          // 0     风机
+ 315              		.loc 1 109 5 is_stmt 1 view .LVU97
+ 316              		.loc 1 109 25 is_stmt 0 view .LVU98
+ 317 00f4 3C4B     		ldr	r3, .L7+116
+ 318 00f6 1A78     		ldrb	r2, [r3]
+ 319 00f8 7023     		movs	r3, #112
+ 320 00fa E254     		strb	r2, [r4, r3]
+ 110:Core/Src/u2com.c ****     sRundata.macFlag[1] = MacFailed;         // 1     故障
+ 321              		.loc 1 110 5 is_stmt 1 view .LVU99
+ 322              		.loc 1 110 25 is_stmt 0 view .LVU100
+ 323 00fc 3B4B     		ldr	r3, .L7+120
+ 324 00fe 1A78     		ldrb	r2, [r3]
+ 325 0100 7123     		movs	r3, #113
+ 326 0102 E254     		strb	r2, [r4, r3]
+ 111:Core/Src/u2com.c ****     sRundata.macFlag[2] = OverTemp;          // 2     超温报警
+ 327              		.loc 1 111 5 is_stmt 1 view .LVU101
+ 328              		.loc 1 111 25 is_stmt 0 view .LVU102
+ 329 0104 3A4B     		ldr	r3, .L7+124
+ 330 0106 1A78     		ldrb	r2, [r3]
+ 331 0108 7223     		movs	r3, #114
+ 332 010a E254     		strb	r2, [r4, r3]
+ 112:Core/Src/u2com.c ****     sRundata.macFlag[3] = JumpZha;           // 3     跳闸
+ 333              		.loc 1 112 5 is_stmt 1 view .LVU103
+ 334              		.loc 1 112 25 is_stmt 0 view .LVU104
+ 335 010c 394B     		ldr	r3, .L7+128
+ 336 010e 1A78     		ldrb	r2, [r3]
+ 337 0110 7323     		movs	r3, #115
+ 338 0112 E254     		strb	r2, [r4, r3]
+ 113:Core/Src/u2com.c ****     sRundata.macFlag[4] = DoorJin;           // 4     门禁
+ 339              		.loc 1 113 5 is_stmt 1 view .LVU105
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 9
+
+
+ 340              		.loc 1 113 25 is_stmt 0 view .LVU106
+ 341 0114 384B     		ldr	r3, .L7+132
+ 342 0116 1A78     		ldrb	r2, [r3]
+ 343 0118 7423     		movs	r3, #116
+ 344 011a E254     		strb	r2, [r4, r3]
+ 114:Core/Src/u2com.c ****     sRundata.macFlag[5] = TempASta;          // 5     a温度故障0 1过低 2过高
+ 345              		.loc 1 114 5 is_stmt 1 view .LVU107
+ 346              		.loc 1 114 25 is_stmt 0 view .LVU108
+ 347 011c 374B     		ldr	r3, .L7+136
+ 348 011e 1A78     		ldrb	r2, [r3]
+ 349 0120 7523     		movs	r3, #117
+ 350 0122 E254     		strb	r2, [r4, r3]
+ 115:Core/Src/u2com.c ****     sRundata.macFlag[6] = TempBSta;          // 6     b温度故障0 1过低 2过高
+ 351              		.loc 1 115 5 is_stmt 1 view .LVU109
+ 352              		.loc 1 115 25 is_stmt 0 view .LVU110
+ 353 0124 364B     		ldr	r3, .L7+140
+ 354 0126 1A78     		ldrb	r2, [r3]
+ 355 0128 7623     		movs	r3, #118
+ 356 012a E254     		strb	r2, [r4, r3]
+ 116:Core/Src/u2com.c ****     sRundata.macFlag[7] = TempCSta;          // 7     c温度故障0 1过低 2过高
+ 357              		.loc 1 116 5 is_stmt 1 view .LVU111
+ 358              		.loc 1 116 25 is_stmt 0 view .LVU112
+ 359 012c 354B     		ldr	r3, .L7+144
+ 360 012e 1A78     		ldrb	r2, [r3]
+ 361 0130 7723     		movs	r3, #119
+ 362 0132 E254     		strb	r2, [r4, r3]
+ 117:Core/Src/u2com.c ****     sRundata.macFlag[8] = PowrASta;          // 8     a没电故障0 1没电
+ 363              		.loc 1 117 5 is_stmt 1 view .LVU113
+ 364              		.loc 1 117 25 is_stmt 0 view .LVU114
+ 365 0134 344B     		ldr	r3, .L7+148
+ 366 0136 1A78     		ldrb	r2, [r3]
+ 367 0138 7823     		movs	r3, #120
+ 368 013a E254     		strb	r2, [r4, r3]
+ 118:Core/Src/u2com.c ****     sRundata.macFlag[9] = PowrBSta;          // 9     b没电故障0 1没电
+ 369              		.loc 1 118 5 is_stmt 1 view .LVU115
+ 370              		.loc 1 118 25 is_stmt 0 view .LVU116
+ 371 013c 334B     		ldr	r3, .L7+152
+ 372 013e 1A78     		ldrb	r2, [r3]
+ 373 0140 7923     		movs	r3, #121
+ 374 0142 E254     		strb	r2, [r4, r3]
+ 119:Core/Src/u2com.c ****     sRundata.macFlag[10] = 0x00;             // 10
+ 375              		.loc 1 119 5 is_stmt 1 view .LVU117
+ 376              		.loc 1 119 26 is_stmt 0 view .LVU118
+ 377 0144 0023     		movs	r3, #0
+ 378 0146 7A22     		movs	r2, #122
+ 379 0148 A354     		strb	r3, [r4, r2]
+ 120:Core/Src/u2com.c ****     sRundata.macFlag[11] = 0x00;             // 11
+ 380              		.loc 1 120 5 is_stmt 1 view .LVU119
+ 381              		.loc 1 120 26 is_stmt 0 view .LVU120
+ 382 014a 0132     		adds	r2, r2, #1
+ 383 014c A354     		strb	r3, [r4, r2]
+ 121:Core/Src/u2com.c ****     sRundata.macFlag[12] = MODAutoManuONOFF; // 12    0自动     1手动开 2手动关
+ 384              		.loc 1 121 5 is_stmt 1 view .LVU121
+ 385              		.loc 1 121 26 is_stmt 0 view .LVU122
+ 386 014e 304A     		ldr	r2, .L7+156
+ 387 0150 1178     		ldrb	r1, [r2]
+ 388 0152 7C22     		movs	r2, #124
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 10
+
+
+ 389 0154 A154     		strb	r1, [r4, r2]
+ 122:Core/Src/u2com.c ****     sRundata.macFlag[13] = 0x00;             // 13
+ 390              		.loc 1 122 5 is_stmt 1 view .LVU123
+ 391              		.loc 1 122 26 is_stmt 0 view .LVU124
+ 392 0156 0132     		adds	r2, r2, #1
+ 393 0158 A354     		strb	r3, [r4, r2]
+ 123:Core/Src/u2com.c ****     sRundata.macFlag[14] = disBeep;          // 14    0不叫     1叫  beep
+ 394              		.loc 1 123 5 is_stmt 1 view .LVU125
+ 395              		.loc 1 123 26 is_stmt 0 view .LVU126
+ 396 015a 2E4B     		ldr	r3, .L7+160
+ 397 015c 1A78     		ldrb	r2, [r3]
+ 398 015e 7E23     		movs	r3, #126
+ 399 0160 E254     		strb	r2, [r4, r3]
+ 124:Core/Src/u2com.c ****     sRundata.macFlag[15] = goBeep;           // 15    0不消音   1消音
+ 400              		.loc 1 124 5 is_stmt 1 view .LVU127
+ 401              		.loc 1 124 26 is_stmt 0 view .LVU128
+ 402 0162 2D4B     		ldr	r3, .L7+164
+ 403 0164 1A78     		ldrb	r2, [r3]
+ 404 0166 7F23     		movs	r3, #127
+ 405 0168 E254     		strb	r2, [r4, r3]
+ 125:Core/Src/u2com.c ****     sRundata.macFlag[16] = MODLoopShow;      // 16    0巡回     1最大温度显示
+ 406              		.loc 1 125 5 is_stmt 1 view .LVU129
+ 407              		.loc 1 125 26 is_stmt 0 view .LVU130
+ 408 016a 2C4B     		ldr	r3, .L7+168
+ 409 016c 1A78     		ldrb	r2, [r3]
+ 410 016e 8023     		movs	r3, #128
+ 411 0170 E254     		strb	r2, [r4, r3]
+ 126:Core/Src/u2com.c **** }
+ 412              		.loc 1 126 1 view .LVU131
+ 413              		@ sp needed
+ 414 0172 10BD     		pop	{r4, pc}
+ 415              	.L8:
+ 416              		.align	2
+ 417              	.L7:
+ 418 0174 00000000 		.word	sRundata
+ 419 0178 00000000 		.word	Ta
+ 420 017c 00000000 		.word	Tb
+ 421 0180 00000000 		.word	Tc
+ 422 0184 00000000 		.word	pTa
+ 423 0188 00000000 		.word	pTb
+ 424 018c 00000000 		.word	pTc
+ 425 0190 00000000 		.word	FenH
+ 426 0194 00000000 		.word	FenM
+ 427 0198 00000000 		.word	Tcala1
+ 428 019c 00000000 		.word	Tcala2
+ 429 01a0 00000000 		.word	Tcala3
+ 430 01a4 00000000 		.word	Tset1
+ 431 01a8 00000000 		.word	Tset2
+ 432 01ac 00000000 		.word	Tset3
+ 433 01b0 00000000 		.word	Tset4
+ 434 01b4 00000000 		.word	cshuiCha
+ 435 01b8 00000000 		.word	cwhuiCha
+ 436 01bc 00000000 		.word	tzhuiCha
+ 437 01c0 00000000 		.word	MnTest
+ 438 01c4 00000000 		.word	addr
+ 439 01c8 00000000 		.word	jojy
+ 440 01cc 00000000 		.word	btlv
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 11
+
+
+ 441 01d0 00000000 		.word	k1
+ 442 01d4 00000000 		.word	k2
+ 443 01d8 00000000 		.word	k3
+ 444 01dc 00000000 		.word	b1
+ 445 01e0 00000000 		.word	b2
+ 446 01e4 00000000 		.word	b3
+ 447 01e8 00000000 		.word	FengJiSW
+ 448 01ec 00000000 		.word	MacFailed
+ 449 01f0 00000000 		.word	OverTemp
+ 450 01f4 00000000 		.word	JumpZha
+ 451 01f8 00000000 		.word	DoorJin
+ 452 01fc 00000000 		.word	TempASta
+ 453 0200 00000000 		.word	TempBSta
+ 454 0204 00000000 		.word	TempCSta
+ 455 0208 00000000 		.word	PowrASta
+ 456 020c 00000000 		.word	PowrBSta
+ 457 0210 00000000 		.word	MODAutoManuONOFF
+ 458 0214 00000000 		.word	disBeep
+ 459 0218 00000000 		.word	goBeep
+ 460 021c 00000000 		.word	MODLoopShow
+ 461              		.cfi_endproc
+ 462              	.LFE44:
+ 464              		.section	.text.u2RxIt,"ax",%progbits
+ 465              		.align	1
+ 466              		.global	u2RxIt
+ 467              		.syntax unified
+ 468              		.code	16
+ 469              		.thumb_func
+ 471              	u2RxIt:
+ 472              	.LVL18:
+ 473              	.LFB45:
+ 127:Core/Src/u2com.c **** void u2RxIt(UART_HandleTypeDef *huart)
+ 128:Core/Src/u2com.c **** {
+ 474              		.loc 1 128 1 is_stmt 1 view -0
+ 475              		.cfi_startproc
+ 476              		@ args = 0, pretend = 0, frame = 0
+ 477              		@ frame_needed = 0, uses_anonymous_args = 0
+ 478              		.loc 1 128 1 is_stmt 0 view .LVU133
+ 479 0000 70B5     		push	{r4, r5, r6, lr}
+ 480              	.LCFI2:
+ 481              		.cfi_def_cfa_offset 16
+ 482              		.cfi_offset 4, -16
+ 483              		.cfi_offset 5, -12
+ 484              		.cfi_offset 6, -8
+ 485              		.cfi_offset 14, -4
+ 486 0002 0400     		movs	r4, r0
+ 129:Core/Src/u2com.c **** 
+ 130:Core/Src/u2com.c ****     __HAL_UART_CLEAR_IDLEFLAG(huart);
+ 487              		.loc 1 130 5 is_stmt 1 view .LVU134
+ 488 0004 0368     		ldr	r3, [r0]
+ 489 0006 1022     		movs	r2, #16
+ 490 0008 1A62     		str	r2, [r3, #32]
+ 131:Core/Src/u2com.c **** 
+ 132:Core/Src/u2com.c ****     HAL_UART_DMAStop(huart);
+ 491              		.loc 1 132 5 view .LVU135
+ 492 000a FFF7FEFF 		bl	HAL_UART_DMAStop
+ 493              	.LVL19:
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 12
+
+
+ 133:Core/Src/u2com.c **** 
+ 134:Core/Src/u2com.c ****     __HAL_UART_CLEAR_FLAG(huart, UART_CLEAR_OREF | UART_CLEAR_NEF | UART_CLEAR_PEF | UART_CLEAR_FEF
+ 494              		.loc 1 134 5 view .LVU136
+ 495 000e 2368     		ldr	r3, [r4]
+ 496 0010 0F22     		movs	r2, #15
+ 497 0012 1A62     		str	r2, [r3, #32]
+ 135:Core/Src/u2com.c **** 
+ 136:Core/Src/u2com.c ****     RxLenU2 = MAXRXU2 - huart->hdmarx->Instance->CNDTR; // NDTR;
+ 498              		.loc 1 136 5 view .LVU137
+ 499              		.loc 1 136 30 is_stmt 0 view .LVU138
+ 500 0014 636F     		ldr	r3, [r4, #116]
+ 501              		.loc 1 136 38 view .LVU139
+ 502 0016 1B68     		ldr	r3, [r3]
+ 503              		.loc 1 136 48 view .LVU140
+ 504 0018 5A68     		ldr	r2, [r3, #4]
+ 505              		.loc 1 136 23 view .LVU141
+ 506 001a FA23     		movs	r3, #250
+ 507 001c 5B00     		lsls	r3, r3, #1
+ 508 001e 9B1A     		subs	r3, r3, r2
+ 509 0020 9BB2     		uxth	r3, r3
+ 510              		.loc 1 136 13 view .LVU142
+ 511 0022 A74A     		ldr	r2, .L30
+ 512 0024 1380     		strh	r3, [r2]
+ 137:Core/Src/u2com.c ****     unsigned short i = 0;
+ 513              		.loc 1 137 5 is_stmt 1 view .LVU143
+ 514              	.LVL20:
+ 138:Core/Src/u2com.c **** 
+ 139:Core/Src/u2com.c ****     extern unsigned int addr;
+ 515              		.loc 1 139 5 view .LVU144
+ 140:Core/Src/u2com.c ****     if (RxBufU2[0] == addr &&
+ 516              		.loc 1 140 5 view .LVU145
+ 517              		.loc 1 140 16 is_stmt 0 view .LVU146
+ 518 0026 A74A     		ldr	r2, .L30+4
+ 519 0028 1178     		ldrb	r1, [r2]
+ 520              		.loc 1 140 20 view .LVU147
+ 521 002a A74A     		ldr	r2, .L30+8
+ 522 002c 1268     		ldr	r2, [r2]
+ 523              		.loc 1 140 8 view .LVU148
+ 524 002e 9142     		cmp	r1, r2
+ 525 0030 1BD0     		beq	.L26
+ 526              	.L10:
+ 141:Core/Src/u2com.c ****         RxBufU2[1] == 0x03 &&
+ 142:Core/Src/u2com.c ****         RxBufU2[2] == 0x00 &&
+ 143:Core/Src/u2com.c ****         RxBufU2[3] == 0x00 &&
+ 144:Core/Src/u2com.c ****         RxBufU2[4] == 0x00 &&
+ 145:Core/Src/u2com.c ****         RxBufU2[5] == 0x05 && RxLenU2 == 8)
+ 146:Core/Src/u2com.c ****     {
+ 147:Core/Src/u2com.c ****         i = 0;
+ 148:Core/Src/u2com.c ****         TxBufU2[0] = addr;
+ 149:Core/Src/u2com.c ****         TxBufU2[1] = 0x03;
+ 150:Core/Src/u2com.c ****         TxBufU2[2] = 0x0A;
+ 151:Core/Src/u2com.c ****         unsigned short Tmp = 0;
+ 152:Core/Src/u2com.c ****         if (Ta > Tset3)
+ 153:Core/Src/u2com.c ****             Tmp = Tmp | 0x0001;
+ 154:Core/Src/u2com.c ****         else
+ 155:Core/Src/u2com.c ****             Tmp = Tmp & (~0x0001);
+ 156:Core/Src/u2com.c ****         if (Tb > Tset3)
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 13
+
+
+ 157:Core/Src/u2com.c ****             Tmp = Tmp | 0x0002;
+ 158:Core/Src/u2com.c ****         else
+ 159:Core/Src/u2com.c ****             Tmp = Tmp & (~0x0002);
+ 160:Core/Src/u2com.c ****         if (Tc > Tset3)
+ 161:Core/Src/u2com.c ****             Tmp = Tmp | 0x0004;
+ 162:Core/Src/u2com.c ****         else
+ 163:Core/Src/u2com.c ****             Tmp = Tmp & (~0x0004);
+ 164:Core/Src/u2com.c ****         if (FengJiSW != 0)
+ 165:Core/Src/u2com.c ****             Tmp = Tmp | 0x0008;
+ 166:Core/Src/u2com.c ****         else
+ 167:Core/Src/u2com.c ****             Tmp = Tmp & (~0x0008);
+ 168:Core/Src/u2com.c ****         if (MacFailed != 0)
+ 169:Core/Src/u2com.c ****             Tmp = Tmp | 0x0010;
+ 170:Core/Src/u2com.c ****         else
+ 171:Core/Src/u2com.c ****             Tmp = Tmp & (~0x0010);
+ 172:Core/Src/u2com.c ****         if (OverTemp != 0)
+ 173:Core/Src/u2com.c ****             Tmp = Tmp | 0x0020;
+ 174:Core/Src/u2com.c ****         else
+ 175:Core/Src/u2com.c ****             Tmp = Tmp & (~0x0020);
+ 176:Core/Src/u2com.c ****         TxBufU2[3] = Tmp >> 8;
+ 177:Core/Src/u2com.c ****         TxBufU2[4] = Tmp >> 0;
+ 178:Core/Src/u2com.c ****         signed short Txxx = 0;
+ 179:Core/Src/u2com.c ****         Txxx = Ta * 10 + 0x23;
+ 180:Core/Src/u2com.c ****         TxBufU2[5] = Txxx >> 8;
+ 181:Core/Src/u2com.c ****         TxBufU2[6] = Txxx >> 0;
+ 182:Core/Src/u2com.c ****         Txxx = Tb * 10 + 0x23;
+ 183:Core/Src/u2com.c ****         TxBufU2[7] = Txxx >> 8;
+ 184:Core/Src/u2com.c ****         TxBufU2[8] = Txxx >> 0;
+ 185:Core/Src/u2com.c ****         Txxx = Tc * 10 + 0x23;
+ 186:Core/Src/u2com.c ****         TxBufU2[9] = Txxx >> 8;
+ 187:Core/Src/u2com.c ****         TxBufU2[10] = Txxx >> 0;
+ 188:Core/Src/u2com.c ****         TxBufU2[11] = FenH >> 8;
+ 189:Core/Src/u2com.c ****         TxBufU2[12] = FenH >> 0;
+ 190:Core/Src/u2com.c ****         unsigned short crc1, crc2;
+ 191:Core/Src/u2com.c ****         crc1 = crc2 = CRC16x(TxBufU2, 13);
+ 192:Core/Src/u2com.c ****         TxBufU2[13] = ((crc1)&0xff);
+ 193:Core/Src/u2com.c ****         TxBufU2[14] = ((crc2 >> 8) & 0xff);
+ 194:Core/Src/u2com.c **** 
+ 195:Core/Src/u2com.c ****         TxEn;
+ 196:Core/Src/u2com.c ****         ADCPause;
+ 197:Core/Src/u2com.c ****         HAL_UART_Transmit(huart, TxBufU2, 15, 100);
+ 198:Core/Src/u2com.c ****         ADCContinue;
+ 199:Core/Src/u2com.c ****     }
+ 200:Core/Src/u2com.c ****     if (
+ 527              		.loc 1 200 5 is_stmt 1 view .LVU149
+ 201:Core/Src/u2com.c ****         RxBufU2[0] == 0xFA &&
+ 528              		.loc 1 201 16 is_stmt 0 view .LVU150
+ 529 0032 A44B     		ldr	r3, .L30+4
+ 530 0034 1B78     		ldrb	r3, [r3]
+ 200:Core/Src/u2com.c ****         RxBufU2[0] == 0xFA &&
+ 531              		.loc 1 200 8 view .LVU151
+ 532 0036 FA2B     		cmp	r3, #250
+ 533 0038 00D1     		bne	.LCB449
+ 534 003a A4E0     		b	.L27	@long jump
+ 535              	.LCB449:
+ 536              	.L22:
+ 202:Core/Src/u2com.c ****         RxBufU2[1] == 0x04 &&
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 14
+
+
+ 203:Core/Src/u2com.c ****         RxBufU2[2] == 0xD1 &&
+ 204:Core/Src/u2com.c ****         RxBufU2[5] == 0xFB && RxLenU2 == 6)
+ 205:Core/Src/u2com.c ****     {
+ 206:Core/Src/u2com.c ****         MODAutoManuONOFF = RxBufU2[3];
+ 207:Core/Src/u2com.c ****         ADCPause;
+ 208:Core/Src/u2com.c ****         TxEn;
+ 209:Core/Src/u2com.c ****         HAL_UART_Transmit(huart, RxBufU2, rsRxIndex, 100);
+ 210:Core/Src/u2com.c ****         ADCContinue;
+ 211:Core/Src/u2com.c ****     }
+ 212:Core/Src/u2com.c **** 
+ 213:Core/Src/u2com.c ****     if (
+ 537              		.loc 1 213 5 is_stmt 1 view .LVU152
+ 214:Core/Src/u2com.c ****         RxBufU2[0] == 0xFA &&
+ 538              		.loc 1 214 16 is_stmt 0 view .LVU153
+ 539 003c A14B     		ldr	r3, .L30+4
+ 540 003e 1B78     		ldrb	r3, [r3]
+ 213:Core/Src/u2com.c ****         RxBufU2[0] == 0xFA &&
+ 541              		.loc 1 213 8 view .LVU154
+ 542 0040 FA2B     		cmp	r3, #250
+ 543 0042 00D1     		bne	.LCB455
+ 544 0044 CFE0     		b	.L28	@long jump
+ 545              	.LCB455:
+ 546              	.L23:
+ 215:Core/Src/u2com.c ****         RxBufU2[1] == 0x04 &&
+ 216:Core/Src/u2com.c ****         RxBufU2[2] == 0xD2 &&
+ 217:Core/Src/u2com.c ****         RxBufU2[5] == 0xFB && RxLenU2 == 6)
+ 218:Core/Src/u2com.c ****     {
+ 219:Core/Src/u2com.c ****         goBeep = RxBufU2[3];
+ 220:Core/Src/u2com.c ****         ADCPause;
+ 221:Core/Src/u2com.c ****         TxEn;
+ 222:Core/Src/u2com.c ****         HAL_UART_Transmit(huart, RxBufU2, rsRxIndex, 100);
+ 223:Core/Src/u2com.c ****         ADCContinue;
+ 224:Core/Src/u2com.c ****     }
+ 225:Core/Src/u2com.c **** 
+ 226:Core/Src/u2com.c ****     if (
+ 547              		.loc 1 226 5 is_stmt 1 view .LVU155
+ 227:Core/Src/u2com.c ****         RxBufU2[0] == 0xFA &&
+ 548              		.loc 1 227 16 is_stmt 0 view .LVU156
+ 549 0046 9F4B     		ldr	r3, .L30+4
+ 550 0048 1B78     		ldrb	r3, [r3]
+ 226:Core/Src/u2com.c ****         RxBufU2[0] == 0xFA &&
+ 551              		.loc 1 226 8 view .LVU157
+ 552 004a FA2B     		cmp	r3, #250
+ 553 004c 00D1     		bne	.LCB461
+ 554 004e FAE0     		b	.L29	@long jump
+ 555              	.LCB461:
+ 556              	.LVL21:
+ 557              	.L24:
+ 228:Core/Src/u2com.c ****         RxBufU2[1] == 0x04 &&
+ 229:Core/Src/u2com.c ****         RxBufU2[2] == 0xF1 &&
+ 230:Core/Src/u2com.c ****         RxBufU2[5] == 0xFB && RxLenU2 == 6)
+ 231:Core/Src/u2com.c ****     {
+ 232:Core/Src/u2com.c ****         i = 0;
+ 233:Core/Src/u2com.c ****         TxBufU2[i++] = 0xFA;
+ 234:Core/Src/u2com.c ****         TxBufU2[i++] = 0x04;
+ 235:Core/Src/u2com.c ****         TxBufU2[i++] = 0xF1;
+ 236:Core/Src/u2com.c ****         unsigned int sDataLen = sizeof(sRundata);
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 15
+
+
+ 237:Core/Src/u2com.c ****         LoadReadData();
+ 238:Core/Src/u2com.c ****         memcpy(&TxBufU2[i], (unsigned char *)&sRundata, sDataLen);
+ 239:Core/Src/u2com.c ****         i = i + sDataLen;
+ 240:Core/Src/u2com.c ****         TxBufU2[i++] = 0xFB;
+ 241:Core/Src/u2com.c ****         ADCPause;
+ 242:Core/Src/u2com.c ****         TxEn;
+ 243:Core/Src/u2com.c ****         HAL_UART_Transmit(huart, TxBufU2, i, 100);
+ 244:Core/Src/u2com.c ****         ADCContinue;
+ 245:Core/Src/u2com.c ****     }
+ 246:Core/Src/u2com.c ****     HAL_UART_Receive_DMA(huart, RxBufU2, MAXRXU2);
+ 558              		.loc 1 246 5 is_stmt 1 view .LVU158
+ 559 0050 FA22     		movs	r2, #250
+ 560 0052 5200     		lsls	r2, r2, #1
+ 561 0054 9B49     		ldr	r1, .L30+4
+ 562 0056 2000     		movs	r0, r4
+ 563 0058 FFF7FEFF 		bl	HAL_UART_Receive_DMA
+ 564              	.LVL22:
+ 247:Core/Src/u2com.c ****     RxEn;
+ 565              		.loc 1 247 5 view .LVU159
+ 566 005c 9020     		movs	r0, #144
+ 567 005e 0022     		movs	r2, #0
+ 568 0060 0221     		movs	r1, #2
+ 569 0062 C005     		lsls	r0, r0, #23
+ 570 0064 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 571              	.LVL23:
+ 248:Core/Src/u2com.c **** }...
+ 572              		.loc 1 248 1 is_stmt 0 view .LVU160
+ 573              		@ sp needed
+ 574              	.LVL24:
+ 575              		.loc 1 248 1 view .LVU161
+ 576 0068 70BD     		pop	{r4, r5, r6, pc}
+ 577              	.LVL25:
+ 578              	.L26:
+ 141:Core/Src/u2com.c ****         RxBufU2[1] == 0x03 &&
+ 579              		.loc 1 141 16 discriminator 1 view .LVU162
+ 580 006a 9649     		ldr	r1, .L30+4
+ 581 006c 4978     		ldrb	r1, [r1, #1]
+ 140:Core/Src/u2com.c ****     if (RxBufU2[0] == addr &&
+ 582              		.loc 1 140 28 discriminator 1 view .LVU163
+ 583 006e 0329     		cmp	r1, #3
+ 584 0070 DFD1     		bne	.L10
+ 142:Core/Src/u2com.c ****         RxBufU2[2] == 0x00 &&
+ 585              		.loc 1 142 16 view .LVU164
+ 586 0072 9449     		ldr	r1, .L30+4
+ 587 0074 8978     		ldrb	r1, [r1, #2]
+ 141:Core/Src/u2com.c ****         RxBufU2[1] == 0x03 &&
+ 588              		.loc 1 141 28 view .LVU165
+ 589 0076 0029     		cmp	r1, #0
+ 590 0078 DBD1     		bne	.L10
+ 143:Core/Src/u2com.c ****         RxBufU2[3] == 0x00 &&
+ 591              		.loc 1 143 16 view .LVU166
+ 592 007a 9249     		ldr	r1, .L30+4
+ 593 007c C978     		ldrb	r1, [r1, #3]
+ 142:Core/Src/u2com.c ****         RxBufU2[2] == 0x00 &&
+ 594              		.loc 1 142 28 view .LVU167
+ 595 007e 0029     		cmp	r1, #0
+ 596 0080 D7D1     		bne	.L10
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 16
+
+
+ 144:Core/Src/u2com.c ****         RxBufU2[4] == 0x00 &&
+ 597              		.loc 1 144 16 view .LVU168
+ 598 0082 9049     		ldr	r1, .L30+4
+ 599 0084 0979     		ldrb	r1, [r1, #4]
+ 143:Core/Src/u2com.c ****         RxBufU2[3] == 0x00 &&
+ 600              		.loc 1 143 28 view .LVU169
+ 601 0086 0029     		cmp	r1, #0
+ 602 0088 D3D1     		bne	.L10
+ 145:Core/Src/u2com.c ****         RxBufU2[5] == 0x05 && RxLenU2 == 8)
+ 603              		.loc 1 145 16 view .LVU170
+ 604 008a 8E49     		ldr	r1, .L30+4
+ 605 008c 4979     		ldrb	r1, [r1, #5]
+ 144:Core/Src/u2com.c ****         RxBufU2[4] == 0x00 &&
+ 606              		.loc 1 144 28 view .LVU171
+ 607 008e 0529     		cmp	r1, #5
+ 608 0090 CFD1     		bne	.L10
+ 145:Core/Src/u2com.c ****         RxBufU2[5] == 0x05 && RxLenU2 == 8)
+ 609              		.loc 1 145 28 view .LVU172
+ 610 0092 082B     		cmp	r3, #8
+ 611 0094 CDD1     		bne	.L10
+ 612              	.LBB2:
+ 147:Core/Src/u2com.c ****         i = 0;
+ 613              		.loc 1 147 9 is_stmt 1 view .LVU173
+ 148:Core/Src/u2com.c ****         TxBufU2[0] = addr;
+ 614              		.loc 1 148 9 view .LVU174
+ 148:Core/Src/u2com.c ****         TxBufU2[0] = addr;
+ 615              		.loc 1 148 20 is_stmt 0 view .LVU175
+ 616 0096 8D4B     		ldr	r3, .L30+12
+ 617 0098 1A70     		strb	r2, [r3]
+ 149:Core/Src/u2com.c ****         TxBufU2[1] = 0x03;
+ 618              		.loc 1 149 9 is_stmt 1 view .LVU176
+ 149:Core/Src/u2com.c ****         TxBufU2[1] = 0x03;
+ 619              		.loc 1 149 20 is_stmt 0 view .LVU177
+ 620 009a 0322     		movs	r2, #3
+ 621 009c 5A70     		strb	r2, [r3, #1]
+ 150:Core/Src/u2com.c ****         TxBufU2[2] = 0x0A;
+ 622              		.loc 1 150 9 is_stmt 1 view .LVU178
+ 150:Core/Src/u2com.c ****         TxBufU2[2] = 0x0A;
+ 623              		.loc 1 150 20 is_stmt 0 view .LVU179
+ 624 009e 0732     		adds	r2, r2, #7
+ 625 00a0 9A70     		strb	r2, [r3, #2]
+ 151:Core/Src/u2com.c ****         unsigned short Tmp = 0;
+ 626              		.loc 1 151 9 is_stmt 1 view .LVU180
+ 627              	.LVL26:
+ 152:Core/Src/u2com.c ****         if (Ta > Tset3)
+ 628              		.loc 1 152 9 view .LVU181
+ 152:Core/Src/u2com.c ****         if (Ta > Tset3)
+ 629              		.loc 1 152 16 is_stmt 0 view .LVU182
+ 630 00a2 8B4B     		ldr	r3, .L30+16
+ 631 00a4 1868     		ldr	r0, [r3]
+ 632 00a6 8B4B     		ldr	r3, .L30+20
+ 633 00a8 1D68     		ldr	r5, [r3]
+ 152:Core/Src/u2com.c ****         if (Ta > Tset3)
+ 634              		.loc 1 152 12 view .LVU183
+ 635 00aa A842     		cmp	r0, r5
+ 636 00ac 5DDD     		ble	.L25
+ 153:Core/Src/u2com.c ****             Tmp = Tmp | 0x0001;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 17
+
+
+ 637              		.loc 1 153 17 view .LVU184
+ 638 00ae 0123     		movs	r3, #1
+ 639              	.L11:
+ 640              	.LVL27:
+ 156:Core/Src/u2com.c ****         if (Tb > Tset3)
+ 641              		.loc 1 156 9 is_stmt 1 view .LVU185
+ 156:Core/Src/u2com.c ****         if (Tb > Tset3)
+ 642              		.loc 1 156 16 is_stmt 0 view .LVU186
+ 643 00b0 894A     		ldr	r2, .L30+24
+ 644 00b2 1168     		ldr	r1, [r2]
+ 156:Core/Src/u2com.c ****         if (Tb > Tset3)
+ 645              		.loc 1 156 12 view .LVU187
+ 646 00b4 8D42     		cmp	r5, r1
+ 647 00b6 01DA     		bge	.L13
+ 157:Core/Src/u2com.c ****             Tmp = Tmp | 0x0002;
+ 648              		.loc 1 157 13 is_stmt 1 view .LVU188
+ 157:Core/Src/u2com.c ****             Tmp = Tmp | 0x0002;
+ 649              		.loc 1 157 17 is_stmt 0 view .LVU189
+ 650 00b8 0222     		movs	r2, #2
+ 651 00ba 1343     		orrs	r3, r2
+ 652              	.LVL28:
+ 653              	.L13:
+ 160:Core/Src/u2com.c ****         if (Tc > Tset3)
+ 654              		.loc 1 160 9 is_stmt 1 view .LVU190
+ 160:Core/Src/u2com.c ****         if (Tc > Tset3)
+ 655              		.loc 1 160 16 is_stmt 0 view .LVU191
+ 656 00bc 874A     		ldr	r2, .L30+28
+ 657 00be 1268     		ldr	r2, [r2]
+ 160:Core/Src/u2com.c ****         if (Tc > Tset3)
+ 658              		.loc 1 160 12 view .LVU192
+ 659 00c0 9542     		cmp	r5, r2
+ 660 00c2 54DA     		bge	.L14
+ 161:Core/Src/u2com.c ****             Tmp = Tmp | 0x0004;
+ 661              		.loc 1 161 13 is_stmt 1 view .LVU193
+ 161:Core/Src/u2com.c ****             Tmp = Tmp | 0x0004;
+ 662              		.loc 1 161 17 is_stmt 0 view .LVU194
+ 663 00c4 0425     		movs	r5, #4
+ 664 00c6 2B43     		orrs	r3, r5
+ 665              	.LVL29:
+ 666              	.L15:
+ 164:Core/Src/u2com.c ****         if (FengJiSW != 0)
+ 667              		.loc 1 164 9 is_stmt 1 view .LVU195
+ 164:Core/Src/u2com.c ****         if (FengJiSW != 0)
+ 668              		.loc 1 164 22 is_stmt 0 view .LVU196
+ 669 00c8 854D     		ldr	r5, .L30+32
+ 670 00ca 2D78     		ldrb	r5, [r5]
+ 164:Core/Src/u2com.c ****         if (FengJiSW != 0)
+ 671              		.loc 1 164 12 view .LVU197
+ 672 00cc 002D     		cmp	r5, #0
+ 673 00ce 51D0     		beq	.L16
+ 165:Core/Src/u2com.c ****             Tmp = Tmp | 0x0008;
+ 674              		.loc 1 165 13 is_stmt 1 view .LVU198
+ 165:Core/Src/u2com.c ****             Tmp = Tmp | 0x0008;
+ 675              		.loc 1 165 17 is_stmt 0 view .LVU199
+ 676 00d0 0825     		movs	r5, #8
+ 677 00d2 2B43     		orrs	r3, r5
+ 678              	.LVL30:
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 18
+
+
+ 679              	.L17:
+ 168:Core/Src/u2com.c ****         if (MacFailed != 0)
+ 680              		.loc 1 168 9 is_stmt 1 view .LVU200
+ 168:Core/Src/u2com.c ****         if (MacFailed != 0)
+ 681              		.loc 1 168 23 is_stmt 0 view .LVU201
+ 682 00d4 834D     		ldr	r5, .L30+36
+ 683 00d6 2D78     		ldrb	r5, [r5]
+ 168:Core/Src/u2com.c ****         if (MacFailed != 0)
+ 684              		.loc 1 168 12 view .LVU202
+ 685 00d8 002D     		cmp	r5, #0
+ 686 00da 4ED0     		beq	.L18
+ 169:Core/Src/u2com.c ****             Tmp = Tmp | 0x0010;
+ 687              		.loc 1 169 13 is_stmt 1 view .LVU203
+ 169:Core/Src/u2com.c ****             Tmp = Tmp | 0x0010;
+ 688              		.loc 1 169 17 is_stmt 0 view .LVU204
+ 689 00dc 1025     		movs	r5, #16
+ 690 00de 2B43     		orrs	r3, r5
+ 691              	.LVL31:
+ 692              	.L19:
+ 172:Core/Src/u2com.c ****         if (OverTemp != 0)
+ 693              		.loc 1 172 9 is_stmt 1 view .LVU205
+ 172:Core/Src/u2com.c ****         if (OverTemp != 0)
+ 694              		.loc 1 172 22 is_stmt 0 view .LVU206
+ 695 00e0 814D     		ldr	r5, .L30+40
+ 696 00e2 2D78     		ldrb	r5, [r5]
+ 172:Core/Src/u2com.c ****         if (OverTemp != 0)
+ 697              		.loc 1 172 12 view .LVU207
+ 698 00e4 002D     		cmp	r5, #0
+ 699 00e6 4BD0     		beq	.L20
+ 173:Core/Src/u2com.c ****             Tmp = Tmp | 0x0020;
+ 700              		.loc 1 173 13 is_stmt 1 view .LVU208
+ 173:Core/Src/u2com.c ****             Tmp = Tmp | 0x0020;
+ 701              		.loc 1 173 17 is_stmt 0 view .LVU209
+ 702 00e8 2025     		movs	r5, #32
+ 703 00ea 2B43     		orrs	r3, r5
+ 704              	.LVL32:
+ 705              	.L21:
+ 176:Core/Src/u2com.c ****         TxBufU2[3] = Tmp >> 8;
+ 706              		.loc 1 176 9 is_stmt 1 view .LVU210
+ 176:Core/Src/u2com.c ****         TxBufU2[3] = Tmp >> 8;
+ 707              		.loc 1 176 20 is_stmt 0 view .LVU211
+ 708 00ec 774D     		ldr	r5, .L30+12
+ 709 00ee 1E0A     		lsrs	r6, r3, #8
+ 710 00f0 EE70     		strb	r6, [r5, #3]
+ 177:Core/Src/u2com.c ****         TxBufU2[4] = Tmp >> 0;
+ 711              		.loc 1 177 9 is_stmt 1 view .LVU212
+ 177:Core/Src/u2com.c ****         TxBufU2[4] = Tmp >> 0;
+ 712              		.loc 1 177 20 is_stmt 0 view .LVU213
+ 713 00f2 2B71     		strb	r3, [r5, #4]
+ 178:Core/Src/u2com.c ****         signed short Txxx = 0;
+ 714              		.loc 1 178 9 is_stmt 1 view .LVU214
+ 715              	.LVL33:
+ 179:Core/Src/u2com.c ****         Txxx = Ta * 10 + 0x23;
+ 716              		.loc 1 179 9 view .LVU215
+ 179:Core/Src/u2com.c ****         Txxx = Ta * 10 + 0x23;
+ 717              		.loc 1 179 24 is_stmt 0 view .LVU216
+ 718 00f4 8300     		lsls	r3, r0, #2
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 19
+
+
+ 719              	.LVL34:
+ 179:Core/Src/u2com.c ****         Txxx = Ta * 10 + 0x23;
+ 720              		.loc 1 179 24 view .LVU217
+ 721 00f6 C318     		adds	r3, r0, r3
+ 722 00f8 5B00     		lsls	r3, r3, #1
+ 723 00fa 2333     		adds	r3, r3, #35
+ 179:Core/Src/u2com.c ****         Txxx = Ta * 10 + 0x23;
+ 724              		.loc 1 179 14 view .LVU218
+ 725 00fc 18B2     		sxth	r0, r3
+ 726              	.LVL35:
+ 180:Core/Src/u2com.c ****         TxBufU2[5] = Txxx >> 8;
+ 727              		.loc 1 180 9 is_stmt 1 view .LVU219
+ 180:Core/Src/u2com.c ****         TxBufU2[5] = Txxx >> 8;
+ 728              		.loc 1 180 20 is_stmt 0 view .LVU220
+ 729 00fe 0012     		asrs	r0, r0, #8
+ 730              	.LVL36:
+ 180:Core/Src/u2com.c ****         TxBufU2[5] = Txxx >> 8;
+ 731              		.loc 1 180 20 view .LVU221
+ 732 0100 6871     		strb	r0, [r5, #5]
+ 181:Core/Src/u2com.c ****         TxBufU2[6] = Txxx >> 0;
+ 733              		.loc 1 181 9 is_stmt 1 view .LVU222
+ 181:Core/Src/u2com.c ****         TxBufU2[6] = Txxx >> 0;
+ 734              		.loc 1 181 20 is_stmt 0 view .LVU223
+ 735 0102 AB71     		strb	r3, [r5, #6]
+ 182:Core/Src/u2com.c ****         Txxx = Tb * 10 + 0x23;
+ 736              		.loc 1 182 9 is_stmt 1 view .LVU224
+ 182:Core/Src/u2com.c ****         Txxx = Tb * 10 + 0x23;
+ 737              		.loc 1 182 24 is_stmt 0 view .LVU225
+ 738 0104 8B00     		lsls	r3, r1, #2
+ 739              	.LVL37:
+ 182:Core/Src/u2com.c ****         Txxx = Tb * 10 + 0x23;
+ 740              		.loc 1 182 24 view .LVU226
+ 741 0106 CB18     		adds	r3, r1, r3
+ 742 0108 5B00     		lsls	r3, r3, #1
+ 743 010a 2333     		adds	r3, r3, #35
+ 182:Core/Src/u2com.c ****         Txxx = Tb * 10 + 0x23;
+ 744              		.loc 1 182 14 view .LVU227
+ 745 010c 19B2     		sxth	r1, r3
+ 746              	.LVL38:
+ 183:Core/Src/u2com.c ****         TxBufU2[7] = Txxx >> 8;
+ 747              		.loc 1 183 9 is_stmt 1 view .LVU228
+ 183:Core/Src/u2com.c ****         TxBufU2[7] = Txxx >> 8;
+ 748              		.loc 1 183 20 is_stmt 0 view .LVU229
+ 749 010e 0912     		asrs	r1, r1, #8
+ 750              	.LVL39:
+ 183:Core/Src/u2com.c ****         TxBufU2[7] = Txxx >> 8;
+ 751              		.loc 1 183 20 view .LVU230
+ 752 0110 E971     		strb	r1, [r5, #7]
+ 184:Core/Src/u2com.c ****         TxBufU2[8] = Txxx >> 0;
+ 753              		.loc 1 184 9 is_stmt 1 view .LVU231
+ 184:Core/Src/u2com.c ****         TxBufU2[8] = Txxx >> 0;
+ 754              		.loc 1 184 20 is_stmt 0 view .LVU232
+ 755 0112 2B72     		strb	r3, [r5, #8]
+ 185:Core/Src/u2com.c ****         Txxx = Tc * 10 + 0x23;
+ 756              		.loc 1 185 9 is_stmt 1 view .LVU233
+ 185:Core/Src/u2com.c ****         Txxx = Tc * 10 + 0x23;
+ 757              		.loc 1 185 24 is_stmt 0 view .LVU234
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 20
+
+
+ 758 0114 9300     		lsls	r3, r2, #2
+ 759              	.LVL40:
+ 185:Core/Src/u2com.c ****         Txxx = Tc * 10 + 0x23;
+ 760              		.loc 1 185 24 view .LVU235
+ 761 0116 D318     		adds	r3, r2, r3
+ 762 0118 5B00     		lsls	r3, r3, #1
+ 763 011a 2333     		adds	r3, r3, #35
+ 185:Core/Src/u2com.c ****         Txxx = Tc * 10 + 0x23;
+ 764              		.loc 1 185 14 view .LVU236
+ 765 011c 1AB2     		sxth	r2, r3
+ 766              	.LVL41:
+ 186:Core/Src/u2com.c ****         TxBufU2[9] = Txxx >> 8;
+ 767              		.loc 1 186 9 is_stmt 1 view .LVU237
+ 186:Core/Src/u2com.c ****         TxBufU2[9] = Txxx >> 8;
+ 768              		.loc 1 186 20 is_stmt 0 view .LVU238
+ 769 011e 1212     		asrs	r2, r2, #8
+ 770              	.LVL42:
+ 186:Core/Src/u2com.c ****         TxBufU2[9] = Txxx >> 8;
+ 771              		.loc 1 186 20 view .LVU239
+ 772 0120 6A72     		strb	r2, [r5, #9]
+ 187:Core/Src/u2com.c ****         TxBufU2[10] = Txxx >> 0;
+ 773              		.loc 1 187 9 is_stmt 1 view .LVU240
+ 187:Core/Src/u2com.c ****         TxBufU2[10] = Txxx >> 0;
+ 774              		.loc 1 187 21 is_stmt 0 view .LVU241
+ 775 0122 AB72     		strb	r3, [r5, #10]
+ 188:Core/Src/u2com.c ****         TxBufU2[11] = FenH >> 8;
+ 776              		.loc 1 188 9 is_stmt 1 view .LVU242
+ 188:Core/Src/u2com.c ****         TxBufU2[11] = FenH >> 8;
+ 777              		.loc 1 188 28 is_stmt 0 view .LVU243
+ 778 0124 714B     		ldr	r3, .L30+44
+ 779              	.LVL43:
+ 188:Core/Src/u2com.c ****         TxBufU2[11] = FenH >> 8;
+ 780              		.loc 1 188 28 view .LVU244
+ 781 0126 1B68     		ldr	r3, [r3]
+ 782 0128 1A0A     		lsrs	r2, r3, #8
+ 188:Core/Src/u2com.c ****         TxBufU2[11] = FenH >> 8;
+ 783              		.loc 1 188 21 view .LVU245
+ 784 012a EA72     		strb	r2, [r5, #11]
+ 189:Core/Src/u2com.c ****         TxBufU2[12] = FenH >> 0;
+ 785              		.loc 1 189 9 is_stmt 1 view .LVU246
+ 189:Core/Src/u2com.c ****         TxBufU2[12] = FenH >> 0;
+ 786              		.loc 1 189 21 is_stmt 0 view .LVU247
+ 787 012c 2B73     		strb	r3, [r5, #12]
+ 190:Core/Src/u2com.c ****         unsigned short crc1, crc2;
+ 788              		.loc 1 190 9 is_stmt 1 view .LVU248
+ 191:Core/Src/u2com.c ****         crc1 = crc2 = CRC16x(TxBufU2, 13);
+ 789              		.loc 1 191 9 view .LVU249
+ 191:Core/Src/u2com.c ****         crc1 = crc2 = CRC16x(TxBufU2, 13);
+ 790              		.loc 1 191 23 is_stmt 0 view .LVU250
+ 791 012e 0D21     		movs	r1, #13
+ 792 0130 2800     		movs	r0, r5
+ 793 0132 FFF7FEFF 		bl	CRC16x
+ 794              	.LVL44:
+ 192:Core/Src/u2com.c ****         TxBufU2[13] = ((crc1)&0xff);
+ 795              		.loc 1 192 9 is_stmt 1 view .LVU251
+ 192:Core/Src/u2com.c ****         TxBufU2[13] = ((crc1)&0xff);
+ 796              		.loc 1 192 21 is_stmt 0 view .LVU252
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 21
+
+
+ 797 0136 6873     		strb	r0, [r5, #13]
+ 193:Core/Src/u2com.c ****         TxBufU2[14] = ((crc2 >> 8) & 0xff);
+ 798              		.loc 1 193 9 is_stmt 1 view .LVU253
+ 193:Core/Src/u2com.c ****         TxBufU2[14] = ((crc2 >> 8) & 0xff);
+ 799              		.loc 1 193 21 is_stmt 0 view .LVU254
+ 800 0138 000A     		lsrs	r0, r0, #8
+ 801              	.LVL45:
+ 193:Core/Src/u2com.c ****         TxBufU2[14] = ((crc2 >> 8) & 0xff);
+ 802              		.loc 1 193 21 view .LVU255
+ 803 013a A873     		strb	r0, [r5, #14]
+ 195:Core/Src/u2com.c ****         TxEn;
+ 804              		.loc 1 195 9 is_stmt 1 view .LVU256
+ 805 013c 9020     		movs	r0, #144
+ 806 013e 0122     		movs	r2, #1
+ 807 0140 0221     		movs	r1, #2
+ 808 0142 C005     		lsls	r0, r0, #23
+ 809 0144 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 810              	.LVL46:
+ 196:Core/Src/u2com.c ****         ADCPause;
+ 811              		.loc 1 196 9 view .LVU257
+ 812 0148 694E     		ldr	r6, .L30+48
+ 813 014a 3000     		movs	r0, r6
+ 814 014c FFF7FEFF 		bl	HAL_ADC_Stop_DMA
+ 815              	.LVL47:
+ 197:Core/Src/u2com.c ****         HAL_UART_Transmit(huart, TxBufU2, 15, 100);
+ 816              		.loc 1 197 9 view .LVU258
+ 817 0150 6423     		movs	r3, #100
+ 818 0152 0F22     		movs	r2, #15
+ 819 0154 2900     		movs	r1, r5
+ 820 0156 2000     		movs	r0, r4
+ 821 0158 FFF7FEFF 		bl	HAL_UART_Transmit
+ 822              	.LVL48:
+ 198:Core/Src/u2com.c ****         ADCContinue;
+ 823              		.loc 1 198 9 view .LVU259
+ 824 015c FA22     		movs	r2, #250
+ 825 015e 5200     		lsls	r2, r2, #1
+ 826 0160 6449     		ldr	r1, .L30+52
+ 827 0162 3000     		movs	r0, r6
+ 828 0164 FFF7FEFF 		bl	HAL_ADC_Start_DMA
+ 829              	.LVL49:
+ 830 0168 63E7     		b	.L10
+ 831              	.LVL50:
+ 832              	.L25:
+ 155:Core/Src/u2com.c ****             Tmp = Tmp & (~0x0001);
+ 833              		.loc 1 155 17 is_stmt 0 view .LVU260
+ 834 016a 0023     		movs	r3, #0
+ 835 016c A0E7     		b	.L11
+ 836              	.LVL51:
+ 837              	.L14:
+ 163:Core/Src/u2com.c ****             Tmp = Tmp & (~0x0004);
+ 838              		.loc 1 163 13 is_stmt 1 view .LVU261
+ 163:Core/Src/u2com.c ****             Tmp = Tmp & (~0x0004);
+ 839              		.loc 1 163 17 is_stmt 0 view .LVU262
+ 840 016e 0425     		movs	r5, #4
+ 841 0170 AB43     		bics	r3, r5
+ 842              	.LVL52:
+ 163:Core/Src/u2com.c ****             Tmp = Tmp & (~0x0004);
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 22
+
+
+ 843              		.loc 1 163 17 view .LVU263
+ 844 0172 A9E7     		b	.L15
+ 845              	.L16:
+ 167:Core/Src/u2com.c ****             Tmp = Tmp & (~0x0008);
+ 846              		.loc 1 167 13 is_stmt 1 view .LVU264
+ 167:Core/Src/u2com.c ****             Tmp = Tmp & (~0x0008);
+ 847              		.loc 1 167 17 is_stmt 0 view .LVU265
+ 848 0174 0825     		movs	r5, #8
+ 849 0176 AB43     		bics	r3, r5
+ 850              	.LVL53:
+ 167:Core/Src/u2com.c ****             Tmp = Tmp & (~0x0008);
+ 851              		.loc 1 167 17 view .LVU266
+ 852 0178 ACE7     		b	.L17
+ 853              	.L18:
+ 171:Core/Src/u2com.c ****             Tmp = Tmp & (~0x0010);
+ 854              		.loc 1 171 13 is_stmt 1 view .LVU267
+ 171:Core/Src/u2com.c ****             Tmp = Tmp & (~0x0010);
+ 855              		.loc 1 171 17 is_stmt 0 view .LVU268
+ 856 017a 1025     		movs	r5, #16
+ 857 017c AB43     		bics	r3, r5
+ 858              	.LVL54:
+ 171:Core/Src/u2com.c ****             Tmp = Tmp & (~0x0010);
+ 859              		.loc 1 171 17 view .LVU269
+ 860 017e AFE7     		b	.L19
+ 861              	.L20:
+ 175:Core/Src/u2com.c ****             Tmp = Tmp & (~0x0020);
+ 862              		.loc 1 175 13 is_stmt 1 view .LVU270
+ 175:Core/Src/u2com.c ****             Tmp = Tmp & (~0x0020);
+ 863              		.loc 1 175 17 is_stmt 0 view .LVU271
+ 864 0180 2025     		movs	r5, #32
+ 865 0182 AB43     		bics	r3, r5
+ 866              	.LVL55:
+ 175:Core/Src/u2com.c ****             Tmp = Tmp & (~0x0020);
+ 867              		.loc 1 175 17 view .LVU272
+ 868 0184 B2E7     		b	.L21
+ 869              	.LVL56:
+ 870              	.L27:
+ 175:Core/Src/u2com.c ****             Tmp = Tmp & (~0x0020);
+ 871              		.loc 1 175 17 view .LVU273
+ 872              	.LBE2:
+ 202:Core/Src/u2com.c ****         RxBufU2[1] == 0x04 &&
+ 873              		.loc 1 202 16 view .LVU274
+ 874 0186 4F4B     		ldr	r3, .L30+4
+ 875 0188 5B78     		ldrb	r3, [r3, #1]
+ 201:Core/Src/u2com.c ****         RxBufU2[0] == 0xFA &&
+ 876              		.loc 1 201 28 view .LVU275
+ 877 018a 042B     		cmp	r3, #4
+ 878 018c 00D0     		beq	.LCB775
+ 879 018e 55E7     		b	.L22	@long jump
+ 880              	.LCB775:
+ 203:Core/Src/u2com.c ****         RxBufU2[2] == 0xD1 &&
+ 881              		.loc 1 203 16 view .LVU276
+ 882 0190 4C4B     		ldr	r3, .L30+4
+ 883 0192 9B78     		ldrb	r3, [r3, #2]
+ 202:Core/Src/u2com.c ****         RxBufU2[1] == 0x04 &&
+ 884              		.loc 1 202 28 view .LVU277
+ 885 0194 D12B     		cmp	r3, #209
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 23
+
+
+ 886 0196 00D0     		beq	.LCB779
+ 887 0198 50E7     		b	.L22	@long jump
+ 888              	.LCB779:
+ 204:Core/Src/u2com.c ****         RxBufU2[5] == 0xFB && RxLenU2 == 6)
+ 889              		.loc 1 204 16 view .LVU278
+ 890 019a 4A4B     		ldr	r3, .L30+4
+ 891 019c 5B79     		ldrb	r3, [r3, #5]
+ 203:Core/Src/u2com.c ****         RxBufU2[2] == 0xD1 &&
+ 892              		.loc 1 203 28 view .LVU279
+ 893 019e FB2B     		cmp	r3, #251
+ 894 01a0 00D0     		beq	.LCB783
+ 895 01a2 4BE7     		b	.L22	@long jump
+ 896              	.LCB783:
+ 204:Core/Src/u2com.c ****         RxBufU2[5] == 0xFB && RxLenU2 == 6)
+ 897              		.loc 1 204 39 view .LVU280
+ 898 01a4 464B     		ldr	r3, .L30
+ 899 01a6 1B88     		ldrh	r3, [r3]
+ 204:Core/Src/u2com.c ****         RxBufU2[5] == 0xFB && RxLenU2 == 6)
+ 900              		.loc 1 204 28 view .LVU281
+ 901 01a8 062B     		cmp	r3, #6
+ 902 01aa 00D0     		beq	.LCB787
+ 903 01ac 46E7     		b	.L22	@long jump
+ 904              	.LCB787:
+ 206:Core/Src/u2com.c ****         MODAutoManuONOFF = RxBufU2[3];
+ 905              		.loc 1 206 9 is_stmt 1 view .LVU282
+ 206:Core/Src/u2com.c ****         MODAutoManuONOFF = RxBufU2[3];
+ 906              		.loc 1 206 35 is_stmt 0 view .LVU283
+ 907 01ae 454E     		ldr	r6, .L30+4
+ 908 01b0 F278     		ldrb	r2, [r6, #3]
+ 206:Core/Src/u2com.c ****         MODAutoManuONOFF = RxBufU2[3];
+ 909              		.loc 1 206 26 view .LVU284
+ 910 01b2 514B     		ldr	r3, .L30+56
+ 911 01b4 1A70     		strb	r2, [r3]
+ 207:Core/Src/u2com.c ****         ADCPause;
+ 912              		.loc 1 207 9 is_stmt 1 view .LVU285
+ 913 01b6 4E4D     		ldr	r5, .L30+48
+ 914 01b8 2800     		movs	r0, r5
+ 915 01ba FFF7FEFF 		bl	HAL_ADC_Stop_DMA
+ 916              	.LVL57:
+ 208:Core/Src/u2com.c ****         TxEn;
+ 917              		.loc 1 208 9 view .LVU286
+ 918 01be 9020     		movs	r0, #144
+ 919 01c0 0122     		movs	r2, #1
+ 920 01c2 0221     		movs	r1, #2
+ 921 01c4 C005     		lsls	r0, r0, #23
+ 922 01c6 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 923              	.LVL58:
+ 209:Core/Src/u2com.c ****         HAL_UART_Transmit(huart, RxBufU2, rsRxIndex, 100);
+ 924              		.loc 1 209 9 view .LVU287
+ 925 01ca 4C4B     		ldr	r3, .L30+60
+ 926 01cc 1A88     		ldrh	r2, [r3]
+ 927 01ce 6423     		movs	r3, #100
+ 928 01d0 3100     		movs	r1, r6
+ 929 01d2 2000     		movs	r0, r4
+ 930 01d4 FFF7FEFF 		bl	HAL_UART_Transmit
+ 931              	.LVL59:
+ 210:Core/Src/u2com.c ****         ADCContinue;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 24
+
+
+ 932              		.loc 1 210 9 view .LVU288
+ 933 01d8 FA22     		movs	r2, #250
+ 934 01da 5200     		lsls	r2, r2, #1
+ 935 01dc 4549     		ldr	r1, .L30+52
+ 936 01de 2800     		movs	r0, r5
+ 937 01e0 FFF7FEFF 		bl	HAL_ADC_Start_DMA
+ 938              	.LVL60:
+ 939 01e4 2AE7     		b	.L22
+ 940              	.L28:
+ 215:Core/Src/u2com.c ****         RxBufU2[1] == 0x04 &&
+ 941              		.loc 1 215 16 is_stmt 0 view .LVU289
+ 942 01e6 374B     		ldr	r3, .L30+4
+ 943 01e8 5B78     		ldrb	r3, [r3, #1]
+ 214:Core/Src/u2com.c ****         RxBufU2[0] == 0xFA &&
+ 944              		.loc 1 214 28 view .LVU290
+ 945 01ea 042B     		cmp	r3, #4
+ 946 01ec 00D0     		beq	.LCB824
+ 947 01ee 2AE7     		b	.L23	@long jump
+ 948              	.LCB824:
+ 216:Core/Src/u2com.c ****         RxBufU2[2] == 0xD2 &&
+ 949              		.loc 1 216 16 view .LVU291
+ 950 01f0 344B     		ldr	r3, .L30+4
+ 951 01f2 9B78     		ldrb	r3, [r3, #2]
+ 215:Core/Src/u2com.c ****         RxBufU2[1] == 0x04 &&
+ 952              		.loc 1 215 28 view .LVU292
+ 953 01f4 D22B     		cmp	r3, #210
+ 954 01f6 00D0     		beq	.LCB828
+ 955 01f8 25E7     		b	.L23	@long jump
+ 956              	.LCB828:
+ 217:Core/Src/u2com.c ****         RxBufU2[5] == 0xFB && RxLenU2 == 6)
+ 957              		.loc 1 217 16 view .LVU293
+ 958 01fa 324B     		ldr	r3, .L30+4
+ 959 01fc 5B79     		ldrb	r3, [r3, #5]
+ 216:Core/Src/u2com.c ****         RxBufU2[2] == 0xD2 &&
+ 960              		.loc 1 216 28 view .LVU294
+ 961 01fe FB2B     		cmp	r3, #251
+ 962 0200 00D0     		beq	.LCB832
+ 963 0202 20E7     		b	.L23	@long jump
+ 964              	.LCB832:
+ 217:Core/Src/u2com.c ****         RxBufU2[5] == 0xFB && RxLenU2 == 6)
+ 965              		.loc 1 217 39 view .LVU295
+ 966 0204 2E4B     		ldr	r3, .L30
+ 967 0206 1B88     		ldrh	r3, [r3]
+ 217:Core/Src/u2com.c ****         RxBufU2[5] == 0xFB && RxLenU2 == 6)
+ 968              		.loc 1 217 28 view .LVU296
+ 969 0208 062B     		cmp	r3, #6
+ 970 020a 00D0     		beq	.LCB836
+ 971 020c 1BE7     		b	.L23	@long jump
+ 972              	.LCB836:
+ 219:Core/Src/u2com.c ****         goBeep = RxBufU2[3];
+ 973              		.loc 1 219 9 is_stmt 1 view .LVU297
+ 219:Core/Src/u2com.c ****         goBeep = RxBufU2[3];
+ 974              		.loc 1 219 25 is_stmt 0 view .LVU298
+ 975 020e 2D4E     		ldr	r6, .L30+4
+ 976 0210 F278     		ldrb	r2, [r6, #3]
+ 219:Core/Src/u2com.c ****         goBeep = RxBufU2[3];
+ 977              		.loc 1 219 16 view .LVU299
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 25
+
+
+ 978 0212 3B4B     		ldr	r3, .L30+64
+ 979 0214 1A70     		strb	r2, [r3]
+ 220:Core/Src/u2com.c ****         ADCPause;
+ 980              		.loc 1 220 9 is_stmt 1 view .LVU300
+ 981 0216 364D     		ldr	r5, .L30+48
+ 982 0218 2800     		movs	r0, r5
+ 983 021a FFF7FEFF 		bl	HAL_ADC_Stop_DMA
+ 984              	.LVL61:
+ 221:Core/Src/u2com.c ****         TxEn;
+ 985              		.loc 1 221 9 view .LVU301
+ 986 021e 9020     		movs	r0, #144
+ 987 0220 0122     		movs	r2, #1
+ 988 0222 0221     		movs	r1, #2
+ 989 0224 C005     		lsls	r0, r0, #23
+ 990 0226 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 991              	.LVL62:
+ 222:Core/Src/u2com.c ****         HAL_UART_Transmit(huart, RxBufU2, rsRxIndex, 100);
+ 992              		.loc 1 222 9 view .LVU302
+ 993 022a 344B     		ldr	r3, .L30+60
+ 994 022c 1A88     		ldrh	r2, [r3]
+ 995 022e 6423     		movs	r3, #100
+ 996 0230 3100     		movs	r1, r6
+ 997 0232 2000     		movs	r0, r4
+ 998 0234 FFF7FEFF 		bl	HAL_UART_Transmit
+ 999              	.LVL63:
+ 223:Core/Src/u2com.c ****         ADCContinue;
+ 1000              		.loc 1 223 9 view .LVU303
+ 1001 0238 FA22     		movs	r2, #250
+ 1002 023a 5200     		lsls	r2, r2, #1
+ 1003 023c 2D49     		ldr	r1, .L30+52
+ 1004 023e 2800     		movs	r0, r5
+ 1005 0240 FFF7FEFF 		bl	HAL_ADC_Start_DMA
+ 1006              	.LVL64:
+ 1007 0244 FFE6     		b	.L23
+ 1008              	.L29:
+ 228:Core/Src/u2com.c ****         RxBufU2[1] == 0x04 &&
+ 1009              		.loc 1 228 16 is_stmt 0 view .LVU304
+ 1010 0246 1F4B     		ldr	r3, .L30+4
+ 1011 0248 5B78     		ldrb	r3, [r3, #1]
+ 227:Core/Src/u2com.c ****         RxBufU2[0] == 0xFA &&
+ 1012              		.loc 1 227 28 view .LVU305
+ 1013 024a 042B     		cmp	r3, #4
+ 1014 024c 00D0     		beq	.LCB873
+ 1015 024e FFE6     		b	.L24	@long jump
+ 1016              	.LCB873:
+ 229:Core/Src/u2com.c ****         RxBufU2[2] == 0xF1 &&
+ 1017              		.loc 1 229 16 view .LVU306
+ 1018 0250 1C4B     		ldr	r3, .L30+4
+ 1019 0252 9B78     		ldrb	r3, [r3, #2]
+ 228:Core/Src/u2com.c ****         RxBufU2[1] == 0x04 &&
+ 1020              		.loc 1 228 28 view .LVU307
+ 1021 0254 F12B     		cmp	r3, #241
+ 1022 0256 00D0     		beq	.LCB877
+ 1023 0258 FAE6     		b	.L24	@long jump
+ 1024              	.LCB877:
+ 230:Core/Src/u2com.c ****         RxBufU2[5] == 0xFB && RxLenU2 == 6)
+ 1025              		.loc 1 230 16 view .LVU308
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 26
+
+
+ 1026 025a 1A4B     		ldr	r3, .L30+4
+ 1027 025c 5B79     		ldrb	r3, [r3, #5]
+ 229:Core/Src/u2com.c ****         RxBufU2[2] == 0xF1 &&
+ 1028              		.loc 1 229 28 view .LVU309
+ 1029 025e FB2B     		cmp	r3, #251
+ 1030 0260 00D0     		beq	.LCB881
+ 1031 0262 F5E6     		b	.L24	@long jump
+ 1032              	.LCB881:
+ 230:Core/Src/u2com.c ****         RxBufU2[5] == 0xFB && RxLenU2 == 6)
+ 1033              		.loc 1 230 39 view .LVU310
+ 1034 0264 164B     		ldr	r3, .L30
+ 1035 0266 1B88     		ldrh	r3, [r3]
+ 230:Core/Src/u2com.c ****         RxBufU2[5] == 0xFB && RxLenU2 == 6)
+ 1036              		.loc 1 230 28 view .LVU311
+ 1037 0268 062B     		cmp	r3, #6
+ 1038 026a 00D0     		beq	.LCB885
+ 1039 026c F0E6     		b	.L24	@long jump
+ 1040              	.LCB885:
+ 1041              	.LBB3:
+ 232:Core/Src/u2com.c ****         i = 0;
+ 1042              		.loc 1 232 9 is_stmt 1 view .LVU312
+ 233:Core/Src/u2com.c ****         TxBufU2[i++] = 0xFA;
+ 1043              		.loc 1 233 9 view .LVU313
+ 1044              	.LVL65:
+ 233:Core/Src/u2com.c ****         TxBufU2[i++] = 0xFA;
+ 1045              		.loc 1 233 22 is_stmt 0 view .LVU314
+ 1046 026e 174D     		ldr	r5, .L30+12
+ 1047 0270 F433     		adds	r3, r3, #244
+ 1048 0272 2B70     		strb	r3, [r5]
+ 234:Core/Src/u2com.c ****         TxBufU2[i++] = 0x04;
+ 1049              		.loc 1 234 9 is_stmt 1 view .LVU315
+ 1050              	.LVL66:
+ 234:Core/Src/u2com.c ****         TxBufU2[i++] = 0x04;
+ 1051              		.loc 1 234 22 is_stmt 0 view .LVU316
+ 1052 0274 F63B     		subs	r3, r3, #246
+ 1053 0276 6B70     		strb	r3, [r5, #1]
+ 235:Core/Src/u2com.c ****         TxBufU2[i++] = 0xF1;
+ 1054              		.loc 1 235 9 is_stmt 1 view .LVU317
+ 1055              	.LVL67:
+ 235:Core/Src/u2com.c ****         TxBufU2[i++] = 0xF1;
+ 1056              		.loc 1 235 22 is_stmt 0 view .LVU318
+ 1057 0278 ED33     		adds	r3, r3, #237
+ 1058 027a AB70     		strb	r3, [r5, #2]
+ 236:Core/Src/u2com.c ****         unsigned int sDataLen = sizeof(sRundata);
+ 1059              		.loc 1 236 9 is_stmt 1 view .LVU319
+ 1060              	.LVL68:
+ 237:Core/Src/u2com.c ****         LoadReadData();
+ 1061              		.loc 1 237 9 view .LVU320
+ 1062 027c FFF7FEFF 		bl	LoadReadData
+ 1063              	.LVL69:
+ 238:Core/Src/u2com.c ****         memcpy(&TxBufU2[i], (unsigned char *)&sRundata, sDataLen);
+ 1064              		.loc 1 238 9 view .LVU321
+ 1065 0280 E81C     		adds	r0, r5, #3
+ 1066 0282 8122     		movs	r2, #129
+ 1067 0284 1F49     		ldr	r1, .L30+68
+ 1068 0286 FFF7FEFF 		bl	memcpy
+ 1069              	.LVL70:
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 27
+
+
+ 239:Core/Src/u2com.c ****         i = i + sDataLen;
+ 1070              		.loc 1 239 9 view .LVU322
+ 240:Core/Src/u2com.c ****         TxBufU2[i++] = 0xFB;
+ 1071              		.loc 1 240 9 view .LVU323
+ 240:Core/Src/u2com.c ****         TxBufU2[i++] = 0xFB;
+ 1072              		.loc 1 240 22 is_stmt 0 view .LVU324
+ 1073 028a 8423     		movs	r3, #132
+ 1074 028c FB22     		movs	r2, #251
+ 1075 028e EA54     		strb	r2, [r5, r3]
+ 241:Core/Src/u2com.c ****         ADCPause;
+ 1076              		.loc 1 241 9 is_stmt 1 view .LVU325
+ 1077 0290 174E     		ldr	r6, .L30+48
+ 1078 0292 3000     		movs	r0, r6
+ 1079 0294 FFF7FEFF 		bl	HAL_ADC_Stop_DMA
+ 1080              	.LVL71:
+ 242:Core/Src/u2com.c ****         TxEn;
+ 1081              		.loc 1 242 9 view .LVU326
+ 1082 0298 9020     		movs	r0, #144
+ 1083 029a 0122     		movs	r2, #1
+ 1084 029c 0221     		movs	r1, #2
+ 1085 029e C005     		lsls	r0, r0, #23
+ 1086 02a0 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1087              	.LVL72:
+ 243:Core/Src/u2com.c ****         HAL_UART_Transmit(huart, TxBufU2, i, 100);
+ 1088              		.loc 1 243 9 view .LVU327
+ 1089 02a4 6423     		movs	r3, #100
+ 1090 02a6 8522     		movs	r2, #133
+ 1091 02a8 2900     		movs	r1, r5
+ 1092 02aa 2000     		movs	r0, r4
+ 1093 02ac FFF7FEFF 		bl	HAL_UART_Transmit
+ 1094              	.LVL73:
+ 244:Core/Src/u2com.c ****         ADCContinue;
+ 1095              		.loc 1 244 9 view .LVU328
+ 1096 02b0 FA22     		movs	r2, #250
+ 1097 02b2 5200     		lsls	r2, r2, #1
+ 1098 02b4 0F49     		ldr	r1, .L30+52
+ 1099 02b6 3000     		movs	r0, r6
+ 1100 02b8 FFF7FEFF 		bl	HAL_ADC_Start_DMA
+ 1101              	.LVL74:
+ 1102 02bc C8E6     		b	.L24
+ 1103              	.L31:
+ 1104 02be C046     		.align	2
+ 1105              	.L30:
+ 1106 02c0 00000000 		.word	.LANCHOR0
+ 1107 02c4 00000000 		.word	RxBufU2
+ 1108 02c8 00000000 		.word	addr
+ 1109 02cc 00000000 		.word	TxBufU2
+ 1110 02d0 00000000 		.word	Ta
+ 1111 02d4 00000000 		.word	Tset3
+ 1112 02d8 00000000 		.word	Tb
+ 1113 02dc 00000000 		.word	Tc
+ 1114 02e0 00000000 		.word	FengJiSW
+ 1115 02e4 00000000 		.word	MacFailed
+ 1116 02e8 00000000 		.word	OverTemp
+ 1117 02ec 00000000 		.word	FenH
+ 1118 02f0 00000000 		.word	hadc
+ 1119 02f4 00000000 		.word	AdDataOrig
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 28
+
+
+ 1120 02f8 00000000 		.word	MODAutoManuONOFF
+ 1121 02fc 00000000 		.word	.LANCHOR1
+ 1122 0300 00000000 		.word	goBeep
+ 1123 0304 00000000 		.word	sRundata
+ 1124              	.LBE3:
+ 1125              		.cfi_endproc
+ 1126              	.LFE45:
+ 1128              		.global	rsRxBuf
+ 1129              		.global	rsRxLen
+ 1130              		.global	rsRxTime
+ 1131              		.global	rsPackFlag
+ 1132              		.global	rsRxIndex
+ 1133              		.global	RxLenU2
+ 1134              		.global	TxBufU2
+ 1135              		.global	RxBufU2
+ 1136              		.global	sRundata
+ 1137              		.section	.bss.RxBufU2,"aw",%nobits
+ 1138              		.align	2
+ 1141              	RxBufU2:
+ 1142 0000 00000000 		.space	500
+ 1142      00000000 
+ 1142      00000000 
+ 1142      00000000 
+ 1142      00000000 
+ 1143              		.section	.bss.RxLenU2,"aw",%nobits
+ 1144              		.align	1
+ 1145              		.set	.LANCHOR0,. + 0
+ 1148              	RxLenU2:
+ 1149 0000 0000     		.space	2
+ 1150              		.section	.bss.TxBufU2,"aw",%nobits
+ 1151              		.align	2
+ 1154              	TxBufU2:
+ 1155 0000 00000000 		.space	200
+ 1155      00000000 
+ 1155      00000000 
+ 1155      00000000 
+ 1155      00000000 
+ 1156              		.section	.bss.rsPackFlag,"aw",%nobits
+ 1159              	rsPackFlag:
+ 1160 0000 00       		.space	1
+ 1161              		.section	.bss.rsRxBuf,"aw",%nobits
+ 1162              		.align	2
+ 1165              	rsRxBuf:
+ 1166 0000 00000000 		.space	200
+ 1166      00000000 
+ 1166      00000000 
+ 1166      00000000 
+ 1166      00000000 
+ 1167              		.section	.bss.rsRxIndex,"aw",%nobits
+ 1168              		.align	1
+ 1169              		.set	.LANCHOR1,. + 0
+ 1172              	rsRxIndex:
+ 1173 0000 0000     		.space	2
+ 1174              		.section	.bss.rsRxLen,"aw",%nobits
+ 1175              		.align	1
+ 1178              	rsRxLen:
+ 1179 0000 0000     		.space	2
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 29
+
+
+ 1180              		.section	.bss.rsRxTime,"aw",%nobits
+ 1181              		.align	1
+ 1184              	rsRxTime:
+ 1185 0000 0000     		.space	2
+ 1186              		.section	.bss.sRundata,"aw",%nobits
+ 1187              		.align	2
+ 1190              	sRundata:
+ 1191 0000 00000000 		.space	129
+ 1191      00000000 
+ 1191      00000000 
+ 1191      00000000 
+ 1191      00000000 
+ 1192              		.section	.rodata.aucCRCHi,"a"
+ 1193              		.align	2
+ 1196              	aucCRCHi:
+ 1197 0000 00C18140 		.ascii	"\000\301\201@\001\300\200A\001\300\200A\000\301\201"
+ 1197      01C08041 
+ 1197      01C08041 
+ 1197      00C181
+ 1198 000f 4001C080 		.ascii	"@\001\300\200A\000\301\201@\000\301\201@\001\300\200"
+ 1198      4100C181 
+ 1198      4000C181 
+ 1198      4001C080 
+ 1199 001f 4101C080 		.ascii	"A\001\300\200A\000\301\201@\000\301\201@\001\300\200"
+ 1199      4100C181 
+ 1199      4000C181 
+ 1199      4001C080 
+ 1200 002f 4100C181 		.ascii	"A\000\301\201@\001\300\200A\001\300\200A\000\301\201"
+ 1200      4001C080 
+ 1200      4101C080 
+ 1200      4100C181 
+ 1201 003f 4001C080 		.ascii	"@\001\300\200A\000\301\201@\000\301\201@\001\300\200"
+ 1201      4100C181 
+ 1201      4000C181 
+ 1201      4001C080 
+ 1202 004f 4100C181 		.ascii	"A\000\301\201@\001\300\200A\001\300\200A\000\301\201"
+ 1202      4001C080 
+ 1202      4101C080 
+ 1202      4100C181 
+ 1203 005f 4000C181 		.ascii	"@\000\301\201@\001\300\200A\001\300\200A\000\301\201"
+ 1203      4001C080 
+ 1203      4101C080 
+ 1203      4100C181 
+ 1204 006f 4001C080 		.ascii	"@\001\300\200A\000\301\201@\000\301\201@\001\300\200"
+ 1204      4100C181 
+ 1204      4000C181 
+ 1204      4001C080 
+ 1205 007f 4101C080 		.ascii	"A\001\300\200A\000\301\201@\000\301\201@\001\300\200"
+ 1205      4100C181 
+ 1205      4000C181 
+ 1205      4001C080 
+ 1206 008f 4100C181 		.ascii	"A\000\301\201@\001\300\200A\001\300\200A\000\301\201"
+ 1206      4001C080 
+ 1206      4101C080 
+ 1206      4100C181 
+ 1207 009f 4000C181 		.ascii	"@\000\301\201@\001\300\200A\001\300\200A\000\301\201"
+ 1207      4001C080 
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 30
+
+
+ 1207      4101C080 
+ 1207      4100C181 
+ 1208 00af 4001C080 		.ascii	"@\001\300\200A\000\301\201@\000\301\201@\001\300\200"
+ 1208      4100C181 
+ 1208      4000C181 
+ 1208      4001C080 
+ 1209 00bf 4100C181 		.ascii	"A\000\301\201@\001\300\200A\001\300\200A\000\301\201"
+ 1209      4001C080 
+ 1209      4101C080 
+ 1209      4100C181 
+ 1210 00cf 4001C080 		.ascii	"@\001\300\200A\000\301\201@\000\301\201@\001\300\200"
+ 1210      4100C181 
+ 1210      4000C181 
+ 1210      4001C080 
+ 1211 00df 4101C080 		.ascii	"A\001\300\200A\000\301\201@\000\301\201@\001\300\200"
+ 1211      4100C181 
+ 1211      4000C181 
+ 1211      4001C080 
+ 1212 00ef 4100C181 		.ascii	"A\000\301\201@\001\300\200A\001\300\200A\000\301\201"
+ 1212      4001C080 
+ 1212      4101C080 
+ 1212      4100C181 
+ 1213 00ff 40       		.ascii	"@"
+ 1214              		.section	.rodata.aucCRCLo,"a"
+ 1215              		.align	2
+ 1218              	aucCRCLo:
+ 1219 0000 00C0C101 		.ascii	"\000\300\301\001\303\003\002\302\306\006\007\307\005"
+ 1219      C30302C2 
+ 1219      C60607C7 
+ 1219      05
+ 1220 000d C5C404CC 		.ascii	"\305\304\004\314\014\015\315\017\317\316\016\012\312"
+ 1220      0C0DCD0F 
+ 1220      CFCE0E0A 
+ 1220      CA
+ 1221 001a CB0BC909 		.ascii	"\313\013\311\011\010\310\330\030\031\331\033\333\332"
+ 1221      08C8D818 
+ 1221      19D91BDB 
+ 1221      DA
+ 1222 0027 1A1EDEDF 		.ascii	"\032\036\336\337\037\335\035\034\334\024\324\325\025"
+ 1222      1FDD1D1C 
+ 1222      DC14D4D5 
+ 1222      15
+ 1223 0034 D71716D6 		.ascii	"\327\027\026\326\322\022\023\323\021\321\320\020\360"
+ 1223      D21213D3 
+ 1223      11D1D010 
+ 1223      F0
+ 1224 0041 3031F133 		.ascii	"01\3613\363\36226\366\3677\36554\364<\374\375=\377?"
+ 1224      F3F23236 
+ 1224      F6F737F5 
+ 1224      3534F43C 
+ 1224      FCFD3DFF 
+ 1225 0056 3EFEFA3A 		.ascii	">\376\372:;\3739\371\3708(\350\351)\353+*\352\356./"
+ 1225      3BFB39F9 
+ 1225      F83828E8 
+ 1225      E929EB2B 
+ 1225      2AEAEE2E 
+ 1226 006b EF2DEDEC 		.ascii	"\357-\355\354,\344$%\345'\347\346&\"\342\343#\341! "
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 31
+
+
+ 1226      2CE42425 
+ 1226      E527E7E6 
+ 1226      2622E2E3 
+ 1226      23E12120 
+ 1227 007f E0A06061 		.ascii	"\340\240`a\241c\243\242bf\246\247g\245ed\244l\254\255"
+ 1227      A163A3A2 
+ 1227      6266A6A7 
+ 1227      67A56564 
+ 1227      A46CACAD 
+ 1228 0093 6DAF6F6E 		.ascii	"m\257on\256\252jk\253i\251\250hx\270\271y\273{z\272"
+ 1228      AEAA6A6B 
+ 1228      AB69A9A8 
+ 1228      6878B8B9 
+ 1228      79BB7B7A 
+ 1229 00a8 BE7E7FBF 		.ascii	"\276~\177\277}\275\274|\264tu\265w\267\266vr\262\263"
+ 1229      7DBDBC7C 
+ 1229      B47475B5 
+ 1229      77B7B676 
+ 1229      72B2B3
+ 1230 00bb 73B17170 		.ascii	"s\261qp\260P\220\221Q\223SR\222\226VW\227U\225\224T"
+ 1230      B0509091 
+ 1230      51935352 
+ 1230      92965657 
+ 1230      97559594 
+ 1231 00d0 9C5C5D9D 		.ascii	"\234\\]\235_\237\236^Z\232\233[\231YX\230\210HI\211"
+ 1231      5F9F9E5E 
+ 1231      5A9A9B5B 
+ 1231      99595898 
+ 1231      88484989 
+ 1232 00e4 4B8B8A4A 		.ascii	"K\213\212JN\216\217O\215ML\214D\204\205E\207GF\206\202"
+ 1232      4E8E8F4F 
+ 1232      8D4D4C8C 
+ 1232      44848545 
+ 1232      87474686 
+ 1233 00f9 42438341 		.ascii	"BC\203A\201\200@"
+ 1233      818040
+ 1234              		.text
+ 1235              	.Letext0:
+ 1236              		.file 2 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\machine\\_defa
+ 1237              		.file 3 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\sys\\_stdint.h
+ 1238              		.file 4 "Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f030x8.h"
+ 1239              		.file 5 "Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f0xx.h"
+ 1240              		.file 6 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_def.h"
+ 1241              		.file 7 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_gpio.h"
+ 1242              		.file 8 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_dma.h"
+ 1243              		.file 9 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_adc.h"
+ 1244              		.file 10 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h"
+ 1245              		.file 11 "Core/Inc/control.h"
+ 1246              		.file 12 "Core/Inc/param.h"
+ 1247              		.file 13 "Core/Inc/u2com.h"
+ 1248              		.file 14 "<built-in>"
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 32
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 u2com.c
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:18     .text.CRC16x:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:24     .text.CRC16x:00000000 CRC16x
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:102    .text.CRC16x:0000002c $d
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:1196   .rodata.aucCRCHi:00000000 aucCRCHi
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:1218   .rodata.aucCRCLo:00000000 aucCRCLo
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:109    .text.LoadReadData:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:115    .text.LoadReadData:00000000 LoadReadData
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:418    .text.LoadReadData:00000174 $d
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:1190   .bss.sRundata:00000000 sRundata
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:465    .text.u2RxIt:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:471    .text.u2RxIt:00000000 u2RxIt
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:1106   .text.u2RxIt:000002c0 $d
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:1141   .bss.RxBufU2:00000000 RxBufU2
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:1154   .bss.TxBufU2:00000000 TxBufU2
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:1165   .bss.rsRxBuf:00000000 rsRxBuf
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:1178   .bss.rsRxLen:00000000 rsRxLen
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:1184   .bss.rsRxTime:00000000 rsRxTime
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:1159   .bss.rsPackFlag:00000000 rsPackFlag
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:1172   .bss.rsRxIndex:00000000 rsRxIndex
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:1148   .bss.RxLenU2:00000000 RxLenU2
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:1138   .bss.RxBufU2:00000000 $d
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:1144   .bss.RxLenU2:00000000 $d
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:1151   .bss.TxBufU2:00000000 $d
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:1160   .bss.rsPackFlag:00000000 $d
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:1162   .bss.rsRxBuf:00000000 $d
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:1168   .bss.rsRxIndex:00000000 $d
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:1175   .bss.rsRxLen:00000000 $d
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:1181   .bss.rsRxTime:00000000 $d
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:1187   .bss.sRundata:00000000 $d
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:1193   .rodata.aucCRCHi:00000000 $d
+C:\Users\57298\AppData\Local\Temp\cctoFqgT.s:1215   .rodata.aucCRCLo:00000000 $d
+
+UNDEFINED SYMBOLS
+__aeabi_f2iz
+Ta
+Tb
+Tc
+pTa
+pTb
+pTc
+FenH
+FenM
+Tcala1
+Tcala2
+Tcala3
+Tset1
+Tset2
+Tset3
+Tset4
+cshuiCha
+cwhuiCha
+tzhuiCha
+MnTest
+addr
+jojy
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cctoFqgT.s 			page 33
+
+
+btlv
+k1
+k2
+k3
+b1
+b2
+b3
+FengJiSW
+MacFailed
+OverTemp
+JumpZha
+DoorJin
+TempASta
+TempBSta
+TempCSta
+PowrASta
+PowrBSta
+MODAutoManuONOFF
+disBeep
+goBeep
+MODLoopShow
+HAL_UART_DMAStop
+HAL_UART_Receive_DMA
+HAL_GPIO_WritePin
+HAL_ADC_Stop_DMA
+HAL_UART_Transmit
+HAL_ADC_Start_DMA
+memcpy
+hadc
+AdDataOrig

@@ -1,0 +1,462 @@
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc69xdzf.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.arch armv6s-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.file	"tlc5615.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.Init_TLC5615,"ax",%progbits
+  18              		.align	1
+  19              		.global	Init_TLC5615
+  20              		.syntax unified
+  21              		.code	16
+  22              		.thumb_func
+  24              	Init_TLC5615:
+  25              	.LFB43:
+  26              		.file 1 "Core/Src/tlc5615.c"
+   1:Core/Src/tlc5615.c **** #include "tlc5615.h"
+   2:Core/Src/tlc5615.c **** #include "param.h"
+   3:Core/Src/tlc5615.c **** #include "control.h"
+   4:Core/Src/tlc5615.c **** #include "tm1640.h"
+   5:Core/Src/tlc5615.c **** 
+   6:Core/Src/tlc5615.c **** void Init_TLC5615(void)
+   7:Core/Src/tlc5615.c **** {
+  27              		.loc 1 7 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 24
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31 0000 10B5     		push	{r4, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 14, -4
+  36 0002 86B0     		sub	sp, sp, #24
+  37              	.LCFI1:
+  38              		.cfi_def_cfa_offset 32
+   8:Core/Src/tlc5615.c ****     GPIO_InitTypeDef GPIO_InitStruct = {0};
+  39              		.loc 1 8 5 view .LVU1
+  40              		.loc 1 8 22 is_stmt 0 view .LVU2
+  41 0004 1422     		movs	r2, #20
+  42 0006 0021     		movs	r1, #0
+  43 0008 01A8     		add	r0, sp, #4
+  44 000a FFF7FEFF 		bl	memset
+  45              	.LVL0:
+   9:Core/Src/tlc5615.c ****     GPIO_InitStruct.Pin = GPIO_PIN_0 | GPIO_PIN_1;
+  46              		.loc 1 9 5 is_stmt 1 view .LVU3
+  47              		.loc 1 9 25 is_stmt 0 view .LVU4
+  48 000e 0323     		movs	r3, #3
+  49 0010 0193     		str	r3, [sp, #4]
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc69xdzf.s 			page 2
+
+
+  10:Core/Src/tlc5615.c ****     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  50              		.loc 1 10 5 is_stmt 1 view .LVU5
+  51              		.loc 1 10 26 is_stmt 0 view .LVU6
+  52 0012 0124     		movs	r4, #1
+  53 0014 0294     		str	r4, [sp, #8]
+  11:Core/Src/tlc5615.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+  54              		.loc 1 11 5 is_stmt 1 view .LVU7
+  12:Core/Src/tlc5615.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  55              		.loc 1 12 5 view .LVU8
+  13:Core/Src/tlc5615.c ****     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  56              		.loc 1 13 5 view .LVU9
+  57 0016 01A9     		add	r1, sp, #4
+  58 0018 0748     		ldr	r0, .L2
+  59 001a FFF7FEFF 		bl	HAL_GPIO_Init
+  60              	.LVL1:
+  14:Core/Src/tlc5615.c ****     GPIO_InitStruct.Pin = GPIO_PIN_7;
+  61              		.loc 1 14 5 view .LVU10
+  62              		.loc 1 14 25 is_stmt 0 view .LVU11
+  63 001e 8023     		movs	r3, #128
+  64 0020 0193     		str	r3, [sp, #4]
+  15:Core/Src/tlc5615.c ****     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  65              		.loc 1 15 5 is_stmt 1 view .LVU12
+  66              		.loc 1 15 26 is_stmt 0 view .LVU13
+  67 0022 0294     		str	r4, [sp, #8]
+  16:Core/Src/tlc5615.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+  68              		.loc 1 16 5 is_stmt 1 view .LVU14
+  69              		.loc 1 16 26 is_stmt 0 view .LVU15
+  70 0024 0023     		movs	r3, #0
+  71 0026 0393     		str	r3, [sp, #12]
+  17:Core/Src/tlc5615.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  72              		.loc 1 17 5 is_stmt 1 view .LVU16
+  73              		.loc 1 17 27 is_stmt 0 view .LVU17
+  74 0028 0493     		str	r3, [sp, #16]
+  18:Core/Src/tlc5615.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  75              		.loc 1 18 5 is_stmt 1 view .LVU18
+  76 002a 9020     		movs	r0, #144
+  77 002c 01A9     		add	r1, sp, #4
+  78 002e C005     		lsls	r0, r0, #23
+  79 0030 FFF7FEFF 		bl	HAL_GPIO_Init
+  80              	.LVL2:
+  19:Core/Src/tlc5615.c **** }
+  81              		.loc 1 19 1 is_stmt 0 view .LVU19
+  82 0034 06B0     		add	sp, sp, #24
+  83              		@ sp needed
+  84 0036 10BD     		pop	{r4, pc}
+  85              	.L3:
+  86              		.align	2
+  87              	.L2:
+  88 0038 00040048 		.word	1207960576
+  89              		.cfi_endproc
+  90              	.LFE43:
+  92              		.section	.text.write_data_to_TLC5615,"ax",%progbits
+  93              		.align	1
+  94              		.global	write_data_to_TLC5615
+  95              		.syntax unified
+  96              		.code	16
+  97              		.thumb_func
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc69xdzf.s 			page 3
+
+
+  99              	write_data_to_TLC5615:
+ 100              	.LVL3:
+ 101              	.LFB44:
+  20:Core/Src/tlc5615.c **** void write_data_to_TLC5615(unsigned short data)
+  21:Core/Src/tlc5615.c **** {
+ 102              		.loc 1 21 1 is_stmt 1 view -0
+ 103              		.cfi_startproc
+ 104              		@ args = 0, pretend = 0, frame = 0
+ 105              		@ frame_needed = 0, uses_anonymous_args = 0
+ 106              		.loc 1 21 1 is_stmt 0 view .LVU21
+ 107 0000 70B5     		push	{r4, r5, r6, lr}
+ 108              	.LCFI2:
+ 109              		.cfi_def_cfa_offset 16
+ 110              		.cfi_offset 4, -16
+ 111              		.cfi_offset 5, -12
+ 112              		.cfi_offset 6, -8
+ 113              		.cfi_offset 14, -4
+ 114 0002 0400     		movs	r4, r0
+  22:Core/Src/tlc5615.c ****     unsigned char i = 0; // 一共发送 10位 数据位
+ 115              		.loc 1 22 5 is_stmt 1 view .LVU22
+ 116              	.LVL4:
+  23:Core/Src/tlc5615.c ****     tlcCLK0;             // cs需要在 clk为低时，使能
+ 117              		.loc 1 23 5 view .LVU23
+ 118 0004 284D     		ldr	r5, .L10
+ 119 0006 0022     		movs	r2, #0
+ 120 0008 0121     		movs	r1, #1
+ 121 000a 2800     		movs	r0, r5
+ 122              	.LVL5:
+ 123              		.loc 1 23 5 is_stmt 0 view .LVU24
+ 124 000c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 125              	.LVL6:
+  24:Core/Src/tlc5615.c **** 
+  25:Core/Src/tlc5615.c ****     tlcCS0;
+ 126              		.loc 1 25 5 is_stmt 1 view .LVU25
+ 127 0010 0022     		movs	r2, #0
+ 128 0012 0221     		movs	r1, #2
+ 129 0014 2800     		movs	r0, r5
+ 130 0016 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 131              	.LVL7:
+  26:Core/Src/tlc5615.c ****     ; // cs为低，串行数据才能被移入移位寄存器
+ 132              		.loc 1 26 5 view .LVU26
+  27:Core/Src/tlc5615.c ****     delay_us(1000);
+ 133              		.loc 1 27 5 view .LVU27
+ 134 001a FA20     		movs	r0, #250
+ 135 001c 8000     		lsls	r0, r0, #2
+ 136 001e FFF7FEFF 		bl	delay_us
+ 137              	.LVL8:
+  28:Core/Src/tlc5615.c ****     for (i = 0; i < 10; i++) // 一共十位 有效数据位
+ 138              		.loc 1 28 5 view .LVU28
+ 139              		.loc 1 28 12 is_stmt 0 view .LVU29
+ 140 0022 0025     		movs	r5, #0
+ 141              		.loc 1 28 5 view .LVU30
+ 142 0024 14E0     		b	.L5
+ 143              	.LVL9:
+ 144              	.L6:
+  29:Core/Src/tlc5615.c ****     {
+  30:Core/Src/tlc5615.c ****         if (data & 0x200) // 发送数据 高位，第十位
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc69xdzf.s 			page 4
+
+
+  31:Core/Src/tlc5615.c ****         {
+  32:Core/Src/tlc5615.c ****             tlcMOSI1; // 数据bit = 1
+  33:Core/Src/tlc5615.c ****         }
+  34:Core/Src/tlc5615.c ****         else
+  35:Core/Src/tlc5615.c ****         {
+  36:Core/Src/tlc5615.c ****             tlcMOSI0; // 数据bit = 0
+ 145              		.loc 1 36 13 is_stmt 1 view .LVU31
+ 146 0026 9020     		movs	r0, #144
+ 147 0028 0022     		movs	r2, #0
+ 148 002a 8021     		movs	r1, #128
+ 149 002c C005     		lsls	r0, r0, #23
+ 150 002e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 151              	.LVL10:
+ 152              	.L7:
+  37:Core/Src/tlc5615.c ****         }
+  38:Core/Src/tlc5615.c **** 
+  39:Core/Src/tlc5615.c ****         tlcCLK1; // 时钟 从 0 ~ 1 发送数据传递
+ 153              		.loc 1 39 9 discriminator 2 view .LVU32
+ 154 0032 1D4E     		ldr	r6, .L10
+ 155 0034 0122     		movs	r2, #1
+ 156 0036 0121     		movs	r1, #1
+ 157 0038 3000     		movs	r0, r6
+ 158 003a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 159              	.LVL11:
+  40:Core/Src/tlc5615.c **** 
+  41:Core/Src/tlc5615.c ****         tlcCLK0; // 时钟恢复 0
+ 160              		.loc 1 41 9 discriminator 2 view .LVU33
+ 161 003e 0022     		movs	r2, #0
+ 162 0040 0121     		movs	r1, #1
+ 163 0042 3000     		movs	r0, r6
+ 164 0044 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 165              	.LVL12:
+  42:Core/Src/tlc5615.c **** 
+  43:Core/Src/tlc5615.c ****         data <<= 1; // 数据左移
+ 166              		.loc 1 43 9 discriminator 2 view .LVU34
+ 167              		.loc 1 43 14 is_stmt 0 discriminator 2 view .LVU35
+ 168 0048 6400     		lsls	r4, r4, #1
+ 169              	.LVL13:
+ 170              		.loc 1 43 14 discriminator 2 view .LVU36
+ 171 004a A4B2     		uxth	r4, r4
+ 172              	.LVL14:
+  28:Core/Src/tlc5615.c ****     {
+ 173              		.loc 1 28 25 is_stmt 1 discriminator 2 view .LVU37
+  28:Core/Src/tlc5615.c ****     {
+ 174              		.loc 1 28 26 is_stmt 0 discriminator 2 view .LVU38
+ 175 004c 0135     		adds	r5, r5, #1
+ 176              	.LVL15:
+  28:Core/Src/tlc5615.c ****     {
+ 177              		.loc 1 28 26 discriminator 2 view .LVU39
+ 178 004e EDB2     		uxtb	r5, r5
+ 179              	.LVL16:
+ 180              	.L5:
+  28:Core/Src/tlc5615.c ****     {
+ 181              		.loc 1 28 17 is_stmt 1 discriminator 1 view .LVU40
+  28:Core/Src/tlc5615.c ****     {
+ 182              		.loc 1 28 5 is_stmt 0 discriminator 1 view .LVU41
+ 183 0050 092D     		cmp	r5, #9
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc69xdzf.s 			page 5
+
+
+ 184 0052 08D8     		bhi	.L9
+  30:Core/Src/tlc5615.c ****         {
+ 185              		.loc 1 30 9 is_stmt 1 view .LVU42
+  30:Core/Src/tlc5615.c ****         {
+ 186              		.loc 1 30 12 is_stmt 0 view .LVU43
+ 187 0054 A305     		lsls	r3, r4, #22
+ 188 0056 E6D5     		bpl	.L6
+  32:Core/Src/tlc5615.c ****         }
+ 189              		.loc 1 32 13 is_stmt 1 view .LVU44
+ 190 0058 9020     		movs	r0, #144
+ 191 005a 0122     		movs	r2, #1
+ 192 005c 8021     		movs	r1, #128
+ 193 005e C005     		lsls	r0, r0, #23
+ 194 0060 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 195              	.LVL17:
+ 196 0064 E5E7     		b	.L7
+ 197              	.L9:
+  44:Core/Src/tlc5615.c ****     }
+  45:Core/Src/tlc5615.c **** 
+  46:Core/Src/tlc5615.c ****     // 传输 低两位 填充位
+  47:Core/Src/tlc5615.c ****     tlcMOSI0;
+ 198              		.loc 1 47 5 view .LVU45
+ 199 0066 9020     		movs	r0, #144
+ 200 0068 0022     		movs	r2, #0
+ 201 006a 8021     		movs	r1, #128
+ 202 006c C005     		lsls	r0, r0, #23
+ 203 006e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 204              	.LVL18:
+  48:Core/Src/tlc5615.c ****     tlcCLK1; // 时钟 从 0 ~ 1 发送数据传递
+ 205              		.loc 1 48 5 view .LVU46
+ 206 0072 0D4C     		ldr	r4, .L10
+ 207              	.LVL19:
+ 208              		.loc 1 48 5 is_stmt 0 view .LVU47
+ 209 0074 0122     		movs	r2, #1
+ 210 0076 0121     		movs	r1, #1
+ 211 0078 2000     		movs	r0, r4
+ 212 007a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 213              	.LVL20:
+  49:Core/Src/tlc5615.c **** 
+  50:Core/Src/tlc5615.c ****     tlcCLK0; // 时钟恢复 0
+ 214              		.loc 1 50 5 is_stmt 1 view .LVU48
+ 215 007e 0022     		movs	r2, #0
+ 216 0080 0121     		movs	r1, #1
+ 217 0082 2000     		movs	r0, r4
+ 218 0084 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 219              	.LVL21:
+  51:Core/Src/tlc5615.c **** 
+  52:Core/Src/tlc5615.c ****     tlcCLK1; // 时钟 从 0 ~ 1 发送数据传递
+ 220              		.loc 1 52 5 view .LVU49
+ 221 0088 0122     		movs	r2, #1
+ 222 008a 0121     		movs	r1, #1
+ 223 008c 2000     		movs	r0, r4
+ 224 008e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 225              	.LVL22:
+  53:Core/Src/tlc5615.c **** 
+  54:Core/Src/tlc5615.c ****     tlcCLK0; // 时钟恢复 0
+ 226              		.loc 1 54 5 view .LVU50
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc69xdzf.s 			page 6
+
+
+ 227 0092 0022     		movs	r2, #0
+ 228 0094 0121     		movs	r1, #1
+ 229 0096 2000     		movs	r0, r4
+ 230 0098 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 231              	.LVL23:
+  55:Core/Src/tlc5615.c **** 
+  56:Core/Src/tlc5615.c ****     tlcCS1; // 恢复 cs 高 1
+ 232              		.loc 1 56 5 view .LVU51
+ 233 009c 0122     		movs	r2, #1
+ 234 009e 0221     		movs	r1, #2
+ 235 00a0 2000     		movs	r0, r4
+ 236 00a2 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 237              	.LVL24:
+  57:Core/Src/tlc5615.c **** }
+ 238              		.loc 1 57 1 is_stmt 0 view .LVU52
+ 239              		@ sp needed
+ 240              	.LVL25:
+ 241              		.loc 1 57 1 view .LVU53
+ 242 00a6 70BD     		pop	{r4, r5, r6, pc}
+ 243              	.L11:
+ 244              		.align	2
+ 245              	.L10:
+ 246 00a8 00040048 		.word	1207960576
+ 247              		.cfi_endproc
+ 248              	.LFE44:
+ 250              		.global	__aeabi_i2f
+ 251              		.global	__aeabi_f2d
+ 252              		.global	__aeabi_dmul
+ 253              		.global	__aeabi_d2uiz
+ 254              		.section	.text.TaDACOut,"ax",%progbits
+ 255              		.align	1
+ 256              		.global	TaDACOut
+ 257              		.syntax unified
+ 258              		.code	16
+ 259              		.thumb_func
+ 261              	TaDACOut:
+ 262              	.LFB45:
+  58:Core/Src/tlc5615.c **** 
+  59:Core/Src/tlc5615.c **** void TaDACOut(void)
+  60:Core/Src/tlc5615.c **** {
+ 263              		.loc 1 60 1 is_stmt 1 view -0
+ 264              		.cfi_startproc
+ 265              		@ args = 0, pretend = 0, frame = 0
+ 266              		@ frame_needed = 0, uses_anonymous_args = 0
+ 267 0000 10B5     		push	{r4, lr}
+ 268              	.LCFI3:
+ 269              		.cfi_def_cfa_offset 8
+ 270              		.cfi_offset 4, -8
+ 271              		.cfi_offset 14, -4
+  61:Core/Src/tlc5615.c ****     unsigned short sTa = 0;
+ 272              		.loc 1 61 5 view .LVU55
+ 273              	.LVL26:
+  62:Core/Src/tlc5615.c **** 
+  63:Core/Src/tlc5615.c ****     sTa = (unsigned short)((float)Ta * 0.5115);
+ 274              		.loc 1 63 5 view .LVU56
+ 275              		.loc 1 63 28 is_stmt 0 view .LVU57
+ 276 0002 0D4B     		ldr	r3, .L16
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc69xdzf.s 			page 7
+
+
+ 277 0004 1C68     		ldr	r4, [r3]
+ 278 0006 2000     		movs	r0, r4
+ 279 0008 FFF7FEFF 		bl	__aeabi_i2f
+ 280              	.LVL27:
+ 281 000c FFF7FEFF 		bl	__aeabi_f2d
+ 282              	.LVL28:
+ 283              		.loc 1 63 38 view .LVU58
+ 284 0010 0A4A     		ldr	r2, .L16+4
+ 285 0012 0B4B     		ldr	r3, .L16+8
+ 286 0014 FFF7FEFF 		bl	__aeabi_dmul
+ 287              	.LVL29:
+ 288              		.loc 1 63 9 view .LVU59
+ 289 0018 FFF7FEFF 		bl	__aeabi_d2uiz
+ 290              	.LVL30:
+ 291 001c 80B2     		uxth	r0, r0
+ 292              	.LVL31:
+  64:Core/Src/tlc5615.c **** 
+  65:Core/Src/tlc5615.c ****     if (Ta <= 0)
+ 293              		.loc 1 65 5 is_stmt 1 view .LVU60
+ 294              		.loc 1 65 8 is_stmt 0 view .LVU61
+ 295 001e 002C     		cmp	r4, #0
+ 296 0020 05DD     		ble	.L14
+  66:Core/Src/tlc5615.c ****         sTa = 0;
+  67:Core/Src/tlc5615.c **** 
+  68:Core/Src/tlc5615.c ****     if (sTa > 1023)
+ 297              		.loc 1 68 5 is_stmt 1 view .LVU62
+ 298              		.loc 1 68 8 is_stmt 0 view .LVU63
+ 299 0022 8023     		movs	r3, #128
+ 300 0024 DB00     		lsls	r3, r3, #3
+ 301 0026 9842     		cmp	r0, r3
+ 302 0028 02D3     		bcc	.L13
+  69:Core/Src/tlc5615.c ****         sTa = 1023;
+ 303              		.loc 1 69 13 view .LVU64
+ 304 002a 0648     		ldr	r0, .L16+12
+ 305              	.LVL32:
+ 306              		.loc 1 69 13 view .LVU65
+ 307 002c 00E0     		b	.L13
+ 308              	.LVL33:
+ 309              	.L14:
+  66:Core/Src/tlc5615.c ****         sTa = 0;
+ 310              		.loc 1 66 13 view .LVU66
+ 311 002e 0020     		movs	r0, #0
+ 312              	.LVL34:
+ 313              	.L13:
+  70:Core/Src/tlc5615.c **** 
+  71:Core/Src/tlc5615.c ****     write_data_to_TLC5615(sTa);
+ 314              		.loc 1 71 5 is_stmt 1 view .LVU67
+ 315 0030 FFF7FEFF 		bl	write_data_to_TLC5615
+ 316              	.LVL35:
+  72:Core/Src/tlc5615.c **** }...
+ 317              		.loc 1 72 1 is_stmt 0 view .LVU68
+ 318              		@ sp needed
+ 319 0034 10BD     		pop	{r4, pc}
+ 320              	.L17:
+ 321 0036 C046     		.align	2
+ 322              	.L16:
+ 323 0038 00000000 		.word	Ta
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc69xdzf.s 			page 8
+
+
+ 324 003c 91ED7C3F 		.word	1065151889
+ 325 0040 355EE03F 		.word	1071668789
+ 326 0044 FF030000 		.word	1023
+ 327              		.cfi_endproc
+ 328              	.LFE45:
+ 330              		.text
+ 331              	.Letext0:
+ 332              		.file 2 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\machine\\_defa
+ 333              		.file 3 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\sys\\_stdint.h
+ 334              		.file 4 "Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f030x8.h"
+ 335              		.file 5 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_gpio.h"
+ 336              		.file 6 "Core/Inc/control.h"
+ 337              		.file 7 "Core/Inc/tm1640.h"
+ 338              		.file 8 "<built-in>"
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc69xdzf.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 tlc5615.c
+C:\Users\57298\AppData\Local\Temp\cc69xdzf.s:18     .text.Init_TLC5615:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cc69xdzf.s:24     .text.Init_TLC5615:00000000 Init_TLC5615
+C:\Users\57298\AppData\Local\Temp\cc69xdzf.s:88     .text.Init_TLC5615:00000038 $d
+C:\Users\57298\AppData\Local\Temp\cc69xdzf.s:93     .text.write_data_to_TLC5615:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cc69xdzf.s:99     .text.write_data_to_TLC5615:00000000 write_data_to_TLC5615
+C:\Users\57298\AppData\Local\Temp\cc69xdzf.s:246    .text.write_data_to_TLC5615:000000a8 $d
+C:\Users\57298\AppData\Local\Temp\cc69xdzf.s:255    .text.TaDACOut:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cc69xdzf.s:261    .text.TaDACOut:00000000 TaDACOut
+C:\Users\57298\AppData\Local\Temp\cc69xdzf.s:323    .text.TaDACOut:00000038 $d
+
+UNDEFINED SYMBOLS
+memset
+HAL_GPIO_Init
+HAL_GPIO_WritePin
+delay_us
+__aeabi_i2f
+__aeabi_f2d
+__aeabi_dmul
+__aeabi_d2uiz
+Ta

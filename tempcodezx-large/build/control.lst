@@ -1,0 +1,2532 @@
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.arch armv6s-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.file	"control.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.DHT11_Mode_Out_PP,"ax",%progbits
+  18              		.align	1
+  19              		.syntax unified
+  20              		.code	16
+  21              		.thumb_func
+  23              	DHT11_Mode_Out_PP:
+  24              	.LFB47:
+  25              		.file 1 "Core/Src/control.c"
+   1:Core/Src/control.c **** #include "stm32f0xx_hal.h"
+   2:Core/Src/control.c **** #include "control.h"
+   3:Core/Src/control.c **** #include "ds18b20.h"
+   4:Core/Src/control.c **** #include "TM1640.h"
+   5:Core/Src/control.c ****  #include "stm32f0xx_hal_tim.h"
+   6:Core/Src/control.c **** unsigned  int sec_time=0;
+   7:Core/Src/control.c **** unsigned int sysms=0;
+   8:Core/Src/control.c **** signed short ReadTemputer=0;
+   9:Core/Src/control.c **** unsigned int willBeepTime=0;
+  10:Core/Src/control.c **** unsigned short sTa=0;
+  11:Core/Src/control.c **** unsigned short sTb=0;
+  12:Core/Src/control.c **** unsigned short sTc=0;
+  13:Core/Src/control.c **** unsigned short sTd=0;
+  14:Core/Src/control.c **** unsigned short sTe=0;
+  15:Core/Src/control.c **** 
+  16:Core/Src/control.c **** 
+  17:Core/Src/control.c **** 
+  18:Core/Src/control.c **** #define DHT11_Dout_PORT                           GPIOB
+  19:Core/Src/control.c **** #define DHT11_Dout_PIN                            GPIO_PIN_12
+  20:Core/Src/control.c **** #define DHT11_Dout_LOW()                          HAL_GPIO_WritePin(DHT11_Dout_PORT,DHT11_Dout_PIN,
+  21:Core/Src/control.c **** #define DHT11_Dout_HIGH()                         HAL_GPIO_WritePin(DHT11_Dout_PORT,DHT11_Dout_PIN,
+  22:Core/Src/control.c **** #define DHT11_Data_IN()                           HAL_GPIO_ReadPin(DHT11_Dout_PORT,DHT11_Dout_PIN)
+  23:Core/Src/control.c **** 
+  24:Core/Src/control.c **** 
+  25:Core/Src/control.c **** 
+  26:Core/Src/control.c **** extern void Delay_us(unsigned short us);  
+  27:Core/Src/control.c **** 
+  28:Core/Src/control.c **** 
+  29:Core/Src/control.c **** void DHT11_IO_IN(void){     //IO口方向设置为输入
+  30:Core/Src/control.c ****     GPIO_InitTypeDef GPIO_InitStructure;
+  31:Core/Src/control.c ****     GPIO_InitStructure.Pin = GPIO_PIN_12;
+  32:Core/Src/control.c ****     GPIO_InitStructure.Mode = GPIO_MODE_INPUT;
+  33:Core/Src/control.c ****     HAL_GPIO_Init(GPIOB,&GPIO_InitStructure);
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 2
+
+
+  34:Core/Src/control.c **** }
+  35:Core/Src/control.c **** 
+  36:Core/Src/control.c **** void DHT11_IO_OUT(void){    //IO口方向设置为输出
+  37:Core/Src/control.c ****     GPIO_InitTypeDef GPIO_InitStructure;
+  38:Core/Src/control.c ****     GPIO_InitStructure.Pin = GPIO_PIN_12;
+  39:Core/Src/control.c ****     GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
+  40:Core/Src/control.c ****     GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_HIGH;
+  41:Core/Src/control.c ****     HAL_GPIO_Init(GPIOB,&GPIO_InitStructure);
+  42:Core/Src/control.c **** }
+  43:Core/Src/control.c **** 
+  44:Core/Src/control.c **** static void DHT11_Mode_IPU(void);
+  45:Core/Src/control.c **** static void DHT11_Mode_Out_PP(void);
+  46:Core/Src/control.c **** static uint8_t DHT11_ReadByte(void);
+  47:Core/Src/control.c **** 
+  48:Core/Src/control.c **** /* 函数体 --------------------------------------------------------------------*/
+  49:Core/Src/control.c **** /**
+  50:Core/Src/control.c ****   * 函数功能: 
+  51:Core/Src/control.c ****   * 输入参数: 无
+  52:Core/Src/control.c ****   * 返 回 值: 无
+  53:Core/Src/control.c ****   * 说    明：无
+  54:Core/Src/control.c ****   */
+  55:Core/Src/control.c **** typedef struct
+  56:Core/Src/control.c **** {
+  57:Core/Src/control.c ****   uint8_t  humi_high8bit;               
+  58:Core/Src/control.c ****   uint8_t  humi_low8bit;                 
+  59:Core/Src/control.c ****   uint8_t  temp_high8bit;               
+  60:Core/Src/control.c ****   uint8_t  temp_low8bit;              
+  61:Core/Src/control.c ****   uint8_t  check_sum;                   
+  62:Core/Src/control.c ****   double    humidity;         
+  63:Core/Src/control.c ****   double    temperature;      
+  64:Core/Src/control.c **** } DHT11_Data_TypeDef;
+  65:Core/Src/control.c **** 
+  66:Core/Src/control.c **** 
+  67:Core/Src/control.c **** DHT11_Data_TypeDef  dhdata;
+  68:Core/Src/control.c **** /**
+  69:Core/Src/control.c ****   * 函数功能: DHT11 初始化函数
+  70:Core/Src/control.c ****   * 输入参数: 无
+  71:Core/Src/control.c ****   * 返 回 值: 无
+  72:Core/Src/control.c ****   * 说    明：无
+  73:Core/Src/control.c ****   */
+  74:Core/Src/control.c **** void DHT11_Init ( void )
+  75:Core/Src/control.c **** {
+  76:Core/Src/control.c **** 
+  77:Core/Src/control.c ****   DHT11_Mode_Out_PP();
+  78:Core/Src/control.c ****         
+  79:Core/Src/control.c ****   DHT11_Dout_HIGH();  // 拉高GPIO
+  80:Core/Src/control.c **** }
+  81:Core/Src/control.c **** 
+  82:Core/Src/control.c **** /**
+  83:Core/Src/control.c ****   * 函数功能: 使DHT11-DATA引脚变为上拉输入模式
+  84:Core/Src/control.c ****   * 输入参数: 无
+  85:Core/Src/control.c ****   * 返 回 值: 无
+  86:Core/Src/control.c ****   * 说    明：无
+  87:Core/Src/control.c ****   */
+  88:Core/Src/control.c **** static void DHT11_Mode_IPU(void)
+  89:Core/Src/control.c **** {
+  90:Core/Src/control.c ****   GPIO_InitTypeDef GPIO_InitStructure;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 3
+
+
+  91:Core/Src/control.c ****     GPIO_InitStructure.Pin = GPIO_PIN_12;
+  92:Core/Src/control.c ****     GPIO_InitStructure.Mode = GPIO_MODE_INPUT;
+  93:Core/Src/control.c ****     HAL_GPIO_Init(GPIOB,&GPIO_InitStructure);
+  94:Core/Src/control.c ****         
+  95:Core/Src/control.c **** }
+  96:Core/Src/control.c **** 
+  97:Core/Src/control.c **** extern TIM_HandleTypeDef htim1;
+  98:Core/Src/control.c **** 
+  99:Core/Src/control.c **** static void DHT11_Mode_Out_PP(void)
+ 100:Core/Src/control.c **** {
+  26              		.loc 1 100 1 view -0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 24
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30 0000 00B5     		push	{lr}
+  31              	.LCFI0:
+  32              		.cfi_def_cfa_offset 4
+  33              		.cfi_offset 14, -4
+  34 0002 87B0     		sub	sp, sp, #28
+  35              	.LCFI1:
+  36              		.cfi_def_cfa_offset 32
+ 101:Core/Src/control.c ****   GPIO_InitTypeDef GPIO_InitStructure;
+  37              		.loc 1 101 3 view .LVU1
+ 102:Core/Src/control.c ****     GPIO_InitStructure.Pin = GPIO_PIN_12;
+  38              		.loc 1 102 5 view .LVU2
+  39              		.loc 1 102 28 is_stmt 0 view .LVU3
+  40 0004 8023     		movs	r3, #128
+  41 0006 5B01     		lsls	r3, r3, #5
+  42 0008 0193     		str	r3, [sp, #4]
+ 103:Core/Src/control.c ****     GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
+  43              		.loc 1 103 5 is_stmt 1 view .LVU4
+  44              		.loc 1 103 29 is_stmt 0 view .LVU5
+  45 000a 0123     		movs	r3, #1
+  46 000c 0293     		str	r3, [sp, #8]
+ 104:Core/Src/control.c ****     GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_HIGH;
+  47              		.loc 1 104 5 is_stmt 1 view .LVU6
+  48              		.loc 1 104 30 is_stmt 0 view .LVU7
+  49 000e 0233     		adds	r3, r3, #2
+  50 0010 0493     		str	r3, [sp, #16]
+ 105:Core/Src/control.c ****     HAL_GPIO_Init(GPIOB,&GPIO_InitStructure);      
+  51              		.loc 1 105 5 is_stmt 1 view .LVU8
+  52 0012 01A9     		add	r1, sp, #4
+  53 0014 0248     		ldr	r0, .L2
+  54 0016 FFF7FEFF 		bl	HAL_GPIO_Init
+  55              	.LVL0:
+ 106:Core/Src/control.c **** }
+  56              		.loc 1 106 1 is_stmt 0 view .LVU9
+  57 001a 07B0     		add	sp, sp, #28
+  58              		@ sp needed
+  59 001c 00BD     		pop	{pc}
+  60              	.L3:
+  61 001e C046     		.align	2
+  62              	.L2:
+  63 0020 00040048 		.word	1207960576
+  64              		.cfi_endproc
+  65              	.LFE47:
+  67              		.section	.text.DHT11_Mode_IPU,"ax",%progbits
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 4
+
+
+  68              		.align	1
+  69              		.syntax unified
+  70              		.code	16
+  71              		.thumb_func
+  73              	DHT11_Mode_IPU:
+  74              	.LFB46:
+  89:Core/Src/control.c ****   GPIO_InitTypeDef GPIO_InitStructure;
+  75              		.loc 1 89 1 is_stmt 1 view -0
+  76              		.cfi_startproc
+  77              		@ args = 0, pretend = 0, frame = 24
+  78              		@ frame_needed = 0, uses_anonymous_args = 0
+  79 0000 00B5     		push	{lr}
+  80              	.LCFI2:
+  81              		.cfi_def_cfa_offset 4
+  82              		.cfi_offset 14, -4
+  83 0002 87B0     		sub	sp, sp, #28
+  84              	.LCFI3:
+  85              		.cfi_def_cfa_offset 32
+  90:Core/Src/control.c ****     GPIO_InitStructure.Pin = GPIO_PIN_12;
+  86              		.loc 1 90 3 view .LVU11
+  91:Core/Src/control.c ****     GPIO_InitStructure.Mode = GPIO_MODE_INPUT;
+  87              		.loc 1 91 5 view .LVU12
+  91:Core/Src/control.c ****     GPIO_InitStructure.Mode = GPIO_MODE_INPUT;
+  88              		.loc 1 91 28 is_stmt 0 view .LVU13
+  89 0004 8023     		movs	r3, #128
+  90 0006 5B01     		lsls	r3, r3, #5
+  91 0008 0193     		str	r3, [sp, #4]
+  92:Core/Src/control.c ****     HAL_GPIO_Init(GPIOB,&GPIO_InitStructure);
+  92              		.loc 1 92 5 is_stmt 1 view .LVU14
+  92:Core/Src/control.c ****     HAL_GPIO_Init(GPIOB,&GPIO_InitStructure);
+  93              		.loc 1 92 29 is_stmt 0 view .LVU15
+  94 000a 0023     		movs	r3, #0
+  95 000c 0293     		str	r3, [sp, #8]
+  93:Core/Src/control.c ****         
+  96              		.loc 1 93 5 is_stmt 1 view .LVU16
+  97 000e 01A9     		add	r1, sp, #4
+  98 0010 0248     		ldr	r0, .L5
+  99 0012 FFF7FEFF 		bl	HAL_GPIO_Init
+ 100              	.LVL1:
+  95:Core/Src/control.c **** 
+ 101              		.loc 1 95 1 is_stmt 0 view .LVU17
+ 102 0016 07B0     		add	sp, sp, #28
+ 103              		@ sp needed
+ 104 0018 00BD     		pop	{pc}
+ 105              	.L6:
+ 106 001a C046     		.align	2
+ 107              	.L5:
+ 108 001c 00040048 		.word	1207960576
+ 109              		.cfi_endproc
+ 110              	.LFE46:
+ 112              		.section	.text.DHT11_IO_IN,"ax",%progbits
+ 113              		.align	1
+ 114              		.global	DHT11_IO_IN
+ 115              		.syntax unified
+ 116              		.code	16
+ 117              		.thumb_func
+ 119              	DHT11_IO_IN:
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 5
+
+
+ 120              	.LFB43:
+  29:Core/Src/control.c ****     GPIO_InitTypeDef GPIO_InitStructure;
+ 121              		.loc 1 29 23 is_stmt 1 view -0
+ 122              		.cfi_startproc
+ 123              		@ args = 0, pretend = 0, frame = 24
+ 124              		@ frame_needed = 0, uses_anonymous_args = 0
+ 125 0000 00B5     		push	{lr}
+ 126              	.LCFI4:
+ 127              		.cfi_def_cfa_offset 4
+ 128              		.cfi_offset 14, -4
+ 129 0002 87B0     		sub	sp, sp, #28
+ 130              	.LCFI5:
+ 131              		.cfi_def_cfa_offset 32
+  30:Core/Src/control.c ****     GPIO_InitStructure.Pin = GPIO_PIN_12;
+ 132              		.loc 1 30 5 view .LVU19
+  31:Core/Src/control.c ****     GPIO_InitStructure.Mode = GPIO_MODE_INPUT;
+ 133              		.loc 1 31 5 view .LVU20
+  31:Core/Src/control.c ****     GPIO_InitStructure.Mode = GPIO_MODE_INPUT;
+ 134              		.loc 1 31 28 is_stmt 0 view .LVU21
+ 135 0004 8023     		movs	r3, #128
+ 136 0006 5B01     		lsls	r3, r3, #5
+ 137 0008 0193     		str	r3, [sp, #4]
+  32:Core/Src/control.c ****     HAL_GPIO_Init(GPIOB,&GPIO_InitStructure);
+ 138              		.loc 1 32 5 is_stmt 1 view .LVU22
+  32:Core/Src/control.c ****     HAL_GPIO_Init(GPIOB,&GPIO_InitStructure);
+ 139              		.loc 1 32 29 is_stmt 0 view .LVU23
+ 140 000a 0023     		movs	r3, #0
+ 141 000c 0293     		str	r3, [sp, #8]
+  33:Core/Src/control.c **** }
+ 142              		.loc 1 33 5 is_stmt 1 view .LVU24
+ 143 000e 01A9     		add	r1, sp, #4
+ 144 0010 0248     		ldr	r0, .L8
+ 145 0012 FFF7FEFF 		bl	HAL_GPIO_Init
+ 146              	.LVL2:
+  34:Core/Src/control.c **** 
+ 147              		.loc 1 34 1 is_stmt 0 view .LVU25
+ 148 0016 07B0     		add	sp, sp, #28
+ 149              		@ sp needed
+ 150 0018 00BD     		pop	{pc}
+ 151              	.L9:
+ 152 001a C046     		.align	2
+ 153              	.L8:
+ 154 001c 00040048 		.word	1207960576
+ 155              		.cfi_endproc
+ 156              	.LFE43:
+ 158              		.section	.text.DHT11_IO_OUT,"ax",%progbits
+ 159              		.align	1
+ 160              		.global	DHT11_IO_OUT
+ 161              		.syntax unified
+ 162              		.code	16
+ 163              		.thumb_func
+ 165              	DHT11_IO_OUT:
+ 166              	.LFB44:
+  36:Core/Src/control.c ****     GPIO_InitTypeDef GPIO_InitStructure;
+ 167              		.loc 1 36 24 is_stmt 1 view -0
+ 168              		.cfi_startproc
+ 169              		@ args = 0, pretend = 0, frame = 24
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 6
+
+
+ 170              		@ frame_needed = 0, uses_anonymous_args = 0
+ 171 0000 00B5     		push	{lr}
+ 172              	.LCFI6:
+ 173              		.cfi_def_cfa_offset 4
+ 174              		.cfi_offset 14, -4
+ 175 0002 87B0     		sub	sp, sp, #28
+ 176              	.LCFI7:
+ 177              		.cfi_def_cfa_offset 32
+  37:Core/Src/control.c ****     GPIO_InitStructure.Pin = GPIO_PIN_12;
+ 178              		.loc 1 37 5 view .LVU27
+  38:Core/Src/control.c ****     GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
+ 179              		.loc 1 38 5 view .LVU28
+  38:Core/Src/control.c ****     GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
+ 180              		.loc 1 38 28 is_stmt 0 view .LVU29
+ 181 0004 8023     		movs	r3, #128
+ 182 0006 5B01     		lsls	r3, r3, #5
+ 183 0008 0193     		str	r3, [sp, #4]
+  39:Core/Src/control.c ****     GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_HIGH;
+ 184              		.loc 1 39 5 is_stmt 1 view .LVU30
+  39:Core/Src/control.c ****     GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_HIGH;
+ 185              		.loc 1 39 29 is_stmt 0 view .LVU31
+ 186 000a 0123     		movs	r3, #1
+ 187 000c 0293     		str	r3, [sp, #8]
+  40:Core/Src/control.c ****     HAL_GPIO_Init(GPIOB,&GPIO_InitStructure);
+ 188              		.loc 1 40 5 is_stmt 1 view .LVU32
+  40:Core/Src/control.c ****     HAL_GPIO_Init(GPIOB,&GPIO_InitStructure);
+ 189              		.loc 1 40 30 is_stmt 0 view .LVU33
+ 190 000e 0233     		adds	r3, r3, #2
+ 191 0010 0493     		str	r3, [sp, #16]
+  41:Core/Src/control.c **** }
+ 192              		.loc 1 41 5 is_stmt 1 view .LVU34
+ 193 0012 01A9     		add	r1, sp, #4
+ 194 0014 0248     		ldr	r0, .L11
+ 195 0016 FFF7FEFF 		bl	HAL_GPIO_Init
+ 196              	.LVL3:
+  42:Core/Src/control.c **** 
+ 197              		.loc 1 42 1 is_stmt 0 view .LVU35
+ 198 001a 07B0     		add	sp, sp, #28
+ 199              		@ sp needed
+ 200 001c 00BD     		pop	{pc}
+ 201              	.L12:
+ 202 001e C046     		.align	2
+ 203              	.L11:
+ 204 0020 00040048 		.word	1207960576
+ 205              		.cfi_endproc
+ 206              	.LFE44:
+ 208              		.section	.text.DHT11_Init,"ax",%progbits
+ 209              		.align	1
+ 210              		.global	DHT11_Init
+ 211              		.syntax unified
+ 212              		.code	16
+ 213              		.thumb_func
+ 215              	DHT11_Init:
+ 216              	.LFB45:
+  75:Core/Src/control.c **** 
+ 217              		.loc 1 75 1 is_stmt 1 view -0
+ 218              		.cfi_startproc
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 7
+
+
+ 219              		@ args = 0, pretend = 0, frame = 0
+ 220              		@ frame_needed = 0, uses_anonymous_args = 0
+ 221 0000 10B5     		push	{r4, lr}
+ 222              	.LCFI8:
+ 223              		.cfi_def_cfa_offset 8
+ 224              		.cfi_offset 4, -8
+ 225              		.cfi_offset 14, -4
+  77:Core/Src/control.c ****         
+ 226              		.loc 1 77 3 view .LVU37
+ 227 0002 FFF7FEFF 		bl	DHT11_Mode_Out_PP
+ 228              	.LVL4:
+  79:Core/Src/control.c **** }
+ 229              		.loc 1 79 3 view .LVU38
+ 230 0006 8021     		movs	r1, #128
+ 231 0008 0122     		movs	r2, #1
+ 232 000a 4901     		lsls	r1, r1, #5
+ 233 000c 0148     		ldr	r0, .L14
+ 234 000e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 235              	.LVL5:
+  80:Core/Src/control.c **** 
+ 236              		.loc 1 80 1 is_stmt 0 view .LVU39
+ 237              		@ sp needed
+ 238 0012 10BD     		pop	{r4, pc}
+ 239              	.L15:
+ 240              		.align	2
+ 241              	.L14:
+ 242 0014 00040048 		.word	1207960576
+ 243              		.cfi_endproc
+ 244              	.LFE45:
+ 246              		.section	.text.Delay_us,"ax",%progbits
+ 247              		.align	1
+ 248              		.global	Delay_us
+ 249              		.syntax unified
+ 250              		.code	16
+ 251              		.thumb_func
+ 253              	Delay_us:
+ 254              	.LVL6:
+ 255              	.LFB48:
+ 107:Core/Src/control.c **** #if 0
+ 108:Core/Src/control.c **** void Delay_us(unsigned short us)  
+ 109:Core/Src/control.c **** {    
+ 110:Core/Src/control.c ****   uint16_t differ = 0xffff-us-5;  
+ 111:Core/Src/control.c **** 
+ 112:Core/Src/control.c ****   htim1.Instance->CNT =differ;
+ 113:Core/Src/control.c ****     __HAL_TIM_SET_COUNTER(&htim1,differ);   //设定TIM7计数器起始值
+ 114:Core/Src/control.c ****     HAL_TIM_Base_Start(&htim1);     //启动定时器 
+ 115:Core/Src/control.c **** 
+ 116:Core/Src/control.c ****     while(differ < 0xffff-5){   //判断
+ 117:Core/Src/control.c ****         differ = __HAL_TIM_GET_COUNTER(&htim1);     //查询计数器的计数值
+ 118:Core/Src/control.c ****     }
+ 119:Core/Src/control.c ****     HAL_TIM_Base_Stop(&htim1);
+ 120:Core/Src/control.c **** } 
+ 121:Core/Src/control.c **** #else
+ 122:Core/Src/control.c **** void Delay_us(uint16_t time)
+ 123:Core/Src/control.c **** {
+ 256              		.loc 1 123 1 is_stmt 1 view -0
+ 257              		.cfi_startproc
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 8
+
+
+ 258              		@ args = 0, pretend = 0, frame = 0
+ 259              		@ frame_needed = 0, uses_anonymous_args = 0
+ 260              		@ link register save eliminated.
+ 124:Core/Src/control.c ****   uint8_t i;
+ 261              		.loc 1 124 3 view .LVU41
+ 125:Core/Src/control.c ****   
+ 126:Core/Src/control.c ****   while(time)
+ 262              		.loc 1 126 3 view .LVU42
+ 263              		.loc 1 126 8 is_stmt 0 view .LVU43
+ 264 0000 05E0     		b	.L17
+ 265              	.LVL7:
+ 266              	.L18:
+ 127:Core/Src/control.c ****   {    
+ 128:Core/Src/control.c ****     for (i = 0; i < 1; i++)
+ 129:Core/Src/control.c ****     {
+ 130:Core/Src/control.c ****       
+ 131:Core/Src/control.c ****     }
+ 267              		.loc 1 131 5 is_stmt 1 discriminator 3 view .LVU44
+ 128:Core/Src/control.c ****     {
+ 268              		.loc 1 128 24 discriminator 3 view .LVU45
+ 128:Core/Src/control.c ****     {
+ 269              		.loc 1 128 25 is_stmt 0 discriminator 3 view .LVU46
+ 270 0002 0133     		adds	r3, r3, #1
+ 271              	.LVL8:
+ 128:Core/Src/control.c ****     {
+ 272              		.loc 1 128 25 discriminator 3 view .LVU47
+ 273 0004 DBB2     		uxtb	r3, r3
+ 274              	.LVL9:
+ 275              	.L19:
+ 128:Core/Src/control.c ****     {
+ 276              		.loc 1 128 17 is_stmt 1 discriminator 1 view .LVU48
+ 128:Core/Src/control.c ****     {
+ 277              		.loc 1 128 5 is_stmt 0 discriminator 1 view .LVU49
+ 278 0006 002B     		cmp	r3, #0
+ 279 0008 FBD0     		beq	.L18
+ 132:Core/Src/control.c ****     time--;
+ 280              		.loc 1 132 5 is_stmt 1 view .LVU50
+ 281              		.loc 1 132 9 is_stmt 0 view .LVU51
+ 282 000a 0138     		subs	r0, r0, #1
+ 283              	.LVL10:
+ 284              		.loc 1 132 9 view .LVU52
+ 285 000c 80B2     		uxth	r0, r0
+ 286              	.LVL11:
+ 287              	.L17:
+ 126:Core/Src/control.c ****   {    
+ 288              		.loc 1 126 8 is_stmt 1 view .LVU53
+ 289 000e 0028     		cmp	r0, #0
+ 290 0010 01D0     		beq	.L21
+ 128:Core/Src/control.c ****     {
+ 291              		.loc 1 128 12 is_stmt 0 view .LVU54
+ 292 0012 0023     		movs	r3, #0
+ 293 0014 F7E7     		b	.L19
+ 294              	.L21:
+ 133:Core/Src/control.c ****   }
+ 134:Core/Src/control.c **** }
+ 295              		.loc 1 134 1 view .LVU55
+ 296              		@ sp needed
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 9
+
+
+ 297 0016 7047     		bx	lr
+ 298              		.cfi_endproc
+ 299              	.LFE48:
+ 301              		.section	.text.DHT11_ReadByte,"ax",%progbits
+ 302              		.align	1
+ 303              		.syntax unified
+ 304              		.code	16
+ 305              		.thumb_func
+ 307              	DHT11_ReadByte:
+ 308              	.LFB50:
+ 135:Core/Src/control.c **** #endif
+ 136:Core/Src/control.c **** void Delay_ms(unsigned int ms)
+ 137:Core/Src/control.c **** {
+ 138:Core/Src/control.c ****   unsigned int i=0;
+ 139:Core/Src/control.c ****   for(i=0;i<ms;i++)
+ 140:Core/Src/control.c ****   {
+ 141:Core/Src/control.c ****     Delay_us(1000);
+ 142:Core/Src/control.c ****   }
+ 143:Core/Src/control.c **** }
+ 144:Core/Src/control.c **** /**
+ 145:Core/Src/control.c ****   * 函数功能: 从DHT11读取一个字节，MSB先行
+ 146:Core/Src/control.c ****   * 输入参数: 无
+ 147:Core/Src/control.c ****   * 返 回 值: 无
+ 148:Core/Src/control.c ****   * 说    明：无
+ 149:Core/Src/control.c ****   */
+ 150:Core/Src/control.c **** static uint8_t DHT11_ReadByte ( void )
+ 151:Core/Src/control.c **** {
+ 309              		.loc 1 151 1 is_stmt 1 view -0
+ 310              		.cfi_startproc
+ 311              		@ args = 0, pretend = 0, frame = 0
+ 312              		@ frame_needed = 0, uses_anonymous_args = 0
+ 313 0000 70B5     		push	{r4, r5, r6, lr}
+ 314              	.LCFI9:
+ 315              		.cfi_def_cfa_offset 16
+ 316              		.cfi_offset 4, -16
+ 317              		.cfi_offset 5, -12
+ 318              		.cfi_offset 6, -8
+ 319              		.cfi_offset 14, -4
+ 152:Core/Src/control.c ****     uint8_t i, temp=0;
+ 320              		.loc 1 152 5 view .LVU57
+ 321              	.LVL12:
+ 153:Core/Src/control.c ****     uint16_t count;
+ 322              		.loc 1 153 5 view .LVU58
+ 154:Core/Src/control.c ****     for(i=0;i<8;i++)    
+ 323              		.loc 1 154 5 view .LVU59
+ 152:Core/Src/control.c ****     uint8_t i, temp=0;
+ 324              		.loc 1 152 16 is_stmt 0 view .LVU60
+ 325 0002 0026     		movs	r6, #0
+ 326              		.loc 1 154 10 view .LVU61
+ 327 0004 0025     		movs	r5, #0
+ 328              		.loc 1 154 5 view .LVU62
+ 329 0006 10E0     		b	.L23
+ 330              	.LVL13:
+ 331              	.L37:
+ 155:Core/Src/control.c ****     {         
+ 156:Core/Src/control.c ****         /*每bit以50us低电平标置开始，轮询直到从机发出 的50us 低电平 结束*/  
+ 157:Core/Src/control.c ****         while(DHT11_Data_IN()==GPIO_PIN_RESET)
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 10
+
+
+ 158:Core/Src/control.c ****         {
+ 159:Core/Src/control.c ****           count++;
+ 160:Core/Src/control.c ****           if(count>1000)  
+ 161:Core/Src/control.c ****             return 0;
+ 162:Core/Src/control.c ****           Delay_us(1); 
+ 163:Core/Src/control.c ****         }
+ 164:Core/Src/control.c **** 
+ 165:Core/Src/control.c ****         /*DHT11 以26~28us的高电平表示“0”，以70us高电平表示“1”，
+ 166:Core/Src/control.c ****          *通过检测 x us后的电平即可区别这两个状 ，x 即下面的延时 
+ 167:Core/Src/control.c ****          */
+ 168:Core/Src/control.c ****         Delay_us(50); //延时x us 这个延时需要大于数据0持续的时间即可                     
+ 332              		.loc 1 168 9 is_stmt 1 view .LVU63
+ 333 0008 3220     		movs	r0, #50
+ 334 000a FFF7FEFF 		bl	Delay_us
+ 335              	.LVL14:
+ 169:Core/Src/control.c ****         count = 0;
+ 336              		.loc 1 169 9 view .LVU64
+ 170:Core/Src/control.c ****         if(DHT11_Data_IN()==GPIO_PIN_SET)/* x us后仍为高电平表示数据“1” */
+ 337              		.loc 1 170 9 view .LVU65
+ 338              		.loc 1 170 12 is_stmt 0 view .LVU66
+ 339 000e 8021     		movs	r1, #128
+ 340 0010 4901     		lsls	r1, r1, #5
+ 341 0012 1E48     		ldr	r0, .L39
+ 342 0014 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 343              	.LVL15:
+ 344              		.loc 1 170 11 view .LVU67
+ 345 0018 0128     		cmp	r0, #1
+ 346 001a 1AD0     		beq	.L35
+ 171:Core/Src/control.c ****         {
+ 172:Core/Src/control.c ****               /* 等待数据1的高电平结束 */
+ 173:Core/Src/control.c ****               while(DHT11_Data_IN()==GPIO_PIN_SET)
+ 174:Core/Src/control.c ****               {
+ 175:Core/Src/control.c ****                 count++;
+ 176:Core/Src/control.c ****                 if(count>1000)  
+ 177:Core/Src/control.c ****                   return 0;
+ 178:Core/Src/control.c ****                 Delay_us(1); 
+ 179:Core/Src/control.c ****               }
+ 180:Core/Src/control.c ****               count = 0;
+ 181:Core/Src/control.c ****               temp|=(uint8_t)(0x01<<(7-i));  //把第7-i位置1，MSB先行 
+ 182:Core/Src/control.c ****         }
+ 183:Core/Src/control.c ****         else         // x us后为低电平表示数据“0”
+ 184:Core/Src/control.c ****         {                           
+ 185:Core/Src/control.c ****            temp&=(uint8_t)~(0x01<<(7-i)); //把第7-i位置0，MSB先行
+ 347              		.loc 1 185 12 is_stmt 1 view .LVU68
+ 348              		.loc 1 185 37 is_stmt 0 view .LVU69
+ 349 001c 0722     		movs	r2, #7
+ 350 001e 521B     		subs	r2, r2, r5
+ 351              		.loc 1 185 33 view .LVU70
+ 352 0020 0123     		movs	r3, #1
+ 353 0022 9340     		lsls	r3, r3, r2
+ 354              		.loc 1 185 16 view .LVU71
+ 355 0024 9E43     		bics	r6, r3
+ 356              	.LVL16:
+ 357              	.L29:
+ 154:Core/Src/control.c ****     {         
+ 358              		.loc 1 154 17 is_stmt 1 discriminator 2 view .LVU72
+ 154:Core/Src/control.c ****     {         
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 11
+
+
+ 359              		.loc 1 154 18 is_stmt 0 discriminator 2 view .LVU73
+ 360 0026 0135     		adds	r5, r5, #1
+ 361              	.LVL17:
+ 154:Core/Src/control.c ****     {         
+ 362              		.loc 1 154 18 discriminator 2 view .LVU74
+ 363 0028 EDB2     		uxtb	r5, r5
+ 364              	.LVL18:
+ 365              	.L23:
+ 154:Core/Src/control.c ****     {         
+ 366              		.loc 1 154 13 is_stmt 1 discriminator 1 view .LVU75
+ 154:Core/Src/control.c ****     {         
+ 367              		.loc 1 154 5 is_stmt 0 discriminator 1 view .LVU76
+ 368 002a 072D     		cmp	r5, #7
+ 369 002c 2AD8     		bhi	.L36
+ 370 002e 0024     		movs	r4, #0
+ 371              	.LVL19:
+ 372              	.L30:
+ 157:Core/Src/control.c ****         {
+ 373              		.loc 1 157 14 is_stmt 1 view .LVU77
+ 157:Core/Src/control.c ****         {
+ 374              		.loc 1 157 15 is_stmt 0 view .LVU78
+ 375 0030 8021     		movs	r1, #128
+ 376 0032 4901     		lsls	r1, r1, #5
+ 377 0034 1548     		ldr	r0, .L39
+ 378 0036 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 379              	.LVL20:
+ 157:Core/Src/control.c ****         {
+ 380              		.loc 1 157 14 view .LVU79
+ 381 003a 0028     		cmp	r0, #0
+ 382 003c E4D1     		bne	.L37
+ 159:Core/Src/control.c ****           if(count>1000)  
+ 383              		.loc 1 159 11 is_stmt 1 view .LVU80
+ 159:Core/Src/control.c ****           if(count>1000)  
+ 384              		.loc 1 159 16 is_stmt 0 view .LVU81
+ 385 003e 0134     		adds	r4, r4, #1
+ 386              	.LVL21:
+ 159:Core/Src/control.c ****           if(count>1000)  
+ 387              		.loc 1 159 16 view .LVU82
+ 388 0040 A4B2     		uxth	r4, r4
+ 389              	.LVL22:
+ 160:Core/Src/control.c ****             return 0;
+ 390              		.loc 1 160 11 is_stmt 1 view .LVU83
+ 160:Core/Src/control.c ****             return 0;
+ 391              		.loc 1 160 13 is_stmt 0 view .LVU84
+ 392 0042 FA23     		movs	r3, #250
+ 393 0044 9B00     		lsls	r3, r3, #2
+ 394 0046 9C42     		cmp	r4, r3
+ 395 0048 1DD8     		bhi	.L24
+ 162:Core/Src/control.c ****         }
+ 396              		.loc 1 162 11 is_stmt 1 view .LVU85
+ 397 004a 0120     		movs	r0, #1
+ 398 004c FFF7FEFF 		bl	Delay_us
+ 399              	.LVL23:
+ 400 0050 EEE7     		b	.L30
+ 401              	.LVL24:
+ 402              	.L35:
+ 169:Core/Src/control.c ****         if(DHT11_Data_IN()==GPIO_PIN_SET)/* x us后仍为高电平表示数据“1” */
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 12
+
+
+ 403              		.loc 1 169 15 is_stmt 0 view .LVU86
+ 404 0052 0024     		movs	r4, #0
+ 405              	.LVL25:
+ 406              	.L26:
+ 173:Core/Src/control.c ****               {
+ 407              		.loc 1 173 20 is_stmt 1 view .LVU87
+ 173:Core/Src/control.c ****               {
+ 408              		.loc 1 173 21 is_stmt 0 view .LVU88
+ 409 0054 8021     		movs	r1, #128
+ 410 0056 4901     		lsls	r1, r1, #5
+ 411 0058 0C48     		ldr	r0, .L39
+ 412 005a FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 413              	.LVL26:
+ 173:Core/Src/control.c ****               {
+ 414              		.loc 1 173 20 view .LVU89
+ 415 005e 0128     		cmp	r0, #1
+ 416 0060 09D1     		bne	.L38
+ 175:Core/Src/control.c ****                 if(count>1000)  
+ 417              		.loc 1 175 17 is_stmt 1 view .LVU90
+ 175:Core/Src/control.c ****                 if(count>1000)  
+ 418              		.loc 1 175 22 is_stmt 0 view .LVU91
+ 419 0062 0134     		adds	r4, r4, #1
+ 420              	.LVL27:
+ 175:Core/Src/control.c ****                 if(count>1000)  
+ 421              		.loc 1 175 22 view .LVU92
+ 422 0064 A4B2     		uxth	r4, r4
+ 423              	.LVL28:
+ 176:Core/Src/control.c ****                   return 0;
+ 424              		.loc 1 176 17 is_stmt 1 view .LVU93
+ 176:Core/Src/control.c ****                   return 0;
+ 425              		.loc 1 176 19 is_stmt 0 view .LVU94
+ 426 0066 FA23     		movs	r3, #250
+ 427 0068 9B00     		lsls	r3, r3, #2
+ 428 006a 9C42     		cmp	r4, r3
+ 429 006c 0CD8     		bhi	.L32
+ 178:Core/Src/control.c ****               }
+ 430              		.loc 1 178 17 is_stmt 1 view .LVU95
+ 431 006e 0120     		movs	r0, #1
+ 432 0070 FFF7FEFF 		bl	Delay_us
+ 433              	.LVL29:
+ 434 0074 EEE7     		b	.L26
+ 435              	.L38:
+ 180:Core/Src/control.c ****               temp|=(uint8_t)(0x01<<(7-i));  //把第7-i位置1，MSB先行 
+ 436              		.loc 1 180 15 view .LVU96
+ 437              	.LVL30:
+ 181:Core/Src/control.c ****         }
+ 438              		.loc 1 181 15 view .LVU97
+ 181:Core/Src/control.c ****         }
+ 439              		.loc 1 181 39 is_stmt 0 view .LVU98
+ 440 0076 0722     		movs	r2, #7
+ 441 0078 521B     		subs	r2, r2, r5
+ 181:Core/Src/control.c ****         }
+ 442              		.loc 1 181 35 view .LVU99
+ 443 007a 0123     		movs	r3, #1
+ 444 007c 9340     		lsls	r3, r3, r2
+ 181:Core/Src/control.c ****         }
+ 445              		.loc 1 181 21 view .LVU100
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 13
+
+
+ 446 007e DBB2     		uxtb	r3, r3
+ 181:Core/Src/control.c ****         }
+ 447              		.loc 1 181 19 view .LVU101
+ 448 0080 1E43     		orrs	r6, r3
+ 449              	.LVL31:
+ 181:Core/Src/control.c ****         }
+ 450              		.loc 1 181 19 view .LVU102
+ 451 0082 D0E7     		b	.L29
+ 452              	.L36:
+ 186:Core/Src/control.c ****         }
+ 187:Core/Src/control.c ****     }
+ 188:Core/Src/control.c ****     return temp;
+ 453              		.loc 1 188 12 view .LVU103
+ 454 0084 3000     		movs	r0, r6
+ 455              	.LVL32:
+ 456              	.L24:
+ 189:Core/Src/control.c **** }
+ 457              		.loc 1 189 1 view .LVU104
+ 458              		@ sp needed
+ 459              	.LVL33:
+ 460              	.LVL34:
+ 461              		.loc 1 189 1 view .LVU105
+ 462 0086 70BD     		pop	{r4, r5, r6, pc}
+ 463              	.LVL35:
+ 464              	.L32:
+ 177:Core/Src/control.c ****                 Delay_us(1); 
+ 465              		.loc 1 177 26 view .LVU106
+ 466 0088 0020     		movs	r0, #0
+ 467 008a FCE7     		b	.L24
+ 468              	.L40:
+ 469              		.align	2
+ 470              	.L39:
+ 471 008c 00040048 		.word	1207960576
+ 472              		.cfi_endproc
+ 473              	.LFE50:
+ 475              		.section	.text.Delay_ms,"ax",%progbits
+ 476              		.align	1
+ 477              		.global	Delay_ms
+ 478              		.syntax unified
+ 479              		.code	16
+ 480              		.thumb_func
+ 482              	Delay_ms:
+ 483              	.LVL36:
+ 484              	.LFB49:
+ 137:Core/Src/control.c ****   unsigned int i=0;
+ 485              		.loc 1 137 1 is_stmt 1 view -0
+ 486              		.cfi_startproc
+ 487              		@ args = 0, pretend = 0, frame = 0
+ 488              		@ frame_needed = 0, uses_anonymous_args = 0
+ 137:Core/Src/control.c ****   unsigned int i=0;
+ 489              		.loc 1 137 1 is_stmt 0 view .LVU108
+ 490 0000 70B5     		push	{r4, r5, r6, lr}
+ 491              	.LCFI10:
+ 492              		.cfi_def_cfa_offset 16
+ 493              		.cfi_offset 4, -16
+ 494              		.cfi_offset 5, -12
+ 495              		.cfi_offset 6, -8
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 14
+
+
+ 496              		.cfi_offset 14, -4
+ 497 0002 0500     		movs	r5, r0
+ 138:Core/Src/control.c ****   for(i=0;i<ms;i++)
+ 498              		.loc 1 138 3 is_stmt 1 view .LVU109
+ 499              	.LVL37:
+ 139:Core/Src/control.c ****   {
+ 500              		.loc 1 139 3 view .LVU110
+ 139:Core/Src/control.c ****   {
+ 501              		.loc 1 139 8 is_stmt 0 view .LVU111
+ 502 0004 0024     		movs	r4, #0
+ 139:Core/Src/control.c ****   {
+ 503              		.loc 1 139 3 view .LVU112
+ 504 0006 04E0     		b	.L42
+ 505              	.LVL38:
+ 506              	.L43:
+ 141:Core/Src/control.c ****   }
+ 507              		.loc 1 141 5 is_stmt 1 discriminator 3 view .LVU113
+ 508 0008 FA20     		movs	r0, #250
+ 509 000a 8000     		lsls	r0, r0, #2
+ 510 000c FFF7FEFF 		bl	Delay_us
+ 511              	.LVL39:
+ 139:Core/Src/control.c ****   {
+ 512              		.loc 1 139 16 discriminator 3 view .LVU114
+ 139:Core/Src/control.c ****   {
+ 513              		.loc 1 139 17 is_stmt 0 discriminator 3 view .LVU115
+ 514 0010 0134     		adds	r4, r4, #1
+ 515              	.LVL40:
+ 516              	.L42:
+ 139:Core/Src/control.c ****   {
+ 517              		.loc 1 139 11 is_stmt 1 discriminator 1 view .LVU116
+ 139:Core/Src/control.c ****   {
+ 518              		.loc 1 139 3 is_stmt 0 discriminator 1 view .LVU117
+ 519 0012 AC42     		cmp	r4, r5
+ 520 0014 F8D3     		bcc	.L43
+ 143:Core/Src/control.c **** /**
+ 521              		.loc 1 143 1 view .LVU118
+ 522              		@ sp needed
+ 523              	.LVL41:
+ 524              	.LVL42:
+ 143:Core/Src/control.c **** /**
+ 525              		.loc 1 143 1 view .LVU119
+ 526 0016 70BD     		pop	{r4, r5, r6, pc}
+ 527              		.cfi_endproc
+ 528              	.LFE49:
+ 530              		.global	__aeabi_ui2d
+ 531              		.global	__aeabi_ddiv
+ 532              		.section	.text.DHT11_Read_TempAndHumidity,"ax",%progbits
+ 533              		.align	1
+ 534              		.global	DHT11_Read_TempAndHumidity
+ 535              		.syntax unified
+ 536              		.code	16
+ 537              		.thumb_func
+ 539              	DHT11_Read_TempAndHumidity:
+ 540              	.LVL43:
+ 541              	.LFB51:
+ 190:Core/Src/control.c **** 
+ 191:Core/Src/control.c **** /**
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 15
+
+
+ 192:Core/Src/control.c ****   * 函数功能: 一次完整的数据传输为40bit，高位先出
+ 193:Core/Src/control.c ****   * 输入参数: DHT11_Data:DHT11数据类型
+ 194:Core/Src/control.c ****   * 返 回 值: ERROR：  读取出错
+ 195:Core/Src/control.c ****   *           SUCCESS：读取成功
+ 196:Core/Src/control.c ****   * 说    明：8bit 湿度整数 + 8bit 湿度小数 + 8bit 温度整数 + 8bit 温度小数 + 8bit 校验和 
+ 197:Core/Src/control.c ****   */
+ 198:Core/Src/control.c **** uint8_t DHT11_Read_TempAndHumidity(DHT11_Data_TypeDef *DHT11_Data)
+ 199:Core/Src/control.c **** {  
+ 542              		.loc 1 199 1 is_stmt 1 view -0
+ 543              		.cfi_startproc
+ 544              		@ args = 0, pretend = 0, frame = 0
+ 545              		@ frame_needed = 0, uses_anonymous_args = 0
+ 546              		.loc 1 199 1 is_stmt 0 view .LVU121
+ 547 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 548              	.LCFI11:
+ 549              		.cfi_def_cfa_offset 20
+ 550              		.cfi_offset 4, -20
+ 551              		.cfi_offset 5, -16
+ 552              		.cfi_offset 6, -12
+ 553              		.cfi_offset 7, -8
+ 554              		.cfi_offset 14, -4
+ 555 0002 D646     		mov	lr, r10
+ 556 0004 4F46     		mov	r7, r9
+ 557 0006 4646     		mov	r6, r8
+ 558 0008 C0B5     		push	{r6, r7, lr}
+ 559              	.LCFI12:
+ 560              		.cfi_def_cfa_offset 32
+ 561              		.cfi_offset 8, -32
+ 562              		.cfi_offset 9, -28
+ 563              		.cfi_offset 10, -24
+ 564 000a 0500     		movs	r5, r0
+ 200:Core/Src/control.c ****   uint8_t temp;
+ 565              		.loc 1 200 3 is_stmt 1 view .LVU122
+ 201:Core/Src/control.c ****   uint16_t humi_temp;
+ 566              		.loc 1 201 3 view .LVU123
+ 202:Core/Src/control.c ****   uint16_t count;
+ 567              		.loc 1 202 3 view .LVU124
+ 203:Core/Src/control.c **** 
+ 204:Core/Src/control.c ****   /*输出模式*/
+ 205:Core/Src/control.c ****   DHT11_Mode_Out_PP();
+ 568              		.loc 1 205 3 view .LVU125
+ 569 000c FFF7FEFF 		bl	DHT11_Mode_Out_PP
+ 570              	.LVL44:
+ 206:Core/Src/control.c ****   /*主机拉低*/
+ 207:Core/Src/control.c ****   DHT11_Dout_LOW();
+ 571              		.loc 1 207 3 view .LVU126
+ 572 0010 8026     		movs	r6, #128
+ 573 0012 7601     		lsls	r6, r6, #5
+ 574 0014 3E4C     		ldr	r4, .L56
+ 575 0016 0022     		movs	r2, #0
+ 576 0018 3100     		movs	r1, r6
+ 577 001a 2000     		movs	r0, r4
+ 578 001c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 579              	.LVL45:
+ 208:Core/Src/control.c ****   /*延时18ms*/
+ 209:Core/Src/control.c ****   Delay_ms(18);
+ 580              		.loc 1 209 3 view .LVU127
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 16
+
+
+ 581 0020 1220     		movs	r0, #18
+ 582 0022 FFF7FEFF 		bl	Delay_ms
+ 583              	.LVL46:
+ 210:Core/Src/control.c ****   
+ 211:Core/Src/control.c ****   /*总线拉高 主机延时30us*/
+ 212:Core/Src/control.c ****   DHT11_Dout_HIGH(); 
+ 584              		.loc 1 212 3 view .LVU128
+ 585 0026 0122     		movs	r2, #1
+ 586 0028 3100     		movs	r1, r6
+ 587 002a 2000     		movs	r0, r4
+ 588 002c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 589              	.LVL47:
+ 213:Core/Src/control.c **** 
+ 214:Core/Src/control.c ****   Delay_us(30);   //延时30us
+ 590              		.loc 1 214 3 view .LVU129
+ 591 0030 1E20     		movs	r0, #30
+ 592 0032 FFF7FEFF 		bl	Delay_us
+ 593              	.LVL48:
+ 215:Core/Src/control.c **** 
+ 216:Core/Src/control.c ****   /*主机设为输入 判断从机响应信号*/ 
+ 217:Core/Src/control.c ****   DHT11_Mode_IPU();
+ 594              		.loc 1 217 3 view .LVU130
+ 595 0036 FFF7FEFF 		bl	DHT11_Mode_IPU
+ 596              	.LVL49:
+ 218:Core/Src/control.c **** 
+ 219:Core/Src/control.c **** //  /*判断从机是否有低电平响应信号 如不响应则跳出，响应则向下运行*/   
+ 220:Core/Src/control.c ****   if(DHT11_Data_IN()==GPIO_PIN_RESET)
+ 597              		.loc 1 220 3 view .LVU131
+ 598              		.loc 1 220 6 is_stmt 0 view .LVU132
+ 599 003a 3100     		movs	r1, r6
+ 600 003c 2000     		movs	r0, r4
+ 601 003e FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 602              	.LVL50:
+ 603 0042 061E     		subs	r6, r0, #0
+ 604              		.loc 1 220 5 view .LVU133
+ 605 0044 0FD1     		bne	.L53
+ 221:Core/Src/control.c ****   {
+ 222:Core/Src/control.c ****     count=0;
+ 606              		.loc 1 222 10 view .LVU134
+ 607 0046 0024     		movs	r4, #0
+ 608              	.L45:
+ 609              	.LVL51:
+ 223:Core/Src/control.c ****     /*轮询直到从机发出 的80us 低电平 响应信号结束*/  
+ 224:Core/Src/control.c ****     while(DHT11_Data_IN()==GPIO_PIN_RESET)
+ 610              		.loc 1 224 10 is_stmt 1 view .LVU135
+ 611              		.loc 1 224 11 is_stmt 0 view .LVU136
+ 612 0048 8021     		movs	r1, #128
+ 613 004a 4901     		lsls	r1, r1, #5
+ 614 004c 3048     		ldr	r0, .L56
+ 615 004e FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 616              	.LVL52:
+ 617              		.loc 1 224 10 view .LVU137
+ 618 0052 0028     		cmp	r0, #0
+ 619 0054 0ED1     		bne	.L54
+ 225:Core/Src/control.c ****     {
+ 226:Core/Src/control.c ****       count++;
+ 620              		.loc 1 226 7 is_stmt 1 view .LVU138
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 17
+
+
+ 621              		.loc 1 226 12 is_stmt 0 view .LVU139
+ 622 0056 0134     		adds	r4, r4, #1
+ 623              	.LVL53:
+ 624              		.loc 1 226 12 view .LVU140
+ 625 0058 A4B2     		uxth	r4, r4
+ 626              	.LVL54:
+ 227:Core/Src/control.c ****       if(count>100)  
+ 627              		.loc 1 227 7 is_stmt 1 view .LVU141
+ 628              		.loc 1 227 9 is_stmt 0 view .LVU142
+ 629 005a 642C     		cmp	r4, #100
+ 630 005c 55D8     		bhi	.L51
+ 228:Core/Src/control.c ****         return 0;
+ 229:Core/Src/control.c ****       Delay_us(1); 
+ 631              		.loc 1 229 7 is_stmt 1 view .LVU143
+ 632 005e 0120     		movs	r0, #1
+ 633 0060 FFF7FEFF 		bl	Delay_us
+ 634              	.LVL55:
+ 635 0064 F0E7     		b	.L45
+ 636              	.LVL56:
+ 637              	.L53:
+ 230:Core/Src/control.c ****     }
+ 231:Core/Src/control.c ****     count=0;
+ 232:Core/Src/control.c ****     /*轮询直到从机发出的 80us 高电平标置信号结束*/
+ 233:Core/Src/control.c ****     while(DHT11_Data_IN()==GPIO_PIN_SET)
+ 234:Core/Src/control.c ****     {
+ 235:Core/Src/control.c ****       count++;
+ 236:Core/Src/control.c ****       if(count>100)  
+ 237:Core/Src/control.c ****         return 0;
+ 238:Core/Src/control.c ****       Delay_us(1); 
+ 239:Core/Src/control.c ****     }
+ 240:Core/Src/control.c ****     
+ 241:Core/Src/control.c ****     /*开始接收数据*/   
+ 242:Core/Src/control.c ****     DHT11_Data->humi_high8bit= DHT11_ReadByte();
+ 243:Core/Src/control.c ****     DHT11_Data->humi_low8bit = DHT11_ReadByte();
+ 244:Core/Src/control.c ****     DHT11_Data->temp_high8bit= DHT11_ReadByte();
+ 245:Core/Src/control.c ****     DHT11_Data->temp_low8bit = DHT11_ReadByte();
+ 246:Core/Src/control.c ****     DHT11_Data->check_sum    = DHT11_ReadByte();
+ 247:Core/Src/control.c **** 
+ 248:Core/Src/control.c ****     /* 对数据进行处理 */
+ 249:Core/Src/control.c ****     humi_temp=DHT11_Data->humi_high8bit*100+DHT11_Data->humi_low8bit;
+ 250:Core/Src/control.c ****     DHT11_Data->humidity =(double)humi_temp/100;
+ 251:Core/Src/control.c ****     
+ 252:Core/Src/control.c ****     humi_temp=DHT11_Data->temp_high8bit*100+DHT11_Data->temp_low8bit;
+ 253:Core/Src/control.c ****     DHT11_Data->temperature=(double)humi_temp/100;    
+ 254:Core/Src/control.c ****     
+ 255:Core/Src/control.c ****     /*检查读取的数据是否正确*/
+ 256:Core/Src/control.c ****     temp = DHT11_Data->humi_high8bit + DHT11_Data->humi_low8bit + 
+ 257:Core/Src/control.c ****            DHT11_Data->temp_high8bit+ DHT11_Data->temp_low8bit;
+ 258:Core/Src/control.c ****     
+ 259:Core/Src/control.c ****     if(DHT11_Data->check_sum==temp)
+ 260:Core/Src/control.c ****     { 
+ 261:Core/Src/control.c ****       return SUCCESS;
+ 262:Core/Src/control.c ****     }
+ 263:Core/Src/control.c ****     else 
+ 264:Core/Src/control.c ****       return ERROR;
+ 265:Core/Src/control.c ****   }        
+ 266:Core/Src/control.c ****   else
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 18
+
+
+ 267:Core/Src/control.c ****     return ERROR;
+ 638              		.loc 1 267 12 is_stmt 0 view .LVU144
+ 639 0066 0126     		movs	r6, #1
+ 640              	.L46:
+ 268:Core/Src/control.c **** }
+ 641              		.loc 1 268 1 view .LVU145
+ 642 0068 3000     		movs	r0, r6
+ 643              		@ sp needed
+ 644              	.LVL57:
+ 645              		.loc 1 268 1 view .LVU146
+ 646 006a E0BC     		pop	{r5, r6, r7}
+ 647 006c BA46     		mov	r10, r7
+ 648 006e B146     		mov	r9, r6
+ 649 0070 A846     		mov	r8, r5
+ 650 0072 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 651              	.LVL58:
+ 652              	.L54:
+ 231:Core/Src/control.c ****     /*轮询直到从机发出的 80us 高电平标置信号结束*/
+ 653              		.loc 1 231 10 view .LVU147
+ 654 0074 0024     		movs	r4, #0
+ 655              	.LVL59:
+ 656              	.L48:
+ 233:Core/Src/control.c ****     {
+ 657              		.loc 1 233 10 is_stmt 1 view .LVU148
+ 233:Core/Src/control.c ****     {
+ 658              		.loc 1 233 11 is_stmt 0 view .LVU149
+ 659 0076 8021     		movs	r1, #128
+ 660 0078 4901     		lsls	r1, r1, #5
+ 661 007a 2548     		ldr	r0, .L56
+ 662 007c FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 663              	.LVL60:
+ 233:Core/Src/control.c ****     {
+ 664              		.loc 1 233 10 view .LVU150
+ 665 0080 0128     		cmp	r0, #1
+ 666 0082 07D1     		bne	.L55
+ 235:Core/Src/control.c ****       if(count>100)  
+ 667              		.loc 1 235 7 is_stmt 1 view .LVU151
+ 235:Core/Src/control.c ****       if(count>100)  
+ 668              		.loc 1 235 12 is_stmt 0 view .LVU152
+ 669 0084 0134     		adds	r4, r4, #1
+ 670              	.LVL61:
+ 235:Core/Src/control.c ****       if(count>100)  
+ 671              		.loc 1 235 12 view .LVU153
+ 672 0086 A4B2     		uxth	r4, r4
+ 673              	.LVL62:
+ 236:Core/Src/control.c ****         return 0;
+ 674              		.loc 1 236 7 is_stmt 1 view .LVU154
+ 236:Core/Src/control.c ****         return 0;
+ 675              		.loc 1 236 9 is_stmt 0 view .LVU155
+ 676 0088 642C     		cmp	r4, #100
+ 677 008a EDD8     		bhi	.L46
+ 238:Core/Src/control.c ****     }
+ 678              		.loc 1 238 7 is_stmt 1 view .LVU156
+ 679 008c 0120     		movs	r0, #1
+ 680 008e FFF7FEFF 		bl	Delay_us
+ 681              	.LVL63:
+ 682 0092 F0E7     		b	.L48
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 19
+
+
+ 683              	.L55:
+ 242:Core/Src/control.c ****     DHT11_Data->humi_low8bit = DHT11_ReadByte();
+ 684              		.loc 1 242 5 view .LVU157
+ 242:Core/Src/control.c ****     DHT11_Data->humi_low8bit = DHT11_ReadByte();
+ 685              		.loc 1 242 32 is_stmt 0 view .LVU158
+ 686 0094 FFF7FEFF 		bl	DHT11_ReadByte
+ 687              	.LVL64:
+ 242:Core/Src/control.c ****     DHT11_Data->humi_low8bit = DHT11_ReadByte();
+ 688              		.loc 1 242 30 view .LVU159
+ 689 0098 2870     		strb	r0, [r5]
+ 243:Core/Src/control.c ****     DHT11_Data->temp_high8bit= DHT11_ReadByte();
+ 690              		.loc 1 243 5 is_stmt 1 view .LVU160
+ 243:Core/Src/control.c ****     DHT11_Data->temp_high8bit= DHT11_ReadByte();
+ 691              		.loc 1 243 32 is_stmt 0 view .LVU161
+ 692 009a FFF7FEFF 		bl	DHT11_ReadByte
+ 693              	.LVL65:
+ 243:Core/Src/control.c ****     DHT11_Data->temp_high8bit= DHT11_ReadByte();
+ 694              		.loc 1 243 30 view .LVU162
+ 695 009e 6870     		strb	r0, [r5, #1]
+ 244:Core/Src/control.c ****     DHT11_Data->temp_low8bit = DHT11_ReadByte();
+ 696              		.loc 1 244 5 is_stmt 1 view .LVU163
+ 244:Core/Src/control.c ****     DHT11_Data->temp_low8bit = DHT11_ReadByte();
+ 697              		.loc 1 244 32 is_stmt 0 view .LVU164
+ 698 00a0 FFF7FEFF 		bl	DHT11_ReadByte
+ 699              	.LVL66:
+ 244:Core/Src/control.c ****     DHT11_Data->temp_low8bit = DHT11_ReadByte();
+ 700              		.loc 1 244 30 view .LVU165
+ 701 00a4 A870     		strb	r0, [r5, #2]
+ 245:Core/Src/control.c ****     DHT11_Data->check_sum    = DHT11_ReadByte();
+ 702              		.loc 1 245 5 is_stmt 1 view .LVU166
+ 245:Core/Src/control.c ****     DHT11_Data->check_sum    = DHT11_ReadByte();
+ 703              		.loc 1 245 32 is_stmt 0 view .LVU167
+ 704 00a6 FFF7FEFF 		bl	DHT11_ReadByte
+ 705              	.LVL67:
+ 245:Core/Src/control.c ****     DHT11_Data->check_sum    = DHT11_ReadByte();
+ 706              		.loc 1 245 30 view .LVU168
+ 707 00aa E870     		strb	r0, [r5, #3]
+ 246:Core/Src/control.c **** 
+ 708              		.loc 1 246 5 is_stmt 1 view .LVU169
+ 246:Core/Src/control.c **** 
+ 709              		.loc 1 246 32 is_stmt 0 view .LVU170
+ 710 00ac FFF7FEFF 		bl	DHT11_ReadByte
+ 711              	.LVL68:
+ 712 00b0 8146     		mov	r9, r0
+ 246:Core/Src/control.c **** 
+ 713              		.loc 1 246 30 view .LVU171
+ 714 00b2 2871     		strb	r0, [r5, #4]
+ 249:Core/Src/control.c ****     DHT11_Data->humidity =(double)humi_temp/100;
+ 715              		.loc 1 249 5 is_stmt 1 view .LVU172
+ 249:Core/Src/control.c ****     DHT11_Data->humidity =(double)humi_temp/100;
+ 716              		.loc 1 249 25 is_stmt 0 view .LVU173
+ 717 00b4 2B78     		ldrb	r3, [r5]
+ 718 00b6 9846     		mov	r8, r3
+ 249:Core/Src/control.c ****     DHT11_Data->humidity =(double)humi_temp/100;
+ 719              		.loc 1 249 44 view .LVU174
+ 720 00b8 6424     		movs	r4, #100
+ 721              	.LVL69:
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 20
+
+
+ 249:Core/Src/control.c ****     DHT11_Data->humidity =(double)humi_temp/100;
+ 722              		.loc 1 249 44 view .LVU175
+ 723 00ba 1800     		movs	r0, r3
+ 724 00bc 6043     		muls	r0, r4
+ 725 00be 80B2     		uxth	r0, r0
+ 249:Core/Src/control.c ****     DHT11_Data->humidity =(double)humi_temp/100;
+ 726              		.loc 1 249 55 view .LVU176
+ 727 00c0 6B78     		ldrb	r3, [r5, #1]
+ 728 00c2 9A46     		mov	r10, r3
+ 249:Core/Src/control.c ****     DHT11_Data->humidity =(double)humi_temp/100;
+ 729              		.loc 1 249 14 view .LVU177
+ 730 00c4 C018     		adds	r0, r0, r3
+ 731 00c6 80B2     		uxth	r0, r0
+ 732              	.LVL70:
+ 250:Core/Src/control.c ****     
+ 733              		.loc 1 250 5 is_stmt 1 view .LVU178
+ 250:Core/Src/control.c ****     
+ 734              		.loc 1 250 27 is_stmt 0 view .LVU179
+ 735 00c8 FFF7FEFF 		bl	__aeabi_ui2d
+ 736              	.LVL71:
+ 250:Core/Src/control.c ****     
+ 737              		.loc 1 250 44 view .LVU180
+ 738 00cc 0022     		movs	r2, #0
+ 739 00ce 114B     		ldr	r3, .L56+4
+ 740 00d0 FFF7FEFF 		bl	__aeabi_ddiv
+ 741              	.LVL72:
+ 250:Core/Src/control.c ****     
+ 742              		.loc 1 250 26 view .LVU181
+ 743 00d4 A860     		str	r0, [r5, #8]
+ 744 00d6 E960     		str	r1, [r5, #12]
+ 252:Core/Src/control.c ****     DHT11_Data->temperature=(double)humi_temp/100;    
+ 745              		.loc 1 252 5 is_stmt 1 view .LVU182
+ 252:Core/Src/control.c ****     DHT11_Data->temperature=(double)humi_temp/100;    
+ 746              		.loc 1 252 25 is_stmt 0 view .LVU183
+ 747 00d8 AF78     		ldrb	r7, [r5, #2]
+ 252:Core/Src/control.c ****     DHT11_Data->temperature=(double)humi_temp/100;    
+ 748              		.loc 1 252 44 view .LVU184
+ 749 00da 7C43     		muls	r4, r7
+ 750              	.LVL73:
+ 252:Core/Src/control.c ****     DHT11_Data->temperature=(double)humi_temp/100;    
+ 751              		.loc 1 252 44 view .LVU185
+ 752 00dc A0B2     		uxth	r0, r4
+ 252:Core/Src/control.c ****     DHT11_Data->temperature=(double)humi_temp/100;    
+ 753              		.loc 1 252 55 view .LVU186
+ 754 00de EC78     		ldrb	r4, [r5, #3]
+ 252:Core/Src/control.c ****     DHT11_Data->temperature=(double)humi_temp/100;    
+ 755              		.loc 1 252 14 view .LVU187
+ 756 00e0 0019     		adds	r0, r0, r4
+ 757 00e2 80B2     		uxth	r0, r0
+ 758              	.LVL74:
+ 253:Core/Src/control.c ****     
+ 759              		.loc 1 253 5 is_stmt 1 view .LVU188
+ 253:Core/Src/control.c ****     
+ 760              		.loc 1 253 29 is_stmt 0 view .LVU189
+ 761 00e4 FFF7FEFF 		bl	__aeabi_ui2d
+ 762              	.LVL75:
+ 253:Core/Src/control.c ****     
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 21
+
+
+ 763              		.loc 1 253 46 view .LVU190
+ 764 00e8 0022     		movs	r2, #0
+ 765 00ea 0A4B     		ldr	r3, .L56+4
+ 766 00ec FFF7FEFF 		bl	__aeabi_ddiv
+ 767              	.LVL76:
+ 253:Core/Src/control.c ****     
+ 768              		.loc 1 253 28 view .LVU191
+ 769 00f0 2861     		str	r0, [r5, #16]
+ 770 00f2 6961     		str	r1, [r5, #20]
+ 256:Core/Src/control.c ****            DHT11_Data->temp_high8bit+ DHT11_Data->temp_low8bit;
+ 771              		.loc 1 256 5 is_stmt 1 view .LVU192
+ 256:Core/Src/control.c ****            DHT11_Data->temp_high8bit+ DHT11_Data->temp_low8bit;
+ 772              		.loc 1 256 38 is_stmt 0 view .LVU193
+ 773 00f4 4346     		mov	r3, r8
+ 774 00f6 5344     		add	r3, r3, r10
+ 775 00f8 DBB2     		uxtb	r3, r3
+ 256:Core/Src/control.c ****            DHT11_Data->temp_high8bit+ DHT11_Data->temp_low8bit;
+ 776              		.loc 1 256 65 view .LVU194
+ 777 00fa FF18     		adds	r7, r7, r3
+ 256:Core/Src/control.c ****            DHT11_Data->temp_high8bit+ DHT11_Data->temp_low8bit;
+ 778              		.loc 1 256 65 view .LVU195
+ 779 00fc FFB2     		uxtb	r7, r7
+ 256:Core/Src/control.c ****            DHT11_Data->temp_high8bit+ DHT11_Data->temp_low8bit;
+ 780              		.loc 1 256 10 view .LVU196
+ 781 00fe E719     		adds	r7, r4, r7
+ 782 0100 FFB2     		uxtb	r7, r7
+ 783              	.LVL77:
+ 259:Core/Src/control.c ****     { 
+ 784              		.loc 1 259 5 is_stmt 1 view .LVU197
+ 259:Core/Src/control.c ****     { 
+ 785              		.loc 1 259 7 is_stmt 0 view .LVU198
+ 786 0102 B945     		cmp	r9, r7
+ 787 0104 B0D0     		beq	.L46
+ 264:Core/Src/control.c ****   }        
+ 788              		.loc 1 264 14 view .LVU199
+ 789 0106 0126     		movs	r6, #1
+ 790 0108 AEE7     		b	.L46
+ 791              	.LVL78:
+ 792              	.L51:
+ 228:Core/Src/control.c ****       Delay_us(1); 
+ 793              		.loc 1 228 16 view .LVU200
+ 794 010a 0600     		movs	r6, r0
+ 795 010c ACE7     		b	.L46
+ 796              	.L57:
+ 797 010e C046     		.align	2
+ 798              	.L56:
+ 799 0110 00040048 		.word	1207960576
+ 800 0114 00005940 		.word	1079574528
+ 801              		.cfi_endproc
+ 802              	.LFE51:
+ 804              		.section	.text.ReadDh,"ax",%progbits
+ 805              		.align	1
+ 806              		.global	ReadDh
+ 807              		.syntax unified
+ 808              		.code	16
+ 809              		.thumb_func
+ 811              	ReadDh:
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 22
+
+
+ 812              	.LFB52:
+ 269:Core/Src/control.c **** 
+ 270:Core/Src/control.c **** 
+ 271:Core/Src/control.c **** 
+ 272:Core/Src/control.c **** 
+ 273:Core/Src/control.c **** void ReadDh(void)
+ 274:Core/Src/control.c **** {
+ 813              		.loc 1 274 1 is_stmt 1 view -0
+ 814              		.cfi_startproc
+ 815              		@ args = 0, pretend = 0, frame = 0
+ 816              		@ frame_needed = 0, uses_anonymous_args = 0
+ 817 0000 10B5     		push	{r4, lr}
+ 818              	.LCFI13:
+ 819              		.cfi_def_cfa_offset 8
+ 820              		.cfi_offset 4, -8
+ 821              		.cfi_offset 14, -4
+ 275:Core/Src/control.c ****   DHT11_Read_TempAndHumidity(&dhdata);
+ 822              		.loc 1 275 3 view .LVU202
+ 823 0002 0248     		ldr	r0, .L59
+ 824 0004 FFF7FEFF 		bl	DHT11_Read_TempAndHumidity
+ 825              	.LVL79:
+ 276:Core/Src/control.c **** }
+ 826              		.loc 1 276 1 is_stmt 0 view .LVU203
+ 827              		@ sp needed
+ 828 0008 10BD     		pop	{r4, pc}
+ 829              	.L60:
+ 830 000a C046     		.align	2
+ 831              	.L59:
+ 832 000c 00000000 		.word	.LANCHOR0
+ 833              		.cfi_endproc
+ 834              	.LFE52:
+ 836              		.section	.text.JDQ_Hx,"ax",%progbits
+ 837              		.align	1
+ 838              		.global	JDQ_Hx
+ 839              		.syntax unified
+ 840              		.code	16
+ 841              		.thumb_func
+ 843              	JDQ_Hx:
+ 844              	.LVL80:
+ 845              	.LFB54:
+ 277:Core/Src/control.c **** 
+ 278:Core/Src/control.c **** void ReadKey(void)
+ 279:Core/Src/control.c **** {
+ 280:Core/Src/control.c **** 
+ 281:Core/Src/control.c ****   uint16_t temperature;
+ 282:Core/Src/control.c ****   uint16_t humidity;
+ 283:Core/Src/control.c ****   
+ 284:Core/Src/control.c ****   if(sec_time>2000)
+ 285:Core/Src/control.c ****   {
+ 286:Core/Src/control.c ****     sec_time=0;
+ 287:Core/Src/control.c ****     extern void stopADC(void);
+ 288:Core/Src/control.c ****     extern void startADC(void);
+ 289:Core/Src/control.c ****     stopADC();
+ 290:Core/Src/control.c ****     Th=(signed short)(dhdata.humidity*10);
+ 291:Core/Src/control.c ****     ReadDh();
+ 292:Core/Src/control.c ****     startADC();
+ 293:Core/Src/control.c ****    // DHT11_Read_Data(&temperature,&humidity);
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 23
+
+
+ 294:Core/Src/control.c **** 
+ 295:Core/Src/control.c ****   }
+ 296:Core/Src/control.c ****   if(Key1Read)
+ 297:Core/Src/control.c ****   {
+ 298:Core/Src/control.c ****     //JDQ1_H;
+ 299:Core/Src/control.c ****     //willBeepTime=10;
+ 300:Core/Src/control.c ****   }
+ 301:Core/Src/control.c ****   else 
+ 302:Core/Src/control.c ****   {
+ 303:Core/Src/control.c ****     //JDQ1_L;
+ 304:Core/Src/control.c ****     
+ 305:Core/Src/control.c ****   }
+ 306:Core/Src/control.c ****   
+ 307:Core/Src/control.c ****   if(Key2Read)
+ 308:Core/Src/control.c ****   {
+ 309:Core/Src/control.c ****     //JDQ2_H;
+ 310:Core/Src/control.c ****     //willBeepTime=10;
+ 311:Core/Src/control.c ****   }
+ 312:Core/Src/control.c ****   else 
+ 313:Core/Src/control.c ****   {
+ 314:Core/Src/control.c ****     //JDQ2_L;
+ 315:Core/Src/control.c ****   }
+ 316:Core/Src/control.c ****   
+ 317:Core/Src/control.c ****   if(Key3Read)
+ 318:Core/Src/control.c ****   {
+ 319:Core/Src/control.c ****     //JDQ3_H;
+ 320:Core/Src/control.c ****     //willBeepTime=10;
+ 321:Core/Src/control.c ****   }
+ 322:Core/Src/control.c ****   else 
+ 323:Core/Src/control.c ****   {
+ 324:Core/Src/control.c ****     //JDQ3_L;
+ 325:Core/Src/control.c ****   }
+ 326:Core/Src/control.c ****   
+ 327:Core/Src/control.c ****   if(Key4Read)
+ 328:Core/Src/control.c ****   {
+ 329:Core/Src/control.c ****     //JDQ4_H;
+ 330:Core/Src/control.c ****     //willBeepTime=10;
+ 331:Core/Src/control.c ****   }
+ 332:Core/Src/control.c ****   else 
+ 333:Core/Src/control.c ****   {
+ 334:Core/Src/control.c ****     //JDQ4_L;
+ 335:Core/Src/control.c ****   }
+ 336:Core/Src/control.c ****   
+ 337:Core/Src/control.c ****   if(willBeepTime!=0)
+ 338:Core/Src/control.c ****   {
+ 339:Core/Src/control.c ****     BeepOn;
+ 340:Core/Src/control.c ****   }
+ 341:Core/Src/control.c ****   if(willBeepTime==0)
+ 342:Core/Src/control.c ****   {
+ 343:Core/Src/control.c ****     BeepOf;
+ 344:Core/Src/control.c ****   }
+ 345:Core/Src/control.c ****   UpateShData();
+ 346:Core/Src/control.c ****   
+ 347:Core/Src/control.c ****   if(sysms>10)
+ 348:Core/Src/control.c ****   { 
+ 349:Core/Src/control.c ****     sysms=0;
+ 350:Core/Src/control.c ****     sTa=(unsigned short)((float)Ta*0.5115);
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 24
+
+
+ 351:Core/Src/control.c ****     sTb=(unsigned short)((float)Tb*0.5115);
+ 352:Core/Src/control.c ****     sTc=(unsigned short)((float)Tc*0.5115);
+ 353:Core/Src/control.c ****     sTd=(unsigned short)((float)Td*0.5115);
+ 354:Core/Src/control.c ****     sTe=(unsigned short)((float)Te*0.5115);
+ 355:Core/Src/control.c ****     if(Ta<=0)sTa=0;
+ 356:Core/Src/control.c ****     if(Tb<=0)sTb=0;
+ 357:Core/Src/control.c ****     if(Tc<=0)sTc=0;
+ 358:Core/Src/control.c ****     if(Td<=0)sTd=0;
+ 359:Core/Src/control.c ****     if(Te<=0)sTe=0;
+ 360:Core/Src/control.c ****     if(sTa>1023)sTa=1023;
+ 361:Core/Src/control.c ****     if(sTb>1023)sTb=1023;
+ 362:Core/Src/control.c ****     if(sTc>1023)sTc=1023;
+ 363:Core/Src/control.c ****     if(sTd>1023)sTd=1023;
+ 364:Core/Src/control.c ****     if(sTe>1023)sTe=1023;
+ 365:Core/Src/control.c **** #if TeStFlag==1
+ 366:Core/Src/control.c ****     sTa=1023;
+ 367:Core/Src/control.c ****     sTb=1023;
+ 368:Core/Src/control.c ****     sTc=1023;
+ 369:Core/Src/control.c ****     sTd=1023;
+ 370:Core/Src/control.c ****     sTe=1023;
+ 371:Core/Src/control.c **** #endif
+ 372:Core/Src/control.c ****     write_data_to_TLC5615(0,sTa);
+ 373:Core/Src/control.c ****     write_data_to_TLC5615(1,sTb);
+ 374:Core/Src/control.c ****     write_data_to_TLC5615(2,sTc);
+ 375:Core/Src/control.c ****     write_data_to_TLC5615(3,sTd);
+ 376:Core/Src/control.c ****     write_data_to_TLC5615(4,sTe);
+ 377:Core/Src/control.c ****     //ReadTemputer=DS18B20_GetTemperature();
+ 378:Core/Src/control.c ****   }
+ 379:Core/Src/control.c **** }
+ 380:Core/Src/control.c **** 
+ 381:Core/Src/control.c **** void JDQ_Hx(unsigned char x)
+ 382:Core/Src/control.c **** {
+ 846              		.loc 1 382 1 is_stmt 1 view -0
+ 847              		.cfi_startproc
+ 848              		@ args = 0, pretend = 0, frame = 0
+ 849              		@ frame_needed = 0, uses_anonymous_args = 0
+ 850              		.loc 1 382 1 is_stmt 0 view .LVU205
+ 851 0000 10B5     		push	{r4, lr}
+ 852              	.LCFI14:
+ 853              		.cfi_def_cfa_offset 8
+ 854              		.cfi_offset 4, -8
+ 855              		.cfi_offset 14, -4
+ 383:Core/Src/control.c ****   hcreg=hcreg|(0x0001<<x);
+ 856              		.loc 1 383 3 is_stmt 1 view .LVU206
+ 857              		.loc 1 383 22 is_stmt 0 view .LVU207
+ 858 0002 0123     		movs	r3, #1
+ 859 0004 8340     		lsls	r3, r3, r0
+ 860              		.loc 1 383 14 view .LVU208
+ 861 0006 044A     		ldr	r2, .L62
+ 862 0008 1088     		ldrh	r0, [r2]
+ 863              	.LVL81:
+ 864              		.loc 1 383 14 view .LVU209
+ 865 000a 1843     		orrs	r0, r3
+ 866 000c 80B2     		uxth	r0, r0
+ 867              		.loc 1 383 8 view .LVU210
+ 868 000e 1080     		strh	r0, [r2]
+ 384:Core/Src/control.c ****   LED595SendData(hcreg);
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 25
+
+
+ 869              		.loc 1 384 3 is_stmt 1 view .LVU211
+ 870 0010 FFF7FEFF 		bl	LED595SendData
+ 871              	.LVL82:
+ 385:Core/Src/control.c **** }
+ 872              		.loc 1 385 1 is_stmt 0 view .LVU212
+ 873              		@ sp needed
+ 874 0014 10BD     		pop	{r4, pc}
+ 875              	.L63:
+ 876 0016 C046     		.align	2
+ 877              	.L62:
+ 878 0018 00000000 		.word	hcreg
+ 879              		.cfi_endproc
+ 880              	.LFE54:
+ 882              		.section	.text.JDQ_Lx,"ax",%progbits
+ 883              		.align	1
+ 884              		.global	JDQ_Lx
+ 885              		.syntax unified
+ 886              		.code	16
+ 887              		.thumb_func
+ 889              	JDQ_Lx:
+ 890              	.LVL83:
+ 891              	.LFB55:
+ 386:Core/Src/control.c **** 
+ 387:Core/Src/control.c **** void JDQ_Lx(unsigned char x)
+ 388:Core/Src/control.c **** {
+ 892              		.loc 1 388 1 is_stmt 1 view -0
+ 893              		.cfi_startproc
+ 894              		@ args = 0, pretend = 0, frame = 0
+ 895              		@ frame_needed = 0, uses_anonymous_args = 0
+ 896              		.loc 1 388 1 is_stmt 0 view .LVU214
+ 897 0000 10B5     		push	{r4, lr}
+ 898              	.LCFI15:
+ 899              		.cfi_def_cfa_offset 8
+ 900              		.cfi_offset 4, -8
+ 901              		.cfi_offset 14, -4
+ 389:Core/Src/control.c ****   hcreg=hcreg&(~(0x0001<<x));
+ 902              		.loc 1 389 3 is_stmt 1 view .LVU215
+ 903              		.loc 1 389 24 is_stmt 0 view .LVU216
+ 904 0002 0123     		movs	r3, #1
+ 905 0004 8340     		lsls	r3, r3, r0
+ 906              		.loc 1 389 14 view .LVU217
+ 907 0006 034A     		ldr	r2, .L65
+ 908 0008 1088     		ldrh	r0, [r2]
+ 909              	.LVL84:
+ 910              		.loc 1 389 14 view .LVU218
+ 911 000a 9843     		bics	r0, r3
+ 912              		.loc 1 389 8 view .LVU219
+ 913 000c 1080     		strh	r0, [r2]
+ 390:Core/Src/control.c ****   LED595SendData(hcreg);
+ 914              		.loc 1 390 3 is_stmt 1 view .LVU220
+ 915 000e FFF7FEFF 		bl	LED595SendData
+ 916              	.LVL85:
+ 391:Core/Src/control.c **** }
+ 917              		.loc 1 391 1 is_stmt 0 view .LVU221
+ 918              		@ sp needed
+ 919 0012 10BD     		pop	{r4, pc}
+ 920              	.L66:
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 26
+
+
+ 921              		.align	2
+ 922              	.L65:
+ 923 0014 00000000 		.word	hcreg
+ 924              		.cfi_endproc
+ 925              	.LFE55:
+ 927              		.section	.text.write_data_to_TLC5615,"ax",%progbits
+ 928              		.align	1
+ 929              		.global	write_data_to_TLC5615
+ 930              		.syntax unified
+ 931              		.code	16
+ 932              		.thumb_func
+ 934              	write_data_to_TLC5615:
+ 935              	.LVL86:
+ 936              	.LFB56:
+ 392:Core/Src/control.c **** 
+ 393:Core/Src/control.c **** extern void delay_us(unsigned short T_Dly);
+ 394:Core/Src/control.c **** void write_data_to_TLC5615(unsigned char n,unsigned short data)
+ 395:Core/Src/control.c **** {
+ 937              		.loc 1 395 1 is_stmt 1 view -0
+ 938              		.cfi_startproc
+ 939              		@ args = 0, pretend = 0, frame = 0
+ 940              		@ frame_needed = 0, uses_anonymous_args = 0
+ 941              		.loc 1 395 1 is_stmt 0 view .LVU223
+ 942 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 943              	.LCFI16:
+ 944              		.cfi_def_cfa_offset 20
+ 945              		.cfi_offset 4, -20
+ 946              		.cfi_offset 5, -16
+ 947              		.cfi_offset 6, -12
+ 948              		.cfi_offset 7, -8
+ 949              		.cfi_offset 14, -4
+ 950 0002 C646     		mov	lr, r8
+ 951 0004 00B5     		push	{lr}
+ 952              	.LCFI17:
+ 953              		.cfi_def_cfa_offset 24
+ 954              		.cfi_offset 8, -24
+ 955 0006 0500     		movs	r5, r0
+ 956 0008 0C00     		movs	r4, r1
+ 396:Core/Src/control.c ****     //data=560;
+ 397:Core/Src/control.c ****     u8 i = 0;     //一共发送 10位 数据位
+ 957              		.loc 1 397 5 is_stmt 1 view .LVU224
+ 958              	.LVL87:
+ 398:Core/Src/control.c ****     CLK0; //cs需要在 clk为低时，使能
+ 959              		.loc 1 398 5 view .LVU225
+ 960 000a 8021     		movs	r1, #128
+ 961              	.LVL88:
+ 962              		.loc 1 398 5 is_stmt 0 view .LVU226
+ 963 000c 0022     		movs	r2, #0
+ 964 000e 8901     		lsls	r1, r1, #6
+ 965 0010 2948     		ldr	r0, .L73
+ 966              	.LVL89:
+ 967              		.loc 1 398 5 view .LVU227
+ 968 0012 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 969              	.LVL90:
+ 399:Core/Src/control.c **** 
+ 400:Core/Src/control.c ****     JDQ_Lx(n+10);;//cs为低，串行数据才能被移入移位寄存器
+ 970              		.loc 1 400 5 is_stmt 1 view .LVU228
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 27
+
+
+ 971 0016 0A35     		adds	r5, r5, #10
+ 972 0018 EBB2     		uxtb	r3, r5
+ 973 001a 9846     		mov	r8, r3
+ 974 001c 1800     		movs	r0, r3
+ 975 001e FFF7FEFF 		bl	JDQ_Lx
+ 976              	.LVL91:
+ 977              		.loc 1 400 18 view .LVU229
+ 401:Core/Src/control.c ****     delay_us(1000);
+ 978              		.loc 1 401 5 view .LVU230
+ 979 0022 FA20     		movs	r0, #250
+ 980 0024 8000     		lsls	r0, r0, #2
+ 981 0026 FFF7FEFF 		bl	delay_us
+ 982              	.LVL92:
+ 402:Core/Src/control.c ****     for(i = 0; i < 10; i++) //一共十位 有效数据位
+ 983              		.loc 1 402 5 view .LVU231
+ 984              		.loc 1 402 11 is_stmt 0 view .LVU232
+ 985 002a 0025     		movs	r5, #0
+ 986              		.loc 1 402 5 view .LVU233
+ 987 002c 16E0     		b	.L68
+ 988              	.LVL93:
+ 989              	.L69:
+ 403:Core/Src/control.c ****     {
+ 404:Core/Src/control.c ****         if(data & 0x200) //发送数据 高位，第十位
+ 405:Core/Src/control.c ****         {
+ 406:Core/Src/control.c ****             MOSI1; //数据bit = 1    
+ 407:Core/Src/control.c ****         }    
+ 408:Core/Src/control.c ****         else
+ 409:Core/Src/control.c ****         {
+ 410:Core/Src/control.c ****             MOSI0; //数据bit = 0    
+ 990              		.loc 1 410 13 is_stmt 1 view .LVU234
+ 991 002e 8021     		movs	r1, #128
+ 992 0030 0022     		movs	r2, #0
+ 993 0032 0902     		lsls	r1, r1, #8
+ 994 0034 2048     		ldr	r0, .L73
+ 995 0036 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 996              	.LVL94:
+ 997              	.L70:
+ 411:Core/Src/control.c ****         }
+ 412:Core/Src/control.c **** 
+ 413:Core/Src/control.c ****         CLK1; //时钟 从 0 ~ 1 发送数据传递
+ 998              		.loc 1 413 9 discriminator 2 view .LVU235
+ 999 003a 8027     		movs	r7, #128
+ 1000 003c BF01     		lsls	r7, r7, #6
+ 1001 003e 1E4E     		ldr	r6, .L73
+ 1002 0040 0122     		movs	r2, #1
+ 1003 0042 3900     		movs	r1, r7
+ 1004 0044 3000     		movs	r0, r6
+ 1005 0046 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1006              	.LVL95:
+ 414:Core/Src/control.c **** 
+ 415:Core/Src/control.c ****         CLK0; //时钟恢复 0
+ 1007              		.loc 1 415 9 discriminator 2 view .LVU236
+ 1008 004a 0022     		movs	r2, #0
+ 1009 004c 3900     		movs	r1, r7
+ 1010 004e 3000     		movs	r0, r6
+ 1011 0050 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1012              	.LVL96:
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 28
+
+
+ 416:Core/Src/control.c **** 
+ 417:Core/Src/control.c ****         data <<= 1;    //数据左移
+ 1013              		.loc 1 417 9 discriminator 2 view .LVU237
+ 1014              		.loc 1 417 14 is_stmt 0 discriminator 2 view .LVU238
+ 1015 0054 6400     		lsls	r4, r4, #1
+ 1016              	.LVL97:
+ 1017              		.loc 1 417 14 discriminator 2 view .LVU239
+ 1018 0056 A4B2     		uxth	r4, r4
+ 1019              	.LVL98:
+ 402:Core/Src/control.c ****     {
+ 1020              		.loc 1 402 24 is_stmt 1 discriminator 2 view .LVU240
+ 402:Core/Src/control.c ****     {
+ 1021              		.loc 1 402 25 is_stmt 0 discriminator 2 view .LVU241
+ 1022 0058 0135     		adds	r5, r5, #1
+ 1023              	.LVL99:
+ 402:Core/Src/control.c ****     {
+ 1024              		.loc 1 402 25 discriminator 2 view .LVU242
+ 1025 005a EDB2     		uxtb	r5, r5
+ 1026              	.LVL100:
+ 1027              	.L68:
+ 402:Core/Src/control.c ****     {
+ 1028              		.loc 1 402 16 is_stmt 1 discriminator 1 view .LVU243
+ 402:Core/Src/control.c ****     {
+ 1029              		.loc 1 402 5 is_stmt 0 discriminator 1 view .LVU244
+ 1030 005c 092D     		cmp	r5, #9
+ 1031 005e 08D8     		bhi	.L72
+ 404:Core/Src/control.c ****         {
+ 1032              		.loc 1 404 9 is_stmt 1 view .LVU245
+ 404:Core/Src/control.c ****         {
+ 1033              		.loc 1 404 11 is_stmt 0 view .LVU246
+ 1034 0060 A305     		lsls	r3, r4, #22
+ 1035 0062 E4D5     		bpl	.L69
+ 406:Core/Src/control.c ****         }    
+ 1036              		.loc 1 406 13 is_stmt 1 view .LVU247
+ 1037 0064 8021     		movs	r1, #128
+ 1038 0066 0122     		movs	r2, #1
+ 1039 0068 0902     		lsls	r1, r1, #8
+ 1040 006a 1348     		ldr	r0, .L73
+ 1041 006c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1042              	.LVL101:
+ 1043 0070 E3E7     		b	.L70
+ 1044              	.L72:
+ 418:Core/Src/control.c ****     }
+ 419:Core/Src/control.c **** 
+ 420:Core/Src/control.c ****     //传输 低两位 填充位
+ 421:Core/Src/control.c ****     MOSI0;
+ 1045              		.loc 1 421 5 view .LVU248
+ 1046 0072 8021     		movs	r1, #128
+ 1047 0074 104C     		ldr	r4, .L73
+ 1048              	.LVL102:
+ 1049              		.loc 1 421 5 is_stmt 0 view .LVU249
+ 1050 0076 0022     		movs	r2, #0
+ 1051 0078 0902     		lsls	r1, r1, #8
+ 1052 007a 2000     		movs	r0, r4
+ 1053 007c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1054              	.LVL103:
+ 422:Core/Src/control.c ****     CLK1; //时钟 从 0 ~ 1 发送数据传递
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 29
+
+
+ 1055              		.loc 1 422 5 is_stmt 1 view .LVU250
+ 1056 0080 8025     		movs	r5, #128
+ 1057              	.LVL104:
+ 1058              		.loc 1 422 5 is_stmt 0 view .LVU251
+ 1059 0082 AD01     		lsls	r5, r5, #6
+ 1060 0084 0122     		movs	r2, #1
+ 1061 0086 2900     		movs	r1, r5
+ 1062 0088 2000     		movs	r0, r4
+ 1063 008a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1064              	.LVL105:
+ 423:Core/Src/control.c **** 
+ 424:Core/Src/control.c ****     CLK0; //时钟恢复 0
+ 1065              		.loc 1 424 5 is_stmt 1 view .LVU252
+ 1066 008e 0022     		movs	r2, #0
+ 1067 0090 2900     		movs	r1, r5
+ 1068 0092 2000     		movs	r0, r4
+ 1069 0094 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1070              	.LVL106:
+ 425:Core/Src/control.c **** 
+ 426:Core/Src/control.c ****     CLK1; //时钟 从 0 ~ 1 发送数据传递
+ 1071              		.loc 1 426 5 view .LVU253
+ 1072 0098 0122     		movs	r2, #1
+ 1073 009a 2900     		movs	r1, r5
+ 1074 009c 2000     		movs	r0, r4
+ 1075 009e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1076              	.LVL107:
+ 427:Core/Src/control.c **** 
+ 428:Core/Src/control.c ****     CLK0; //时钟恢复 0
+ 1077              		.loc 1 428 5 view .LVU254
+ 1078 00a2 0022     		movs	r2, #0
+ 1079 00a4 2900     		movs	r1, r5
+ 1080 00a6 2000     		movs	r0, r4
+ 1081 00a8 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1082              	.LVL108:
+ 429:Core/Src/control.c **** 
+ 430:Core/Src/control.c ****     JDQ_Hx(n+10); //恢复 cs 高 1
+ 1083              		.loc 1 430 5 view .LVU255
+ 1084 00ac 4046     		mov	r0, r8
+ 1085 00ae FFF7FEFF 		bl	JDQ_Hx
+ 1086              	.LVL109:
+ 431:Core/Src/control.c **** 
+ 432:Core/Src/control.c **** }
+ 1087              		.loc 1 432 1 is_stmt 0 view .LVU256
+ 1088              		@ sp needed
+ 1089 00b2 80BC     		pop	{r7}
+ 1090 00b4 B846     		mov	r8, r7
+ 1091 00b6 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 1092              	.L74:
+ 1093              		.align	2
+ 1094              	.L73:
+ 1095 00b8 00040048 		.word	1207960576
+ 1096              		.cfi_endproc
+ 1097              	.LFE56:
+ 1099              		.global	__aeabi_dmul
+ 1100              		.global	__aeabi_d2iz
+ 1101              		.global	__aeabi_i2f
+ 1102              		.global	__aeabi_f2d
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 30
+
+
+ 1103              		.global	__aeabi_d2uiz
+ 1104              		.section	.text.ReadKey,"ax",%progbits
+ 1105              		.align	1
+ 1106              		.global	ReadKey
+ 1107              		.syntax unified
+ 1108              		.code	16
+ 1109              		.thumb_func
+ 1111              	ReadKey:
+ 1112              	.LFB53:
+ 279:Core/Src/control.c **** 
+ 1113              		.loc 1 279 1 is_stmt 1 view -0
+ 1114              		.cfi_startproc
+ 1115              		@ args = 0, pretend = 0, frame = 0
+ 1116              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1117 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 1118              	.LCFI18:
+ 1119              		.cfi_def_cfa_offset 20
+ 1120              		.cfi_offset 4, -20
+ 1121              		.cfi_offset 5, -16
+ 1122              		.cfi_offset 6, -12
+ 1123              		.cfi_offset 7, -8
+ 1124              		.cfi_offset 14, -4
+ 1125 0002 C646     		mov	lr, r8
+ 1126 0004 00B5     		push	{lr}
+ 1127              	.LCFI19:
+ 1128              		.cfi_def_cfa_offset 24
+ 1129              		.cfi_offset 8, -24
+ 281:Core/Src/control.c ****   uint16_t humidity;
+ 1130              		.loc 1 281 3 view .LVU258
+ 282:Core/Src/control.c ****   
+ 1131              		.loc 1 282 3 view .LVU259
+ 284:Core/Src/control.c ****   {
+ 1132              		.loc 1 284 3 view .LVU260
+ 284:Core/Src/control.c ****   {
+ 1133              		.loc 1 284 14 is_stmt 0 view .LVU261
+ 1134 0006 854B     		ldr	r3, .L98
+ 1135 0008 1A68     		ldr	r2, [r3]
+ 284:Core/Src/control.c ****   {
+ 1136              		.loc 1 284 5 view .LVU262
+ 1137 000a FA23     		movs	r3, #250
+ 1138 000c DB00     		lsls	r3, r3, #3
+ 1139 000e 9A42     		cmp	r2, r3
+ 1140 0010 00D9     		bls	.LCB959
+ 1141 0012 CDE0     		b	.L90	@long jump
+ 1142              	.LCB959:
+ 1143              	.L76:
+ 296:Core/Src/control.c ****   {
+ 1144              		.loc 1 296 3 is_stmt 1 view .LVU263
+ 296:Core/Src/control.c ****   {
+ 1145              		.loc 1 296 6 is_stmt 0 view .LVU264
+ 1146 0014 8021     		movs	r1, #128
+ 1147 0016 9024     		movs	r4, #144
+ 1148 0018 E405     		lsls	r4, r4, #23
+ 1149 001a 0901     		lsls	r1, r1, #4
+ 1150 001c 2000     		movs	r0, r4
+ 1151 001e FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 1152              	.LVL110:
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 31
+
+
+ 305:Core/Src/control.c ****   
+ 1153              		.loc 1 305 3 is_stmt 1 view .LVU265
+ 307:Core/Src/control.c ****   {
+ 1154              		.loc 1 307 3 view .LVU266
+ 307:Core/Src/control.c ****   {
+ 1155              		.loc 1 307 6 is_stmt 0 view .LVU267
+ 1156 0022 8021     		movs	r1, #128
+ 1157 0024 C900     		lsls	r1, r1, #3
+ 1158 0026 2000     		movs	r0, r4
+ 1159 0028 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 1160              	.LVL111:
+ 315:Core/Src/control.c ****   
+ 1161              		.loc 1 315 3 is_stmt 1 view .LVU268
+ 317:Core/Src/control.c ****   {
+ 1162              		.loc 1 317 3 view .LVU269
+ 317:Core/Src/control.c ****   {
+ 1163              		.loc 1 317 6 is_stmt 0 view .LVU270
+ 1164 002c 8021     		movs	r1, #128
+ 1165 002e 0902     		lsls	r1, r1, #8
+ 1166 0030 2000     		movs	r0, r4
+ 1167 0032 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 1168              	.LVL112:
+ 325:Core/Src/control.c ****   
+ 1169              		.loc 1 325 3 is_stmt 1 view .LVU271
+ 327:Core/Src/control.c ****   {
+ 1170              		.loc 1 327 3 view .LVU272
+ 327:Core/Src/control.c ****   {
+ 1171              		.loc 1 327 6 is_stmt 0 view .LVU273
+ 1172 0036 0121     		movs	r1, #1
+ 1173 0038 2000     		movs	r0, r4
+ 1174 003a FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 1175              	.LVL113:
+ 335:Core/Src/control.c ****   
+ 1176              		.loc 1 335 3 is_stmt 1 view .LVU274
+ 337:Core/Src/control.c ****   {
+ 1177              		.loc 1 337 3 view .LVU275
+ 337:Core/Src/control.c ****   {
+ 1178              		.loc 1 337 18 is_stmt 0 view .LVU276
+ 1179 003e 784B     		ldr	r3, .L98+4
+ 1180 0040 1B68     		ldr	r3, [r3]
+ 337:Core/Src/control.c ****   {
+ 1181              		.loc 1 337 5 view .LVU277
+ 1182 0042 002B     		cmp	r3, #0
+ 1183 0044 00D0     		beq	.LCB990
+ 1184 0046 C9E0     		b	.L91	@long jump
+ 1185              	.LCB990:
+ 1186              	.L77:
+ 341:Core/Src/control.c ****   {
+ 1187              		.loc 1 341 3 is_stmt 1 view .LVU278
+ 341:Core/Src/control.c ****   {
+ 1188              		.loc 1 341 18 is_stmt 0 view .LVU279
+ 1189 0048 754B     		ldr	r3, .L98+4
+ 1190 004a 1B68     		ldr	r3, [r3]
+ 341:Core/Src/control.c ****   {
+ 1191              		.loc 1 341 5 view .LVU280
+ 1192 004c 002B     		cmp	r3, #0
+ 1193 004e 00D1     		bne	.LCB996
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 32
+
+
+ 1194 0050 CAE0     		b	.L92	@long jump
+ 1195              	.LCB996:
+ 1196              	.L78:
+ 345:Core/Src/control.c ****   
+ 1197              		.loc 1 345 3 is_stmt 1 view .LVU281
+ 1198 0052 FFF7FEFF 		bl	UpateShData
+ 1199              	.LVL114:
+ 347:Core/Src/control.c ****   { 
+ 1200              		.loc 1 347 3 view .LVU282
+ 347:Core/Src/control.c ****   { 
+ 1201              		.loc 1 347 11 is_stmt 0 view .LVU283
+ 1202 0056 734B     		ldr	r3, .L98+8
+ 1203 0058 1B68     		ldr	r3, [r3]
+ 347:Core/Src/control.c ****   { 
+ 1204              		.loc 1 347 5 view .LVU284
+ 1205 005a 0A2B     		cmp	r3, #10
+ 1206 005c 00D8     		bhi	.LCB1004
+ 1207 005e A4E0     		b	.L75	@long jump
+ 1208              	.LCB1004:
+ 349:Core/Src/control.c ****     sTa=(unsigned short)((float)Ta*0.5115);
+ 1209              		.loc 1 349 5 is_stmt 1 view .LVU285
+ 349:Core/Src/control.c ****     sTa=(unsigned short)((float)Ta*0.5115);
+ 1210              		.loc 1 349 10 is_stmt 0 view .LVU286
+ 1211 0060 704B     		ldr	r3, .L98+8
+ 1212 0062 0022     		movs	r2, #0
+ 1213 0064 1A60     		str	r2, [r3]
+ 350:Core/Src/control.c ****     sTb=(unsigned short)((float)Tb*0.5115);
+ 1214              		.loc 1 350 5 is_stmt 1 view .LVU287
+ 350:Core/Src/control.c ****     sTb=(unsigned short)((float)Tb*0.5115);
+ 1215              		.loc 1 350 26 is_stmt 0 view .LVU288
+ 1216 0066 704B     		ldr	r3, .L98+12
+ 1217 0068 1F68     		ldr	r7, [r3]
+ 1218 006a 3800     		movs	r0, r7
+ 1219 006c FFF7FEFF 		bl	__aeabi_i2f
+ 1220              	.LVL115:
+ 1221 0070 FFF7FEFF 		bl	__aeabi_f2d
+ 1222              	.LVL116:
+ 350:Core/Src/control.c ****     sTb=(unsigned short)((float)Tb*0.5115);
+ 1223              		.loc 1 350 35 view .LVU289
+ 1224 0074 6D4A     		ldr	r2, .L98+16
+ 1225 0076 6E4B     		ldr	r3, .L98+20
+ 1226 0078 FFF7FEFF 		bl	__aeabi_dmul
+ 1227              	.LVL117:
+ 350:Core/Src/control.c ****     sTb=(unsigned short)((float)Tb*0.5115);
+ 1228              		.loc 1 350 9 view .LVU290
+ 1229 007c FFF7FEFF 		bl	__aeabi_d2uiz
+ 1230              	.LVL118:
+ 350:Core/Src/control.c ****     sTb=(unsigned short)((float)Tb*0.5115);
+ 1231              		.loc 1 350 8 view .LVU291
+ 1232 0080 6C4B     		ldr	r3, .L98+24
+ 1233 0082 1880     		strh	r0, [r3]
+ 351:Core/Src/control.c ****     sTc=(unsigned short)((float)Tc*0.5115);
+ 1234              		.loc 1 351 5 is_stmt 1 view .LVU292
+ 351:Core/Src/control.c ****     sTc=(unsigned short)((float)Tc*0.5115);
+ 1235              		.loc 1 351 26 is_stmt 0 view .LVU293
+ 1236 0084 6C4B     		ldr	r3, .L98+28
+ 1237 0086 1E68     		ldr	r6, [r3]
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 33
+
+
+ 1238 0088 3000     		movs	r0, r6
+ 1239 008a FFF7FEFF 		bl	__aeabi_i2f
+ 1240              	.LVL119:
+ 1241 008e FFF7FEFF 		bl	__aeabi_f2d
+ 1242              	.LVL120:
+ 351:Core/Src/control.c ****     sTc=(unsigned short)((float)Tc*0.5115);
+ 1243              		.loc 1 351 35 view .LVU294
+ 1244 0092 664A     		ldr	r2, .L98+16
+ 1245 0094 664B     		ldr	r3, .L98+20
+ 1246 0096 FFF7FEFF 		bl	__aeabi_dmul
+ 1247              	.LVL121:
+ 351:Core/Src/control.c ****     sTc=(unsigned short)((float)Tc*0.5115);
+ 1248              		.loc 1 351 9 view .LVU295
+ 1249 009a FFF7FEFF 		bl	__aeabi_d2uiz
+ 1250              	.LVL122:
+ 351:Core/Src/control.c ****     sTc=(unsigned short)((float)Tc*0.5115);
+ 1251              		.loc 1 351 8 view .LVU296
+ 1252 009e 674B     		ldr	r3, .L98+32
+ 1253 00a0 1880     		strh	r0, [r3]
+ 352:Core/Src/control.c ****     sTd=(unsigned short)((float)Td*0.5115);
+ 1254              		.loc 1 352 5 is_stmt 1 view .LVU297
+ 352:Core/Src/control.c ****     sTd=(unsigned short)((float)Td*0.5115);
+ 1255              		.loc 1 352 26 is_stmt 0 view .LVU298
+ 1256 00a2 674B     		ldr	r3, .L98+36
+ 1257 00a4 1D68     		ldr	r5, [r3]
+ 1258 00a6 2800     		movs	r0, r5
+ 1259 00a8 FFF7FEFF 		bl	__aeabi_i2f
+ 1260              	.LVL123:
+ 1261 00ac FFF7FEFF 		bl	__aeabi_f2d
+ 1262              	.LVL124:
+ 352:Core/Src/control.c ****     sTd=(unsigned short)((float)Td*0.5115);
+ 1263              		.loc 1 352 35 view .LVU299
+ 1264 00b0 5E4A     		ldr	r2, .L98+16
+ 1265 00b2 5F4B     		ldr	r3, .L98+20
+ 1266 00b4 FFF7FEFF 		bl	__aeabi_dmul
+ 1267              	.LVL125:
+ 352:Core/Src/control.c ****     sTd=(unsigned short)((float)Td*0.5115);
+ 1268              		.loc 1 352 9 view .LVU300
+ 1269 00b8 FFF7FEFF 		bl	__aeabi_d2uiz
+ 1270              	.LVL126:
+ 352:Core/Src/control.c ****     sTd=(unsigned short)((float)Td*0.5115);
+ 1271              		.loc 1 352 8 view .LVU301
+ 1272 00bc 614B     		ldr	r3, .L98+40
+ 1273 00be 1880     		strh	r0, [r3]
+ 353:Core/Src/control.c ****     sTe=(unsigned short)((float)Te*0.5115);
+ 1274              		.loc 1 353 5 is_stmt 1 view .LVU302
+ 353:Core/Src/control.c ****     sTe=(unsigned short)((float)Te*0.5115);
+ 1275              		.loc 1 353 26 is_stmt 0 view .LVU303
+ 1276 00c0 614B     		ldr	r3, .L98+44
+ 1277 00c2 1C68     		ldr	r4, [r3]
+ 1278 00c4 2000     		movs	r0, r4
+ 1279 00c6 FFF7FEFF 		bl	__aeabi_i2f
+ 1280              	.LVL127:
+ 1281 00ca FFF7FEFF 		bl	__aeabi_f2d
+ 1282              	.LVL128:
+ 353:Core/Src/control.c ****     sTe=(unsigned short)((float)Te*0.5115);
+ 1283              		.loc 1 353 35 view .LVU304
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 34
+
+
+ 1284 00ce 574A     		ldr	r2, .L98+16
+ 1285 00d0 574B     		ldr	r3, .L98+20
+ 1286 00d2 FFF7FEFF 		bl	__aeabi_dmul
+ 1287              	.LVL129:
+ 353:Core/Src/control.c ****     sTe=(unsigned short)((float)Te*0.5115);
+ 1288              		.loc 1 353 9 view .LVU305
+ 1289 00d6 FFF7FEFF 		bl	__aeabi_d2uiz
+ 1290              	.LVL130:
+ 353:Core/Src/control.c ****     sTe=(unsigned short)((float)Te*0.5115);
+ 1291              		.loc 1 353 8 view .LVU306
+ 1292 00da 5C4B     		ldr	r3, .L98+48
+ 1293 00dc 1880     		strh	r0, [r3]
+ 354:Core/Src/control.c ****     if(Ta<=0)sTa=0;
+ 1294              		.loc 1 354 5 is_stmt 1 view .LVU307
+ 354:Core/Src/control.c ****     if(Ta<=0)sTa=0;
+ 1295              		.loc 1 354 26 is_stmt 0 view .LVU308
+ 1296 00de 5C4B     		ldr	r3, .L98+52
+ 1297 00e0 1B68     		ldr	r3, [r3]
+ 1298 00e2 9846     		mov	r8, r3
+ 1299 00e4 1800     		movs	r0, r3
+ 1300 00e6 FFF7FEFF 		bl	__aeabi_i2f
+ 1301              	.LVL131:
+ 1302 00ea FFF7FEFF 		bl	__aeabi_f2d
+ 1303              	.LVL132:
+ 354:Core/Src/control.c ****     if(Ta<=0)sTa=0;
+ 1304              		.loc 1 354 35 view .LVU309
+ 1305 00ee 4F4A     		ldr	r2, .L98+16
+ 1306 00f0 4F4B     		ldr	r3, .L98+20
+ 1307 00f2 FFF7FEFF 		bl	__aeabi_dmul
+ 1308              	.LVL133:
+ 354:Core/Src/control.c ****     if(Ta<=0)sTa=0;
+ 1309              		.loc 1 354 9 view .LVU310
+ 1310 00f6 FFF7FEFF 		bl	__aeabi_d2uiz
+ 1311              	.LVL134:
+ 354:Core/Src/control.c ****     if(Ta<=0)sTa=0;
+ 1312              		.loc 1 354 8 view .LVU311
+ 1313 00fa 564B     		ldr	r3, .L98+56
+ 1314 00fc 1880     		strh	r0, [r3]
+ 355:Core/Src/control.c ****     if(Tb<=0)sTb=0;
+ 1315              		.loc 1 355 5 is_stmt 1 view .LVU312
+ 355:Core/Src/control.c ****     if(Tb<=0)sTb=0;
+ 1316              		.loc 1 355 7 is_stmt 0 view .LVU313
+ 1317 00fe 002F     		cmp	r7, #0
+ 1318 0100 00DC     		bgt	.LCB1082
+ 1319 0102 77E0     		b	.L93	@long jump
+ 1320              	.LCB1082:
+ 1321              	.L80:
+ 356:Core/Src/control.c ****     if(Tc<=0)sTc=0;
+ 1322              		.loc 1 356 5 is_stmt 1 view .LVU314
+ 356:Core/Src/control.c ****     if(Tc<=0)sTc=0;
+ 1323              		.loc 1 356 7 is_stmt 0 view .LVU315
+ 1324 0104 002E     		cmp	r6, #0
+ 1325 0106 00DC     		bgt	.LCB1086
+ 1326 0108 78E0     		b	.L94	@long jump
+ 1327              	.LCB1086:
+ 1328              	.L81:
+ 357:Core/Src/control.c ****     if(Td<=0)sTd=0;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 35
+
+
+ 1329              		.loc 1 357 5 is_stmt 1 view .LVU316
+ 357:Core/Src/control.c ****     if(Td<=0)sTd=0;
+ 1330              		.loc 1 357 7 is_stmt 0 view .LVU317
+ 1331 010a 002D     		cmp	r5, #0
+ 1332 010c 00DC     		bgt	.LCB1090
+ 1333 010e 79E0     		b	.L95	@long jump
+ 1334              	.LCB1090:
+ 1335              	.L82:
+ 358:Core/Src/control.c ****     if(Te<=0)sTe=0;
+ 1336              		.loc 1 358 5 is_stmt 1 view .LVU318
+ 358:Core/Src/control.c ****     if(Te<=0)sTe=0;
+ 1337              		.loc 1 358 7 is_stmt 0 view .LVU319
+ 1338 0110 002C     		cmp	r4, #0
+ 1339 0112 00DC     		bgt	.LCB1094
+ 1340 0114 7AE0     		b	.L96	@long jump
+ 1341              	.LCB1094:
+ 1342              	.L83:
+ 359:Core/Src/control.c ****     if(sTa>1023)sTa=1023;
+ 1343              		.loc 1 359 5 is_stmt 1 view .LVU320
+ 359:Core/Src/control.c ****     if(sTa>1023)sTa=1023;
+ 1344              		.loc 1 359 7 is_stmt 0 view .LVU321
+ 1345 0116 4346     		mov	r3, r8
+ 1346 0118 002B     		cmp	r3, #0
+ 1347 011a 00DC     		bgt	.LCB1099
+ 1348 011c 7AE0     		b	.L97	@long jump
+ 1349              	.LCB1099:
+ 1350              	.L84:
+ 360:Core/Src/control.c ****     if(sTb>1023)sTb=1023;
+ 1351              		.loc 1 360 5 is_stmt 1 view .LVU322
+ 360:Core/Src/control.c ****     if(sTb>1023)sTb=1023;
+ 1352              		.loc 1 360 11 is_stmt 0 view .LVU323
+ 1353 011e 454B     		ldr	r3, .L98+24
+ 1354 0120 1A88     		ldrh	r2, [r3]
+ 360:Core/Src/control.c ****     if(sTb>1023)sTb=1023;
+ 1355              		.loc 1 360 7 view .LVU324
+ 1356 0122 8023     		movs	r3, #128
+ 1357 0124 DB00     		lsls	r3, r3, #3
+ 1358 0126 9A42     		cmp	r2, r3
+ 1359 0128 02D3     		bcc	.L85
+ 360:Core/Src/control.c ****     if(sTb>1023)sTb=1023;
+ 1360              		.loc 1 360 17 is_stmt 1 discriminator 1 view .LVU325
+ 360:Core/Src/control.c ****     if(sTb>1023)sTb=1023;
+ 1361              		.loc 1 360 20 is_stmt 0 discriminator 1 view .LVU326
+ 1362 012a 424B     		ldr	r3, .L98+24
+ 1363 012c 4A4A     		ldr	r2, .L98+60
+ 1364 012e 1A80     		strh	r2, [r3]
+ 1365              	.L85:
+ 361:Core/Src/control.c ****     if(sTc>1023)sTc=1023;
+ 1366              		.loc 1 361 5 is_stmt 1 view .LVU327
+ 361:Core/Src/control.c ****     if(sTc>1023)sTc=1023;
+ 1367              		.loc 1 361 11 is_stmt 0 view .LVU328
+ 1368 0130 424B     		ldr	r3, .L98+32
+ 1369 0132 1A88     		ldrh	r2, [r3]
+ 361:Core/Src/control.c ****     if(sTc>1023)sTc=1023;
+ 1370              		.loc 1 361 7 view .LVU329
+ 1371 0134 8023     		movs	r3, #128
+ 1372 0136 DB00     		lsls	r3, r3, #3
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 36
+
+
+ 1373 0138 9A42     		cmp	r2, r3
+ 1374 013a 02D3     		bcc	.L86
+ 361:Core/Src/control.c ****     if(sTc>1023)sTc=1023;
+ 1375              		.loc 1 361 17 is_stmt 1 discriminator 1 view .LVU330
+ 361:Core/Src/control.c ****     if(sTc>1023)sTc=1023;
+ 1376              		.loc 1 361 20 is_stmt 0 discriminator 1 view .LVU331
+ 1377 013c 3F4B     		ldr	r3, .L98+32
+ 1378 013e 464A     		ldr	r2, .L98+60
+ 1379 0140 1A80     		strh	r2, [r3]
+ 1380              	.L86:
+ 362:Core/Src/control.c ****     if(sTd>1023)sTd=1023;
+ 1381              		.loc 1 362 5 is_stmt 1 view .LVU332
+ 362:Core/Src/control.c ****     if(sTd>1023)sTd=1023;
+ 1382              		.loc 1 362 11 is_stmt 0 view .LVU333
+ 1383 0142 404B     		ldr	r3, .L98+40
+ 1384 0144 1A88     		ldrh	r2, [r3]
+ 362:Core/Src/control.c ****     if(sTd>1023)sTd=1023;
+ 1385              		.loc 1 362 7 view .LVU334
+ 1386 0146 8023     		movs	r3, #128
+ 1387 0148 DB00     		lsls	r3, r3, #3
+ 1388 014a 9A42     		cmp	r2, r3
+ 1389 014c 02D3     		bcc	.L87
+ 362:Core/Src/control.c ****     if(sTd>1023)sTd=1023;
+ 1390              		.loc 1 362 17 is_stmt 1 discriminator 1 view .LVU335
+ 362:Core/Src/control.c ****     if(sTd>1023)sTd=1023;
+ 1391              		.loc 1 362 20 is_stmt 0 discriminator 1 view .LVU336
+ 1392 014e 3D4B     		ldr	r3, .L98+40
+ 1393 0150 414A     		ldr	r2, .L98+60
+ 1394 0152 1A80     		strh	r2, [r3]
+ 1395              	.L87:
+ 363:Core/Src/control.c ****     if(sTe>1023)sTe=1023;
+ 1396              		.loc 1 363 5 is_stmt 1 view .LVU337
+ 363:Core/Src/control.c ****     if(sTe>1023)sTe=1023;
+ 1397              		.loc 1 363 11 is_stmt 0 view .LVU338
+ 1398 0154 3D4B     		ldr	r3, .L98+48
+ 1399 0156 1A88     		ldrh	r2, [r3]
+ 363:Core/Src/control.c ****     if(sTe>1023)sTe=1023;
+ 1400              		.loc 1 363 7 view .LVU339
+ 1401 0158 8023     		movs	r3, #128
+ 1402 015a DB00     		lsls	r3, r3, #3
+ 1403 015c 9A42     		cmp	r2, r3
+ 1404 015e 02D3     		bcc	.L88
+ 363:Core/Src/control.c ****     if(sTe>1023)sTe=1023;
+ 1405              		.loc 1 363 17 is_stmt 1 discriminator 1 view .LVU340
+ 363:Core/Src/control.c ****     if(sTe>1023)sTe=1023;
+ 1406              		.loc 1 363 20 is_stmt 0 discriminator 1 view .LVU341
+ 1407 0160 3A4B     		ldr	r3, .L98+48
+ 1408 0162 3D4A     		ldr	r2, .L98+60
+ 1409 0164 1A80     		strh	r2, [r3]
+ 1410              	.L88:
+ 364:Core/Src/control.c **** #if TeStFlag==1
+ 1411              		.loc 1 364 5 is_stmt 1 view .LVU342
+ 364:Core/Src/control.c **** #if TeStFlag==1
+ 1412              		.loc 1 364 11 is_stmt 0 view .LVU343
+ 1413 0166 3B4B     		ldr	r3, .L98+56
+ 1414 0168 1A88     		ldrh	r2, [r3]
+ 364:Core/Src/control.c **** #if TeStFlag==1
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 37
+
+
+ 1415              		.loc 1 364 7 view .LVU344
+ 1416 016a 8023     		movs	r3, #128
+ 1417 016c DB00     		lsls	r3, r3, #3
+ 1418 016e 9A42     		cmp	r2, r3
+ 1419 0170 02D3     		bcc	.L89
+ 364:Core/Src/control.c **** #if TeStFlag==1
+ 1420              		.loc 1 364 17 is_stmt 1 discriminator 1 view .LVU345
+ 364:Core/Src/control.c **** #if TeStFlag==1
+ 1421              		.loc 1 364 20 is_stmt 0 discriminator 1 view .LVU346
+ 1422 0172 384B     		ldr	r3, .L98+56
+ 1423 0174 384A     		ldr	r2, .L98+60
+ 1424 0176 1A80     		strh	r2, [r3]
+ 1425              	.L89:
+ 372:Core/Src/control.c ****     write_data_to_TLC5615(1,sTb);
+ 1426              		.loc 1 372 5 is_stmt 1 view .LVU347
+ 1427 0178 2E4B     		ldr	r3, .L98+24
+ 1428 017a 1988     		ldrh	r1, [r3]
+ 1429 017c 0020     		movs	r0, #0
+ 1430 017e FFF7FEFF 		bl	write_data_to_TLC5615
+ 1431              	.LVL135:
+ 373:Core/Src/control.c ****     write_data_to_TLC5615(2,sTc);
+ 1432              		.loc 1 373 5 view .LVU348
+ 1433 0182 2E4B     		ldr	r3, .L98+32
+ 1434 0184 1988     		ldrh	r1, [r3]
+ 1435 0186 0120     		movs	r0, #1
+ 1436 0188 FFF7FEFF 		bl	write_data_to_TLC5615
+ 1437              	.LVL136:
+ 374:Core/Src/control.c ****     write_data_to_TLC5615(3,sTd);
+ 1438              		.loc 1 374 5 view .LVU349
+ 1439 018c 2D4B     		ldr	r3, .L98+40
+ 1440 018e 1988     		ldrh	r1, [r3]
+ 1441 0190 0220     		movs	r0, #2
+ 1442 0192 FFF7FEFF 		bl	write_data_to_TLC5615
+ 1443              	.LVL137:
+ 375:Core/Src/control.c ****     write_data_to_TLC5615(4,sTe);
+ 1444              		.loc 1 375 5 view .LVU350
+ 1445 0196 2D4B     		ldr	r3, .L98+48
+ 1446 0198 1988     		ldrh	r1, [r3]
+ 1447 019a 0320     		movs	r0, #3
+ 1448 019c FFF7FEFF 		bl	write_data_to_TLC5615
+ 1449              	.LVL138:
+ 376:Core/Src/control.c ****     //ReadTemputer=DS18B20_GetTemperature();
+ 1450              		.loc 1 376 5 view .LVU351
+ 1451 01a0 2C4B     		ldr	r3, .L98+56
+ 1452 01a2 1988     		ldrh	r1, [r3]
+ 1453 01a4 0420     		movs	r0, #4
+ 1454 01a6 FFF7FEFF 		bl	write_data_to_TLC5615
+ 1455              	.LVL139:
+ 1456              	.L75:
+ 379:Core/Src/control.c **** 
+ 1457              		.loc 1 379 1 is_stmt 0 view .LVU352
+ 1458              		@ sp needed
+ 1459 01aa 80BC     		pop	{r7}
+ 1460 01ac B846     		mov	r8, r7
+ 1461 01ae F0BD     		pop	{r4, r5, r6, r7, pc}
+ 1462              	.L90:
+ 1463              	.LBB2:
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 38
+
+
+ 286:Core/Src/control.c ****     extern void stopADC(void);
+ 1464              		.loc 1 286 5 is_stmt 1 view .LVU353
+ 286:Core/Src/control.c ****     extern void stopADC(void);
+ 1465              		.loc 1 286 13 is_stmt 0 view .LVU354
+ 1466 01b0 1A4B     		ldr	r3, .L98
+ 1467 01b2 0022     		movs	r2, #0
+ 1468 01b4 1A60     		str	r2, [r3]
+ 287:Core/Src/control.c ****     extern void startADC(void);
+ 1469              		.loc 1 287 5 is_stmt 1 view .LVU355
+ 288:Core/Src/control.c ****     stopADC();
+ 1470              		.loc 1 288 5 view .LVU356
+ 289:Core/Src/control.c ****     Th=(signed short)(dhdata.humidity*10);
+ 1471              		.loc 1 289 5 view .LVU357
+ 1472 01b6 FFF7FEFF 		bl	stopADC
+ 1473              	.LVL140:
+ 290:Core/Src/control.c ****     ReadDh();
+ 1474              		.loc 1 290 5 view .LVU358
+ 290:Core/Src/control.c ****     ReadDh();
+ 1475              		.loc 1 290 29 is_stmt 0 view .LVU359
+ 1476 01ba 284B     		ldr	r3, .L98+64
+ 1477 01bc 9868     		ldr	r0, [r3, #8]
+ 1478 01be D968     		ldr	r1, [r3, #12]
+ 290:Core/Src/control.c ****     ReadDh();
+ 1479              		.loc 1 290 38 view .LVU360
+ 1480 01c0 0022     		movs	r2, #0
+ 1481 01c2 274B     		ldr	r3, .L98+68
+ 1482 01c4 FFF7FEFF 		bl	__aeabi_dmul
+ 1483              	.LVL141:
+ 290:Core/Src/control.c ****     ReadDh();
+ 1484              		.loc 1 290 8 view .LVU361
+ 1485 01c8 FFF7FEFF 		bl	__aeabi_d2iz
+ 1486              	.LVL142:
+ 1487 01cc 00B2     		sxth	r0, r0
+ 290:Core/Src/control.c ****     ReadDh();
+ 1488              		.loc 1 290 7 view .LVU362
+ 1489 01ce 254B     		ldr	r3, .L98+72
+ 1490 01d0 1860     		str	r0, [r3]
+ 291:Core/Src/control.c ****     startADC();
+ 1491              		.loc 1 291 5 is_stmt 1 view .LVU363
+ 1492 01d2 FFF7FEFF 		bl	ReadDh
+ 1493              	.LVL143:
+ 292:Core/Src/control.c ****    // DHT11_Read_Data(&temperature,&humidity);
+ 1494              		.loc 1 292 5 view .LVU364
+ 1495 01d6 FFF7FEFF 		bl	startADC
+ 1496              	.LVL144:
+ 1497 01da 1BE7     		b	.L76
+ 1498              	.L91:
+ 1499              	.LBE2:
+ 339:Core/Src/control.c ****   }
+ 1500              		.loc 1 339 5 view .LVU365
+ 1501 01dc 0122     		movs	r2, #1
+ 1502 01de 8021     		movs	r1, #128
+ 1503 01e0 2148     		ldr	r0, .L98+76
+ 1504 01e2 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1505              	.LVL145:
+ 1506 01e6 2FE7     		b	.L77
+ 1507              	.L92:
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 39
+
+
+ 343:Core/Src/control.c ****   }
+ 1508              		.loc 1 343 5 view .LVU366
+ 1509 01e8 0022     		movs	r2, #0
+ 1510 01ea 8021     		movs	r1, #128
+ 1511 01ec 1E48     		ldr	r0, .L98+76
+ 1512 01ee FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1513              	.LVL146:
+ 1514 01f2 2EE7     		b	.L78
+ 1515              	.L93:
+ 355:Core/Src/control.c ****     if(Tb<=0)sTb=0;
+ 1516              		.loc 1 355 14 discriminator 1 view .LVU367
+ 355:Core/Src/control.c ****     if(Tb<=0)sTb=0;
+ 1517              		.loc 1 355 17 is_stmt 0 discriminator 1 view .LVU368
+ 1518 01f4 0F4B     		ldr	r3, .L98+24
+ 1519 01f6 0022     		movs	r2, #0
+ 1520 01f8 1A80     		strh	r2, [r3]
+ 1521 01fa 83E7     		b	.L80
+ 1522              	.L94:
+ 356:Core/Src/control.c ****     if(Tc<=0)sTc=0;
+ 1523              		.loc 1 356 14 is_stmt 1 discriminator 1 view .LVU369
+ 356:Core/Src/control.c ****     if(Tc<=0)sTc=0;
+ 1524              		.loc 1 356 17 is_stmt 0 discriminator 1 view .LVU370
+ 1525 01fc 0F4B     		ldr	r3, .L98+32
+ 1526 01fe 0022     		movs	r2, #0
+ 1527 0200 1A80     		strh	r2, [r3]
+ 1528 0202 82E7     		b	.L81
+ 1529              	.L95:
+ 357:Core/Src/control.c ****     if(Td<=0)sTd=0;
+ 1530              		.loc 1 357 14 is_stmt 1 discriminator 1 view .LVU371
+ 357:Core/Src/control.c ****     if(Td<=0)sTd=0;
+ 1531              		.loc 1 357 17 is_stmt 0 discriminator 1 view .LVU372
+ 1532 0204 0F4B     		ldr	r3, .L98+40
+ 1533 0206 0022     		movs	r2, #0
+ 1534 0208 1A80     		strh	r2, [r3]
+ 1535 020a 81E7     		b	.L82
+ 1536              	.L96:
+ 358:Core/Src/control.c ****     if(Te<=0)sTe=0;
+ 1537              		.loc 1 358 14 is_stmt 1 discriminator 1 view .LVU373
+ 358:Core/Src/control.c ****     if(Te<=0)sTe=0;
+ 1538              		.loc 1 358 17 is_stmt 0 discriminator 1 view .LVU374
+ 1539 020c 0F4B     		ldr	r3, .L98+48
+ 1540 020e 0022     		movs	r2, #0
+ 1541 0210 1A80     		strh	r2, [r3]
+ 1542 0212 80E7     		b	.L83
+ 1543              	.L97:
+ 359:Core/Src/control.c ****     if(sTa>1023)sTa=1023;
+ 1544              		.loc 1 359 14 is_stmt 1 discriminator 1 view .LVU375
+ 359:Core/Src/control.c ****     if(sTa>1023)sTa=1023;
+ 1545              		.loc 1 359 17 is_stmt 0 discriminator 1 view .LVU376
+ 1546 0214 0F4B     		ldr	r3, .L98+56
+ 1547 0216 0022     		movs	r2, #0
+ 1548 0218 1A80     		strh	r2, [r3]
+ 1549 021a 80E7     		b	.L84
+ 1550              	.L99:
+ 1551              		.align	2
+ 1552              	.L98:
+ 1553 021c 00000000 		.word	.LANCHOR1
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 40
+
+
+ 1554 0220 00000000 		.word	.LANCHOR2
+ 1555 0224 00000000 		.word	.LANCHOR3
+ 1556 0228 00000000 		.word	Ta
+ 1557 022c 91ED7C3F 		.word	1065151889
+ 1558 0230 355EE03F 		.word	1071668789
+ 1559 0234 00000000 		.word	.LANCHOR4
+ 1560 0238 00000000 		.word	Tb
+ 1561 023c 00000000 		.word	.LANCHOR5
+ 1562 0240 00000000 		.word	Tc
+ 1563 0244 00000000 		.word	.LANCHOR6
+ 1564 0248 00000000 		.word	Td
+ 1565 024c 00000000 		.word	.LANCHOR7
+ 1566 0250 00000000 		.word	Te
+ 1567 0254 00000000 		.word	.LANCHOR8
+ 1568 0258 FF030000 		.word	1023
+ 1569 025c 00000000 		.word	.LANCHOR0
+ 1570 0260 00002440 		.word	1076101120
+ 1571 0264 00000000 		.word	Th
+ 1572 0268 00140048 		.word	1207964672
+ 1573              		.cfi_endproc
+ 1574              	.LFE53:
+ 1576              		.global	dhdata
+ 1577              		.global	sTe
+ 1578              		.global	sTd
+ 1579              		.global	sTc
+ 1580              		.global	sTb
+ 1581              		.global	sTa
+ 1582              		.global	willBeepTime
+ 1583              		.global	ReadTemputer
+ 1584              		.global	sysms
+ 1585              		.global	sec_time
+ 1586              		.section	.bss.ReadTemputer,"aw",%nobits
+ 1587              		.align	1
+ 1590              	ReadTemputer:
+ 1591 0000 0000     		.space	2
+ 1592              		.section	.bss.dhdata,"aw",%nobits
+ 1593              		.align	3
+ 1594              		.set	.LANCHOR0,. + 0
+ 1597              	dhdata:
+ 1598 0000 00000000 		.space	24
+ 1598      00000000 
+ 1598      00000000 
+ 1598      00000000 
+ 1598      00000000 
+ 1599              		.section	.bss.sTa,"aw",%nobits
+ 1600              		.align	1
+ 1601              		.set	.LANCHOR4,. + 0
+ 1604              	sTa:
+ 1605 0000 0000     		.space	2
+ 1606              		.section	.bss.sTb,"aw",%nobits
+ 1607              		.align	1
+ 1608              		.set	.LANCHOR5,. + 0
+ 1611              	sTb:
+ 1612 0000 0000     		.space	2
+ 1613              		.section	.bss.sTc,"aw",%nobits
+ 1614              		.align	1
+ 1615              		.set	.LANCHOR6,. + 0
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 41
+
+
+ 1618              	sTc:
+ 1619 0000 0000     		.space	2
+ 1620              		.section	.bss.sTd,"aw",%nobits
+ 1621              		.align	1
+ 1622              		.set	.LANCHOR7,. + 0
+ 1625              	sTd:
+ 1626 0000 0000     		.space	2
+ 1627              		.section	.bss.sTe,"aw",%nobits
+ 1628              		.align	1
+ 1629              		.set	.LANCHOR8,. + 0
+ 1632              	sTe:
+ 1633 0000 0000     		.space	2
+ 1634              		.section	.bss.sec_time,"aw",%nobits
+ 1635              		.align	2
+ 1636              		.set	.LANCHOR1,. + 0
+ 1639              	sec_time:
+ 1640 0000 00000000 		.space	4
+ 1641              		.section	.bss.sysms,"aw",%nobits
+ 1642              		.align	2
+ 1643              		.set	.LANCHOR3,. + 0
+ 1646              	sysms:
+ 1647 0000 00000000 		.space	4
+ 1648              		.section	.bss.willBeepTime,"aw",%nobits
+ 1649              		.align	2
+ 1650              		.set	.LANCHOR2,. + 0
+ 1653              	willBeepTime:
+ 1654 0000 00000000 		.space	4
+ 1655              		.text
+ 1656              	.Letext0:
+ 1657              		.file 2 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\machine\\_defa
+ 1658              		.file 3 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\sys\\_stdint.h
+ 1659              		.file 4 "Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f030x8.h"
+ 1660              		.file 5 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_gpio.h"
+ 1661              		.file 6 "Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f0xx.h"
+ 1662              		.file 7 "Core/Inc/HC595.h"
+ 1663              		.file 8 "Core/Inc/control.h"
+ 1664              		.file 9 "Core/Inc/TM1640.h"
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 42
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 control.c
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:18     .text.DHT11_Mode_Out_PP:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:23     .text.DHT11_Mode_Out_PP:00000000 DHT11_Mode_Out_PP
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:63     .text.DHT11_Mode_Out_PP:00000020 $d
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:68     .text.DHT11_Mode_IPU:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:73     .text.DHT11_Mode_IPU:00000000 DHT11_Mode_IPU
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:108    .text.DHT11_Mode_IPU:0000001c $d
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:113    .text.DHT11_IO_IN:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:119    .text.DHT11_IO_IN:00000000 DHT11_IO_IN
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:154    .text.DHT11_IO_IN:0000001c $d
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:159    .text.DHT11_IO_OUT:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:165    .text.DHT11_IO_OUT:00000000 DHT11_IO_OUT
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:204    .text.DHT11_IO_OUT:00000020 $d
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:209    .text.DHT11_Init:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:215    .text.DHT11_Init:00000000 DHT11_Init
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:242    .text.DHT11_Init:00000014 $d
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:247    .text.Delay_us:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:253    .text.Delay_us:00000000 Delay_us
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:302    .text.DHT11_ReadByte:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:307    .text.DHT11_ReadByte:00000000 DHT11_ReadByte
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:471    .text.DHT11_ReadByte:0000008c $d
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:476    .text.Delay_ms:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:482    .text.Delay_ms:00000000 Delay_ms
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:533    .text.DHT11_Read_TempAndHumidity:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:539    .text.DHT11_Read_TempAndHumidity:00000000 DHT11_Read_TempAndHumidity
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:799    .text.DHT11_Read_TempAndHumidity:00000110 $d
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:805    .text.ReadDh:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:811    .text.ReadDh:00000000 ReadDh
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:832    .text.ReadDh:0000000c $d
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:837    .text.JDQ_Hx:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:843    .text.JDQ_Hx:00000000 JDQ_Hx
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:878    .text.JDQ_Hx:00000018 $d
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:883    .text.JDQ_Lx:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:889    .text.JDQ_Lx:00000000 JDQ_Lx
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:923    .text.JDQ_Lx:00000014 $d
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:928    .text.write_data_to_TLC5615:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:934    .text.write_data_to_TLC5615:00000000 write_data_to_TLC5615
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:1095   .text.write_data_to_TLC5615:000000b8 $d
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:1105   .text.ReadKey:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:1111   .text.ReadKey:00000000 ReadKey
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:1553   .text.ReadKey:0000021c $d
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:1597   .bss.dhdata:00000000 dhdata
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:1632   .bss.sTe:00000000 sTe
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:1625   .bss.sTd:00000000 sTd
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:1618   .bss.sTc:00000000 sTc
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:1611   .bss.sTb:00000000 sTb
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:1604   .bss.sTa:00000000 sTa
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:1653   .bss.willBeepTime:00000000 willBeepTime
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:1590   .bss.ReadTemputer:00000000 ReadTemputer
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:1646   .bss.sysms:00000000 sysms
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:1639   .bss.sec_time:00000000 sec_time
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:1587   .bss.ReadTemputer:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:1593   .bss.dhdata:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:1600   .bss.sTa:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:1607   .bss.sTb:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:1614   .bss.sTc:00000000 $d
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s 			page 43
+
+
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:1621   .bss.sTd:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:1628   .bss.sTe:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:1635   .bss.sec_time:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:1642   .bss.sysms:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccZEgtS9.s:1649   .bss.willBeepTime:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_Init
+HAL_GPIO_WritePin
+HAL_GPIO_ReadPin
+__aeabi_ui2d
+__aeabi_ddiv
+LED595SendData
+hcreg
+delay_us
+__aeabi_dmul
+__aeabi_d2iz
+__aeabi_i2f
+__aeabi_f2d
+__aeabi_d2uiz
+UpateShData
+stopADC
+startADC
+Ta
+Tb
+Tc
+Td
+Te
+Th

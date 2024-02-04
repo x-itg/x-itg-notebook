@@ -1,0 +1,576 @@
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccNPGpri.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.arch armv6s-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.file	"24c02.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.writeAT24C16,"ax",%progbits
+  18              		.align	1
+  19              		.global	writeAT24C16
+  20              		.syntax unified
+  21              		.code	16
+  22              		.thumb_func
+  24              	writeAT24C16:
+  25              	.LVL0:
+  26              	.LFB43:
+  27              		.file 1 "Core/Src/24c02.c"
+   1:Core/Src/24c02.c **** #include "24C02.h"
+   2:Core/Src/24c02.c **** #include "string.h"
+   3:Core/Src/24c02.c **** #include "stdio.h"
+   4:Core/Src/24c02.c **** //at24c02 2k bits  256bytes 
+   5:Core/Src/24c02.c **** #define E2PROM_SIZE 0x0800 //2k bits  
+   6:Core/Src/24c02.c **** #define E2PROM_BASE_ID 0xA0
+   7:Core/Src/24c02.c ****  
+   8:Core/Src/24c02.c **** #define E2PROM_WRITE 0x00
+   9:Core/Src/24c02.c **** #define E2PROM_READ  0x01
+  10:Core/Src/24c02.c ****  
+  11:Core/Src/24c02.c **** #define E2PROM_BASE_WID E2PROM_BASE_ID + E2PROM_WRITE
+  12:Core/Src/24c02.c **** #define E2PROM_BASE_RID E2PROM_BASE_ID + E2PROM_READ
+  13:Core/Src/24c02.c ****  
+  14:Core/Src/24c02.c **** #define E2PROM_PAGE_MASK 0x000F
+  15:Core/Src/24c02.c **** uint8_t writeAT24C16(uint16_t addr, uint8_t *data, uint16_t len)
+  16:Core/Src/24c02.c **** {
+  28              		.loc 1 16 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		.loc 1 16 1 is_stmt 0 view .LVU1
+  33 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 20
+  36              		.cfi_offset 4, -20
+  37              		.cfi_offset 5, -16
+  38              		.cfi_offset 6, -12
+  39              		.cfi_offset 7, -8
+  40              		.cfi_offset 14, -4
+  41 0002 C646     		mov	lr, r8
+  42 0004 00B5     		push	{lr}
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccNPGpri.s 			page 2
+
+
+  43              	.LCFI1:
+  44              		.cfi_def_cfa_offset 24
+  45              		.cfi_offset 8, -24
+  46 0006 84B0     		sub	sp, sp, #16
+  47              	.LCFI2:
+  48              		.cfi_def_cfa_offset 40
+  49 0008 0400     		movs	r4, r0
+  50 000a 0F00     		movs	r7, r1
+  51 000c 1500     		movs	r5, r2
+  17:Core/Src/24c02.c ****  uint8_t wNum = 0;
+  52              		.loc 1 17 2 is_stmt 1 view .LVU2
+  53              	.LVL1:
+  18:Core/Src/24c02.c ****  uint16_t lenLeft = len;
+  54              		.loc 1 18 2 view .LVU3
+  19:Core/Src/24c02.c ****  uint8_t deviceId ;
+  55              		.loc 1 19 2 view .LVU4
+  20:Core/Src/24c02.c ****  uint8_t *p = data;
+  56              		.loc 1 20 2 view .LVU5
+  21:Core/Src/24c02.c ****  
+  22:Core/Src/24c02.c ****  /*is the address overfolw*/
+  23:Core/Src/24c02.c ****  if(addr + len >= E2PROM_SIZE)
+  57              		.loc 1 23 2 view .LVU6
+  58              		.loc 1 23 10 is_stmt 0 view .LVU7
+  59 000e 8218     		adds	r2, r0, r2
+  60              	.LVL2:
+  61              		.loc 1 23 4 view .LVU8
+  62 0010 8023     		movs	r3, #128
+  63 0012 1B01     		lsls	r3, r3, #4
+  64 0014 9A42     		cmp	r2, r3
+  65 0016 3FDA     		bge	.L11
+  24:Core/Src/24c02.c ****   return 1;
+  25:Core/Src/24c02.c ****  
+  26:Core/Src/24c02.c ****  /*calculate the current write position to know how many word can write continully*/
+  27:Core/Src/24c02.c ****  wNum = 16 - addr & E2PROM_PAGE_MASK;
+  66              		.loc 1 27 2 is_stmt 1 view .LVU9
+  67              		.loc 1 27 19 is_stmt 0 view .LVU10
+  68 0018 4342     		rsbs	r3, r0, #0
+  69              		.loc 1 27 7 view .LVU11
+  70 001a 0F22     		movs	r2, #15
+  71 001c 1E00     		movs	r6, r3
+  72 001e 1640     		ands	r6, r2
+  73              	.LVL3:
+  28:Core/Src/24c02.c ****  if(wNum == 0)
+  74              		.loc 1 28 2 is_stmt 1 view .LVU12
+  75              		.loc 1 28 4 is_stmt 0 view .LVU13
+  76 0020 1342     		tst	r3, r2
+  77 0022 00D1     		bne	.L3
+  29:Core/Src/24c02.c ****   wNum = 16;
+  78              		.loc 1 29 8 view .LVU14
+  79 0024 1026     		movs	r6, #16
+  80              	.LVL4:
+  81              	.L3:
+  30:Core/Src/24c02.c ****  wNum = lenLeft>=wNum ? wNum : lenLeft;
+  82              		.loc 1 30 2 is_stmt 1 view .LVU15
+  83              		.loc 1 30 16 is_stmt 0 view .LVU16
+  84 0026 B3B2     		uxth	r3, r6
+  85              		.loc 1 30 7 view .LVU17
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccNPGpri.s 			page 3
+
+
+  86 0028 AB42     		cmp	r3, r5
+  87 002a 20D9     		bls	.L5
+  88              		.loc 1 30 7 discriminator 1 view .LVU18
+  89 002c EEB2     		uxtb	r6, r5
+  90              	.LVL5:
+  91              		.loc 1 30 7 discriminator 1 view .LVU19
+  92 002e 1EE0     		b	.L5
+  93              	.LVL6:
+  94              	.L13:
+  31:Core/Src/24c02.c ****  
+  32:Core/Src/24c02.c ****  /*transmit the date to e2prom*/
+  33:Core/Src/24c02.c ****  while(lenLeft)
+  34:Core/Src/24c02.c ****  {
+  35:Core/Src/24c02.c ****   /*calculate the device id*/
+  36:Core/Src/24c02.c ****   deviceId = (addr >> 8)<=0 ?E2PROM_BASE_WID : (E2PROM_BASE_WID | (uint8_t)((addr>>7)&0x0E));
+  95              		.loc 1 36 12 view .LVU20
+  96 0030 A023     		movs	r3, #160
+  97              	.L6:
+  98              	.LVL7:
+  37:Core/Src/24c02.c ****   
+  38:Core/Src/24c02.c ****   if( HAL_I2C_Mem_Write(&hi2c1, deviceId, addr&0x00FF, 
+  99              		.loc 1 38 3 is_stmt 1 discriminator 4 view .LVU21
+ 100              		.loc 1 38 7 is_stmt 0 discriminator 4 view .LVU22
+ 101 0032 B2B2     		uxth	r2, r6
+ 102 0034 9046     		mov	r8, r2
+ 103 0036 FF22     		movs	r2, #255
+ 104 0038 2240     		ands	r2, r4
+ 105 003a 99B2     		uxth	r1, r3
+ 106 003c 2023     		movs	r3, #32
+ 107              	.LVL8:
+ 108              		.loc 1 38 7 discriminator 4 view .LVU23
+ 109 003e 0293     		str	r3, [sp, #8]
+ 110 0040 4346     		mov	r3, r8
+ 111 0042 0193     		str	r3, [sp, #4]
+ 112 0044 0097     		str	r7, [sp]
+ 113 0046 0123     		movs	r3, #1
+ 114 0048 1448     		ldr	r0, .L16
+ 115 004a FFF7FEFF 		bl	HAL_I2C_Mem_Write
+ 116              	.LVL9:
+ 117              		.loc 1 38 5 discriminator 4 view .LVU24
+ 118 004e 0028     		cmp	r0, #0
+ 119 0050 19D1     		bne	.L14
+  39:Core/Src/24c02.c ****         I2C_MEMADD_SIZE_8BIT, p, wNum, 0x20) != HAL_OK)
+  40:Core/Src/24c02.c ****   {
+  41:Core/Src/24c02.c ****    HAL_Delay(5);
+  42:Core/Src/24c02.c ****    continue;
+  43:Core/Src/24c02.c ****   }   
+  44:Core/Src/24c02.c ****   addr += wNum;
+ 120              		.loc 1 44 3 is_stmt 1 view .LVU25
+ 121              		.loc 1 44 8 is_stmt 0 view .LVU26
+ 122 0052 4444     		add	r4, r4, r8
+ 123              	.LVL10:
+ 124              		.loc 1 44 8 view .LVU27
+ 125 0054 A4B2     		uxth	r4, r4
+ 126              	.LVL11:
+  45:Core/Src/24c02.c ****   lenLeft -= wNum;
+ 127              		.loc 1 45 3 is_stmt 1 view .LVU28
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccNPGpri.s 			page 4
+
+
+ 128              		.loc 1 45 11 is_stmt 0 view .LVU29
+ 129 0056 4346     		mov	r3, r8
+ 130 0058 ED1A     		subs	r5, r5, r3
+ 131              	.LVL12:
+ 132              		.loc 1 45 11 view .LVU30
+ 133 005a ADB2     		uxth	r5, r5
+ 134              	.LVL13:
+  46:Core/Src/24c02.c ****   p += wNum;
+ 135              		.loc 1 46 3 is_stmt 1 view .LVU31
+ 136              		.loc 1 46 5 is_stmt 0 view .LVU32
+ 137 005c BF19     		adds	r7, r7, r6
+ 138              	.LVL14:
+  47:Core/Src/24c02.c ****   wNum = lenLeft > 16 ?16 : lenLeft; 
+ 139              		.loc 1 47 3 is_stmt 1 view .LVU33
+ 140              		.loc 1 47 27 is_stmt 0 view .LVU34
+ 141 005e 2E1C     		adds	r6, r5, #0
+ 142              	.LVL15:
+ 143              		.loc 1 47 27 view .LVU35
+ 144 0060 102D     		cmp	r5, #16
+ 145 0062 00D9     		bls	.L9
+ 146 0064 1026     		movs	r6, #16
+ 147              	.L9:
+ 148              		.loc 1 47 8 view .LVU36
+ 149 0066 F6B2     		uxtb	r6, r6
+ 150              	.LVL16:
+  48:Core/Src/24c02.c ****   HAL_Delay(5);
+ 151              		.loc 1 48 3 is_stmt 1 view .LVU37
+ 152 0068 0520     		movs	r0, #5
+ 153 006a FFF7FEFF 		bl	HAL_Delay
+ 154              	.LVL17:
+ 155              	.L5:
+  33:Core/Src/24c02.c ****  {
+ 156              		.loc 1 33 7 view .LVU38
+ 157 006e 002D     		cmp	r5, #0
+ 158 0070 0DD0     		beq	.L15
+  36:Core/Src/24c02.c ****   
+ 159              		.loc 1 36 3 view .LVU39
+  36:Core/Src/24c02.c ****   
+ 160              		.loc 1 36 25 is_stmt 0 view .LVU40
+ 161 0072 230A     		lsrs	r3, r4, #8
+  36:Core/Src/24c02.c ****   
+ 162              		.loc 1 36 12 view .LVU41
+ 163 0074 DCD0     		beq	.L13
+  36:Core/Src/24c02.c ****   
+ 164              		.loc 1 36 86 discriminator 1 view .LVU42
+ 165 0076 E109     		lsrs	r1, r4, #7
+ 166 0078 49B2     		sxtb	r1, r1
+  36:Core/Src/24c02.c ****   
+ 167              		.loc 1 36 67 discriminator 1 view .LVU43
+ 168 007a 0E23     		movs	r3, #14
+ 169 007c 1940     		ands	r1, r3
+  36:Core/Src/24c02.c ****   
+ 170              		.loc 1 36 65 discriminator 1 view .LVU44
+ 171 007e 6E3B     		subs	r3, r3, #110
+ 172 0080 0B43     		orrs	r3, r1
+  36:Core/Src/24c02.c ****   
+ 173              		.loc 1 36 12 discriminator 1 view .LVU45
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccNPGpri.s 			page 5
+
+
+ 174 0082 DBB2     		uxtb	r3, r3
+ 175 0084 D5E7     		b	.L6
+ 176              	.L14:
+  41:Core/Src/24c02.c ****    continue;
+ 177              		.loc 1 41 4 is_stmt 1 view .LVU46
+ 178 0086 0520     		movs	r0, #5
+ 179 0088 FFF7FEFF 		bl	HAL_Delay
+ 180              	.LVL18:
+  42:Core/Src/24c02.c ****   }   
+ 181              		.loc 1 42 4 view .LVU47
+ 182 008c EFE7     		b	.L5
+ 183              	.L15:
+  49:Core/Src/24c02.c ****  }
+  50:Core/Src/24c02.c ****  
+  51:Core/Src/24c02.c ****  return HAL_OK;
+ 184              		.loc 1 51 9 is_stmt 0 view .LVU48
+ 185 008e 0020     		movs	r0, #0
+ 186              	.LVL19:
+ 187              	.L2:
+  52:Core/Src/24c02.c **** }
+ 188              		.loc 1 52 1 view .LVU49
+ 189 0090 04B0     		add	sp, sp, #16
+ 190              		@ sp needed
+ 191              	.LVL20:
+ 192              		.loc 1 52 1 view .LVU50
+ 193 0092 80BC     		pop	{r7}
+ 194 0094 B846     		mov	r8, r7
+ 195 0096 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 196              	.LVL21:
+ 197              	.L11:
+  24:Core/Src/24c02.c ****  
+ 198              		.loc 1 24 10 view .LVU51
+ 199 0098 0120     		movs	r0, #1
+ 200              	.LVL22:
+  24:Core/Src/24c02.c ****  
+ 201              		.loc 1 24 10 view .LVU52
+ 202 009a F9E7     		b	.L2
+ 203              	.L17:
+ 204              		.align	2
+ 205              	.L16:
+ 206 009c 00000000 		.word	hi2c1
+ 207              		.cfi_endproc
+ 208              	.LFE43:
+ 210              		.section	.rodata.readAT24C16.str1.4,"aMS",%progbits,1
+ 211              		.align	2
+ 212              	.LC2:
+ 213 0000 49325320 		.ascii	"I2S Read error!\015\000"
+ 213      52656164 
+ 213      20657272 
+ 213      6F72210D 
+ 213      00
+ 214              		.section	.text.readAT24C16,"ax",%progbits
+ 215              		.align	1
+ 216              		.global	readAT24C16
+ 217              		.syntax unified
+ 218              		.code	16
+ 219              		.thumb_func
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccNPGpri.s 			page 6
+
+
+ 221              	readAT24C16:
+ 222              	.LVL23:
+ 223              	.LFB44:
+  53:Core/Src/24c02.c ****  
+  54:Core/Src/24c02.c **** uint8_t readAT24C16(uint16_t addr, uint8_t *data, uint16_t len)
+  55:Core/Src/24c02.c **** {
+ 224              		.loc 1 55 1 is_stmt 1 view -0
+ 225              		.cfi_startproc
+ 226              		@ args = 0, pretend = 0, frame = 0
+ 227              		@ frame_needed = 0, uses_anonymous_args = 0
+ 228              		.loc 1 55 1 is_stmt 0 view .LVU54
+ 229 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 230              	.LCFI3:
+ 231              		.cfi_def_cfa_offset 20
+ 232              		.cfi_offset 4, -20
+ 233              		.cfi_offset 5, -16
+ 234              		.cfi_offset 6, -12
+ 235              		.cfi_offset 7, -8
+ 236              		.cfi_offset 14, -4
+ 237 0002 C646     		mov	lr, r8
+ 238 0004 00B5     		push	{lr}
+ 239              	.LCFI4:
+ 240              		.cfi_def_cfa_offset 24
+ 241              		.cfi_offset 8, -24
+ 242 0006 84B0     		sub	sp, sp, #16
+ 243              	.LCFI5:
+ 244              		.cfi_def_cfa_offset 40
+ 245 0008 0400     		movs	r4, r0
+ 246 000a 0F00     		movs	r7, r1
+ 247 000c 1500     		movs	r5, r2
+  56:Core/Src/24c02.c ****  uint8_t rNum = 0;
+ 248              		.loc 1 56 2 is_stmt 1 view .LVU55
+ 249              	.LVL24:
+  57:Core/Src/24c02.c ****  uint16_t lenLeft = len;
+ 250              		.loc 1 57 2 view .LVU56
+  58:Core/Src/24c02.c ****  uint8_t deviceId ;
+ 251              		.loc 1 58 2 view .LVU57
+  59:Core/Src/24c02.c ****  uint8_t *p = data;
+ 252              		.loc 1 59 2 view .LVU58
+  60:Core/Src/24c02.c ****  
+  61:Core/Src/24c02.c ****  /*is the address overfolw*/
+  62:Core/Src/24c02.c ****  if(addr + len >= E2PROM_SIZE)
+ 253              		.loc 1 62 2 view .LVU59
+ 254              		.loc 1 62 10 is_stmt 0 view .LVU60
+ 255 000e 8218     		adds	r2, r0, r2
+ 256              	.LVL25:
+ 257              		.loc 1 62 4 view .LVU61
+ 258 0010 8023     		movs	r3, #128
+ 259 0012 1B01     		lsls	r3, r3, #4
+ 260 0014 9A42     		cmp	r2, r3
+ 261 0016 3CDA     		bge	.L28
+  63:Core/Src/24c02.c ****   return 1;
+  64:Core/Src/24c02.c ****  
+  65:Core/Src/24c02.c ****  /*calculate the current write position to know how many word can write continully*/
+  66:Core/Src/24c02.c ****  rNum = 16 - addr & E2PROM_PAGE_MASK;
+ 262              		.loc 1 66 2 is_stmt 1 view .LVU62
+ 263              		.loc 1 66 19 is_stmt 0 view .LVU63
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccNPGpri.s 			page 7
+
+
+ 264 0018 4342     		rsbs	r3, r0, #0
+ 265              		.loc 1 66 7 view .LVU64
+ 266 001a 0F22     		movs	r2, #15
+ 267 001c 1E00     		movs	r6, r3
+ 268 001e 1640     		ands	r6, r2
+ 269              	.LVL26:
+  67:Core/Src/24c02.c ****  if(rNum == 0)
+ 270              		.loc 1 67 2 is_stmt 1 view .LVU65
+ 271              		.loc 1 67 4 is_stmt 0 view .LVU66
+ 272 0020 1342     		tst	r3, r2
+ 273 0022 00D1     		bne	.L20
+  68:Core/Src/24c02.c ****   rNum = 16;
+ 274              		.loc 1 68 8 view .LVU67
+ 275 0024 1026     		movs	r6, #16
+ 276              	.LVL27:
+ 277              	.L20:
+  69:Core/Src/24c02.c ****  rNum = lenLeft>=rNum?rNum:lenLeft;
+ 278              		.loc 1 69 2 is_stmt 1 view .LVU68
+ 279              		.loc 1 69 16 is_stmt 0 view .LVU69
+ 280 0026 B3B2     		uxth	r3, r6
+ 281              		.loc 1 69 7 view .LVU70
+ 282 0028 AB42     		cmp	r3, r5
+ 283 002a 1DD9     		bls	.L22
+ 284              		.loc 1 69 7 discriminator 1 view .LVU71
+ 285 002c EEB2     		uxtb	r6, r5
+ 286              	.LVL28:
+ 287              		.loc 1 69 7 discriminator 1 view .LVU72
+ 288 002e 1BE0     		b	.L22
+ 289              	.LVL29:
+ 290              	.L30:
+  70:Core/Src/24c02.c ****  
+  71:Core/Src/24c02.c ****  /*transmit the date to e2prom*/ 
+  72:Core/Src/24c02.c ****  while(lenLeft)
+  73:Core/Src/24c02.c ****  {
+  74:Core/Src/24c02.c ****   /*calculate the device id*/
+  75:Core/Src/24c02.c ****   deviceId = (addr >> 8)<=0 ? E2PROM_BASE_RID : (E2PROM_BASE_RID | (uint8_t)((addr>>7)&0x0E));
+ 291              		.loc 1 75 12 view .LVU73
+ 292 0030 A123     		movs	r3, #161
+ 293              	.L23:
+ 294              	.LVL30:
+  76:Core/Src/24c02.c ****   
+  77:Core/Src/24c02.c ****   if( HAL_I2C_Mem_Read(&hi2c1, deviceId, addr&0x00FF, 
+ 295              		.loc 1 77 3 is_stmt 1 discriminator 4 view .LVU74
+ 296              		.loc 1 77 7 is_stmt 0 discriminator 4 view .LVU75
+ 297 0032 B2B2     		uxth	r2, r6
+ 298 0034 9046     		mov	r8, r2
+ 299 0036 FF22     		movs	r2, #255
+ 300 0038 2240     		ands	r2, r4
+ 301 003a 99B2     		uxth	r1, r3
+ 302 003c 1423     		movs	r3, #20
+ 303              	.LVL31:
+ 304              		.loc 1 77 7 discriminator 4 view .LVU76
+ 305 003e 0293     		str	r3, [sp, #8]
+ 306 0040 4346     		mov	r3, r8
+ 307 0042 0193     		str	r3, [sp, #4]
+ 308 0044 0097     		str	r7, [sp]
+ 309 0046 0123     		movs	r3, #1
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccNPGpri.s 			page 8
+
+
+ 310 0048 1348     		ldr	r0, .L33
+ 311 004a FFF7FEFF 		bl	HAL_I2C_Mem_Read
+ 312              	.LVL32:
+ 313              		.loc 1 77 5 discriminator 4 view .LVU77
+ 314 004e 0028     		cmp	r0, #0
+ 315 0050 16D1     		bne	.L31
+  78:Core/Src/24c02.c ****        I2C_MEMADD_SIZE_8BIT, p, rNum, 20) != HAL_OK)
+  79:Core/Src/24c02.c ****   {
+  80:Core/Src/24c02.c ****    printf("I2S Read error!\r\n");
+  81:Core/Src/24c02.c ****    continue;
+  82:Core/Src/24c02.c ****   }   
+  83:Core/Src/24c02.c ****   addr += rNum;
+ 316              		.loc 1 83 3 is_stmt 1 view .LVU78
+ 317              		.loc 1 83 8 is_stmt 0 view .LVU79
+ 318 0052 4444     		add	r4, r4, r8
+ 319              	.LVL33:
+ 320              		.loc 1 83 8 view .LVU80
+ 321 0054 A4B2     		uxth	r4, r4
+ 322              	.LVL34:
+  84:Core/Src/24c02.c ****   lenLeft -= rNum;
+ 323              		.loc 1 84 3 is_stmt 1 view .LVU81
+ 324              		.loc 1 84 11 is_stmt 0 view .LVU82
+ 325 0056 4346     		mov	r3, r8
+ 326 0058 ED1A     		subs	r5, r5, r3
+ 327              	.LVL35:
+ 328              		.loc 1 84 11 view .LVU83
+ 329 005a ADB2     		uxth	r5, r5
+ 330              	.LVL36:
+  85:Core/Src/24c02.c ****   p += rNum;
+ 331              		.loc 1 85 3 is_stmt 1 view .LVU84
+ 332              		.loc 1 85 5 is_stmt 0 view .LVU85
+ 333 005c BF19     		adds	r7, r7, r6
+ 334              	.LVL37:
+  86:Core/Src/24c02.c ****   rNum = lenLeft > 16 ? 16 : lenLeft; 
+ 335              		.loc 1 86 3 is_stmt 1 view .LVU86
+ 336              		.loc 1 86 28 is_stmt 0 view .LVU87
+ 337 005e 2E1C     		adds	r6, r5, #0
+ 338              	.LVL38:
+ 339              		.loc 1 86 28 view .LVU88
+ 340 0060 102D     		cmp	r5, #16
+ 341 0062 00D9     		bls	.L26
+ 342 0064 1026     		movs	r6, #16
+ 343              	.L26:
+ 344              		.loc 1 86 8 view .LVU89
+ 345 0066 F6B2     		uxtb	r6, r6
+ 346              	.LVL39:
+ 347              	.L22:
+  72:Core/Src/24c02.c ****  {
+ 348              		.loc 1 72 7 is_stmt 1 view .LVU90
+ 349 0068 002D     		cmp	r5, #0
+ 350 006a 0DD0     		beq	.L32
+  75:Core/Src/24c02.c ****   
+ 351              		.loc 1 75 3 view .LVU91
+  75:Core/Src/24c02.c ****   
+ 352              		.loc 1 75 25 is_stmt 0 view .LVU92
+ 353 006c 230A     		lsrs	r3, r4, #8
+  75:Core/Src/24c02.c ****   
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccNPGpri.s 			page 9
+
+
+ 354              		.loc 1 75 12 view .LVU93
+ 355 006e DFD0     		beq	.L30
+  75:Core/Src/24c02.c ****   
+ 356              		.loc 1 75 87 discriminator 1 view .LVU94
+ 357 0070 E109     		lsrs	r1, r4, #7
+ 358 0072 49B2     		sxtb	r1, r1
+  75:Core/Src/24c02.c ****   
+ 359              		.loc 1 75 68 discriminator 1 view .LVU95
+ 360 0074 0E23     		movs	r3, #14
+ 361 0076 1940     		ands	r1, r3
+  75:Core/Src/24c02.c ****   
+ 362              		.loc 1 75 66 discriminator 1 view .LVU96
+ 363 0078 6D3B     		subs	r3, r3, #109
+ 364 007a 0B43     		orrs	r3, r1
+  75:Core/Src/24c02.c ****   
+ 365              		.loc 1 75 12 discriminator 1 view .LVU97
+ 366 007c DBB2     		uxtb	r3, r3
+ 367 007e D8E7     		b	.L23
+ 368              	.L31:
+  80:Core/Src/24c02.c ****    continue;
+ 369              		.loc 1 80 4 is_stmt 1 view .LVU98
+ 370 0080 0648     		ldr	r0, .L33+4
+ 371 0082 FFF7FEFF 		bl	puts
+ 372              	.LVL40:
+  81:Core/Src/24c02.c ****   }   
+ 373              		.loc 1 81 4 view .LVU99
+ 374 0086 EFE7     		b	.L22
+ 375              	.L32:
+  87:Core/Src/24c02.c ****  }
+  88:Core/Src/24c02.c ****  
+  89:Core/Src/24c02.c ****  return HAL_OK; 
+ 376              		.loc 1 89 9 is_stmt 0 view .LVU100
+ 377 0088 0020     		movs	r0, #0
+ 378              	.LVL41:
+ 379              	.L19:
+  90:Core/Src/24c02.c **** }
+ 380              		.loc 1 90 1 view .LVU101
+ 381 008a 04B0     		add	sp, sp, #16
+ 382              		@ sp needed
+ 383              	.LVL42:
+ 384              		.loc 1 90 1 view .LVU102
+ 385 008c 80BC     		pop	{r7}
+ 386 008e B846     		mov	r8, r7
+ 387 0090 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 388              	.LVL43:
+ 389              	.L28:
+  63:Core/Src/24c02.c ****  
+ 390              		.loc 1 63 10 view .LVU103
+ 391 0092 0120     		movs	r0, #1
+ 392              	.LVL44:
+  63:Core/Src/24c02.c ****  
+ 393              		.loc 1 63 10 view .LVU104
+ 394 0094 F9E7     		b	.L19
+ 395              	.L34:
+ 396 0096 C046     		.align	2
+ 397              	.L33:
+ 398 0098 00000000 		.word	hi2c1
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccNPGpri.s 			page 10
+
+
+ 399 009c 00000000 		.word	.LC2
+ 400              		.cfi_endproc
+ 401              	.LFE44:
+ 403              		.text
+ 404              	.Letext0:
+ 405              		.file 2 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\machine\\_defa
+ 406              		.file 3 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\sys\\_stdint.h
+ 407              		.file 4 "Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f030x8.h"
+ 408              		.file 5 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_def.h"
+ 409              		.file 6 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_dma.h"
+ 410              		.file 7 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_i2c.h"
+ 411              		.file 8 "Core/Inc/24C02.h"
+ 412              		.file 9 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h"
+ 413              		.file 10 "<built-in>"
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccNPGpri.s 			page 11
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 24c02.c
+C:\Users\57298\AppData\Local\Temp\ccNPGpri.s:18     .text.writeAT24C16:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccNPGpri.s:24     .text.writeAT24C16:00000000 writeAT24C16
+C:\Users\57298\AppData\Local\Temp\ccNPGpri.s:206    .text.writeAT24C16:0000009c $d
+C:\Users\57298\AppData\Local\Temp\ccNPGpri.s:211    .rodata.readAT24C16.str1.4:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccNPGpri.s:215    .text.readAT24C16:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccNPGpri.s:221    .text.readAT24C16:00000000 readAT24C16
+C:\Users\57298\AppData\Local\Temp\ccNPGpri.s:398    .text.readAT24C16:00000098 $d
+
+UNDEFINED SYMBOLS
+HAL_I2C_Mem_Write
+HAL_Delay
+hi2c1
+HAL_I2C_Mem_Read
+puts

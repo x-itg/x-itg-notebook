@@ -1,0 +1,20 @@
+{
+    "files.associations": {
+        "segger_rtt.h": "c",
+        "main.h": "c",
+        "string.h": "c",
+        "stdlib.h": "c",
+        "stdio.h": "c",
+        "eeprom.h": "c",
+        "flash_if.h": "c",
+        "update.h": "c",
+        "tm1640.h": "c",
+        "dht.h": "c",
+        "24c02.h": "c",
+        "control.h": "c",
+        "param.h": "c",
+        "u2com.h": "c",
+        "tlc5615.h": "c"
+    },
+    "cortex-debug.variableUseNaturalFormat": true
+}

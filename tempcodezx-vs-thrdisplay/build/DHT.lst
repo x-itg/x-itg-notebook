@@ -1,0 +1,1221 @@
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.arch armv6s-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.file	"DHT.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.goToOutput,"ax",%progbits
+  18              		.align	1
+  19              		.syntax unified
+  20              		.code	16
+  21              		.thumb_func
+  23              	goToOutput:
+  24              	.LVL0:
+  25              	.LFB40:
+  26              		.file 1 "Core/Src/DHT.c"
+   1:Core/Src/DHT.c **** #include "DHT.h"
+   2:Core/Src/DHT.c **** DHT_sensor THbCONFIG = {GPIOA, GPIO_PIN_10, DHT11, GPIO_NOPULL};
+   3:Core/Src/DHT.c **** DHT_sensor THcCONFIG = {GPIOA, GPIO_PIN_11, DHT11, GPIO_NOPULL};
+   4:Core/Src/DHT.c **** DHT_data THb;
+   5:Core/Src/DHT.c **** DHT_data THc;
+   6:Core/Src/DHT.c **** 
+   7:Core/Src/DHT.c **** #define lineDown() HAL_GPIO_WritePin(sensor->DHT_Port, sensor->DHT_Pin, GPIO_PIN_RESET)
+   8:Core/Src/DHT.c **** #define lineUp() HAL_GPIO_WritePin(sensor->DHT_Port, sensor->DHT_Pin, GPIO_PIN_SET)
+   9:Core/Src/DHT.c **** #define getLine() (HAL_GPIO_ReadPin(sensor->DHT_Port, sensor->DHT_Pin) == GPIO_PIN_SET)
+  10:Core/Src/DHT.c **** #define Delay(d) HAL_Delay(d)
+  11:Core/Src/DHT.c **** 
+  12:Core/Src/DHT.c **** static void goToOutput(DHT_sensor *sensor)
+  13:Core/Src/DHT.c **** {
+  27              		.loc 1 13 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 24
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		.loc 1 13 1 is_stmt 0 view .LVU1
+  32 0000 10B5     		push	{r4, lr}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 4, -8
+  36              		.cfi_offset 14, -4
+  37 0002 86B0     		sub	sp, sp, #24
+  38              	.LCFI1:
+  39              		.cfi_def_cfa_offset 32
+  40 0004 0400     		movs	r4, r0
+  14:Core/Src/DHT.c ****     GPIO_InitTypeDef GPIO_InitStruct = {0};
+  41              		.loc 1 14 5 is_stmt 1 view .LVU2
+  42              		.loc 1 14 22 is_stmt 0 view .LVU3
+  43 0006 1422     		movs	r2, #20
+  44 0008 0021     		movs	r1, #0
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s 			page 2
+
+
+  45 000a 01A8     		add	r0, sp, #4
+  46              	.LVL1:
+  47              		.loc 1 14 22 view .LVU4
+  48 000c FFF7FEFF 		bl	memset
+  49              	.LVL2:
+  15:Core/Src/DHT.c **** 
+  16:Core/Src/DHT.c ****     // По умолчанию на линии высокий уровень
+  17:Core/Src/DHT.c ****     lineUp();
+  50              		.loc 1 17 5 is_stmt 1 view .LVU5
+  51 0010 A188     		ldrh	r1, [r4, #4]
+  52 0012 0122     		movs	r2, #1
+  53 0014 2068     		ldr	r0, [r4]
+  54 0016 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  55              	.LVL3:
+  18:Core/Src/DHT.c **** 
+  19:Core/Src/DHT.c ****     // Настройка порта на выход
+  20:Core/Src/DHT.c ****     GPIO_InitStruct.Pin = sensor->DHT_Pin;
+  56              		.loc 1 20 5 view .LVU6
+  57              		.loc 1 20 33 is_stmt 0 view .LVU7
+  58 001a A388     		ldrh	r3, [r4, #4]
+  59              		.loc 1 20 25 view .LVU8
+  60 001c 0193     		str	r3, [sp, #4]
+  21:Core/Src/DHT.c ****     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD; // Открытый сток
+  61              		.loc 1 21 5 is_stmt 1 view .LVU9
+  62              		.loc 1 21 26 is_stmt 0 view .LVU10
+  63 001e 1123     		movs	r3, #17
+  64 0020 0293     		str	r3, [sp, #8]
+  22:Core/Src/DHT.c ****     GPIO_InitStruct.Pull = sensor->pullUp;      // Подтяжка к питанию
+  65              		.loc 1 22 5 is_stmt 1 view .LVU11
+  66              		.loc 1 22 34 is_stmt 0 view .LVU12
+  67 0022 E379     		ldrb	r3, [r4, #7]
+  68              		.loc 1 22 26 view .LVU13
+  69 0024 0393     		str	r3, [sp, #12]
+  23:Core/Src/DHT.c **** 
+  24:Core/Src/DHT.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH; // Высокая скорость работы �
+  70              		.loc 1 24 5 is_stmt 1 view .LVU14
+  71              		.loc 1 24 27 is_stmt 0 view .LVU15
+  72 0026 0323     		movs	r3, #3
+  73 0028 0493     		str	r3, [sp, #16]
+  25:Core/Src/DHT.c ****     HAL_GPIO_Init(sensor->DHT_Port, &GPIO_InitStruct);
+  74              		.loc 1 25 5 is_stmt 1 view .LVU16
+  75 002a 2068     		ldr	r0, [r4]
+  76 002c 01A9     		add	r1, sp, #4
+  77 002e FFF7FEFF 		bl	HAL_GPIO_Init
+  78              	.LVL4:
+  26:Core/Src/DHT.c **** }
+  79              		.loc 1 26 1 is_stmt 0 view .LVU17
+  80 0032 06B0     		add	sp, sp, #24
+  81              		@ sp needed
+  82              	.LVL5:
+  83              		.loc 1 26 1 view .LVU18
+  84 0034 10BD     		pop	{r4, pc}
+  85              		.cfi_endproc
+  86              	.LFE40:
+  88              		.section	.text.goToInput,"ax",%progbits
+  89              		.align	1
+  90              		.syntax unified
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s 			page 3
+
+
+  91              		.code	16
+  92              		.thumb_func
+  94              	goToInput:
+  95              	.LVL6:
+  96              	.LFB41:
+  27:Core/Src/DHT.c **** 
+  28:Core/Src/DHT.c **** static void goToInput(DHT_sensor *sensor)
+  29:Core/Src/DHT.c **** {
+  97              		.loc 1 29 1 is_stmt 1 view -0
+  98              		.cfi_startproc
+  99              		@ args = 0, pretend = 0, frame = 24
+ 100              		@ frame_needed = 0, uses_anonymous_args = 0
+ 101              		.loc 1 29 1 is_stmt 0 view .LVU20
+ 102 0000 10B5     		push	{r4, lr}
+ 103              	.LCFI2:
+ 104              		.cfi_def_cfa_offset 8
+ 105              		.cfi_offset 4, -8
+ 106              		.cfi_offset 14, -4
+ 107 0002 86B0     		sub	sp, sp, #24
+ 108              	.LCFI3:
+ 109              		.cfi_def_cfa_offset 32
+ 110 0004 0400     		movs	r4, r0
+  30:Core/Src/DHT.c ****     GPIO_InitTypeDef GPIO_InitStruct = {0};
+ 111              		.loc 1 30 5 is_stmt 1 view .LVU21
+ 112              		.loc 1 30 22 is_stmt 0 view .LVU22
+ 113 0006 1422     		movs	r2, #20
+ 114 0008 0021     		movs	r1, #0
+ 115 000a 01A8     		add	r0, sp, #4
+ 116              	.LVL7:
+ 117              		.loc 1 30 22 view .LVU23
+ 118 000c FFF7FEFF 		bl	memset
+ 119              	.LVL8:
+  31:Core/Src/DHT.c **** 
+  32:Core/Src/DHT.c ****     // Настройка порта на вход
+  33:Core/Src/DHT.c ****     GPIO_InitStruct.Pin = sensor->DHT_Pin;
+ 120              		.loc 1 33 5 is_stmt 1 view .LVU24
+ 121              		.loc 1 33 33 is_stmt 0 view .LVU25
+ 122 0010 A388     		ldrh	r3, [r4, #4]
+ 123              		.loc 1 33 25 view .LVU26
+ 124 0012 0193     		str	r3, [sp, #4]
+  34:Core/Src/DHT.c ****     GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+ 125              		.loc 1 34 5 is_stmt 1 view .LVU27
+  35:Core/Src/DHT.c ****     GPIO_InitStruct.Pull = sensor->pullUp; // Подтяжка к питанию
+ 126              		.loc 1 35 5 view .LVU28
+ 127              		.loc 1 35 34 is_stmt 0 view .LVU29
+ 128 0014 E379     		ldrb	r3, [r4, #7]
+ 129              		.loc 1 35 26 view .LVU30
+ 130 0016 0393     		str	r3, [sp, #12]
+  36:Core/Src/DHT.c ****     HAL_GPIO_Init(sensor->DHT_Port, &GPIO_InitStruct);
+ 131              		.loc 1 36 5 is_stmt 1 view .LVU31
+ 132 0018 2068     		ldr	r0, [r4]
+ 133 001a 01A9     		add	r1, sp, #4
+ 134 001c FFF7FEFF 		bl	HAL_GPIO_Init
+ 135              	.LVL9:
+  37:Core/Src/DHT.c **** }
+ 136              		.loc 1 37 1 is_stmt 0 view .LVU32
+ 137 0020 06B0     		add	sp, sp, #24
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s 			page 4
+
+
+ 138              		@ sp needed
+ 139              	.LVL10:
+ 140              		.loc 1 37 1 view .LVU33
+ 141 0022 10BD     		pop	{r4, pc}
+ 142              		.cfi_endproc
+ 143              	.LFE41:
+ 145              		.global	__aeabi_i2f
+ 146              		.global	__aeabi_fmul
+ 147              		.global	__aeabi_ui2f
+ 148              		.section	.text.DHT_getData,"ax",%progbits
+ 149              		.align	1
+ 150              		.global	DHT_getData
+ 151              		.syntax unified
+ 152              		.code	16
+ 153              		.thumb_func
+ 155              	DHT_getData:
+ 156              	.LVL11:
+ 157              	.LFB42:
+  38:Core/Src/DHT.c **** 
+  39:Core/Src/DHT.c **** DHT_data DHT_getData(DHT_sensor *sensor)
+  40:Core/Src/DHT.c **** {
+ 158              		.loc 1 40 1 is_stmt 1 view -0
+ 159              		.cfi_startproc
+ 160              		@ args = 0, pretend = 0, frame = 8
+ 161              		@ frame_needed = 0, uses_anonymous_args = 0
+ 162              		.loc 1 40 1 is_stmt 0 view .LVU35
+ 163 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 164              	.LCFI4:
+ 165              		.cfi_def_cfa_offset 20
+ 166              		.cfi_offset 4, -20
+ 167              		.cfi_offset 5, -16
+ 168              		.cfi_offset 6, -12
+ 169              		.cfi_offset 7, -8
+ 170              		.cfi_offset 14, -4
+ 171 0002 CE46     		mov	lr, r9
+ 172 0004 4746     		mov	r7, r8
+ 173 0006 80B5     		push	{r7, lr}
+ 174              	.LCFI5:
+ 175              		.cfi_def_cfa_offset 28
+ 176              		.cfi_offset 8, -28
+ 177              		.cfi_offset 9, -24
+ 178 0008 83B0     		sub	sp, sp, #12
+ 179              	.LCFI6:
+ 180              		.cfi_def_cfa_offset 40
+ 181 000a 8146     		mov	r9, r0
+ 182 000c 0E00     		movs	r6, r1
+  41:Core/Src/DHT.c ****     DHT_data data;
+ 183              		.loc 1 41 5 is_stmt 1 view .LVU36
+  42:Core/Src/DHT.c **** 
+  43:Core/Src/DHT.c ****     data.hum = 40.0f;
+ 184              		.loc 1 43 5 view .LVU37
+ 185              		.loc 1 43 14 is_stmt 0 view .LVU38
+ 186 000e 704B     		ldr	r3, .L33
+ 187 0010 0360     		str	r3, [r0]
+  44:Core/Src/DHT.c ****     data.temp = 20.0f;
+ 188              		.loc 1 44 5 is_stmt 1 view .LVU39
+ 189              		.loc 1 44 15 is_stmt 0 view .LVU40
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s 			page 5
+
+
+ 190 0012 704B     		ldr	r3, .L33+4
+ 191 0014 4360     		str	r3, [r0, #4]
+  45:Core/Src/DHT.c **** 
+  46:Core/Src/DHT.c **** #if DHT_POLLING_CONTROL == 1
+  47:Core/Src/DHT.c ****     /* Ограничение по частоте опроса датчика */
+  48:Core/Src/DHT.c ****     // Определение интервала опроса в зависимости от дат
+  49:Core/Src/DHT.c ****     uint16_t pollingInterval;
+  50:Core/Src/DHT.c ****     if (sensor->type == DHT11)
+  51:Core/Src/DHT.c ****     {
+  52:Core/Src/DHT.c ****         pollingInterval = DHT_POLLING_INTERVAL_DHT11;
+  53:Core/Src/DHT.c ****     }
+  54:Core/Src/DHT.c ****     else
+  55:Core/Src/DHT.c ****     {
+  56:Core/Src/DHT.c ****         pollingInterval = DHT_POLLING_INTERVAL_DHT22;
+  57:Core/Src/DHT.c ****     }
+  58:Core/Src/DHT.c **** 
+  59:Core/Src/DHT.c ****     // Если интервал маленький, то возврат последнего уд�
+  60:Core/Src/DHT.c ****     if ((HAL_GetTick() - sensor->lastPollingTime < pollingInterval) && sensor->lastPollingTime != 0
+  61:Core/Src/DHT.c ****     {
+  62:Core/Src/DHT.c ****         data.hum = sensor->lastHum;
+  63:Core/Src/DHT.c ****         data.temp = sensor->lastTemp;
+  64:Core/Src/DHT.c ****         return data;
+  65:Core/Src/DHT.c ****     }
+  66:Core/Src/DHT.c ****     sensor->lastPollingTime = HAL_GetTick() + 1;
+  67:Core/Src/DHT.c **** #endif
+  68:Core/Src/DHT.c **** 
+  69:Core/Src/DHT.c ****     /* Запрос данных у датчика */
+  70:Core/Src/DHT.c ****     // Перевод пина "на выход"
+  71:Core/Src/DHT.c ****     goToOutput(sensor);
+ 192              		.loc 1 71 5 is_stmt 1 view .LVU41
+ 193 0016 0800     		movs	r0, r1
+ 194              	.LVL12:
+ 195              		.loc 1 71 5 is_stmt 0 view .LVU42
+ 196 0018 FFF7FEFF 		bl	goToOutput
+ 197              	.LVL13:
+  72:Core/Src/DHT.c ****     // Опускание линии данных на 18 мс
+  73:Core/Src/DHT.c ****     lineDown();
+ 198              		.loc 1 73 5 is_stmt 1 view .LVU43
+ 199 001c B188     		ldrh	r1, [r6, #4]
+ 200 001e 0022     		movs	r2, #0
+ 201 0020 3068     		ldr	r0, [r6]
+ 202 0022 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 203              	.LVL14:
+  74:Core/Src/DHT.c ****     Delay(18);
+ 204              		.loc 1 74 5 view .LVU44
+ 205 0026 1220     		movs	r0, #18
+ 206 0028 FFF7FEFF 		bl	HAL_Delay
+ 207              	.LVL15:
+  75:Core/Src/DHT.c ****     // Подъём линии, перевод порта "на вход"
+  76:Core/Src/DHT.c ****     lineUp();
+ 208              		.loc 1 76 5 view .LVU45
+ 209 002c B188     		ldrh	r1, [r6, #4]
+ 210 002e 0122     		movs	r2, #1
+ 211 0030 3068     		ldr	r0, [r6]
+ 212 0032 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 213              	.LVL16:
+  77:Core/Src/DHT.c ****     goToInput(sensor);
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s 			page 6
+
+
+ 214              		.loc 1 77 5 view .LVU46
+ 215 0036 3000     		movs	r0, r6
+ 216 0038 FFF7FEFF 		bl	goToInput
+ 217              	.LVL17:
+  78:Core/Src/DHT.c **** 
+  79:Core/Src/DHT.c **** #ifdef DHT_IRQ_CONTROL
+  80:Core/Src/DHT.c ****     // Выключение прерываний, чтобы ничто не мешало обра�
+  81:Core/Src/DHT.c ****     __disable_irq();
+ 218              		.loc 1 81 5 view .LVU47
+ 219              	.LBB15:
+ 220              	.LBI15:
+ 221              		.file 2 "Drivers/CMSIS/Include/cmsis_gcc.h"
+   1:Drivers/CMSIS/Include/cmsis_gcc.h **** /**************************************************************************//**
+   2:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @file     cmsis_gcc.h
+   3:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @brief    CMSIS compiler GCC header file
+   4:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @version  V5.0.4
+   5:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @date     09. April 2018
+   6:Drivers/CMSIS/Include/cmsis_gcc.h ****  ******************************************************************************/
+   7:Drivers/CMSIS/Include/cmsis_gcc.h **** /*
+   8:Drivers/CMSIS/Include/cmsis_gcc.h ****  * Copyright (c) 2009-2018 Arm Limited. All rights reserved.
+   9:Drivers/CMSIS/Include/cmsis_gcc.h ****  *
+  10:Drivers/CMSIS/Include/cmsis_gcc.h ****  * SPDX-License-Identifier: Apache-2.0
+  11:Drivers/CMSIS/Include/cmsis_gcc.h ****  *
+  12:Drivers/CMSIS/Include/cmsis_gcc.h ****  * Licensed under the Apache License, Version 2.0 (the License); you may
+  13:Drivers/CMSIS/Include/cmsis_gcc.h ****  * not use this file except in compliance with the License.
+  14:Drivers/CMSIS/Include/cmsis_gcc.h ****  * You may obtain a copy of the License at
+  15:Drivers/CMSIS/Include/cmsis_gcc.h ****  *
+  16:Drivers/CMSIS/Include/cmsis_gcc.h ****  * www.apache.org/licenses/LICENSE-2.0
+  17:Drivers/CMSIS/Include/cmsis_gcc.h ****  *
+  18:Drivers/CMSIS/Include/cmsis_gcc.h ****  * Unless required by applicable law or agreed to in writing, software
+  19:Drivers/CMSIS/Include/cmsis_gcc.h ****  * distributed under the License is distributed on an AS IS BASIS, WITHOUT
+  20:Drivers/CMSIS/Include/cmsis_gcc.h ****  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  21:Drivers/CMSIS/Include/cmsis_gcc.h ****  * See the License for the specific language governing permissions and
+  22:Drivers/CMSIS/Include/cmsis_gcc.h ****  * limitations under the License.
+  23:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+  24:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  25:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef __CMSIS_GCC_H
+  26:Drivers/CMSIS/Include/cmsis_gcc.h **** #define __CMSIS_GCC_H
+  27:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  28:Drivers/CMSIS/Include/cmsis_gcc.h **** /* ignore some GCC warnings */
+  29:Drivers/CMSIS/Include/cmsis_gcc.h **** #pragma GCC diagnostic push
+  30:Drivers/CMSIS/Include/cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wsign-conversion"
+  31:Drivers/CMSIS/Include/cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wconversion"
+  32:Drivers/CMSIS/Include/cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wunused-parameter"
+  33:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  34:Drivers/CMSIS/Include/cmsis_gcc.h **** /* Fallback for __has_builtin */
+  35:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef __has_builtin
+  36:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __has_builtin(x) (0)
+  37:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  38:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  39:Drivers/CMSIS/Include/cmsis_gcc.h **** /* CMSIS compiler specific defines */
+  40:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __ASM
+  41:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __ASM                                  __asm
+  42:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  43:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __INLINE
+  44:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __INLINE                               inline
+  45:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s 			page 7
+
+
+  46:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __STATIC_INLINE
+  47:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __STATIC_INLINE                        static inline
+  48:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  49:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __STATIC_FORCEINLINE                 
+  50:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __STATIC_FORCEINLINE                   __attribute__((always_inline)) static inline
+  51:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif                                           
+  52:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __NO_RETURN
+  53:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __NO_RETURN                            __attribute__((__noreturn__))
+  54:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  55:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __USED
+  56:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __USED                                 __attribute__((used))
+  57:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  58:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __WEAK
+  59:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __WEAK                                 __attribute__((weak))
+  60:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  61:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __PACKED
+  62:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __PACKED                               __attribute__((packed, aligned(1)))
+  63:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  64:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __PACKED_STRUCT
+  65:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __PACKED_STRUCT                        struct __attribute__((packed, aligned(1)))
+  66:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  67:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __PACKED_UNION
+  68:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __PACKED_UNION                         union __attribute__((packed, aligned(1)))
+  69:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  70:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32        /* deprecated */
+  71:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+  72:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  73:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  74:Drivers/CMSIS/Include/cmsis_gcc.h ****   struct __attribute__((packed)) T_UINT32 { uint32_t v; };
+  75:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  76:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT32(x)                  (((struct T_UINT32 *)(x))->v)
+  77:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  78:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_WRITE
+  79:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+  80:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  81:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  82:Drivers/CMSIS/Include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT16_WRITE { uint16_t v; };
+  83:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  84:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT16_WRITE(addr, val)    (void)((((struct T_UINT16_WRITE *)(void *)(addr))-
+  85:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  86:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_READ
+  87:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+  88:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  89:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  90:Drivers/CMSIS/Include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT16_READ { uint16_t v; };
+  91:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  92:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT16_READ(addr)          (((const struct T_UINT16_READ *)(const void *)(add
+  93:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  94:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_WRITE
+  95:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+  96:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  97:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  98:Drivers/CMSIS/Include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_WRITE { uint32_t v; };
+  99:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+ 100:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT32_WRITE(addr, val)    (void)((((struct T_UINT32_WRITE *)(void *)(addr))-
+ 101:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ 102:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_READ
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s 			page 8
+
+
+ 103:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+ 104:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+ 105:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+ 106:Drivers/CMSIS/Include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_READ { uint32_t v; };
+ 107:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+ 108:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT32_READ(addr)          (((const struct T_UINT32_READ *)(const void *)(add
+ 109:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ 110:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __ALIGNED
+ 111:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __ALIGNED(x)                           __attribute__((aligned(x)))
+ 112:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ 113:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __RESTRICT
+ 114:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __RESTRICT                             __restrict
+ 115:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ 116:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 117:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 118:Drivers/CMSIS/Include/cmsis_gcc.h **** /* ###########################  Core Function Access  ########################### */
+ 119:Drivers/CMSIS/Include/cmsis_gcc.h **** /** \ingroup  CMSIS_Core_FunctionInterface
+ 120:Drivers/CMSIS/Include/cmsis_gcc.h ****     \defgroup CMSIS_Core_RegAccFunctions CMSIS Core Register Access Functions
+ 121:Drivers/CMSIS/Include/cmsis_gcc.h ****   @{
+ 122:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 123:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 124:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 125:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Enable IRQ Interrupts
+ 126:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Enables IRQ interrupts by clearing the I-bit in the CPSR.
+ 127:Drivers/CMSIS/Include/cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 128:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 129:Drivers/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE void __enable_irq(void)
+ 130:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 131:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("cpsie i" : : : "memory");
+ 132:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 133:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 134:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 135:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 136:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Disable IRQ Interrupts
+ 137:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Disables IRQ interrupts by setting the I-bit in the CPSR.
+ 138:Drivers/CMSIS/Include/cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 139:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 140:Drivers/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE void __disable_irq(void)
+ 222              		.loc 2 140 27 view .LVU48
+ 223              	.LBB16:
+ 141:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 142:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("cpsid i" : : : "memory");
+ 224              		.loc 2 142 3 view .LVU49
+ 225              		.syntax divided
+ 226              	@ 142 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
+ 227 003c 72B6     		cpsid i
+ 228              	@ 0 "" 2
+ 229              		.thumb
+ 230              		.syntax unified
+ 231              	.LBE16:
+ 232              	.LBE15:
+  82:Core/Src/DHT.c **** #endif
+  83:Core/Src/DHT.c ****     /* Ожидание ответа от датчика */
+  84:Core/Src/DHT.c ****     uint16_t timeout = 0;
+ 233              		.loc 1 84 5 view .LVU50
+ 234              	.LVL18:
+  85:Core/Src/DHT.c ****     // Ожидание спада
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s 			page 9
+
+
+  86:Core/Src/DHT.c ****     while (getLine())
+ 235              		.loc 1 86 5 view .LVU51
+  84:Core/Src/DHT.c ****     // Ожидание спада
+ 236              		.loc 1 84 14 is_stmt 0 view .LVU52
+ 237 003e 0024     		movs	r4, #0
+ 238              	.LVL19:
+ 239              	.L4:
+ 240              		.loc 1 86 11 is_stmt 1 view .LVU53
+ 241              		.loc 1 86 12 is_stmt 0 view .LVU54
+ 242 0040 B188     		ldrh	r1, [r6, #4]
+ 243 0042 3068     		ldr	r0, [r6]
+ 244 0044 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 245              	.LVL20:
+ 246              		.loc 1 86 11 view .LVU55
+ 247 0048 0128     		cmp	r0, #1
+ 248 004a 0BD1     		bne	.L26
+  87:Core/Src/DHT.c ****     {
+  88:Core/Src/DHT.c ****         timeout++;
+ 249              		.loc 1 88 9 is_stmt 1 view .LVU56
+ 250              		.loc 1 88 16 is_stmt 0 view .LVU57
+ 251 004c 0134     		adds	r4, r4, #1
+ 252              	.LVL21:
+ 253              		.loc 1 88 16 view .LVU58
+ 254 004e A4B2     		uxth	r4, r4
+ 255              	.LVL22:
+  89:Core/Src/DHT.c ****         if (timeout > DHT_TIMEOUT)
+ 256              		.loc 1 89 9 is_stmt 1 view .LVU59
+ 257              		.loc 1 89 12 is_stmt 0 view .LVU60
+ 258 0050 614B     		ldr	r3, .L33+8
+ 259 0052 9C42     		cmp	r4, r3
+ 260 0054 F4D9     		bls	.L4
+  90:Core/Src/DHT.c ****         {
+  91:Core/Src/DHT.c **** #ifdef DHT_IRQ_CONTROL
+  92:Core/Src/DHT.c ****             __enable_irq();
+ 261              		.loc 1 92 13 is_stmt 1 view .LVU61
+ 262              	.LBB17:
+ 263              	.LBI17:
+ 129:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 264              		.loc 2 129 27 view .LVU62
+ 265              	.LBB18:
+ 131:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 266              		.loc 2 131 3 view .LVU63
+ 267              		.syntax divided
+ 268              	@ 131 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
+ 269 0056 62B6     		cpsie i
+ 270              	@ 0 "" 2
+ 271              		.thumb
+ 272              		.syntax unified
+ 273              	.LBE18:
+ 274              	.LBE17:
+  93:Core/Src/DHT.c **** #endif
+  94:Core/Src/DHT.c ****             data.hum = sensor->lastHum;
+ 275              		.loc 1 94 13 view .LVU64
+ 276              		.loc 1 94 22 is_stmt 0 view .LVU65
+ 277 0058 4B46     		mov	r3, r9
+ 278 005a 3269     		ldr	r2, [r6, #16]
+ 279 005c 1A60     		str	r2, [r3]
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s 			page 10
+
+
+  95:Core/Src/DHT.c ****             data.temp = sensor->lastTemp;
+ 280              		.loc 1 95 13 is_stmt 1 view .LVU66
+ 281              		.loc 1 95 31 is_stmt 0 view .LVU67
+ 282 005e F268     		ldr	r2, [r6, #12]
+ 283 0060 5A60     		str	r2, [r3, #4]
+  96:Core/Src/DHT.c ****             return data;
+ 284              		.loc 1 96 13 is_stmt 1 view .LVU68
+ 285              		.loc 1 96 20 is_stmt 0 view .LVU69
+ 286 0062 77E0     		b	.L3
+ 287              	.L26:
+  97:Core/Src/DHT.c ****         }
+  98:Core/Src/DHT.c ****     }
+  99:Core/Src/DHT.c ****     timeout = 0;
+ 288              		.loc 1 99 13 view .LVU70
+ 289 0064 0024     		movs	r4, #0
+ 290              	.LVL23:
+ 291              	.L7:
+ 100:Core/Src/DHT.c ****     // Ожидание подъёма// 翻译：等待上升
+ 101:Core/Src/DHT.c ****     while (!getLine())
+ 292              		.loc 1 101 11 is_stmt 1 view .LVU71
+ 293              		.loc 1 101 13 is_stmt 0 view .LVU72
+ 294 0066 B188     		ldrh	r1, [r6, #4]
+ 295 0068 3068     		ldr	r0, [r6]
+ 296 006a FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 297              	.LVL24:
+ 298              		.loc 1 101 11 view .LVU73
+ 299 006e 0128     		cmp	r0, #1
+ 300 0070 0BD0     		beq	.L27
+ 102:Core/Src/DHT.c ****     {
+ 103:Core/Src/DHT.c ****         timeout++;
+ 301              		.loc 1 103 9 is_stmt 1 view .LVU74
+ 302              		.loc 1 103 16 is_stmt 0 view .LVU75
+ 303 0072 0134     		adds	r4, r4, #1
+ 304              	.LVL25:
+ 305              		.loc 1 103 16 view .LVU76
+ 306 0074 A4B2     		uxth	r4, r4
+ 307              	.LVL26:
+ 104:Core/Src/DHT.c ****         if (timeout > DHT_TIMEOUT)
+ 308              		.loc 1 104 9 is_stmt 1 view .LVU77
+ 309              		.loc 1 104 12 is_stmt 0 view .LVU78
+ 310 0076 584B     		ldr	r3, .L33+8
+ 311 0078 9C42     		cmp	r4, r3
+ 312 007a F4D9     		bls	.L7
+ 105:Core/Src/DHT.c ****         {
+ 106:Core/Src/DHT.c **** #ifdef DHT_IRQ_CONTROL
+ 107:Core/Src/DHT.c ****             __enable_irq();
+ 313              		.loc 1 107 13 is_stmt 1 view .LVU79
+ 314              	.LBB19:
+ 315              	.LBI19:
+ 129:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 316              		.loc 2 129 27 view .LVU80
+ 317              	.LBB20:
+ 131:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 318              		.loc 2 131 3 view .LVU81
+ 319              		.syntax divided
+ 320              	@ 131 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
+ 321 007c 62B6     		cpsie i
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s 			page 11
+
+
+ 322              	@ 0 "" 2
+ 323              		.thumb
+ 324              		.syntax unified
+ 325              	.LBE20:
+ 326              	.LBE19:
+ 108:Core/Src/DHT.c **** #endif
+ 109:Core/Src/DHT.c ****             data.hum = sensor->lastHum;
+ 327              		.loc 1 109 13 view .LVU82
+ 328              		.loc 1 109 22 is_stmt 0 view .LVU83
+ 329 007e 4B46     		mov	r3, r9
+ 330 0080 3269     		ldr	r2, [r6, #16]
+ 331 0082 1A60     		str	r2, [r3]
+ 110:Core/Src/DHT.c ****             data.temp = sensor->lastTemp;
+ 332              		.loc 1 110 13 is_stmt 1 view .LVU84
+ 333              		.loc 1 110 31 is_stmt 0 view .LVU85
+ 334 0084 F268     		ldr	r2, [r6, #12]
+ 335 0086 5A60     		str	r2, [r3, #4]
+ 111:Core/Src/DHT.c ****             return data;
+ 336              		.loc 1 111 13 is_stmt 1 view .LVU86
+ 337              		.loc 1 111 20 is_stmt 0 view .LVU87
+ 338 0088 64E0     		b	.L3
+ 339              	.L27:
+ 112:Core/Src/DHT.c ****         }
+ 113:Core/Src/DHT.c ****     }
+ 114:Core/Src/DHT.c ****     timeout = 0;
+ 340              		.loc 1 114 13 view .LVU88
+ 341 008a 0024     		movs	r4, #0
+ 342              	.LVL27:
+ 343              	.L9:
+ 115:Core/Src/DHT.c ****     // Ожидание спада
+ 116:Core/Src/DHT.c ****     while (getLine())
+ 344              		.loc 1 116 11 is_stmt 1 view .LVU89
+ 345              		.loc 1 116 12 is_stmt 0 view .LVU90
+ 346 008c B188     		ldrh	r1, [r6, #4]
+ 347 008e 3068     		ldr	r0, [r6]
+ 348 0090 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 349              	.LVL28:
+ 350              		.loc 1 116 11 view .LVU91
+ 351 0094 0128     		cmp	r0, #1
+ 352 0096 0BD1     		bne	.L28
+ 117:Core/Src/DHT.c ****     {
+ 118:Core/Src/DHT.c ****         timeout++;
+ 353              		.loc 1 118 9 is_stmt 1 view .LVU92
+ 354              		.loc 1 118 16 is_stmt 0 view .LVU93
+ 355 0098 0134     		adds	r4, r4, #1
+ 356              	.LVL29:
+ 357              		.loc 1 118 16 view .LVU94
+ 358 009a A4B2     		uxth	r4, r4
+ 359              	.LVL30:
+ 119:Core/Src/DHT.c ****         if (timeout > DHT_TIMEOUT)
+ 360              		.loc 1 119 9 is_stmt 1 view .LVU95
+ 361              		.loc 1 119 12 is_stmt 0 view .LVU96
+ 362 009c 4E4B     		ldr	r3, .L33+8
+ 363 009e 9C42     		cmp	r4, r3
+ 364 00a0 F4D9     		bls	.L9
+ 120:Core/Src/DHT.c ****         {
+ 121:Core/Src/DHT.c **** #ifdef DHT_IRQ_CONTROL
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s 			page 12
+
+
+ 122:Core/Src/DHT.c ****             __enable_irq();
+ 365              		.loc 1 122 13 is_stmt 1 view .LVU97
+ 366              	.LBB21:
+ 367              	.LBI21:
+ 129:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 368              		.loc 2 129 27 view .LVU98
+ 369              	.LBB22:
+ 131:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 370              		.loc 2 131 3 view .LVU99
+ 371              		.syntax divided
+ 372              	@ 131 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
+ 373 00a2 62B6     		cpsie i
+ 374              	@ 0 "" 2
+ 375              		.thumb
+ 376              		.syntax unified
+ 377              	.LBE22:
+ 378              	.LBE21:
+ 123:Core/Src/DHT.c **** #endif
+ 124:Core/Src/DHT.c ****             data.hum = sensor->lastHum;
+ 379              		.loc 1 124 13 view .LVU100
+ 380              		.loc 1 124 22 is_stmt 0 view .LVU101
+ 381 00a4 4B46     		mov	r3, r9
+ 382 00a6 3269     		ldr	r2, [r6, #16]
+ 383 00a8 1A60     		str	r2, [r3]
+ 125:Core/Src/DHT.c ****             data.temp = sensor->lastTemp;
+ 384              		.loc 1 125 13 is_stmt 1 view .LVU102
+ 385              		.loc 1 125 31 is_stmt 0 view .LVU103
+ 386 00aa F268     		ldr	r2, [r6, #12]
+ 387 00ac 5A60     		str	r2, [r3, #4]
+ 126:Core/Src/DHT.c ****             return data;
+ 388              		.loc 1 126 13 is_stmt 1 view .LVU104
+ 389              		.loc 1 126 20 is_stmt 0 view .LVU105
+ 390 00ae 51E0     		b	.L3
+ 391              	.L28:
+ 127:Core/Src/DHT.c ****         }
+ 128:Core/Src/DHT.c ****     }
+ 129:Core/Src/DHT.c **** 
+ 130:Core/Src/DHT.c ****     /* Чтение ответа от датчика */ // 翻译：读取传感器的响应
+ 131:Core/Src/DHT.c ****     uint8_t rawData[5] = {0, 0, 0, 0, 0};
+ 392              		.loc 1 131 5 is_stmt 1 view .LVU106
+ 393              		.loc 1 131 13 is_stmt 0 view .LVU107
+ 394 00b0 4A4B     		ldr	r3, .L33+12
+ 395 00b2 1A68     		ldr	r2, [r3]
+ 396 00b4 0092     		str	r2, [sp]
+ 397 00b6 1B79     		ldrb	r3, [r3, #4]
+ 398 00b8 6A46     		mov	r2, sp
+ 399 00ba 1371     		strb	r3, [r2, #4]
+ 132:Core/Src/DHT.c ****     for (uint8_t a = 0; a < 5; a++)
+ 400              		.loc 1 132 5 is_stmt 1 view .LVU108
+ 401              	.LBB23:
+ 402              		.loc 1 132 10 view .LVU109
+ 403              	.LVL31:
+ 404              		.loc 1 132 18 is_stmt 0 view .LVU110
+ 405 00bc 0023     		movs	r3, #0
+ 406 00be 9846     		mov	r8, r3
+ 407              		.loc 1 132 5 view .LVU111
+ 408 00c0 2DE0     		b	.L11
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s 			page 13
+
+
+ 409              	.LVL32:
+ 410              	.L13:
+ 411              	.LBB24:
+ 412              	.LBB25:
+ 133:Core/Src/DHT.c ****     {
+ 134:Core/Src/DHT.c ****         for (uint8_t b = 7; b != 255; b--)
+ 135:Core/Src/DHT.c ****         {
+ 136:Core/Src/DHT.c ****             uint16_t hT = 0, lT = 0;
+ 137:Core/Src/DHT.c ****             // Пока линия в низком уровне, инкремент перемен�
+ 138:Core/Src/DHT.c ****             while (!getLine() && lT != 65535)
+ 139:Core/Src/DHT.c ****                 lT++;
+ 413              		.loc 1 139 17 is_stmt 1 view .LVU112
+ 414              		.loc 1 139 19 is_stmt 0 view .LVU113
+ 415 00c2 0134     		adds	r4, r4, #1
+ 416              	.LVL33:
+ 417              		.loc 1 139 19 view .LVU114
+ 418 00c4 A4B2     		uxth	r4, r4
+ 419              	.LVL34:
+ 420              	.L18:
+ 138:Core/Src/DHT.c ****                 lT++;
+ 421              		.loc 1 138 19 is_stmt 1 view .LVU115
+ 138:Core/Src/DHT.c ****                 lT++;
+ 422              		.loc 1 138 21 is_stmt 0 view .LVU116
+ 423 00c6 B188     		ldrh	r1, [r6, #4]
+ 424 00c8 3068     		ldr	r0, [r6]
+ 425 00ca FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 426              	.LVL35:
+ 138:Core/Src/DHT.c ****                 lT++;
+ 427              		.loc 1 138 19 view .LVU117
+ 428 00ce 0128     		cmp	r0, #1
+ 429 00d0 1FD0     		beq	.L23
+ 138:Core/Src/DHT.c ****                 lT++;
+ 430              		.loc 1 138 31 discriminator 1 view .LVU118
+ 431 00d2 434B     		ldr	r3, .L33+16
+ 432 00d4 9C42     		cmp	r4, r3
+ 433 00d6 F4D1     		bne	.L13
+ 434 00d8 0025     		movs	r5, #0
+ 435 00da 01E0     		b	.L14
+ 436              	.LVL36:
+ 437              	.L16:
+ 140:Core/Src/DHT.c ****             // Пока линия в высоком уровне, инкремент переме�
+ 141:Core/Src/DHT.c ****             timeout = 0;
+ 142:Core/Src/DHT.c ****             while (getLine() && hT != 65535)
+ 143:Core/Src/DHT.c ****                 hT++;
+ 438              		.loc 1 143 17 is_stmt 1 view .LVU119
+ 439              		.loc 1 143 19 is_stmt 0 view .LVU120
+ 440 00dc 0135     		adds	r5, r5, #1
+ 441              	.LVL37:
+ 442              		.loc 1 143 19 view .LVU121
+ 443 00de ADB2     		uxth	r5, r5
+ 444              	.LVL38:
+ 445              	.L14:
+ 142:Core/Src/DHT.c ****                 hT++;
+ 446              		.loc 1 142 19 is_stmt 1 view .LVU122
+ 142:Core/Src/DHT.c ****                 hT++;
+ 447              		.loc 1 142 20 is_stmt 0 view .LVU123
+ 448 00e0 B188     		ldrh	r1, [r6, #4]
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s 			page 14
+
+
+ 449 00e2 3068     		ldr	r0, [r6]
+ 450 00e4 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 451              	.LVL39:
+ 142:Core/Src/DHT.c ****                 hT++;
+ 452              		.loc 1 142 19 view .LVU124
+ 453 00e8 0128     		cmp	r0, #1
+ 454 00ea 02D1     		bne	.L15
+ 142:Core/Src/DHT.c ****                 hT++;
+ 455              		.loc 1 142 30 discriminator 1 view .LVU125
+ 456 00ec 3C4B     		ldr	r3, .L33+16
+ 457 00ee 9D42     		cmp	r5, r3
+ 458 00f0 F4D1     		bne	.L16
+ 459              	.L15:
+ 144:Core/Src/DHT.c ****             // Если hT больше lT, то пришла единица
+ 145:Core/Src/DHT.c ****             if (hT > lT)
+ 460              		.loc 1 145 13 is_stmt 1 view .LVU126
+ 461              		.loc 1 145 16 is_stmt 0 view .LVU127
+ 462 00f2 A542     		cmp	r5, r4
+ 463 00f4 07D9     		bls	.L17
+ 146:Core/Src/DHT.c ****                 rawData[a] |= (1 << b);
+ 464              		.loc 1 146 17 is_stmt 1 view .LVU128
+ 465              		.loc 1 146 34 is_stmt 0 view .LVU129
+ 466 00f6 0122     		movs	r2, #1
+ 467 00f8 BA40     		lsls	r2, r2, r7
+ 468              		.loc 1 146 28 view .LVU130
+ 469 00fa 6B46     		mov	r3, sp
+ 470 00fc 4146     		mov	r1, r8
+ 471 00fe 5B5C     		ldrb	r3, [r3, r1]
+ 472 0100 1343     		orrs	r3, r2
+ 473 0102 6A46     		mov	r2, sp
+ 474 0104 5354     		strb	r3, [r2, r1]
+ 475              	.L17:
+ 476              	.LBE25:
+ 134:Core/Src/DHT.c ****         {
+ 477              		.loc 1 134 39 is_stmt 1 discriminator 2 view .LVU131
+ 134:Core/Src/DHT.c ****         {
+ 478              		.loc 1 134 40 is_stmt 0 discriminator 2 view .LVU132
+ 479 0106 013F     		subs	r7, r7, #1
+ 480              	.LVL40:
+ 134:Core/Src/DHT.c ****         {
+ 481              		.loc 1 134 40 discriminator 2 view .LVU133
+ 482 0108 FFB2     		uxtb	r7, r7
+ 483              	.LVL41:
+ 484              	.L19:
+ 134:Core/Src/DHT.c ****         {
+ 485              		.loc 1 134 29 is_stmt 1 discriminator 1 view .LVU134
+ 134:Core/Src/DHT.c ****         {
+ 486              		.loc 1 134 9 is_stmt 0 discriminator 1 view .LVU135
+ 487 010a FF2F     		cmp	r7, #255
+ 488 010c 03D0     		beq	.L29
+ 489              	.LBB26:
+ 136:Core/Src/DHT.c ****             // Пока линия в низком уровне, инкремент перемен�
+ 490              		.loc 1 136 30 view .LVU136
+ 491 010e 0024     		movs	r4, #0
+ 492 0110 D9E7     		b	.L18
+ 493              	.LVL42:
+ 494              	.L23:
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s 			page 15
+
+
+ 136:Core/Src/DHT.c ****             // Пока линия в низком уровне, инкремент перемен�
+ 495              		.loc 1 136 30 view .LVU137
+ 496 0112 0025     		movs	r5, #0
+ 497 0114 E4E7     		b	.L14
+ 498              	.LVL43:
+ 499              	.L29:
+ 136:Core/Src/DHT.c ****             // Пока линия в низком уровне, инкремент перемен�
+ 500              		.loc 1 136 30 view .LVU138
+ 501              	.LBE26:
+ 502              	.LBE24:
+ 132:Core/Src/DHT.c ****     {
+ 503              		.loc 1 132 32 is_stmt 1 discriminator 2 view .LVU139
+ 132:Core/Src/DHT.c ****     {
+ 504              		.loc 1 132 33 is_stmt 0 discriminator 2 view .LVU140
+ 505 0116 4346     		mov	r3, r8
+ 506 0118 0133     		adds	r3, r3, #1
+ 507 011a DBB2     		uxtb	r3, r3
+ 508 011c 9846     		mov	r8, r3
+ 509              	.LVL44:
+ 510              	.L11:
+ 132:Core/Src/DHT.c ****     {
+ 511              		.loc 1 132 25 is_stmt 1 discriminator 1 view .LVU141
+ 132:Core/Src/DHT.c ****     {
+ 512              		.loc 1 132 5 is_stmt 0 discriminator 1 view .LVU142
+ 513 011e 4346     		mov	r3, r8
+ 514 0120 042B     		cmp	r3, #4
+ 515 0122 01D8     		bhi	.L30
+ 516              	.LBB27:
+ 134:Core/Src/DHT.c ****         {
+ 517              		.loc 1 134 22 view .LVU143
+ 518 0124 0727     		movs	r7, #7
+ 519 0126 F0E7     		b	.L19
+ 520              	.L30:
+ 521              	.LBE27:
+ 522              	.LBE23:
+ 147:Core/Src/DHT.c ****         }
+ 148:Core/Src/DHT.c ****     }
+ 149:Core/Src/DHT.c **** 
+ 150:Core/Src/DHT.c **** #ifdef DHT_IRQ_CONTROL
+ 151:Core/Src/DHT.c ****     // Включение прерываний после приёма данных
+ 152:Core/Src/DHT.c ****     __enable_irq();
+ 523              		.loc 1 152 5 is_stmt 1 view .LVU144
+ 524              	.LBB28:
+ 525              	.LBI28:
+ 129:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 526              		.loc 2 129 27 view .LVU145
+ 527              	.LBB29:
+ 131:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 528              		.loc 2 131 3 view .LVU146
+ 529              		.syntax divided
+ 530              	@ 131 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
+ 531 0128 62B6     		cpsie i
+ 532              	@ 0 "" 2
+ 533              		.thumb
+ 534              		.syntax unified
+ 535              	.LBE29:
+ 536              	.LBE28:
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s 			page 16
+
+
+ 153:Core/Src/DHT.c **** #endif
+ 154:Core/Src/DHT.c **** 
+ 155:Core/Src/DHT.c ****     /* Проверка целостности данных */
+ 156:Core/Src/DHT.c ****     if ((uint8_t)(rawData[0] + rawData[1] + rawData[2] + rawData[3]) == rawData[4]) // 翻译：检
+ 537              		.loc 1 156 5 view .LVU147
+ 538              		.loc 1 156 26 is_stmt 0 view .LVU148
+ 539 012a 6B46     		mov	r3, sp
+ 540 012c 1D78     		ldrb	r5, [r3]
+ 541              		.loc 1 156 39 view .LVU149
+ 542 012e 5878     		ldrb	r0, [r3, #1]
+ 543              		.loc 1 156 30 view .LVU150
+ 544 0130 2B18     		adds	r3, r5, r0
+ 545 0132 DBB2     		uxtb	r3, r3
+ 546              		.loc 1 156 52 view .LVU151
+ 547 0134 6A46     		mov	r2, sp
+ 548 0136 9478     		ldrb	r4, [r2, #2]
+ 549              		.loc 1 156 43 view .LVU152
+ 550 0138 1B19     		adds	r3, r3, r4
+ 551 013a DBB2     		uxtb	r3, r3
+ 552              		.loc 1 156 65 view .LVU153
+ 553 013c D778     		ldrb	r7, [r2, #3]
+ 554              		.loc 1 156 9 view .LVU154
+ 555 013e DB19     		adds	r3, r3, r7
+ 556 0140 DBB2     		uxtb	r3, r3
+ 557              		.loc 1 156 80 view .LVU155
+ 558 0142 1279     		ldrb	r2, [r2, #4]
+ 559              		.loc 1 156 8 view .LVU156
+ 560 0144 9342     		cmp	r3, r2
+ 561 0146 0BD0     		beq	.L31
+ 562              	.LVL45:
+ 563              	.L20:
+ 157:Core/Src/DHT.c ****     {
+ 158:Core/Src/DHT.c ****         // Если контрольная сумма совпадает, то конвертаци
+ 159:Core/Src/DHT.c ****         if (sensor->type == DHT22)
+ 160:Core/Src/DHT.c ****         {
+ 161:Core/Src/DHT.c ****             data.hum = (float)(((uint16_t)rawData[0] << 8) | rawData[1]) * 0.1f;
+ 162:Core/Src/DHT.c ****             // Проверка на отрицательность температуры
+ 163:Core/Src/DHT.c ****             if (!(rawData[2] & (1 << 7)))
+ 164:Core/Src/DHT.c ****             {
+ 165:Core/Src/DHT.c ****                 data.temp = (float)(((uint16_t)rawData[2] << 8) | rawData[3]) * 0.1f;
+ 166:Core/Src/DHT.c ****             }
+ 167:Core/Src/DHT.c ****             else
+ 168:Core/Src/DHT.c ****             {
+ 169:Core/Src/DHT.c ****                 rawData[2] &= ~(1 << 7);
+ 170:Core/Src/DHT.c ****                 data.temp = (float)(((uint16_t)rawData[2] << 8) | rawData[3]) * -0.1f;
+ 171:Core/Src/DHT.c ****             }
+ 172:Core/Src/DHT.c ****         }
+ 173:Core/Src/DHT.c ****         if (sensor->type == DHT11)
+ 174:Core/Src/DHT.c ****         {
+ 175:Core/Src/DHT.c ****             data.hum = (float)rawData[0];
+ 176:Core/Src/DHT.c ****             data.temp = (float)rawData[2];
+ 177:Core/Src/DHT.c ****         }
+ 178:Core/Src/DHT.c ****     }
+ 179:Core/Src/DHT.c **** 
+ 180:Core/Src/DHT.c ****     sensor->lastHum = data.hum;
+ 564              		.loc 1 180 5 is_stmt 1 view .LVU157
+ 565              		.loc 1 180 21 is_stmt 0 view .LVU158
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s 			page 17
+
+
+ 566 0148 4B46     		mov	r3, r9
+ 567 014a 1B68     		ldr	r3, [r3]
+ 568 014c 3361     		str	r3, [r6, #16]
+ 181:Core/Src/DHT.c ****     sensor->lastTemp = data.temp;
+ 569              		.loc 1 181 5 is_stmt 1 view .LVU159
+ 570              		.loc 1 181 22 is_stmt 0 view .LVU160
+ 571 014e 4B46     		mov	r3, r9
+ 572 0150 5B68     		ldr	r3, [r3, #4]
+ 573 0152 F360     		str	r3, [r6, #12]
+ 182:Core/Src/DHT.c **** 
+ 183:Core/Src/DHT.c ****     return data;
+ 574              		.loc 1 183 5 is_stmt 1 view .LVU161
+ 575              	.L3:
+ 184:Core/Src/DHT.c **** }...
+ 576              		.loc 1 184 1 is_stmt 0 view .LVU162
+ 577 0154 4846     		mov	r0, r9
+ 578 0156 03B0     		add	sp, sp, #12
+ 579              		@ sp needed
+ 580              	.LVL46:
+ 581              	.LVL47:
+ 582              		.loc 1 184 1 view .LVU163
+ 583 0158 C0BC     		pop	{r6, r7}
+ 584 015a B946     		mov	r9, r7
+ 585 015c B046     		mov	r8, r6
+ 586 015e F0BD     		pop	{r4, r5, r6, r7, pc}
+ 587              	.LVL48:
+ 588              	.L31:
+ 159:Core/Src/DHT.c ****         if (sensor->type == DHT22)
+ 589              		.loc 1 159 9 is_stmt 1 view .LVU164
+ 159:Core/Src/DHT.c ****         if (sensor->type == DHT22)
+ 590              		.loc 1 159 19 is_stmt 0 view .LVU165
+ 591 0160 B379     		ldrb	r3, [r6, #6]
+ 592 0162 9846     		mov	r8, r3
+ 593              	.LVL49:
+ 159:Core/Src/DHT.c ****         if (sensor->type == DHT22)
+ 594              		.loc 1 159 12 view .LVU166
+ 595 0164 012B     		cmp	r3, #1
+ 596 0166 0ED0     		beq	.L32
+ 597              	.L21:
+ 173:Core/Src/DHT.c ****         if (sensor->type == DHT11)
+ 598              		.loc 1 173 9 is_stmt 1 view .LVU167
+ 173:Core/Src/DHT.c ****         if (sensor->type == DHT11)
+ 599              		.loc 1 173 12 is_stmt 0 view .LVU168
+ 600 0168 4346     		mov	r3, r8
+ 601 016a 002B     		cmp	r3, #0
+ 602 016c ECD1     		bne	.L20
+ 175:Core/Src/DHT.c ****             data.hum = (float)rawData[0];
+ 603              		.loc 1 175 13 is_stmt 1 view .LVU169
+ 175:Core/Src/DHT.c ****             data.hum = (float)rawData[0];
+ 604              		.loc 1 175 24 is_stmt 0 view .LVU170
+ 605 016e 2800     		movs	r0, r5
+ 606 0170 FFF7FEFF 		bl	__aeabi_ui2f
+ 607              	.LVL50:
+ 175:Core/Src/DHT.c ****             data.hum = (float)rawData[0];
+ 608              		.loc 1 175 22 view .LVU171
+ 609 0174 4B46     		mov	r3, r9
+ 610 0176 1860     		str	r0, [r3]
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s 			page 18
+
+
+ 176:Core/Src/DHT.c ****             data.temp = (float)rawData[2];
+ 611              		.loc 1 176 13 is_stmt 1 view .LVU172
+ 176:Core/Src/DHT.c ****             data.temp = (float)rawData[2];
+ 612              		.loc 1 176 39 is_stmt 0 view .LVU173
+ 613 0178 6B46     		mov	r3, sp
+ 614 017a 9878     		ldrb	r0, [r3, #2]
+ 176:Core/Src/DHT.c ****             data.temp = (float)rawData[2];
+ 615              		.loc 1 176 25 view .LVU174
+ 616 017c FFF7FEFF 		bl	__aeabi_ui2f
+ 617              	.LVL51:
+ 176:Core/Src/DHT.c ****             data.temp = (float)rawData[2];
+ 618              		.loc 1 176 23 view .LVU175
+ 619 0180 4B46     		mov	r3, r9
+ 620 0182 5860     		str	r0, [r3, #4]
+ 621 0184 E0E7     		b	.L20
+ 622              	.L32:
+ 161:Core/Src/DHT.c ****             data.hum = (float)(((uint16_t)rawData[0] << 8) | rawData[1]) * 0.1f;
+ 623              		.loc 1 161 13 is_stmt 1 view .LVU176
+ 161:Core/Src/DHT.c ****             data.hum = (float)(((uint16_t)rawData[0] << 8) | rawData[1]) * 0.1f;
+ 624              		.loc 1 161 54 is_stmt 0 view .LVU177
+ 625 0186 2B02     		lsls	r3, r5, #8
+ 161:Core/Src/DHT.c ****             data.hum = (float)(((uint16_t)rawData[0] << 8) | rawData[1]) * 0.1f;
+ 626              		.loc 1 161 60 view .LVU178
+ 627 0188 1843     		orrs	r0, r3
+ 161:Core/Src/DHT.c ****             data.hum = (float)(((uint16_t)rawData[0] << 8) | rawData[1]) * 0.1f;
+ 628              		.loc 1 161 24 view .LVU179
+ 629 018a FFF7FEFF 		bl	__aeabi_i2f
+ 630              	.LVL52:
+ 161:Core/Src/DHT.c ****             data.hum = (float)(((uint16_t)rawData[0] << 8) | rawData[1]) * 0.1f;
+ 631              		.loc 1 161 74 view .LVU180
+ 632 018e 1549     		ldr	r1, .L33+20
+ 633 0190 FFF7FEFF 		bl	__aeabi_fmul
+ 634              	.LVL53:
+ 161:Core/Src/DHT.c ****             data.hum = (float)(((uint16_t)rawData[0] << 8) | rawData[1]) * 0.1f;
+ 635              		.loc 1 161 22 view .LVU181
+ 636 0194 4B46     		mov	r3, r9
+ 637 0196 1860     		str	r0, [r3]
+ 163:Core/Src/DHT.c ****             if (!(rawData[2] & (1 << 7)))
+ 638              		.loc 1 163 13 is_stmt 1 view .LVU182
+ 163:Core/Src/DHT.c ****             if (!(rawData[2] & (1 << 7)))
+ 639              		.loc 1 163 17 is_stmt 0 view .LVU183
+ 640 0198 63B2     		sxtb	r3, r4
+ 163:Core/Src/DHT.c ****             if (!(rawData[2] & (1 << 7)))
+ 641              		.loc 1 163 16 view .LVU184
+ 642 019a 002B     		cmp	r3, #0
+ 643 019c 09DB     		blt	.L22
+ 165:Core/Src/DHT.c ****                 data.temp = (float)(((uint16_t)rawData[2] << 8) | rawData[3]) * 0.1f;
+ 644              		.loc 1 165 17 is_stmt 1 view .LVU185
+ 165:Core/Src/DHT.c ****                 data.temp = (float)(((uint16_t)rawData[2] << 8) | rawData[3]) * 0.1f;
+ 645              		.loc 1 165 59 is_stmt 0 view .LVU186
+ 646 019e 2002     		lsls	r0, r4, #8
+ 165:Core/Src/DHT.c ****                 data.temp = (float)(((uint16_t)rawData[2] << 8) | rawData[3]) * 0.1f;
+ 647              		.loc 1 165 65 view .LVU187
+ 648 01a0 3843     		orrs	r0, r7
+ 165:Core/Src/DHT.c ****                 data.temp = (float)(((uint16_t)rawData[2] << 8) | rawData[3]) * 0.1f;
+ 649              		.loc 1 165 29 view .LVU188
+ 650 01a2 FFF7FEFF 		bl	__aeabi_i2f
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s 			page 19
+
+
+ 651              	.LVL54:
+ 165:Core/Src/DHT.c ****                 data.temp = (float)(((uint16_t)rawData[2] << 8) | rawData[3]) * 0.1f;
+ 652              		.loc 1 165 79 view .LVU189
+ 653 01a6 0F49     		ldr	r1, .L33+20
+ 654 01a8 FFF7FEFF 		bl	__aeabi_fmul
+ 655              	.LVL55:
+ 165:Core/Src/DHT.c ****                 data.temp = (float)(((uint16_t)rawData[2] << 8) | rawData[3]) * 0.1f;
+ 656              		.loc 1 165 27 view .LVU190
+ 657 01ac 4B46     		mov	r3, r9
+ 658 01ae 5860     		str	r0, [r3, #4]
+ 659 01b0 DAE7     		b	.L21
+ 660              	.L22:
+ 169:Core/Src/DHT.c ****                 rawData[2] &= ~(1 << 7);
+ 661              		.loc 1 169 17 is_stmt 1 view .LVU191
+ 169:Core/Src/DHT.c ****                 rawData[2] &= ~(1 << 7);
+ 662              		.loc 1 169 28 is_stmt 0 view .LVU192
+ 663 01b2 7F23     		movs	r3, #127
+ 664 01b4 1C40     		ands	r4, r3
+ 665 01b6 6B46     		mov	r3, sp
+ 666 01b8 9C70     		strb	r4, [r3, #2]
+ 170:Core/Src/DHT.c ****                 data.temp = (float)(((uint16_t)rawData[2] << 8) | rawData[3]) * -0.1f;
+ 667              		.loc 1 170 17 is_stmt 1 view .LVU193
+ 170:Core/Src/DHT.c ****                 data.temp = (float)(((uint16_t)rawData[2] << 8) | rawData[3]) * -0.1f;
+ 668              		.loc 1 170 59 is_stmt 0 view .LVU194
+ 669 01ba 2402     		lsls	r4, r4, #8
+ 170:Core/Src/DHT.c ****                 data.temp = (float)(((uint16_t)rawData[2] << 8) | rawData[3]) * -0.1f;
+ 670              		.loc 1 170 65 view .LVU195
+ 671 01bc 2000     		movs	r0, r4
+ 672 01be 3843     		orrs	r0, r7
+ 170:Core/Src/DHT.c ****                 data.temp = (float)(((uint16_t)rawData[2] << 8) | rawData[3]) * -0.1f;
+ 673              		.loc 1 170 29 view .LVU196
+ 674 01c0 FFF7FEFF 		bl	__aeabi_i2f
+ 675              	.LVL56:
+ 170:Core/Src/DHT.c ****                 data.temp = (float)(((uint16_t)rawData[2] << 8) | rawData[3]) * -0.1f;
+ 676              		.loc 1 170 79 view .LVU197
+ 677 01c4 0849     		ldr	r1, .L33+24
+ 678 01c6 FFF7FEFF 		bl	__aeabi_fmul
+ 679              	.LVL57:
+ 170:Core/Src/DHT.c ****                 data.temp = (float)(((uint16_t)rawData[2] << 8) | rawData[3]) * -0.1f;
+ 680              		.loc 1 170 27 view .LVU198
+ 681 01ca 4B46     		mov	r3, r9
+ 682 01cc 5860     		str	r0, [r3, #4]
+ 683 01ce CBE7     		b	.L21
+ 684              	.L34:
+ 685              		.align	2
+ 686              	.L33:
+ 687 01d0 00002042 		.word	1109393408
+ 688 01d4 0000A041 		.word	1101004800
+ 689 01d8 10270000 		.word	10000
+ 690 01dc 00000000 		.word	.LANCHOR0
+ 691 01e0 FFFF0000 		.word	65535
+ 692 01e4 CDCCCC3D 		.word	1036831949
+ 693 01e8 CDCCCCBD 		.word	-1110651699
+ 694              		.cfi_endproc
+ 695              	.LFE42:
+ 697              		.global	THc
+ 698              		.global	THb
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s 			page 20
+
+
+ 699              		.global	THcCONFIG
+ 700              		.global	THbCONFIG
+ 701              		.section	.rodata
+ 702              		.align	2
+ 703              		.set	.LANCHOR0,. + 0
+ 704              	.LC0:
+ 705 0000 00000000 		.ascii	"\000\000\000\000\000"
+ 705      00
+ 706              		.section	.bss.THb,"aw",%nobits
+ 707              		.align	2
+ 710              	THb:
+ 711 0000 00000000 		.space	8
+ 711      00000000 
+ 712              		.section	.bss.THc,"aw",%nobits
+ 713              		.align	2
+ 716              	THc:
+ 717 0000 00000000 		.space	8
+ 717      00000000 
+ 718              		.section	.data.THbCONFIG,"aw"
+ 719              		.align	2
+ 722              	THbCONFIG:
+ 723 0000 00000048 		.word	1207959552
+ 724 0004 0004     		.short	1024
+ 725 0006 00       		.byte	0
+ 726 0007 00       		.byte	0
+ 727 0008 00000000 		.space	12
+ 727      00000000 
+ 727      00000000 
+ 728              		.section	.data.THcCONFIG,"aw"
+ 729              		.align	2
+ 732              	THcCONFIG:
+ 733 0000 00000048 		.word	1207959552
+ 734 0004 0008     		.short	2048
+ 735 0006 00       		.byte	0
+ 736 0007 00       		.byte	0
+ 737 0008 00000000 		.space	12
+ 737      00000000 
+ 737      00000000 
+ 738              		.text
+ 739              	.Letext0:
+ 740              		.file 3 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\machine\\_defa
+ 741              		.file 4 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\sys\\_stdint.h
+ 742              		.file 5 "Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f030x8.h"
+ 743              		.file 6 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_gpio.h"
+ 744              		.file 7 "Core/Inc/DHT.h"
+ 745              		.file 8 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h"
+ 746              		.file 9 "<built-in>"
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s 			page 21
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 DHT.c
+C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s:18     .text.goToOutput:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s:23     .text.goToOutput:00000000 goToOutput
+C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s:89     .text.goToInput:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s:94     .text.goToInput:00000000 goToInput
+C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s:149    .text.DHT_getData:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s:155    .text.DHT_getData:00000000 DHT_getData
+C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s:687    .text.DHT_getData:000001d0 $d
+C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s:716    .bss.THc:00000000 THc
+C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s:710    .bss.THb:00000000 THb
+C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s:732    .data.THcCONFIG:00000000 THcCONFIG
+C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s:722    .data.THbCONFIG:00000000 THbCONFIG
+C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s:702    .rodata:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s:707    .bss.THb:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s:713    .bss.THc:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s:719    .data.THbCONFIG:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccXZu4vp.s:729    .data.THcCONFIG:00000000 $d
+
+UNDEFINED SYMBOLS
+memset
+HAL_GPIO_WritePin
+HAL_GPIO_Init
+__aeabi_i2f
+__aeabi_fmul
+__aeabi_ui2f
+HAL_Delay
+HAL_GPIO_ReadPin

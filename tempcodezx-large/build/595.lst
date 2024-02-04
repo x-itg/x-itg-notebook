@@ -1,0 +1,347 @@
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccJs03m1.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.arch armv6s-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.file	"595.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.delayms,"ax",%progbits
+  18              		.align	1
+  19              		.global	delayms
+  20              		.syntax unified
+  21              		.code	16
+  22              		.thumb_func
+  24              	delayms:
+  25              	.LVL0:
+  26              	.LFB40:
+  27              		.file 1 "Core/Src/595.c"
+   1:Core/Src/595.c **** #include "HC595.h"
+   2:Core/Src/595.c **** 
+   3:Core/Src/595.c **** unsigned short outputallinit=0x03ff;
+   4:Core/Src/595.c **** unsigned short hcreg=0; 
+   5:Core/Src/595.c **** unsigned int timedelaycnt=0;
+   6:Core/Src/595.c **** unsigned int timetestcnt=0;
+   7:Core/Src/595.c **** 
+   8:Core/Src/595.c **** void delayms(unsigned int ms)
+   9:Core/Src/595.c **** {
+  28              		.loc 1 9 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  10:Core/Src/595.c ****     timedelaycnt=0;
+  33              		.loc 1 10 5 view .LVU1
+  34              		.loc 1 10 17 is_stmt 0 view .LVU2
+  35 0000 024B     		ldr	r3, .L3
+  36 0002 0022     		movs	r2, #0
+  37 0004 1A60     		str	r2, [r3]
+  11:Core/Src/595.c ****     while(timedelaycnt<ms);
+  38              		.loc 1 11 5 is_stmt 1 view .LVU3
+  39              	.L2:
+  40              		.loc 1 11 27 discriminator 1 view .LVU4
+  41              		.loc 1 11 10 discriminator 1 view .LVU5
+  42 0006 0028     		cmp	r0, #0
+  43 0008 FDD1     		bne	.L2
+  12:Core/Src/595.c ****     timedelaycnt=0;
+  13:Core/Src/595.c **** }
+  44              		.loc 1 13 1 is_stmt 0 view .LVU6
+  45              		@ sp needed
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccJs03m1.s 			page 2
+
+
+  46 000a 7047     		bx	lr
+  47              	.L4:
+  48              		.align	2
+  49              	.L3:
+  50 000c 00000000 		.word	.LANCHOR0
+  51              		.cfi_endproc
+  52              	.LFE40:
+  54              		.section	.text.LED595SendData,"ax",%progbits
+  55              		.align	1
+  56              		.global	LED595SendData
+  57              		.syntax unified
+  58              		.code	16
+  59              		.thumb_func
+  61              	LED595SendData:
+  62              	.LVL1:
+  63              	.LFB41:
+  14:Core/Src/595.c **** 
+  15:Core/Src/595.c **** void LED595SendData(unsigned short SetData)
+  16:Core/Src/595.c **** {
+  64              		.loc 1 16 1 is_stmt 1 view -0
+  65              		.cfi_startproc
+  66              		@ args = 0, pretend = 0, frame = 0
+  67              		@ frame_needed = 0, uses_anonymous_args = 0
+  68              		.loc 1 16 1 is_stmt 0 view .LVU8
+  69 0000 70B5     		push	{r4, r5, r6, lr}
+  70              	.LCFI0:
+  71              		.cfi_def_cfa_offset 16
+  72              		.cfi_offset 4, -16
+  73              		.cfi_offset 5, -12
+  74              		.cfi_offset 6, -8
+  75              		.cfi_offset 14, -4
+  76 0002 0400     		movs	r4, r0
+  17:Core/Src/595.c ****     unsigned char i; //发送数据时做循环使用临时变量
+  77              		.loc 1 17 5 is_stmt 1 view .LVU9
+  18:Core/Src/595.c **** 
+  19:Core/Src/595.c ****     for (i = 0; i < 16; i++) //将16位数据按位发送
+  78              		.loc 1 19 5 view .LVU10
+  79              	.LVL2:
+  80              		.loc 1 19 12 is_stmt 0 view .LVU11
+  81 0004 0025     		movs	r5, #0
+  82              		.loc 1 19 5 view .LVU12
+  83 0006 0EE0     		b	.L6
+  84              	.LVL3:
+  85              	.L11:
+  20:Core/Src/595.c ****     {
+  21:Core/Src/595.c ****       LED595_CLK_RESET;  //时钟线低电平
+  22:Core/Src/595.c ****       if ((SetData & 0x8000) == 0x8000) //判断数据高低位
+  23:Core/Src/595.c ****       {
+  24:Core/Src/595.c ****         LED595_DATA_SET; //发送数据高位
+  86              		.loc 1 24 9 is_stmt 1 view .LVU13
+  87 0008 0122     		movs	r2, #1
+  88 000a 1021     		movs	r1, #16
+  89 000c 1848     		ldr	r0, .L12
+  90 000e FFF7FEFF 		bl	HAL_GPIO_WritePin
+  91              	.LVL4:
+  92              	.L8:
+  25:Core/Src/595.c ****       }
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccJs03m1.s 			page 3
+
+
+  26:Core/Src/595.c ****       else
+  27:Core/Src/595.c ****       {
+  28:Core/Src/595.c ****         LED595_DATA_RESET; //发送数据低位
+  29:Core/Src/595.c ****       }
+  30:Core/Src/595.c ****       SetData = SetData << 1; //数据左移1位
+  93              		.loc 1 30 7 discriminator 2 view .LVU14
+  94              		.loc 1 30 15 is_stmt 0 discriminator 2 view .LVU15
+  95 0012 6400     		lsls	r4, r4, #1
+  96              	.LVL5:
+  97              		.loc 1 30 15 discriminator 2 view .LVU16
+  98 0014 A4B2     		uxth	r4, r4
+  99              	.LVL6:
+  31:Core/Src/595.c ****       LED595_CLK_SET;          //时钟线高电平
+ 100              		.loc 1 31 7 is_stmt 1 discriminator 2 view .LVU17
+ 101 0016 8021     		movs	r1, #128
+ 102 0018 0122     		movs	r2, #1
+ 103 001a C901     		lsls	r1, r1, #7
+ 104 001c 1548     		ldr	r0, .L12+4
+ 105 001e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 106              	.LVL7:
+  19:Core/Src/595.c ****     {
+ 107              		.loc 1 19 25 discriminator 2 view .LVU18
+  19:Core/Src/595.c ****     {
+ 108              		.loc 1 19 26 is_stmt 0 discriminator 2 view .LVU19
+ 109 0022 0135     		adds	r5, r5, #1
+ 110              	.LVL8:
+  19:Core/Src/595.c ****     {
+ 111              		.loc 1 19 26 discriminator 2 view .LVU20
+ 112 0024 EDB2     		uxtb	r5, r5
+ 113              	.LVL9:
+ 114              	.L6:
+  19:Core/Src/595.c ****     {
+ 115              		.loc 1 19 17 is_stmt 1 discriminator 1 view .LVU21
+  19:Core/Src/595.c ****     {
+ 116              		.loc 1 19 5 is_stmt 0 discriminator 1 view .LVU22
+ 117 0026 0F2D     		cmp	r5, #15
+ 118 0028 0ED8     		bhi	.L10
+  21:Core/Src/595.c ****       if ((SetData & 0x8000) == 0x8000) //判断数据高低位
+ 119              		.loc 1 21 7 is_stmt 1 view .LVU23
+ 120 002a 8021     		movs	r1, #128
+ 121 002c 0022     		movs	r2, #0
+ 122 002e C901     		lsls	r1, r1, #7
+ 123 0030 1048     		ldr	r0, .L12+4
+ 124 0032 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 125              	.LVL10:
+  22:Core/Src/595.c ****       {
+ 126              		.loc 1 22 7 view .LVU24
+  22:Core/Src/595.c ****       {
+ 127              		.loc 1 22 30 is_stmt 0 view .LVU25
+ 128 0036 23B2     		sxth	r3, r4
+  22:Core/Src/595.c ****       {
+ 129              		.loc 1 22 10 view .LVU26
+ 130 0038 002B     		cmp	r3, #0
+ 131 003a E5DB     		blt	.L11
+  28:Core/Src/595.c ****       }
+ 132              		.loc 1 28 9 is_stmt 1 view .LVU27
+ 133 003c 0022     		movs	r2, #0
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccJs03m1.s 			page 4
+
+
+ 134 003e 1021     		movs	r1, #16
+ 135 0040 0B48     		ldr	r0, .L12
+ 136 0042 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 137              	.LVL11:
+ 138 0046 E4E7     		b	.L8
+ 139              	.L10:
+  32:Core/Src/595.c ****     }
+  33:Core/Src/595.c ****     
+  34:Core/Src/595.c ****     //上升沿输出数据
+  35:Core/Src/595.c ****     LED595_LATCH_RESET;
+ 140              		.loc 1 35 5 view .LVU28
+ 141 0048 8025     		movs	r5, #128
+ 142              	.LVL12:
+ 143              		.loc 1 35 5 is_stmt 0 view .LVU29
+ 144 004a AD01     		lsls	r5, r5, #6
+ 145 004c 094C     		ldr	r4, .L12+4
+ 146              	.LVL13:
+ 147              		.loc 1 35 5 view .LVU30
+ 148 004e 0022     		movs	r2, #0
+ 149 0050 2900     		movs	r1, r5
+ 150 0052 2000     		movs	r0, r4
+ 151 0054 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 152              	.LVL14:
+  36:Core/Src/595.c ****     LED595_LATCH_SET;
+ 153              		.loc 1 36 5 is_stmt 1 view .LVU31
+ 154 0058 0122     		movs	r2, #1
+ 155 005a 2900     		movs	r1, r5
+ 156 005c 2000     		movs	r0, r4
+ 157 005e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 158              	.LVL15:
+  37:Core/Src/595.c ****     LED595_SOE_RESET;//低电平输出有效   全部低电平  导通
+ 159              		.loc 1 37 5 view .LVU32
+ 160 0062 0022     		movs	r2, #0
+ 161 0064 2021     		movs	r1, #32
+ 162 0066 0248     		ldr	r0, .L12
+ 163 0068 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 164              	.LVL16:
+  38:Core/Src/595.c **** }
+ 165              		.loc 1 38 1 is_stmt 0 view .LVU33
+ 166              		@ sp needed
+ 167 006c 70BD     		pop	{r4, r5, r6, pc}
+ 168              	.L13:
+ 169 006e C046     		.align	2
+ 170              	.L12:
+ 171 0070 00040048 		.word	1207960576
+ 172 0074 00080048 		.word	1207961600
+ 173              		.cfi_endproc
+ 174              	.LFE41:
+ 176              		.section	.text.HC595Init,"ax",%progbits
+ 177              		.align	1
+ 178              		.global	HC595Init
+ 179              		.syntax unified
+ 180              		.code	16
+ 181              		.thumb_func
+ 183              	HC595Init:
+ 184              	.LFB42:
+  39:Core/Src/595.c **** 
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccJs03m1.s 			page 5
+
+
+  40:Core/Src/595.c **** void HC595Init(void)
+  41:Core/Src/595.c **** {
+ 185              		.loc 1 41 1 is_stmt 1 view -0
+ 186              		.cfi_startproc
+ 187              		@ args = 0, pretend = 0, frame = 0
+ 188              		@ frame_needed = 0, uses_anonymous_args = 0
+ 189 0000 70B5     		push	{r4, r5, r6, lr}
+ 190              	.LCFI1:
+ 191              		.cfi_def_cfa_offset 16
+ 192              		.cfi_offset 4, -16
+ 193              		.cfi_offset 5, -12
+ 194              		.cfi_offset 6, -8
+ 195              		.cfi_offset 14, -4
+  42:Core/Src/595.c ****     LED595_SCLR_RESET;
+ 196              		.loc 1 42 5 view .LVU35
+ 197 0002 8025     		movs	r5, #128
+ 198 0004 2D02     		lsls	r5, r5, #8
+ 199 0006 084C     		ldr	r4, .L15
+ 200 0008 0022     		movs	r2, #0
+ 201 000a 2900     		movs	r1, r5
+ 202 000c 2000     		movs	r0, r4
+ 203 000e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 204              	.LVL17:
+  43:Core/Src/595.c ****     LED595_SCLR_SET;//复位
+ 205              		.loc 1 43 5 view .LVU36
+ 206 0012 0122     		movs	r2, #1
+ 207 0014 2900     		movs	r1, r5
+ 208 0016 2000     		movs	r0, r4
+ 209 0018 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 210              	.LVL18:
+  44:Core/Src/595.c ****     LED595SendData(outputallinit);
+ 211              		.loc 1 44 5 view .LVU37
+ 212 001c 034B     		ldr	r3, .L15+4
+ 213 001e 1888     		ldrh	r0, [r3]
+ 214 0020 FFF7FEFF 		bl	LED595SendData
+ 215              	.LVL19:
+  45:Core/Src/595.c **** }
+ 216              		.loc 1 45 1 is_stmt 0 view .LVU38
+ 217              		@ sp needed
+ 218 0024 70BD     		pop	{r4, r5, r6, pc}
+ 219              	.L16:
+ 220 0026 C046     		.align	2
+ 221              	.L15:
+ 222 0028 00080048 		.word	1207961600
+ 223 002c 00000000 		.word	.LANCHOR1
+ 224              		.cfi_endproc
+ 225              	.LFE42:
+ 227              		.global	timetestcnt
+ 228              		.global	timedelaycnt
+ 229              		.global	hcreg
+ 230              		.global	outputallinit
+ 231              		.section	.bss.hcreg,"aw",%nobits
+ 232              		.align	1
+ 235              	hcreg:
+ 236 0000 0000     		.space	2
+ 237              		.section	.bss.timedelaycnt,"aw",%nobits
+ 238              		.align	2
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccJs03m1.s 			page 6
+
+
+ 239              		.set	.LANCHOR0,. + 0
+ 242              	timedelaycnt:
+ 243 0000 00000000 		.space	4
+ 244              		.section	.bss.timetestcnt,"aw",%nobits
+ 245              		.align	2
+ 248              	timetestcnt:
+ 249 0000 00000000 		.space	4
+ 250              		.section	.data.outputallinit,"aw"
+ 251              		.align	1
+ 252              		.set	.LANCHOR1,. + 0
+ 255              	outputallinit:
+ 256 0000 FF03     		.short	1023
+ 257              		.text
+ 258              	.Letext0:
+ 259              		.file 2 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\machine\\_defa
+ 260              		.file 3 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\sys\\_stdint.h
+ 261              		.file 4 "Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f030x8.h"
+ 262              		.file 5 "Core/Inc/HC595.h"
+ 263              		.file 6 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_gpio.h"
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccJs03m1.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 595.c
+C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:18     .text.delayms:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:24     .text.delayms:00000000 delayms
+C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:50     .text.delayms:0000000c $d
+C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:55     .text.LED595SendData:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:61     .text.LED595SendData:00000000 LED595SendData
+C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:171    .text.LED595SendData:00000070 $d
+C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:177    .text.HC595Init:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:183    .text.HC595Init:00000000 HC595Init
+C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:222    .text.HC595Init:00000028 $d
+C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:248    .bss.timetestcnt:00000000 timetestcnt
+C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:242    .bss.timedelaycnt:00000000 timedelaycnt
+C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:235    .bss.hcreg:00000000 hcreg
+C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:255    .data.outputallinit:00000000 outputallinit
+C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:232    .bss.hcreg:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:238    .bss.timedelaycnt:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:245    .bss.timetestcnt:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:251    .data.outputallinit:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_WritePin

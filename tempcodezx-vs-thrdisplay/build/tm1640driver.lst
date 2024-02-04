@@ -1,0 +1,833 @@
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.arch armv6s-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.file	"tm1640driver.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.TM1640_GPIO_Config,"ax",%progbits
+  18              		.align	1
+  19              		.global	TM1640_GPIO_Config
+  20              		.syntax unified
+  21              		.code	16
+  22              		.thumb_func
+  24              	TM1640_GPIO_Config:
+  25              	.LFB43:
+  26              		.file 1 "Core/Src/tm1640driver.c"
+   1:Core/Src/tm1640driver.c **** #include "TM1640.h"
+   2:Core/Src/tm1640driver.c **** #include "control.h"
+   3:Core/Src/tm1640driver.c **** #include "24c02.h"
+   4:Core/Src/tm1640driver.c **** #include "DHT.h"
+   5:Core/Src/tm1640driver.c **** 
+   6:Core/Src/tm1640driver.c **** /********  TM1640 GPIO 配置 *************************/
+   7:Core/Src/tm1640driver.c **** void TM1640_GPIO_Config(void)
+   8:Core/Src/tm1640driver.c **** {
+  27              		.loc 1 8 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31 0000 10B5     		push	{r4, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 14, -4
+   9:Core/Src/tm1640driver.c ****     TM1640SLK_HING;
+  36              		.loc 1 9 5 view .LVU1
+  37 0002 8021     		movs	r1, #128
+  38 0004 9024     		movs	r4, #144
+  39 0006 E405     		lsls	r4, r4, #23
+  40 0008 0122     		movs	r2, #1
+  41 000a 4900     		lsls	r1, r1, #1
+  42 000c 2000     		movs	r0, r4
+  43 000e FFF7FEFF 		bl	HAL_GPIO_WritePin
+  44              	.LVL0:
+  10:Core/Src/tm1640driver.c ****     TM1640DAT_HING;
+  45              		.loc 1 10 5 view .LVU2
+  46 0012 8021     		movs	r1, #128
+  47 0014 0122     		movs	r2, #1
+  48 0016 8900     		lsls	r1, r1, #2
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s 			page 2
+
+
+  49 0018 2000     		movs	r0, r4
+  50 001a FFF7FEFF 		bl	HAL_GPIO_WritePin
+  51              	.LVL1:
+  11:Core/Src/tm1640driver.c **** }
+  52              		.loc 1 11 1 is_stmt 0 view .LVU3
+  53              		@ sp needed
+  54 001e 10BD     		pop	{r4, pc}
+  55              		.cfi_endproc
+  56              	.LFE43:
+  58              		.section	.text.delay_us,"ax",%progbits
+  59              		.align	1
+  60              		.global	delay_us
+  61              		.syntax unified
+  62              		.code	16
+  63              		.thumb_func
+  65              	delay_us:
+  66              	.LFB44:
+  12:Core/Src/tm1640driver.c **** 
+  13:Core/Src/tm1640driver.c **** //*************************************
+  14:Core/Src/tm1640driver.c **** // 函数名称：_Nopt
+  15:Core/Src/tm1640driver.c **** // 函数功能：延时函数
+  16:Core/Src/tm1640driver.c **** // 入口参数：延时时间
+  17:Core/Src/tm1640driver.c **** // 出口参数：无
+  18:Core/Src/tm1640driver.c **** //***************************************/
+  19:Core/Src/tm1640driver.c **** void delay_us(unsigned short T_Dly)
+  20:Core/Src/tm1640driver.c **** {
+  67              		.loc 1 20 1 is_stmt 1 view -0
+  68              		.cfi_startproc
+  69              		@ args = 0, pretend = 0, frame = 0
+  70              		@ frame_needed = 0, uses_anonymous_args = 0
+  71              		@ link register save eliminated.
+  72              	.LVL2:
+  73              	.L3:
+  21:Core/Src/tm1640driver.c ****     unsigned int cnt = 3;
+  22:Core/Src/tm1640driver.c ****     while (T_Dly--)
+  74              		.loc 1 22 11 view .LVU5
+  75 0000 0300     		movs	r3, r0
+  76              		.loc 1 22 17 is_stmt 0 view .LVU6
+  77 0002 0138     		subs	r0, r0, #1
+  78 0004 80B2     		uxth	r0, r0
+  79              	.LVL3:
+  80              		.loc 1 22 11 view .LVU7
+  81 0006 002B     		cmp	r3, #0
+  82 0008 FAD1     		bne	.L3
+  23:Core/Src/tm1640driver.c ****     {
+  24:Core/Src/tm1640driver.c ****         cnt--;
+  25:Core/Src/tm1640driver.c ****         cnt--;
+  26:Core/Src/tm1640driver.c ****         cnt--;
+  27:Core/Src/tm1640driver.c **** 
+  28:Core/Src/tm1640driver.c ****         ;
+  29:Core/Src/tm1640driver.c ****         cnt = 0;
+  30:Core/Src/tm1640driver.c ****     }
+  31:Core/Src/tm1640driver.c ****     return;
+  32:Core/Src/tm1640driver.c **** }
+  83              		.loc 1 32 1 view .LVU8
+  84              		@ sp needed
+  85 000a 7047     		bx	lr
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s 			page 3
+
+
+  86              		.cfi_endproc
+  87              	.LFE44:
+  89              		.section	.text.TM1640Start,"ax",%progbits
+  90              		.align	1
+  91              		.global	TM1640Start
+  92              		.syntax unified
+  93              		.code	16
+  94              		.thumb_func
+  96              	TM1640Start:
+  97              	.LFB45:
+  33:Core/Src/tm1640driver.c **** 
+  34:Core/Src/tm1640driver.c **** /****************************************
+  35:Core/Src/tm1640driver.c **** 起始函数
+  36:Core/Src/tm1640driver.c **** ***************************************/
+  37:Core/Src/tm1640driver.c **** void TM1640Start(void)
+  38:Core/Src/tm1640driver.c **** {
+  98              		.loc 1 38 1 is_stmt 1 view -0
+  99              		.cfi_startproc
+ 100              		@ args = 0, pretend = 0, frame = 0
+ 101              		@ frame_needed = 0, uses_anonymous_args = 0
+ 102 0000 70B5     		push	{r4, r5, r6, lr}
+ 103              	.LCFI1:
+ 104              		.cfi_def_cfa_offset 16
+ 105              		.cfi_offset 4, -16
+ 106              		.cfi_offset 5, -12
+ 107              		.cfi_offset 6, -8
+ 108              		.cfi_offset 14, -4
+  39:Core/Src/tm1640driver.c ****     TM1640SLK_HING;
+ 109              		.loc 1 39 5 view .LVU10
+ 110 0002 8021     		movs	r1, #128
+ 111 0004 9024     		movs	r4, #144
+ 112 0006 E405     		lsls	r4, r4, #23
+ 113 0008 0122     		movs	r2, #1
+ 114 000a 4900     		lsls	r1, r1, #1
+ 115 000c 2000     		movs	r0, r4
+ 116 000e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 117              	.LVL4:
+  40:Core/Src/tm1640driver.c ****     delay_us(2);
+ 118              		.loc 1 40 5 view .LVU11
+  41:Core/Src/tm1640driver.c ****     TM1640DAT_HING;
+ 119              		.loc 1 41 5 view .LVU12
+ 120 0012 8025     		movs	r5, #128
+ 121 0014 AD00     		lsls	r5, r5, #2
+ 122 0016 0122     		movs	r2, #1
+ 123 0018 2900     		movs	r1, r5
+ 124 001a 2000     		movs	r0, r4
+ 125 001c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 126              	.LVL5:
+  42:Core/Src/tm1640driver.c ****     delay_us(2);
+ 127              		.loc 1 42 5 view .LVU13
+  43:Core/Src/tm1640driver.c ****     TM1640DAT_LOW;
+ 128              		.loc 1 43 5 view .LVU14
+ 129 0020 0022     		movs	r2, #0
+ 130 0022 2900     		movs	r1, r5
+ 131 0024 2000     		movs	r0, r4
+ 132 0026 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 133              	.LVL6:
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s 			page 4
+
+
+  44:Core/Src/tm1640driver.c ****     delay_us(2);
+ 134              		.loc 1 44 5 view .LVU15
+  45:Core/Src/tm1640driver.c **** }
+ 135              		.loc 1 45 1 is_stmt 0 view .LVU16
+ 136              		@ sp needed
+ 137 002a 70BD     		pop	{r4, r5, r6, pc}
+ 138              		.cfi_endproc
+ 139              	.LFE45:
+ 141              		.section	.text.TM1640Stop,"ax",%progbits
+ 142              		.align	1
+ 143              		.global	TM1640Stop
+ 144              		.syntax unified
+ 145              		.code	16
+ 146              		.thumb_func
+ 148              	TM1640Stop:
+ 149              	.LFB46:
+  46:Core/Src/tm1640driver.c **** /*************************************
+  47:Core/Src/tm1640driver.c **** 结束函数
+  48:Core/Src/tm1640driver.c **** ***************************************/
+  49:Core/Src/tm1640driver.c **** void TM1640Stop(void)
+  50:Core/Src/tm1640driver.c **** {
+ 150              		.loc 1 50 1 is_stmt 1 view -0
+ 151              		.cfi_startproc
+ 152              		@ args = 0, pretend = 0, frame = 0
+ 153              		@ frame_needed = 0, uses_anonymous_args = 0
+ 154 0000 70B5     		push	{r4, r5, r6, lr}
+ 155              	.LCFI2:
+ 156              		.cfi_def_cfa_offset 16
+ 157              		.cfi_offset 4, -16
+ 158              		.cfi_offset 5, -12
+ 159              		.cfi_offset 6, -8
+ 160              		.cfi_offset 14, -4
+  51:Core/Src/tm1640driver.c ****     TM1640SLK_LOW;
+ 161              		.loc 1 51 5 view .LVU18
+ 162 0002 8026     		movs	r6, #128
+ 163 0004 7600     		lsls	r6, r6, #1
+ 164 0006 9024     		movs	r4, #144
+ 165 0008 E405     		lsls	r4, r4, #23
+ 166 000a 0022     		movs	r2, #0
+ 167 000c 3100     		movs	r1, r6
+ 168 000e 2000     		movs	r0, r4
+ 169 0010 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 170              	.LVL7:
+  52:Core/Src/tm1640driver.c ****     delay_us(2);
+ 171              		.loc 1 52 5 view .LVU19
+  53:Core/Src/tm1640driver.c ****     TM1640DAT_LOW;
+ 172              		.loc 1 53 5 view .LVU20
+ 173 0014 8025     		movs	r5, #128
+ 174 0016 AD00     		lsls	r5, r5, #2
+ 175 0018 0022     		movs	r2, #0
+ 176 001a 2900     		movs	r1, r5
+ 177 001c 2000     		movs	r0, r4
+ 178 001e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 179              	.LVL8:
+  54:Core/Src/tm1640driver.c ****     delay_us(2);
+ 180              		.loc 1 54 5 view .LVU21
+  55:Core/Src/tm1640driver.c ****     TM1640SLK_HING;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s 			page 5
+
+
+ 181              		.loc 1 55 5 view .LVU22
+ 182 0022 0122     		movs	r2, #1
+ 183 0024 3100     		movs	r1, r6
+ 184 0026 2000     		movs	r0, r4
+ 185 0028 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 186              	.LVL9:
+  56:Core/Src/tm1640driver.c ****     delay_us(2);
+ 187              		.loc 1 56 5 view .LVU23
+  57:Core/Src/tm1640driver.c ****     TM1640DAT_HING;
+ 188              		.loc 1 57 5 view .LVU24
+ 189 002c 0122     		movs	r2, #1
+ 190 002e 2900     		movs	r1, r5
+ 191 0030 2000     		movs	r0, r4
+ 192 0032 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 193              	.LVL10:
+  58:Core/Src/tm1640driver.c **** }
+ 194              		.loc 1 58 1 is_stmt 0 view .LVU25
+ 195              		@ sp needed
+ 196 0036 70BD     		pop	{r4, r5, r6, pc}
+ 197              		.cfi_endproc
+ 198              	.LFE46:
+ 200              		.section	.text.TM1640WriteByte,"ax",%progbits
+ 201              		.align	1
+ 202              		.global	TM1640WriteByte
+ 203              		.syntax unified
+ 204              		.code	16
+ 205              		.thumb_func
+ 207              	TM1640WriteByte:
+ 208              	.LVL11:
+ 209              	.LFB47:
+  59:Core/Src/tm1640driver.c **** /*************************************
+  60:Core/Src/tm1640driver.c **** TM1640WriteByte
+  61:Core/Src/tm1640driver.c **** 写一字节数据  date 为所要写的数据
+  62:Core/Src/tm1640driver.c **** ***************************************/
+  63:Core/Src/tm1640driver.c **** void TM1640WriteByte(u8 date)
+  64:Core/Src/tm1640driver.c **** {
+ 210              		.loc 1 64 1 is_stmt 1 view -0
+ 211              		.cfi_startproc
+ 212              		@ args = 0, pretend = 0, frame = 0
+ 213              		@ frame_needed = 0, uses_anonymous_args = 0
+ 214              		.loc 1 64 1 is_stmt 0 view .LVU27
+ 215 0000 70B5     		push	{r4, r5, r6, lr}
+ 216              	.LCFI3:
+ 217              		.cfi_def_cfa_offset 16
+ 218              		.cfi_offset 4, -16
+ 219              		.cfi_offset 5, -12
+ 220              		.cfi_offset 6, -8
+ 221              		.cfi_offset 14, -4
+ 222 0002 0500     		movs	r5, r0
+  65:Core/Src/tm1640driver.c ****     u8 i;
+ 223              		.loc 1 65 5 is_stmt 1 view .LVU28
+  66:Core/Src/tm1640driver.c ****     for (i = 0; i < 8; i++)
+ 224              		.loc 1 66 5 view .LVU29
+ 225              	.LVL12:
+ 226              		.loc 1 66 12 is_stmt 0 view .LVU30
+ 227 0004 0024     		movs	r4, #0
+ 228              		.loc 1 66 5 view .LVU31
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s 			page 6
+
+
+ 229 0006 10E0     		b	.L7
+ 230              	.LVL13:
+ 231              	.L8:
+  67:Core/Src/tm1640driver.c ****     {
+  68:Core/Src/tm1640driver.c ****         TM1640SLK_LOW;
+  69:Core/Src/tm1640driver.c ****         delay_us(2);
+  70:Core/Src/tm1640driver.c ****         if (date & 0x01) // 先低位后高位
+  71:Core/Src/tm1640driver.c ****         {
+  72:Core/Src/tm1640driver.c ****             TM1640DAT_HING;
+  73:Core/Src/tm1640driver.c ****             delay_us(3);
+  74:Core/Src/tm1640driver.c ****         }
+  75:Core/Src/tm1640driver.c ****         else
+  76:Core/Src/tm1640driver.c ****         {
+  77:Core/Src/tm1640driver.c ****             TM1640DAT_LOW;
+ 232              		.loc 1 77 13 is_stmt 1 view .LVU32
+ 233 0008 8021     		movs	r1, #128
+ 234 000a 9020     		movs	r0, #144
+ 235 000c 0022     		movs	r2, #0
+ 236 000e 8900     		lsls	r1, r1, #2
+ 237 0010 C005     		lsls	r0, r0, #23
+ 238 0012 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 239              	.LVL14:
+  78:Core/Src/tm1640driver.c ****             delay_us(3);
+ 240              		.loc 1 78 13 view .LVU33
+ 241              	.L9:
+  79:Core/Src/tm1640driver.c ****         }
+  80:Core/Src/tm1640driver.c ****         date = date >> 1; // 数据右移一位
+ 242              		.loc 1 80 9 discriminator 2 view .LVU34
+ 243              		.loc 1 80 14 is_stmt 0 discriminator 2 view .LVU35
+ 244 0016 6D08     		lsrs	r5, r5, #1
+ 245              	.LVL15:
+  81:Core/Src/tm1640driver.c ****         TM1640SLK_HING;
+ 246              		.loc 1 81 9 is_stmt 1 discriminator 2 view .LVU36
+ 247 0018 8021     		movs	r1, #128
+ 248 001a 9020     		movs	r0, #144
+ 249 001c 0122     		movs	r2, #1
+ 250 001e 4900     		lsls	r1, r1, #1
+ 251 0020 C005     		lsls	r0, r0, #23
+ 252 0022 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 253              	.LVL16:
+  82:Core/Src/tm1640driver.c ****         delay_us(3);
+ 254              		.loc 1 82 9 discriminator 2 view .LVU37
+  66:Core/Src/tm1640driver.c ****     {
+ 255              		.loc 1 66 24 discriminator 2 view .LVU38
+  66:Core/Src/tm1640driver.c ****     {
+ 256              		.loc 1 66 25 is_stmt 0 discriminator 2 view .LVU39
+ 257 0026 0134     		adds	r4, r4, #1
+ 258              	.LVL17:
+  66:Core/Src/tm1640driver.c ****     {
+ 259              		.loc 1 66 25 discriminator 2 view .LVU40
+ 260 0028 E4B2     		uxtb	r4, r4
+ 261              	.LVL18:
+ 262              	.L7:
+  66:Core/Src/tm1640driver.c ****     {
+ 263              		.loc 1 66 17 is_stmt 1 discriminator 1 view .LVU41
+  66:Core/Src/tm1640driver.c ****     {
+ 264              		.loc 1 66 5 is_stmt 0 discriminator 1 view .LVU42
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s 			page 7
+
+
+ 265 002a 072C     		cmp	r4, #7
+ 266 002c 10D8     		bhi	.L11
+  68:Core/Src/tm1640driver.c ****         delay_us(2);
+ 267              		.loc 1 68 9 is_stmt 1 view .LVU43
+ 268 002e 8021     		movs	r1, #128
+ 269 0030 9020     		movs	r0, #144
+ 270 0032 0022     		movs	r2, #0
+ 271 0034 4900     		lsls	r1, r1, #1
+ 272 0036 C005     		lsls	r0, r0, #23
+ 273 0038 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 274              	.LVL19:
+  69:Core/Src/tm1640driver.c ****         if (date & 0x01) // 先低位后高位
+ 275              		.loc 1 69 9 view .LVU44
+  70:Core/Src/tm1640driver.c ****         {
+ 276              		.loc 1 70 9 view .LVU45
+  70:Core/Src/tm1640driver.c ****         {
+ 277              		.loc 1 70 12 is_stmt 0 view .LVU46
+ 278 003c EB07     		lsls	r3, r5, #31
+ 279 003e E3D5     		bpl	.L8
+  72:Core/Src/tm1640driver.c ****             delay_us(3);
+ 280              		.loc 1 72 13 is_stmt 1 view .LVU47
+ 281 0040 8021     		movs	r1, #128
+ 282 0042 9020     		movs	r0, #144
+ 283 0044 0122     		movs	r2, #1
+ 284 0046 8900     		lsls	r1, r1, #2
+ 285 0048 C005     		lsls	r0, r0, #23
+ 286 004a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 287              	.LVL20:
+  73:Core/Src/tm1640driver.c ****         }
+ 288              		.loc 1 73 13 view .LVU48
+ 289 004e E2E7     		b	.L9
+ 290              	.L11:
+  83:Core/Src/tm1640driver.c ****     }
+  84:Core/Src/tm1640driver.c **** }
+ 291              		.loc 1 84 1 is_stmt 0 view .LVU49
+ 292              		@ sp needed
+ 293              	.LVL21:
+ 294              	.LVL22:
+ 295              		.loc 1 84 1 view .LVU50
+ 296 0050 70BD     		pop	{r4, r5, r6, pc}
+ 297              		.cfi_endproc
+ 298              	.LFE47:
+ 300              		.section	.text.TM1640_SendData,"ax",%progbits
+ 301              		.align	1
+ 302              		.global	TM1640_SendData
+ 303              		.syntax unified
+ 304              		.code	16
+ 305              		.thumb_func
+ 307              	TM1640_SendData:
+ 308              	.LVL23:
+ 309              	.LFB48:
+  85:Core/Src/tm1640driver.c **** /***************************************
+  86:Core/Src/tm1640driver.c **** 发送数组
+  87:Core/Src/tm1640driver.c **** Addr1640：起始地址值
+  88:Core/Src/tm1640driver.c **** *a : 所要发送的数组
+  89:Core/Src/tm1640driver.c **** ValueLong:想要发送的数据长度
+  90:Core/Src/tm1640driver.c **** 适用于地址自加1模式
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s 			page 8
+
+
+  91:Core/Src/tm1640driver.c **** **************************************/
+  92:Core/Src/tm1640driver.c **** void TM1640_SendData(u8 Addr1640, u8 *a, u8 ValueLong)
+  93:Core/Src/tm1640driver.c **** {
+ 310              		.loc 1 93 1 is_stmt 1 view -0
+ 311              		.cfi_startproc
+ 312              		@ args = 0, pretend = 0, frame = 0
+ 313              		@ frame_needed = 0, uses_anonymous_args = 0
+ 314              		.loc 1 93 1 is_stmt 0 view .LVU52
+ 315 0000 70B5     		push	{r4, r5, r6, lr}
+ 316              	.LCFI4:
+ 317              		.cfi_def_cfa_offset 16
+ 318              		.cfi_offset 4, -16
+ 319              		.cfi_offset 5, -12
+ 320              		.cfi_offset 6, -8
+ 321              		.cfi_offset 14, -4
+ 322 0002 0400     		movs	r4, r0
+ 323 0004 0E00     		movs	r6, r1
+ 324 0006 1500     		movs	r5, r2
+  94:Core/Src/tm1640driver.c ****     u8 i;
+ 325              		.loc 1 94 5 is_stmt 1 view .LVU53
+  95:Core/Src/tm1640driver.c ****     TM1640Start();
+ 326              		.loc 1 95 5 view .LVU54
+ 327 0008 FFF7FEFF 		bl	TM1640Start
+ 328              	.LVL24:
+  96:Core/Src/tm1640driver.c ****     TM1640WriteByte(Addr1640);
+ 329              		.loc 1 96 5 view .LVU55
+ 330 000c 2000     		movs	r0, r4
+ 331 000e FFF7FEFF 		bl	TM1640WriteByte
+ 332              	.LVL25:
+  97:Core/Src/tm1640driver.c **** 
+  98:Core/Src/tm1640driver.c ****     for (i = 0; i < ValueLong; i++)
+ 333              		.loc 1 98 5 view .LVU56
+ 334              		.loc 1 98 12 is_stmt 0 view .LVU57
+ 335 0012 0024     		movs	r4, #0
+ 336              		.loc 1 98 5 view .LVU58
+ 337 0014 04E0     		b	.L13
+ 338              	.LVL26:
+ 339              	.L14:
+  99:Core/Src/tm1640driver.c ****     {
+ 100:Core/Src/tm1640driver.c ****         TM1640WriteByte(a[i]);
+ 340              		.loc 1 100 9 is_stmt 1 discriminator 3 view .LVU59
+ 341 0016 305D     		ldrb	r0, [r6, r4]
+ 342 0018 FFF7FEFF 		bl	TM1640WriteByte
+ 343              	.LVL27:
+  98:Core/Src/tm1640driver.c ****     {
+ 344              		.loc 1 98 32 discriminator 3 view .LVU60
+  98:Core/Src/tm1640driver.c ****     {
+ 345              		.loc 1 98 33 is_stmt 0 discriminator 3 view .LVU61
+ 346 001c 0134     		adds	r4, r4, #1
+ 347              	.LVL28:
+  98:Core/Src/tm1640driver.c ****     {
+ 348              		.loc 1 98 33 discriminator 3 view .LVU62
+ 349 001e E4B2     		uxtb	r4, r4
+ 350              	.LVL29:
+ 351              	.L13:
+  98:Core/Src/tm1640driver.c ****     {
+ 352              		.loc 1 98 17 is_stmt 1 discriminator 1 view .LVU63
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s 			page 9
+
+
+  98:Core/Src/tm1640driver.c ****     {
+ 353              		.loc 1 98 5 is_stmt 0 discriminator 1 view .LVU64
+ 354 0020 AC42     		cmp	r4, r5
+ 355 0022 F8D3     		bcc	.L14
+ 101:Core/Src/tm1640driver.c ****     }
+ 102:Core/Src/tm1640driver.c ****     TM1640Stop();
+ 356              		.loc 1 102 5 is_stmt 1 view .LVU65
+ 357 0024 FFF7FEFF 		bl	TM1640Stop
+ 358              	.LVL30:
+ 103:Core/Src/tm1640driver.c **** }
+ 359              		.loc 1 103 1 is_stmt 0 view .LVU66
+ 360              		@ sp needed
+ 361              	.LVL31:
+ 362              	.LVL32:
+ 363              		.loc 1 103 1 view .LVU67
+ 364 0028 70BD     		pop	{r4, r5, r6, pc}
+ 365              		.cfi_endproc
+ 366              	.LFE48:
+ 368              		.section	.text.SendData,"ax",%progbits
+ 369              		.align	1
+ 370              		.global	SendData
+ 371              		.syntax unified
+ 372              		.code	16
+ 373              		.thumb_func
+ 375              	SendData:
+ 376              	.LFB49:
+ 104:Core/Src/tm1640driver.c **** 
+ 105:Core/Src/tm1640driver.c **** extern unsigned char tmNum[7];
+ 106:Core/Src/tm1640driver.c **** void SendData(void)
+ 107:Core/Src/tm1640driver.c **** {
+ 377              		.loc 1 107 1 is_stmt 1 view -0
+ 378              		.cfi_startproc
+ 379              		@ args = 0, pretend = 0, frame = 0
+ 380              		@ frame_needed = 0, uses_anonymous_args = 0
+ 381 0000 70B5     		push	{r4, r5, r6, lr}
+ 382              	.LCFI5:
+ 383              		.cfi_def_cfa_offset 16
+ 384              		.cfi_offset 4, -16
+ 385              		.cfi_offset 5, -12
+ 386              		.cfi_offset 6, -8
+ 387              		.cfi_offset 14, -4
+ 108:Core/Src/tm1640driver.c **** 
+ 109:Core/Src/tm1640driver.c ****     TM1640Start();
+ 388              		.loc 1 109 5 view .LVU69
+ 389 0002 FFF7FEFF 		bl	TM1640Start
+ 390              	.LVL33:
+ 110:Core/Src/tm1640driver.c ****     TM1640WriteByte(0x44);
+ 391              		.loc 1 110 5 view .LVU70
+ 392 0006 4420     		movs	r0, #68
+ 393 0008 FFF7FEFF 		bl	TM1640WriteByte
+ 394              	.LVL34:
+ 111:Core/Src/tm1640driver.c ****     TM1640Stop();
+ 395              		.loc 1 111 5 view .LVU71
+ 396 000c FFF7FEFF 		bl	TM1640Stop
+ 397              	.LVL35:
+ 112:Core/Src/tm1640driver.c **** 
+ 113:Core/Src/tm1640driver.c ****     TM1640Start();
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s 			page 10
+
+
+ 398              		.loc 1 113 5 view .LVU72
+ 399 0010 FFF7FEFF 		bl	TM1640Start
+ 400              	.LVL36:
+ 114:Core/Src/tm1640driver.c ****     TM1640WriteByte(0xC0);
+ 401              		.loc 1 114 5 view .LVU73
+ 402 0014 C020     		movs	r0, #192
+ 403 0016 FFF7FEFF 		bl	TM1640WriteByte
+ 404              	.LVL37:
+ 115:Core/Src/tm1640driver.c ****     TM1640WriteByte(dis[tmNum[0]]);
+ 405              		.loc 1 115 5 view .LVU74
+ 406              		.loc 1 115 30 is_stmt 0 view .LVU75
+ 407 001a 234C     		ldr	r4, .L16
+ 408 001c 2378     		ldrb	r3, [r4]
+ 409              		.loc 1 115 5 view .LVU76
+ 410 001e 234D     		ldr	r5, .L16+4
+ 411 0020 E85C     		ldrb	r0, [r5, r3]
+ 412 0022 FFF7FEFF 		bl	TM1640WriteByte
+ 413              	.LVL38:
+ 116:Core/Src/tm1640driver.c ****     TM1640Stop();
+ 414              		.loc 1 116 5 is_stmt 1 view .LVU77
+ 415 0026 FFF7FEFF 		bl	TM1640Stop
+ 416              	.LVL39:
+ 117:Core/Src/tm1640driver.c ****     TM1640Start();
+ 417              		.loc 1 117 5 view .LVU78
+ 418 002a FFF7FEFF 		bl	TM1640Start
+ 419              	.LVL40:
+ 118:Core/Src/tm1640driver.c ****     TM1640WriteByte(0xC1);
+ 420              		.loc 1 118 5 view .LVU79
+ 421 002e C120     		movs	r0, #193
+ 422 0030 FFF7FEFF 		bl	TM1640WriteByte
+ 423              	.LVL41:
+ 119:Core/Src/tm1640driver.c ****     TM1640WriteByte(dis[tmNum[1]]);
+ 424              		.loc 1 119 5 view .LVU80
+ 425              		.loc 1 119 30 is_stmt 0 view .LVU81
+ 426 0034 6378     		ldrb	r3, [r4, #1]
+ 427              		.loc 1 119 5 view .LVU82
+ 428 0036 E85C     		ldrb	r0, [r5, r3]
+ 429 0038 FFF7FEFF 		bl	TM1640WriteByte
+ 430              	.LVL42:
+ 120:Core/Src/tm1640driver.c ****     TM1640Stop();
+ 431              		.loc 1 120 5 is_stmt 1 view .LVU83
+ 432 003c FFF7FEFF 		bl	TM1640Stop
+ 433              	.LVL43:
+ 121:Core/Src/tm1640driver.c ****     TM1640Start();
+ 434              		.loc 1 121 5 view .LVU84
+ 435 0040 FFF7FEFF 		bl	TM1640Start
+ 436              	.LVL44:
+ 122:Core/Src/tm1640driver.c ****     TM1640WriteByte(0xC2);
+ 437              		.loc 1 122 5 view .LVU85
+ 438 0044 C220     		movs	r0, #194
+ 439 0046 FFF7FEFF 		bl	TM1640WriteByte
+ 440              	.LVL45:
+ 123:Core/Src/tm1640driver.c ****     TM1640WriteByte(dis[tmNum[2]]);
+ 441              		.loc 1 123 5 view .LVU86
+ 442              		.loc 1 123 30 is_stmt 0 view .LVU87
+ 443 004a A378     		ldrb	r3, [r4, #2]
+ 444              		.loc 1 123 5 view .LVU88
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s 			page 11
+
+
+ 445 004c E85C     		ldrb	r0, [r5, r3]
+ 446 004e FFF7FEFF 		bl	TM1640WriteByte
+ 447              	.LVL46:
+ 124:Core/Src/tm1640driver.c ****     TM1640Stop();
+ 448              		.loc 1 124 5 is_stmt 1 view .LVU89
+ 449 0052 FFF7FEFF 		bl	TM1640Stop
+ 450              	.LVL47:
+ 125:Core/Src/tm1640driver.c ****     TM1640Start();
+ 451              		.loc 1 125 5 view .LVU90
+ 452 0056 FFF7FEFF 		bl	TM1640Start
+ 453              	.LVL48:
+ 126:Core/Src/tm1640driver.c ****     TM1640WriteByte(0xC3);
+ 454              		.loc 1 126 5 view .LVU91
+ 455 005a C320     		movs	r0, #195
+ 456 005c FFF7FEFF 		bl	TM1640WriteByte
+ 457              	.LVL49:
+ 127:Core/Src/tm1640driver.c ****     TM1640WriteByte(dis[tmNum[3]]);
+ 458              		.loc 1 127 5 view .LVU92
+ 459              		.loc 1 127 30 is_stmt 0 view .LVU93
+ 460 0060 E378     		ldrb	r3, [r4, #3]
+ 461              		.loc 1 127 5 view .LVU94
+ 462 0062 E85C     		ldrb	r0, [r5, r3]
+ 463 0064 FFF7FEFF 		bl	TM1640WriteByte
+ 464              	.LVL50:
+ 128:Core/Src/tm1640driver.c ****     TM1640Stop();
+ 465              		.loc 1 128 5 is_stmt 1 view .LVU95
+ 466 0068 FFF7FEFF 		bl	TM1640Stop
+ 467              	.LVL51:
+ 129:Core/Src/tm1640driver.c ****     TM1640Start();
+ 468              		.loc 1 129 5 view .LVU96
+ 469 006c FFF7FEFF 		bl	TM1640Start
+ 470              	.LVL52:
+ 130:Core/Src/tm1640driver.c ****     TM1640WriteByte(0xC4);
+ 471              		.loc 1 130 5 view .LVU97
+ 472 0070 C420     		movs	r0, #196
+ 473 0072 FFF7FEFF 		bl	TM1640WriteByte
+ 474              	.LVL53:
+ 131:Core/Src/tm1640driver.c ****     TM1640WriteByte(dis[tmNum[4]]);
+ 475              		.loc 1 131 5 view .LVU98
+ 476              		.loc 1 131 30 is_stmt 0 view .LVU99
+ 477 0076 2379     		ldrb	r3, [r4, #4]
+ 478              		.loc 1 131 5 view .LVU100
+ 479 0078 E85C     		ldrb	r0, [r5, r3]
+ 480 007a FFF7FEFF 		bl	TM1640WriteByte
+ 481              	.LVL54:
+ 132:Core/Src/tm1640driver.c ****     TM1640Stop();
+ 482              		.loc 1 132 5 is_stmt 1 view .LVU101
+ 483 007e FFF7FEFF 		bl	TM1640Stop
+ 484              	.LVL55:
+ 133:Core/Src/tm1640driver.c ****     TM1640Start();
+ 485              		.loc 1 133 5 view .LVU102
+ 486 0082 FFF7FEFF 		bl	TM1640Start
+ 487              	.LVL56:
+ 134:Core/Src/tm1640driver.c ****     TM1640WriteByte(0xC5);
+ 488              		.loc 1 134 5 view .LVU103
+ 489 0086 C520     		movs	r0, #197
+ 490 0088 FFF7FEFF 		bl	TM1640WriteByte
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s 			page 12
+
+
+ 491              	.LVL57:
+ 135:Core/Src/tm1640driver.c ****     TM1640WriteByte(tmNum[5]); // 其他的点
+ 492              		.loc 1 135 5 view .LVU104
+ 493 008c 6079     		ldrb	r0, [r4, #5]
+ 494 008e FFF7FEFF 		bl	TM1640WriteByte
+ 495              	.LVL58:
+ 136:Core/Src/tm1640driver.c ****     TM1640Stop();
+ 496              		.loc 1 136 5 view .LVU105
+ 497 0092 FFF7FEFF 		bl	TM1640Stop
+ 498              	.LVL59:
+ 137:Core/Src/tm1640driver.c **** 
+ 138:Core/Src/tm1640driver.c ****     TM1640Start();
+ 499              		.loc 1 138 5 view .LVU106
+ 500 0096 FFF7FEFF 		bl	TM1640Start
+ 501              	.LVL60:
+ 139:Core/Src/tm1640driver.c ****     TM1640WriteByte(0x8b);
+ 502              		.loc 1 139 5 view .LVU107
+ 503 009a 8B20     		movs	r0, #139
+ 504 009c FFF7FEFF 		bl	TM1640WriteByte
+ 505              	.LVL61:
+ 140:Core/Src/tm1640driver.c ****     TM1640Stop();
+ 506              		.loc 1 140 5 view .LVU108
+ 507 00a0 FFF7FEFF 		bl	TM1640Stop
+ 508              	.LVL62:
+ 141:Core/Src/tm1640driver.c **** }
+ 509              		.loc 1 141 1 is_stmt 0 view .LVU109
+ 510              		@ sp needed
+ 511 00a4 70BD     		pop	{r4, r5, r6, pc}
+ 512              	.L17:
+ 513 00a6 C046     		.align	2
+ 514              	.L16:
+ 515 00a8 00000000 		.word	tmNum
+ 516 00ac 00000000 		.word	dis
+ 517              		.cfi_endproc
+ 518              	.LFE49:
+ 520              		.section	.text.SendDataLed,"ax",%progbits
+ 521              		.align	1
+ 522              		.global	SendDataLed
+ 523              		.syntax unified
+ 524              		.code	16
+ 525              		.thumb_func
+ 527              	SendDataLed:
+ 528              	.LVL63:
+ 529              	.LFB50:
+ 142:Core/Src/tm1640driver.c **** 
+ 143:Core/Src/tm1640driver.c **** // 左边4个数字的显示
+ 144:Core/Src/tm1640driver.c **** void SendDataLed(unsigned char n1, unsigned char n2)
+ 145:Core/Src/tm1640driver.c **** {
+ 530              		.loc 1 145 1 is_stmt 1 view -0
+ 531              		.cfi_startproc
+ 532              		@ args = 0, pretend = 0, frame = 0
+ 533              		@ frame_needed = 0, uses_anonymous_args = 0
+ 534              		.loc 1 145 1 is_stmt 0 view .LVU111
+ 535 0000 70B5     		push	{r4, r5, r6, lr}
+ 536              	.LCFI6:
+ 537              		.cfi_def_cfa_offset 16
+ 538              		.cfi_offset 4, -16
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s 			page 13
+
+
+ 539              		.cfi_offset 5, -12
+ 540              		.cfi_offset 6, -8
+ 541              		.cfi_offset 14, -4
+ 542 0002 0500     		movs	r5, r0
+ 543 0004 0C00     		movs	r4, r1
+ 146:Core/Src/tm1640driver.c ****     TM1640Start();
+ 544              		.loc 1 146 5 is_stmt 1 view .LVU112
+ 545 0006 FFF7FEFF 		bl	TM1640Start
+ 546              	.LVL64:
+ 147:Core/Src/tm1640driver.c ****     TM1640WriteByte(0x44);
+ 547              		.loc 1 147 5 view .LVU113
+ 548 000a 4420     		movs	r0, #68
+ 549 000c FFF7FEFF 		bl	TM1640WriteByte
+ 550              	.LVL65:
+ 148:Core/Src/tm1640driver.c ****     TM1640Stop();
+ 551              		.loc 1 148 5 view .LVU114
+ 552 0010 FFF7FEFF 		bl	TM1640Stop
+ 553              	.LVL66:
+ 149:Core/Src/tm1640driver.c ****     TM1640Start();
+ 554              		.loc 1 149 5 view .LVU115
+ 555 0014 FFF7FEFF 		bl	TM1640Start
+ 556              	.LVL67:
+ 150:Core/Src/tm1640driver.c ****     TM1640WriteByte(0xCF);
+ 557              		.loc 1 150 5 view .LVU116
+ 558 0018 CF20     		movs	r0, #207
+ 559 001a FFF7FEFF 		bl	TM1640WriteByte
+ 560              	.LVL68:
+ 151:Core/Src/tm1640driver.c ****     TM1640WriteByte(n1);
+ 561              		.loc 1 151 5 view .LVU117
+ 562 001e 2800     		movs	r0, r5
+ 563 0020 FFF7FEFF 		bl	TM1640WriteByte
+ 564              	.LVL69:
+ 152:Core/Src/tm1640driver.c ****     TM1640Stop();
+ 565              		.loc 1 152 5 view .LVU118
+ 566 0024 FFF7FEFF 		bl	TM1640Stop
+ 567              	.LVL70:
+ 153:Core/Src/tm1640driver.c ****     TM1640Start();
+ 568              		.loc 1 153 5 view .LVU119
+ 569 0028 FFF7FEFF 		bl	TM1640Start
+ 570              	.LVL71:
+ 154:Core/Src/tm1640driver.c ****     TM1640WriteByte(0xCE);
+ 571              		.loc 1 154 5 view .LVU120
+ 572 002c CE20     		movs	r0, #206
+ 573 002e FFF7FEFF 		bl	TM1640WriteByte
+ 574              	.LVL72:
+ 155:Core/Src/tm1640driver.c ****     TM1640WriteByte(n2);
+ 575              		.loc 1 155 5 view .LVU121
+ 576 0032 2000     		movs	r0, r4
+ 577 0034 FFF7FEFF 		bl	TM1640WriteByte
+ 578              	.LVL73:
+ 156:Core/Src/tm1640driver.c ****     TM1640Stop();
+ 579              		.loc 1 156 5 view .LVU122
+ 580 0038 FFF7FEFF 		bl	TM1640Stop
+ 581              	.LVL74:
+ 157:Core/Src/tm1640driver.c ****     TM1640Start();
+ 582              		.loc 1 157 5 view .LVU123
+ 583 003c FFF7FEFF 		bl	TM1640Start
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s 			page 14
+
+
+ 584              	.LVL75:
+ 158:Core/Src/tm1640driver.c ****     TM1640WriteByte(0x8b);
+ 585              		.loc 1 158 5 view .LVU124
+ 586 0040 8B20     		movs	r0, #139
+ 587 0042 FFF7FEFF 		bl	TM1640WriteByte
+ 588              	.LVL76:
+ 159:Core/Src/tm1640driver.c ****     TM1640Stop();
+ 589              		.loc 1 159 5 view .LVU125
+ 590 0046 FFF7FEFF 		bl	TM1640Stop
+ 591              	.LVL77:
+ 160:Core/Src/tm1640driver.c **** }...
+ 592              		.loc 1 160 1 is_stmt 0 view .LVU126
+ 593              		@ sp needed
+ 594 004a 70BD     		pop	{r4, r5, r6, pc}
+ 595              		.cfi_endproc
+ 596              	.LFE50:
+ 598              		.text
+ 599              	.Letext0:
+ 600              		.file 2 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\machine\\_defa
+ 601              		.file 3 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\sys\\_stdint.h
+ 602              		.file 4 "Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f030x8.h"
+ 603              		.file 5 "Core/Inc/TM1640.h"
+ 604              		.file 6 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_gpio.h"
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s 			page 15
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 tm1640driver.c
+C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s:18     .text.TM1640_GPIO_Config:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s:24     .text.TM1640_GPIO_Config:00000000 TM1640_GPIO_Config
+C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s:59     .text.delay_us:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s:65     .text.delay_us:00000000 delay_us
+C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s:90     .text.TM1640Start:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s:96     .text.TM1640Start:00000000 TM1640Start
+C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s:142    .text.TM1640Stop:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s:148    .text.TM1640Stop:00000000 TM1640Stop
+C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s:201    .text.TM1640WriteByte:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s:207    .text.TM1640WriteByte:00000000 TM1640WriteByte
+C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s:301    .text.TM1640_SendData:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s:307    .text.TM1640_SendData:00000000 TM1640_SendData
+C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s:369    .text.SendData:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s:375    .text.SendData:00000000 SendData
+C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s:515    .text.SendData:000000a8 $d
+C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s:521    .text.SendDataLed:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cc5wdfVb.s:527    .text.SendDataLed:00000000 SendDataLed
+
+UNDEFINED SYMBOLS
+HAL_GPIO_WritePin
+tmNum
+dis
