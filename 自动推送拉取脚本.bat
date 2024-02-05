@@ -7,9 +7,9 @@ for /f "tokens=*" %%i in ('git rev-list --count main') do set "local_count=%%i"
 IF %remote_count% gtr %local_count% (
   echo TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
   git log -1 --pretty=format:"%%s"
-  echo Ô¶³Ì²Ö¿âµÄÌá½»ÊıÁ¿½Ï¶à£¬À­È¡
+  echo è¿œç¨‹ä»“åº“çš„æäº¤æ•°é‡è¾ƒå¤šï¼Œæ‹‰å–
   git pull origin main -f
-  echo echo Í¨¹ıÀ­È¡Ô¶³Ì²Ö¿â±£³ÖÍ¬²½
+  echo echo é€šè¿‡æ‹‰å–è¿œç¨‹ä»“åº“ä¿æŒåŒæ­¥
   git log -1 --pretty=format:"%%s"
   echo LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
 )else  (
@@ -19,25 +19,25 @@ IF %remote_count% gtr %local_count% (
   git status | findstr /C:"Untracked files:"> nul
   if not errorlevel 1 (
     set Change=1
-    echo ´æÔÚÎ´¸ú×ÙµÄÎÄ¼ş ×¼±¸ÖØĞÂÌí¼ÓÍÆËÍ
+    echo å­˜åœ¨æœªè·Ÿè¸ªçš„æ–‡ä»¶ å‡†å¤‡é‡æ–°æ·»åŠ æ¨é€
   )  
   git status | findstr /C:"modified:"> nul
   if not errorlevel 1 (
     set Change=1
-    echo ´æÔÚĞŞ¸ÄµÄÎÄ¼ş ×¼±¸ÍÆËÍ !Change! 
+    echo å­˜åœ¨ä¿®æ”¹çš„æ–‡ä»¶ å‡†å¤‡æ¨é€ !Change! 
   ) 
   git status | findstr /C:"deleted:"> nul
   if not errorlevel 1 (
     set Change=1
-    echo ´æÔÚÉ¾³ıµÄÎÄ¼ş ×¼±¸ÍÆËÍ !Change! 
+    echo å­˜åœ¨åˆ é™¤çš„æ–‡ä»¶ å‡†å¤‡æ¨é€ !Change! 
   )
   if "!Change!"=="0" (
-    echo ±¾µØ²Ö¿âÎŞ±ä»¯£¬²»ÍÆËÍ !Change!
+    echo æœ¬åœ°ä»“åº“æ— å˜åŒ–ï¼Œä¸æ¨é€ !Change!
     git log -1 --pretty=format:"%%s"
     echo LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
   )
   if "!Change!"=="1" (
-    echo ±¾µØ²Ö¿âÓĞ±ä»¯£¬ÍÆËÍ !Change!
+    echo æœ¬åœ°ä»“åº“æœ‰å˜åŒ–ï¼Œæ¨é€ !Change!
     git add .
     git commit -am "count:%local_count%@%COMPUTERNAME%"
     git push -q origin main
