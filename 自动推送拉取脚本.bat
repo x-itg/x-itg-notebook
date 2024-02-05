@@ -1,14 +1,14 @@
 @echo off
 chcp 65001
 setlocal enabledelayedexpansion
-git fetch -q origin master:fetchmaster
-for /f "tokens=*" %%i in ('git rev-list --count origin/master') do set "remote_count=%%i"
-for /f "tokens=*" %%i in ('git rev-list --count master') do set "local_count=%%i"
+git fetch -q origin main:fetchmain
+for /f "tokens=*" %%i in ('git rev-list --count origin/main') do set "remote_count=%%i"
+for /f "tokens=*" %%i in ('git rev-list --count main') do set "local_count=%%i"
 IF %remote_count% gtr %local_count% (
   echo TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
   git log -1 --pretty=format:"%%s"
   echo 远程仓库的提交数量较多，拉取
-  git pull origin master -f
+  git pull origin main -f
   echo echo 通过拉取远程仓库保持同步
   git log -1 --pretty=format:"%%s"
   echo LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
@@ -40,11 +40,11 @@ IF %remote_count% gtr %local_count% (
     echo 本地仓库有变化，推送 !Change!
     git add .
     git commit -am "count:%local_count%@%COMPUTERNAME%"
-    git push -q origin master
+    git push -q origin main
     git log -1 --pretty=format:"%%s"
     echo LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
 
   )
   
 )
-git branch -D -q fetchmaster
+git branch -D -q fetchmain
