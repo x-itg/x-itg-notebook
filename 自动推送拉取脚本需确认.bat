@@ -9,6 +9,7 @@ IF %remote_count% gtr %local_count% (
   git log -1 --pretty=format:"%%s"
   echo 远程仓库的提交数量较多，
   echo 任意键执行【拉取】覆盖本地，关闭命令行【取消】操作
+  pause 
   git pull origin main -f
   echo echo 通过拉取远程仓库保持同步
   git log -1 --pretty=format:"%%s"
@@ -39,7 +40,8 @@ IF %remote_count% gtr %local_count% (
   )
   if "!Change!"=="1" (
     echo 本地仓库有变化，推送 !Change!
-    echo 任意键执行【推送】更新远程，关闭命令行【取消】操作 
+    echo 任意键执行【推送】更新远程，关闭命令行【取消】操作
+    pause 
     git add .
     git commit -am "count:%local_count%@%COMPUTERNAME%"
     git push -q origin main
@@ -50,3 +52,4 @@ IF %remote_count% gtr %local_count% (
   
 )
 git branch -D -q fetchmain
+pause
