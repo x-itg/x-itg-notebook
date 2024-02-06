@@ -1,5 +1,9 @@
 @echo off
 chcp 65001
+echo 自动推送拉取脚本.bat
+echo 自动识别最新的仓库 
+echo 任意键【继续】，关闭命令行【取消】操作
+pause
 setlocal enabledelayedexpansion
 git fetch -q origin main:fetchmain
 for /f "tokens=*" %%i in ('git rev-list --count origin/main') do set "remote_count=%%i"
