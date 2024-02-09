@@ -20,8 +20,6 @@
 
 - riscv32-esp-elf-gdb
 
-- 
-
 ###### 读取elf文件
 
 - 在工程目录下新建一个gdbinit的文件
