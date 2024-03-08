@@ -22,4 +22,5 @@
 2. git clone https://gitee.com/x-itg/duo-buildroot-sdk.git --depth=1
 3. cd duo-buildroot-sdk
 4. docker run -itd --name duodocker -v C:\x-itg\milkv\duo-buildroot-sdk:/home/work milkvtech/milkv-duo:latest /bin/bash
+   docker run -itd --name duodocker -v D:\SYNC\duo\duo-buildroot-sdk-develop:/home/work milkvtech/milkv-duo:latest /bin/bash
 5. docker exec -it duodocker /bin/bash -c "cd /home/work && cat /etc/issue && ./build.sh milkv-duo"
