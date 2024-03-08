@@ -72,7 +72,7 @@ git clone https://gitee.com/x-itg/openocd.git
 下载openocd及其子模块后编译安装
 sudo apt-get install libusb-1.0-0-dev  ##configure: error: libusb-1.x is required for the ST-Link Programmer
 sudo ./bootstrap
-./configure --enable-stlink
+sudo ./configure --enable-stlink
 sudo make
 sudo make install
 安装在了/usr/local/bin
