@@ -163,23 +163,39 @@
 - rosmsg show beginner_tutorials/Num
 
 # 六 、WSL 图形界面
+
 - https://learn.microsoft.com/zh-cn/windows/wsl/install-manual#step-4--download-the-linux-kernel-update-package
+
 - 管理员运行powershell：dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+
 - 管理员运行powershell：dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+
 - 内核更新下载安装：https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+
 - 管理员运行powershell：wsl --set-default-version 2
+
 - 下载ubuntu1804： https://wslstorestorage.blob.core.windows.net/wslblob/Ubuntu_1804.2019.522.0_x64.appx
+
 - 管理员运行powershell：Add-AppxPackage .\Ubuntu_1804.2019.522.0_x64.appx
+
 - 双击安装Ubuntu_1804.2019.522.0_x64.appx
-## 安装SYSTEMCTL
+  
+  ## 安装SYSTEMCTL
+
 - git clone https://github.com/DamionGans/ubuntu-wsl2-systemd-script.git
+
 - cd ubuntu-wsl2-systemd-script/
+
 - bash ubuntu-wsl2-systemd-script.sh --force
+
 - wsl --shutdown  #去windows cmd下重启wsl
+
 - wsl #启动ubuntu
+
 - sudo apt update 
 
 ## 安装 Xubuntu xrdp
+
 - sudo apt install -y ubuntu-desktop
 - sudo apt install -y xubuntu-desktop
 - sudo apt install -y xrdp
@@ -190,8 +206,8 @@
 - sudo nano /etc/xrdp/sesman.ini   #将`KillDisconnected`的值修改为`true`,保存退出
 - sudo systemctl restart xrdp 
 
-
 ## wsl2应用程序直接打开gui
+
 - 下载VxSrv安装时注意勾选Disable access control:    https://nchc.dl.sourceforge.net/project/vcxsrv/vcxsrv/1.20.14.0/vcxsrv-64.1.20.14.0.installer.exe
 - sudo apt install -y x11-apps
 - echo 'export DISPLAY=172.23.80.1:0' >> ~/.bashrc
