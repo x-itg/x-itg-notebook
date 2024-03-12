@@ -65,8 +65,10 @@ ubuntu下安装stm32cubeclt之前有安装过的可以卸载掉：https://www.st
     ]
 }
 
----------------------下载安装openocd--------------
+--------------------补充 可能需要另外安装的软件-------------------------
+sudo apt-get install libncurses5 lsb-core build-essential pkg-config autoconf automake libtool libusb-dev libusb-1.0-0-dev libhidapi-dev libtool libsysfs-dev  
 
+---------------------下载安装openocd--------------
 根据这篇文章 安装openocd：https://blog.csdn.net/daoshengtianxia/article/details/115038674
 git clone https://gitee.com/x-itg/openocd.git
 下载openocd及其子模块后编译安装
@@ -77,15 +79,6 @@ sudo make
 sudo make install
 安装在了/usr/local/bin
 配置文件在 /usr/local/share/openocd/scripts
-
---------------------补充 可能需要另外安装的软件-------------------------
-sudo apt-get install libncurses5
-sudo apt-get install lsb-core
-sudo apt-get install build-essential pkg-config autoconf automake libtool libusb-dev libusb-1.0-0-dev libhidapi-dev
-sudo apt-get install libtool libsysfs-dev  
-
-
---------------------补充 可能需要拷贝的文件------------------------------
 sudo cp stm32f1discovery.cfg /usr/local/share/openocd/scripts/board 
 
 --------------------makefile文件修改-------------
