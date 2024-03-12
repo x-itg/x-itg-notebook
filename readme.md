@@ -259,6 +259,8 @@ netsh interface portproxy reset #删除所有端口转发
 #### wsl2 应用程序直接打开gui远程桌面连接
 
 ```
+- apt install fonts-noto-cjk #解决中文乱码
+- /etc/environment: line 5: unexpected EOF while looking for matching `'' 问题：删除 /etc/environment 中第五行：_SESSION:WT_PROFILE_ID:'
 - windows下载VxSrv安装时注意勾选Disable access control:    https://nchc.dl.sourceforge.net/project/vcxsrv/vcxsrv/1.20.14.0/vcxsrv-64.1.20.14.0.installer.exe
 - sudo apt install -y x11-apps
 - echo 'export DISPLAY=172.23.80.1:0' >> ~/.bashrc
