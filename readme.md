@@ -1,3 +1,5 @@
+自动把STM32编译调试需要的armgcc openocd以及环境变量安装到C:\Program Files (x86)\windowstool的工具：
+
 https://github.com/x-itg/x-itg-notebook/releases/download/untagged-0529c8ebfcfb3dda44b4/OpenOCD_ArmGCC_MakeTool.msi
 
 ## 自动推送拉取脚本.bat
@@ -5,19 +7,15 @@ https://github.com/x-itg/x-itg-notebook/releases/download/untagged-0529c8ebfcfb3
 这个脚本是一个简易的代码仓库维护脚本，它简单实现以远程仓库（gitee/github）为中转的多个本地仓库（家里/公司）之间的同步。比如在家里改好代码后运行这个脚本就能推送更新到远程仓库上班在公司改代码前运行这个脚本自动将代码拉取到本地接着改代码。
 
 - 用法：
-  
+
   - 双击运行此脚本（前提安装好git，本地和远程建好仓库和分支）
-
 - 时机：
-  
-  - 在修改好本地代码后运行此脚本，脚本自动将修改推送至远程；
-  
-  - 在远程代码仓库更新后运行此脚本，脚本会将远程更新拉取至本地。
 
+  - 在修改好本地代码后运行此脚本，脚本自动将修改推送至远程；
+  - 在远程代码仓库更新后运行此脚本，脚本会将远程更新拉取至本地。
 - 原理：
-  
+
   - 当远程提交数大于本地提交数时运行此脚本系统调用git拉取远程提交合并到本地；
-  
   - 当本地提交数大于远程提交数时运行此脚本系统调用git推送本地提交到远程
 
 ## 一、ubuntu下编译调试stm32f1
@@ -111,8 +109,8 @@ source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]###
 - 安装的软件：
 - - vscode cortex-debug插件；
 - - tup-latest
-- - openocd 
-- - arm-gdb/gcc 
+- - openocd
+- - arm-gdb/gcc
 - - GNU MCU Eclipse安装到C:\Program Files文件夹，它们的bin文件夹路径加入到path环境变量当中。
 
 ## 三、编译与版本控制
@@ -156,10 +154,10 @@ powershell下运行：
 function ssh-copy-id([string]$userAtMachine, $args){   
     $publicKey = "$ENV:USERPROFILE" + "/.ssh/id_rsa.pub"
     if (!(Test-Path "$publicKey")){
-        Write-Error "ERROR: failed to open ID file '$publicKey': No such file"            
+        Write-Error "ERROR: failed to open ID file '$publicKey': No such file"          
     }
     else {
-        & cat "$publicKey" | ssh $args $userAtMachine "umask 077; test -d .ssh || mkdir .ssh ; cat >> .ssh/authorized_keys || exit 1"      
+        & cat "$publicKey" | ssh $args $userAtMachine "umask 077; test -d .ssh || mkdir .ssh ; cat >> .ssh/authorized_keys || exit 1"    
     }
 }
 -------------------------------
@@ -179,7 +177,7 @@ ssh 001
 ## 五、远程ubuntu用本地windows的usb
 
 本地windows电脑使用usbipd-win做usbip的服务器
-远程ubuntu使用usbip做usbip的客户端  
+远程ubuntu使用usbip做usbip的客户端
 利用ssh将远程ubuntu的3240端口转发到本地主机的3240端口
 参考：
 [云服务器 Linux 系统使用 USB/IP 远程共享 USB 设备-最佳实践-文档中心-腾讯云](https://cloud.tencent.com/document/product/213/43016)
@@ -213,7 +211,7 @@ sudo kill PID
 ## 六、WSL UBUNTU使用WINDOWS的USB口
 
 参考：
-[连接 USB 设备 | Microsoft Learn](https://learn.microsoft.com/zh-cn/windows/wsl/connect-usb) 
+[连接 USB 设备 | Microsoft Learn](https://learn.microsoft.com/zh-cn/windows/wsl/connect-usb)
 [安装usbipd-win：](https://github.com/dorssel/usbipd-win)
 
 ```
@@ -443,9 +441,7 @@ rossrv show beginner_tutorials/AddTwoInts
 ##### 一、工程搭建
 
 - makefile文件由stm32cube生成后修改
-
 - 事先安装的软件：vscode cortex-debug插件；tup-latest、 openocd 、arm-gdb/gcc 、GNU MCU Eclipse安装到C:\Program Files文件夹，它们的bin文件夹路径加入到path环境变量当中。
-
 - 修改的stm32f1discovery.cfg文件放到C:\Program Files\OpenOCD\0.10.0-13\scripts\board的文件夹；这个make upload烧入的时候用到
 
 ##### 二、编译指令
