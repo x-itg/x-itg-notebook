@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
   30:Core/Src/stm32f0xx_hal_msp.c **** 
   31:Core/Src/stm32f0xx_hal_msp.c **** extern DMA_HandleTypeDef hdma_usart2_rx;
   32:Core/Src/stm32f0xx_hal_msp.c **** 
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 2
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 2
 
 
   33:Core/Src/stm32f0xx_hal_msp.c **** /* Private typedef -----------------------------------------------------------*/
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
   38              		.loc 1 75 3 view .LVU3
   39 0002 0A4B     		ldr	r3, .L2
   40 0004 9969     		ldr	r1, [r3, #24]
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 3
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 3
 
 
   41 0006 0122     		movs	r2, #1
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
   89              	.LFB41:
   84:Core/Src/stm32f0xx_hal_msp.c **** 
   85:Core/Src/stm32f0xx_hal_msp.c **** /**
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 4
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 4
 
 
   86:Core/Src/stm32f0xx_hal_msp.c **** * @brief ADC MSP Initialization
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  109:Core/Src/stm32f0xx_hal_msp.c ****     PB0     ------> ADC_IN8
  110:Core/Src/stm32f0xx_hal_msp.c ****     */
  111:Core/Src/stm32f0xx_hal_msp.c ****     GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7;
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 5
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 5
 
 
  112:Core/Src/stm32f0xx_hal_msp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  139              		.loc 1 100 5 view .LVU26
  140 0028 9A69     		ldr	r2, [r3, #24]
  141 002a 0240     		ands	r2, r0
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 6
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 6
 
 
  142 002c 0092     		str	r2, [sp]
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  181              		.loc 1 111 5 view .LVU41
  111:Core/Src/stm32f0xx_hal_msp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
  182              		.loc 1 111 25 is_stmt 0 view .LVU42
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 7
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 7
 
 
  183 0054 F023     		movs	r3, #240
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  125:Core/Src/stm32f0xx_hal_msp.c ****     hdma_adc.Init.MemInc = DMA_MINC_ENABLE;
  221              		.loc 1 125 29 is_stmt 0 view .LVU59
  222 0080 8560     		str	r5, [r0, #8]
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 8
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 8
 
 
  126:Core/Src/stm32f0xx_hal_msp.c ****     hdma_adc.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  260              	.L8:
  133:Core/Src/stm32f0xx_hal_msp.c ****     }
  261              		.loc 1 133 7 is_stmt 1 view .LVU78
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 9
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 9
 
 
  262 00a6 FFF7FEFF 		bl	Error_Handler
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  157:Core/Src/stm32f0xx_hal_msp.c ****   /* USER CODE END ADC1_MspDeInit 0 */
  158:Core/Src/stm32f0xx_hal_msp.c ****     /* Peripheral clock disable */
  159:Core/Src/stm32f0xx_hal_msp.c ****     __HAL_RCC_ADC1_CLK_DISABLE();
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 10
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 10
 
 
  160:Core/Src/stm32f0xx_hal_msp.c **** 
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  334              	.LVL16:
  335              		.loc 1 179 1 is_stmt 0 view .LVU90
  336 0030 ECE7     		b	.L11
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 11
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 11
 
 
  337              	.L15:
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  382 0010 2268     		ldr	r2, [r4]
  383              		.loc 1 190 5 view .LVU98
  384 0012 134B     		ldr	r3, .L19
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 12
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 12
 
 
  385 0014 9A42     		cmp	r2, r3
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  409 002a 0B40     		ands	r3, r1
  410 002c 0193     		str	r3, [sp, #4]
  196:Core/Src/stm32f0xx_hal_msp.c ****     /**I2C1 GPIO Configuration
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 13
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 13
 
 
  411              		.loc 1 196 5 view .LVU105
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  449              		.loc 1 209 5 view .LVU121
  450 0056 E369     		ldr	r3, [r4, #28]
  451 0058 0B40     		ands	r3, r1
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 14
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 14
 
 
  452 005a 0293     		str	r3, [sp, #8]
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  496              	.L21:
  226:Core/Src/stm32f0xx_hal_msp.c ****   {
  227:Core/Src/stm32f0xx_hal_msp.c ****   /* USER CODE BEGIN I2C1_MspDeInit 0 */
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 15
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 15
 
 
  228:Core/Src/stm32f0xx_hal_msp.c **** 
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  528 0030 00540040 		.word	1073763328
  529 0034 00100240 		.word	1073876992
  530 0038 FFFFDFFF 		.word	-2097153
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 16
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 16
 
 
  531 003c 00040048 		.word	1207960576
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  259:Core/Src/stm32f0xx_hal_msp.c ****   /* USER CODE BEGIN USART1_MspInit 0 */
  260:Core/Src/stm32f0xx_hal_msp.c **** 
  261:Core/Src/stm32f0xx_hal_msp.c ****   /* USER CODE END USART1_MspInit 0 */
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 17
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 17
 
 
  262:Core/Src/stm32f0xx_hal_msp.c ****     /* Peripheral clock enable */
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  310:Core/Src/stm32f0xx_hal_msp.c ****     /**USART2 GPIO Configuration
  311:Core/Src/stm32f0xx_hal_msp.c ****     PA2     ------> USART2_TX
  312:Core/Src/stm32f0xx_hal_msp.c ****     PA3     ------> USART2_RX
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 18
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 18
 
 
  313:Core/Src/stm32f0xx_hal_msp.c ****     */
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  598 002c 9961     		str	r1, [r3, #24]
  263:Core/Src/stm32f0xx_hal_msp.c **** 
  599              		.loc 1 263 5 view .LVU151
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 19
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 19
 
 
  600 002e 9A69     		ldr	r2, [r3, #24]
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  275:Core/Src/stm32f0xx_hal_msp.c **** 
  638              		.loc 1 275 5 view .LVU168
  639 0054 05A9     		add	r1, sp, #20
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 20
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 20
 
 
  640 0056 3248     		ldr	r0, .L35+12
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  675              		.loc 1 287 8 view .LVU187
  676 0078 0028     		cmp	r0, #0
  677 007a 0BD1     		bne	.L33
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 21
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 21
 
 
  678              	.L28:
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  307:Core/Src/stm32f0xx_hal_msp.c **** 
  720              		.loc 1 307 5 view .LVU200
  309:Core/Src/stm32f0xx_hal_msp.c ****     /**USART2 GPIO Configuration
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 22
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 22
 
 
  721              		.loc 1 309 5 view .LVU201
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  759              		.loc 1 323 5 view .LVU217
  323:Core/Src/stm32f0xx_hal_msp.c ****     hdma_usart2_rx.Init.Direction = DMA_PERIPH_TO_MEMORY;
  760              		.loc 1 323 29 is_stmt 0 view .LVU218
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 23
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 23
 
 
  761 00d6 1548     		ldr	r0, .L35+24
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  796              		.loc 1 336 5 view .LVU237
  797 00f6 0D4B     		ldr	r3, .L35+24
  798 00f8 2367     		str	r3, [r4, #112]
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 24
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 24
 
 
  336:Core/Src/stm32f0xx_hal_msp.c **** 
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  354:Core/Src/stm32f0xx_hal_msp.c **** void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
  355:Core/Src/stm32f0xx_hal_msp.c **** {
  843              		.loc 1 355 1 view -0
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 25
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 25
 
 
  844              		.cfi_startproc
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  386:Core/Src/stm32f0xx_hal_msp.c **** 
  387:Core/Src/stm32f0xx_hal_msp.c ****     /**USART2 GPIO Configuration
  388:Core/Src/stm32f0xx_hal_msp.c ****     PA2     ------> USART2_TX
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 26
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 26
 
 
  389:Core/Src/stm32f0xx_hal_msp.c ****     PA3     ------> USART2_RX
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  901 0036 D369     		ldr	r3, [r2, #28]
  902 0038 0C49     		ldr	r1, .L42+20
  903 003a 0B40     		ands	r3, r1
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 27
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 27
 
 
  904 003c D361     		str	r3, [r2, #28]
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  951 0000 82B0     		sub	sp, sp, #8
  952              	.LCFI10:
  953              		.cfi_def_cfa_offset 8
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 28
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 28
 
 
  409:Core/Src/stm32f0xx_hal_msp.c ****   //if(htim_base->Instance==TIM17)
@@ -1666,8 +1666,8 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  983              	.LFE47:
  985              		.text
  986              	.Letext0:
- 987              		.file 2 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\machine\\_defa
- 988              		.file 3 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\sys\\_stdint.h
+ 987              		.file 2 "c:\\program files\\openocd\\windowstool\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\i
+ 988              		.file 3 "c:\\program files\\openocd\\windowstool\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\i
  989              		.file 4 "Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f030x8.h"
  990              		.file 5 "Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f0xx.h"
  991              		.file 6 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_def.h"
@@ -1678,40 +1678,40 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 1
  996              		.file 11 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim.h"
  997              		.file 12 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h"
  998              		.file 13 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_cortex.h"
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 29
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 29
 
 
  999              		.file 14 "Core/Inc/main.h"
  1000              		.file 15 "<built-in>"
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s 			page 30
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cczsSvov.s 			page 30
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f0xx_hal_msp.c
-C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s:18     .text.HAL_MspInit:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s:24     .text.HAL_MspInit:00000000 HAL_MspInit
-C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s:76     .text.HAL_MspInit:0000002c $d
-C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s:81     .text.HAL_ADC_MspInit:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s:87     .text.HAL_ADC_MspInit:00000000 HAL_ADC_MspInit
-C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s:268    .text.HAL_ADC_MspInit:000000ac $d
-C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s:277    .text.HAL_ADC_MspDeInit:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s:283    .text.HAL_ADC_MspDeInit:00000000 HAL_ADC_MspDeInit
-C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s:340    .text.HAL_ADC_MspDeInit:00000034 $d
-C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s:348    .text.HAL_I2C_MspInit:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s:354    .text.HAL_I2C_MspInit:00000000 HAL_I2C_MspInit
-C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s:462    .text.HAL_I2C_MspInit:00000060 $d
-C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s:469    .text.HAL_I2C_MspDeInit:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s:475    .text.HAL_I2C_MspDeInit:00000000 HAL_I2C_MspDeInit
-C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s:528    .text.HAL_I2C_MspDeInit:00000030 $d
-C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s:536    .text.HAL_UART_MspInit:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s:542    .text.HAL_UART_MspInit:00000000 HAL_UART_MspInit
-C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s:822    .text.HAL_UART_MspInit:00000114 $d
-C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s:834    .text.HAL_UART_MspDeInit:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s:840    .text.HAL_UART_MspDeInit:00000000 HAL_UART_MspDeInit
-C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s:926    .text.HAL_UART_MspDeInit:00000058 $d
-C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s:936    .text.HAL_TIM_Base_MspInit:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s:942    .text.HAL_TIM_Base_MspInit:00000000 HAL_TIM_Base_MspInit
-C:\Users\57298\AppData\Local\Temp\ccKSVBqO.s:981    .text.HAL_TIM_Base_MspInit:0000001c $d
+C:\Users\57298\AppData\Local\Temp\cczsSvov.s:18     .text.HAL_MspInit:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cczsSvov.s:24     .text.HAL_MspInit:00000000 HAL_MspInit
+C:\Users\57298\AppData\Local\Temp\cczsSvov.s:76     .text.HAL_MspInit:0000002c $d
+C:\Users\57298\AppData\Local\Temp\cczsSvov.s:81     .text.HAL_ADC_MspInit:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cczsSvov.s:87     .text.HAL_ADC_MspInit:00000000 HAL_ADC_MspInit
+C:\Users\57298\AppData\Local\Temp\cczsSvov.s:268    .text.HAL_ADC_MspInit:000000ac $d
+C:\Users\57298\AppData\Local\Temp\cczsSvov.s:277    .text.HAL_ADC_MspDeInit:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cczsSvov.s:283    .text.HAL_ADC_MspDeInit:00000000 HAL_ADC_MspDeInit
+C:\Users\57298\AppData\Local\Temp\cczsSvov.s:340    .text.HAL_ADC_MspDeInit:00000034 $d
+C:\Users\57298\AppData\Local\Temp\cczsSvov.s:348    .text.HAL_I2C_MspInit:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cczsSvov.s:354    .text.HAL_I2C_MspInit:00000000 HAL_I2C_MspInit
+C:\Users\57298\AppData\Local\Temp\cczsSvov.s:462    .text.HAL_I2C_MspInit:00000060 $d
+C:\Users\57298\AppData\Local\Temp\cczsSvov.s:469    .text.HAL_I2C_MspDeInit:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cczsSvov.s:475    .text.HAL_I2C_MspDeInit:00000000 HAL_I2C_MspDeInit
+C:\Users\57298\AppData\Local\Temp\cczsSvov.s:528    .text.HAL_I2C_MspDeInit:00000030 $d
+C:\Users\57298\AppData\Local\Temp\cczsSvov.s:536    .text.HAL_UART_MspInit:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cczsSvov.s:542    .text.HAL_UART_MspInit:00000000 HAL_UART_MspInit
+C:\Users\57298\AppData\Local\Temp\cczsSvov.s:822    .text.HAL_UART_MspInit:00000114 $d
+C:\Users\57298\AppData\Local\Temp\cczsSvov.s:834    .text.HAL_UART_MspDeInit:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cczsSvov.s:840    .text.HAL_UART_MspDeInit:00000000 HAL_UART_MspDeInit
+C:\Users\57298\AppData\Local\Temp\cczsSvov.s:926    .text.HAL_UART_MspDeInit:00000058 $d
+C:\Users\57298\AppData\Local\Temp\cczsSvov.s:936    .text.HAL_TIM_Base_MspInit:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cczsSvov.s:942    .text.HAL_TIM_Base_MspInit:00000000 HAL_TIM_Base_MspInit
+C:\Users\57298\AppData\Local\Temp\cczsSvov.s:981    .text.HAL_TIM_Base_MspInit:0000001c $d
 
 UNDEFINED SYMBOLS
 memset

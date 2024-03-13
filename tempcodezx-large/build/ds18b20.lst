@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 1
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 1
   45              		.loc 1 6 5 is_stmt 0 discriminator 1 view .LVU7
   46 0004 002B     		cmp	r3, #0
   47 0006 FCD1     		bne	.L3
-ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 2
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s 			page 2
 
 
    5:Core/Src/ds18b20.c ****   for(;nus>0;nus--)
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 1
   13:Core/Src/ds18b20.c ****   GPIO_InitStruct.Pin = GPIO_PIN_6;
   94              		.loc 1 13 3 is_stmt 1 view .LVU17
   95              		.loc 1 13 23 is_stmt 0 view .LVU18
-ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 3
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s 			page 3
 
 
   96 000e 4023     		movs	r3, #64
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 1
  143 0006 0021     		movs	r1, #0
  144 0008 01A8     		add	r0, sp, #4
  145 000a FFF7FEFF 		bl	memset
-ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 4
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s 			page 4
 
 
  146              	.LVL6:
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 1
  192              		.cfi_offset 4, -8
  193              		.cfi_offset 14, -4
   33:Core/Src/ds18b20.c ****   DS18B20GPIOOUTSET(); 	//SET PG11 OUTPUT
-ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 5
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s 			page 5
 
 
  194              		.loc 1 33 3 view .LVU38
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 1
  239              		.cfi_offset 14, -4
   45:Core/Src/ds18b20.c ****   uint16_t retry = 0;
  240              		.loc 1 45 3 view .LVU45
-ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 6
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s 			page 6
 
 
  241              	.LVL11:
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 1
  279              	.LVL17:
  280              		.loc 1 60 11 view .LVU61
  281 0024 01E0     		b	.L21
-ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 7
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s 			page 7
 
 
  282              	.LVL18:
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 1
  317              		.loc 1 75 1 view .LVU75
  318 0040 10BD     		pop	{r4, pc}
  319              	.LVL23:
-ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 8
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s 			page 8
 
 
  320              	.L24:
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 1
   85:Core/Src/ds18b20.c ****   HAL_GPIO_WritePin(GPIOF,GPIO_PIN_6,GPIO_PIN_SET); 
  365              		.loc 1 85 3 view .LVU83
  366 0012 0122     		movs	r2, #1
-ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 9
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s 			page 9
 
 
  367 0014 4021     		movs	r1, #64
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 1
  408              		.syntax unified
  409              		.code	16
  410              		.thumb_func
-ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 10
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s 			page 10
 
 
  412              	DS18B20_ReadByte:
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 1
  453              		.loc 1 106 23 is_stmt 1 discriminator 3 view .LVU108
  106:Core/Src/ds18b20.c ****   for (i = 1; i <= 8; i ++) 
  454              		.loc 1 106 25 is_stmt 0 discriminator 3 view .LVU109
-ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 11
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s 			page 11
 
 
  455 0014 0135     		adds	r5, r5, #1
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 1
  499              		.loc 1 118 3 is_stmt 1 view .LVU118
  119:Core/Src/ds18b20.c ****   unsigned char testb;
  500              		.loc 1 119 3 view .LVU119
-ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 12
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s 			page 12
 
 
  120:Core/Src/ds18b20.c ****   DS18B20GPIOOUTSET();	//SET PG11 OUTPUT;
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 1
  534              	.LVL47:
  535              	.L37:
  121:Core/Src/ds18b20.c ****   {
-ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 13
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s 			page 13
 
 
  536              		.loc 1 121 15 is_stmt 1 discriminator 1 view .LVU132
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 1
  575              		.loc 1 140 1 view .LVU146
  576 004c 70BD     		pop	{r4, r5, r6, pc}
  577              	.L43:
-ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 14
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s 			page 14
 
 
  578 004e C046     		.align	2
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 1
  626              		.code	16
  627              		.thumb_func
  629              	DS18B20Configuration:
-ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 15
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s 			page 15
 
 
  630              	.LFB49:
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 1
  672              		.thumb_func
  674              	DS18B20_GetTemperature:
  675              	.LFB50:
-ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 16
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s 			page 16
 
 
  163:Core/Src/ds18b20.c **** 
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 1
  714              		.loc 1 178 3 is_stmt 1 view .LVU170
  715              		.loc 1 178 8 is_stmt 0 view .LVU171
  716 0022 FFF7FEFF 		bl	DS18B20_ReadByte
-ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 17
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s 			page 17
 
 
  717              	.LVL68:
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 1
  756              	.LVL77:
  757              		.loc 1 193 26 view .LVU189
  758 0040 FFF7FEFF 		bl	__aeabi_f2d
-ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 18
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s 			page 18
 
 
  759              	.LVL78:
@@ -1076,49 +1076,49 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 1
  800              	.LFE50:
  802              		.text
  803              	.Letext0:
- 804              		.file 2 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\machine\\_defa
- 805              		.file 3 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\sys\\_stdint.h
-ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 19
+ 804              		.file 2 "c:\\program files\\openocd\\windowstool\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\i
+ 805              		.file 3 "c:\\program files\\openocd\\windowstool\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\i
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s 			page 19
 
 
  806              		.file 4 "Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f030x8.h"
  807              		.file 5 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_gpio.h"
  808              		.file 6 "<built-in>"
-ARM GAS  C:\Users\57298\AppData\Local\Temp\cca8ljQf.s 			page 20
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s 			page 20
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 ds18b20.c
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:18     .text.DelayUs:00000000 $t
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:24     .text.DelayUs:00000000 DelayUs
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:68     .text.DS18B20GPIOINSET:00000000 $t
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:74     .text.DS18B20GPIOINSET:00000000 DS18B20GPIOINSET
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:116    .text.DS18B20GPIOINSET:00000024 $d
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:121    .text.DS18B20GPIOOUTSET:00000000 $t
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:127    .text.DS18B20GPIOOUTSET:00000000 DS18B20GPIOOUTSET
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:172    .text.DS18B20GPIOOUTSET:00000028 $d
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:177    .text.DS18B20_Reset:00000000 $t
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:183    .text.DS18B20_Reset:00000000 DS18B20_Reset
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:218    .text.DS18B20_Reset:00000020 $d
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:223    .text.DS18B20_IsOnline:00000000 $t
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:229    .text.DS18B20_IsOnline:00000000 DS18B20_IsOnline
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:331    .text.DS18B20_IsOnline:0000004c $d
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:336    .text.DS18B20_ReadBit:00000000 $t
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:342    .text.DS18B20_ReadBit:00000000 DS18B20_ReadBit
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:401    .text.DS18B20_ReadBit:00000034 $d
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:406    .text.DS18B20_ReadByte:00000000 $t
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:412    .text.DS18B20_ReadByte:00000000 DS18B20_ReadByte
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:477    .text.DS18B20_WriteByte:00000000 $t
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:483    .text.DS18B20_WriteByte:00000000 DS18B20_WriteByte
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:580    .text.DS18B20_WriteByte:00000050 $d
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:585    .text.DS18B20_StartConversion:00000000 $t
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:591    .text.DS18B20_StartConversion:00000000 DS18B20_StartConversion
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:623    .text.DS18B20Configuration:00000000 $t
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:629    .text.DS18B20Configuration:00000000 DS18B20Configuration
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:659    .text.DS18B20Configuration:00000018 $d
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:668    .text.DS18B20_GetTemperature:00000000 $t
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:674    .text.DS18B20_GetTemperature:00000000 DS18B20_GetTemperature
-C:\Users\57298\AppData\Local\Temp\cca8ljQf.s:798    .text.DS18B20_GetTemperature:00000060 $d
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:18     .text.DelayUs:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:24     .text.DelayUs:00000000 DelayUs
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:68     .text.DS18B20GPIOINSET:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:74     .text.DS18B20GPIOINSET:00000000 DS18B20GPIOINSET
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:116    .text.DS18B20GPIOINSET:00000024 $d
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:121    .text.DS18B20GPIOOUTSET:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:127    .text.DS18B20GPIOOUTSET:00000000 DS18B20GPIOOUTSET
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:172    .text.DS18B20GPIOOUTSET:00000028 $d
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:177    .text.DS18B20_Reset:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:183    .text.DS18B20_Reset:00000000 DS18B20_Reset
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:218    .text.DS18B20_Reset:00000020 $d
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:223    .text.DS18B20_IsOnline:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:229    .text.DS18B20_IsOnline:00000000 DS18B20_IsOnline
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:331    .text.DS18B20_IsOnline:0000004c $d
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:336    .text.DS18B20_ReadBit:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:342    .text.DS18B20_ReadBit:00000000 DS18B20_ReadBit
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:401    .text.DS18B20_ReadBit:00000034 $d
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:406    .text.DS18B20_ReadByte:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:412    .text.DS18B20_ReadByte:00000000 DS18B20_ReadByte
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:477    .text.DS18B20_WriteByte:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:483    .text.DS18B20_WriteByte:00000000 DS18B20_WriteByte
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:580    .text.DS18B20_WriteByte:00000050 $d
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:585    .text.DS18B20_StartConversion:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:591    .text.DS18B20_StartConversion:00000000 DS18B20_StartConversion
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:623    .text.DS18B20Configuration:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:629    .text.DS18B20Configuration:00000000 DS18B20Configuration
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:659    .text.DS18B20Configuration:00000018 $d
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:668    .text.DS18B20_GetTemperature:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:674    .text.DS18B20_GetTemperature:00000000 DS18B20_GetTemperature
+C:\Users\57298\AppData\Local\Temp\ccAZ8TL8.s:798    .text.DS18B20_GetTemperature:00000060 $d
 
 UNDEFINED SYMBOLS
 memset

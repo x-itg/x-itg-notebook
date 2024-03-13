@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
   30:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c **** 
   31:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****                      ##### How to use this driver #####
   32:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****   ==============================================================================
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 2
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 2
 
 
   33:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****   [..]                             
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
   87:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****   * @{
   88:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****   */
   89:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c **** 
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 3
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 3
 
 
   90:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c **** #ifdef HAL_FLASH_MODULE_ENABLED
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  144:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c **** @verbatim   
  145:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c **** @endverbatim
  146:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****   * @{
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 4
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 4
 
 
  147:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****   */
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  201:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****     for (index = 0U; index < nbiterations; index++)
  202:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****     {
  203:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****       FLASH_Program_HalfWord((Address + (2U*index)), (uint16_t)(Data >> (16U*index)));
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 5
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 5
 
 
  204:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c **** 
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  258:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****     pFlash.ProcedureOnGoing = FLASH_PROC_PROGRAMHALFWORD;
  259:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****     /* Program halfword (16-bit) at a specified address. */
  260:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****     pFlash.DataRemaining = 1U;
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 6
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 6
 
 
  261:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****   }
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  315:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****     {
  316:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****       if(pFlash.ProcedureOnGoing == FLASH_PROC_PAGEERASE)
  317:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****       {
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 7
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 7
 
 
  318:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****         /* Nb of pages to erased can be decreased */
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  372:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****           pFlash.Data = (pFlash.Data >> 16U);
  373:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****           
  374:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****           /* Operation is completed, disable the PG Bit */
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 8
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 8
 
 
  375:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****           CLEAR_BIT(FLASH->CR, FLASH_CR_PG);
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  429:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c **** {
  430:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****   /* Prevent unused argument(s) compilation warning */
  431:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****   UNUSED(ReturnValue);
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 9
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 9
 
 
  432:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c **** 
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  486:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****     WRITE_REG(FLASH->KEYR, FLASH_KEY1);
  487:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****     WRITE_REG(FLASH->KEYR, FLASH_KEY2);
  488:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c **** 
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 10
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 10
 
 
  489:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****     /* Verify Flash is unlocked */
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  543:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c **** /**
  544:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****   * @brief  Launch the option byte loading.
  545:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****   * @note   This function will reset automatically the MCU.
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 11
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 11
 
 
  546:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****   * @retval HAL Status
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  600:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****   * @param  Data    specify the data to be programmed.
  601:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****   * @retval None
  602:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****   */
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 12
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 12
 
 
  603:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c **** static void FLASH_Program_HalfWord(uint32_t Address, uint16_t Data)
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  616:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****   * @brief  Wait for a FLASH operation to complete.
  617:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****   * @param  Timeout  maximum flash operation timeout
  618:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****   * @retval HAL Status
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 13
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 13
 
 
  619:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****   */
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  666:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****   
  667:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****   if(__HAL_FLASH_GET_FLAG(FLASH_FLAG_WRPERR))
   77              		.loc 1 667 3 view .LVU10
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 14
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 14
 
 
   78              		.loc 1 667 6 is_stmt 0 view .LVU11
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  121 0030 014A     		ldr	r2, .L7
  122 0032 D360     		str	r3, [r2, #12]
  679:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c **** }  
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 15
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 15
 
 
  123              		.loc 1 679 1 is_stmt 0 view .LVU25
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  172              		.loc 1 244 3 discriminator 2 view .LVU32
  173 0012 134B     		ldr	r3, .L17
  174 0014 0122     		movs	r2, #1
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 16
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 16
 
 
  175              	.LVL8:
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  211              		.loc 1 272 26 is_stmt 0 view .LVU50
  212 0038 013A     		subs	r2, r2, #1
  213 003a 5A60     		str	r2, [r3, #4]
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 17
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 17
 
 
  214              	.L12:
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  254              	.LVL14:
  244:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c **** 
  255              		.loc 1 244 3 view .LVU65
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 18
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 18
 
 
  256 005e F1E7     		b	.L10
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  309              		.section	.text.HAL_FLASH_IRQHandler,"ax",%progbits
  310              		.align	1
  311              		.global	HAL_FLASH_IRQHandler
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 19
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 19
 
 
  312              		.syntax unified
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  356 001a A360     		str	r3, [r4, #8]
  298:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****     
  357              		.loc 1 298 5 is_stmt 1 view .LVU83
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 20
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 20
 
 
  358 001c FFF7FEFF 		bl	FLASH_SetErrorCode
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  397 0048 404B     		ldr	r3, .L38+4
  398 004a 1B78     		ldrb	r3, [r3]
  347:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****       {
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 21
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 21
 
 
  399              		.loc 1 347 14 view .LVU99
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  398:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****           pFlash.ProcedureOnGoing = FLASH_PROC_NONE;
  438              		.loc 1 398 11 is_stmt 1 view .LVU115
  398:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****           pFlash.ProcedureOnGoing = FLASH_PROC_NONE;
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 22
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 22
 
 
  439              		.loc 1 398 26 is_stmt 0 view .LVU116
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  480 00a6 294B     		ldr	r3, .L38+4
  481 00a8 5A68     		ldr	r2, [r3, #4]
  319:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c **** 
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 23
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 23
 
 
  482              		.loc 1 319 29 view .LVU130
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  522              	.L26:
  341:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****           pFlash.ProcedureOnGoing = FLASH_PROC_NONE;
  523              		.loc 1 341 11 is_stmt 1 view .LVU145
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 24
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 24
 
 
  524              	.LVL27:
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  566              	.LVL31:
  372:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****           
  567              		.loc 1 372 11 is_stmt 1 view .LVU158
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 25
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 25
 
 
  372:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****           
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  610              	.LVL34:
  611 0146 97E7     		b	.L30
  612              	.L39:
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 26
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 26
 
 
  613              		.align	2
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  658 0018 0020     		movs	r0, #0
  659 001a 00E0     		b	.L41
  660              	.L42:
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 27
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 27
 
 
  661 001c 0020     		movs	r0, #0
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  710 0010 00200240 		.word	1073881088
  711              		.cfi_endproc
  712              	.LFE46:
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 28
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 28
 
 
  714              		.section	.text.HAL_FLASH_OB_Unlock,"ax",%progbits
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  759              		.cfi_endproc
  760              	.LFE47:
  762              		.section	.text.HAL_FLASH_OB_Lock,"ax",%progbits
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 29
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 29
 
 
  763              		.align	1
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  583:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c **** 
  813              		.loc 1 583 1 view .LVU206
  814              		@ sp needed
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 30
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 30
 
 
  815 0004 7047     		bx	lr
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  630:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****     {
  862              		.loc 1 630 5 is_stmt 1 view .LVU216
  630:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****     {
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 31
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 31
 
 
  863              		.loc 1 630 8 is_stmt 0 view .LVU217
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  647:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****   {
  903              		.loc 1 647 6 discriminator 1 view .LVU232
  904 003e 054B     		ldr	r3, .L70
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 32
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 32
 
 
  905 0040 DB68     		ldr	r3, [r3, #12]
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  952              		.cfi_offset 3, -24
  953              		.cfi_offset 4, -20
  954              		.cfi_offset 5, -16
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 33
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 33
 
 
  955              		.cfi_offset 6, -12
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  995              		.loc 1 181 14 discriminator 2 view .LVU255
  996 0024 041E     		subs	r4, r0, #0
  997              	.LVL51:
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 34
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 34
 
 
  183:Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ****   {
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  1039              		.loc 1 203 7 view .LVU268
  1040 0052 89B2     		uxth	r1, r1
  1041 0054 8019     		adds	r0, r0, r6
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 35
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 35
 
 
  1042 0056 FFF7FEFF 		bl	FLASH_Program_HalfWord
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  1082 0082 3900     		movs	r1, r7
  1083 0084 D140     		lsrs	r1, r1, r2
  1084 0086 E4E7     		b	.L78
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 36
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 36
 
 
  1085              	.LVL60:
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  1132              		@ args = 0, pretend = 0, frame = 0
  1133              		@ frame_needed = 0, uses_anonymous_args = 0
  1134 0000 10B5     		push	{r4, lr}
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 37
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 37
 
 
  1135              	.LCFI6:
@@ -2203,60 +2203,60 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 1
  1169      00000000 
  1170              		.text
  1171              	.Letext0:
- 1172              		.file 2 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\machine\\_defa
- 1173              		.file 3 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\sys\\_stdint.h
+ 1172              		.file 2 "c:\\program files\\openocd\\windowstool\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\i
+ 1173              		.file 3 "c:\\program files\\openocd\\windowstool\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\i
  1174              		.file 4 "Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f030x8.h"
  1175              		.file 5 "Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f0xx.h"
  1176              		.file 6 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_def.h"
  1177              		.file 7 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_flash.h"
  1178              		.file 8 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h"
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s 			page 38
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccamOyPF.s 			page 38
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f0xx_hal_flash.c
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:18     .text.FLASH_Program_HalfWord:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:23     .text.FLASH_Program_HalfWord:00000000 FLASH_Program_HalfWord
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:57     .text.FLASH_Program_HalfWord:00000018 $d
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:63     .text.FLASH_SetErrorCode:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:68     .text.FLASH_SetErrorCode:00000000 FLASH_SetErrorCode
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:129    .text.FLASH_SetErrorCode:00000038 $d
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:135    .text.HAL_FLASH_Program_IT:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:141    .text.HAL_FLASH_Program_IT:00000000 HAL_FLASH_Program_IT
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:260    .text.HAL_FLASH_Program_IT:00000060 $d
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:266    .text.HAL_FLASH_EndOfOperationCallback:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:272    .text.HAL_FLASH_EndOfOperationCallback:00000000 HAL_FLASH_EndOfOperationCallback
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:288    .text.HAL_FLASH_OperationErrorCallback:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:294    .text.HAL_FLASH_OperationErrorCallback:00000000 HAL_FLASH_OperationErrorCallback
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:310    .text.HAL_FLASH_IRQHandler:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:316    .text.HAL_FLASH_IRQHandler:00000000 HAL_FLASH_IRQHandler
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:615    .text.HAL_FLASH_IRQHandler:00000148 $d
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:622    .text.HAL_FLASH_Unlock:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:628    .text.HAL_FLASH_Unlock:00000000 HAL_FLASH_Unlock
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:676    .text.HAL_FLASH_Unlock:00000024 $d
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:683    .text.HAL_FLASH_Lock:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:689    .text.HAL_FLASH_Lock:00000000 HAL_FLASH_Lock
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:710    .text.HAL_FLASH_Lock:00000010 $d
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:715    .text.HAL_FLASH_OB_Unlock:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:721    .text.HAL_FLASH_OB_Unlock:00000000 HAL_FLASH_OB_Unlock
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:756    .text.HAL_FLASH_OB_Unlock:0000001c $d
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:763    .text.HAL_FLASH_OB_Lock:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:769    .text.HAL_FLASH_OB_Lock:00000000 HAL_FLASH_OB_Lock
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:790    .text.HAL_FLASH_OB_Lock:00000010 $d
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:796    .text.HAL_FLASH_GetError:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:802    .text.HAL_FLASH_GetError:00000000 HAL_FLASH_GetError
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:819    .text.HAL_FLASH_GetError:00000008 $d
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:824    .text.FLASH_WaitForLastOperation:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:830    .text.FLASH_WaitForLastOperation:00000000 FLASH_WaitForLastOperation
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:930    .text.FLASH_WaitForLastOperation:00000054 $d
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:935    .text.HAL_FLASH_Program:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:941    .text.HAL_FLASH_Program:00000000 HAL_FLASH_Program
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:1115   .text.HAL_FLASH_Program:0000009c $d
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:1122   .text.HAL_FLASH_OB_Launch:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:1128   .text.HAL_FLASH_OB_Launch:00000000 HAL_FLASH_OB_Launch
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:1157   .text.HAL_FLASH_OB_Launch:00000018 $d
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:1168   .bss.pFlash:00000000 pFlash
-C:\Users\57298\AppData\Local\Temp\ccv5nCIN.s:1164   .bss.pFlash:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:18     .text.FLASH_Program_HalfWord:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:23     .text.FLASH_Program_HalfWord:00000000 FLASH_Program_HalfWord
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:57     .text.FLASH_Program_HalfWord:00000018 $d
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:63     .text.FLASH_SetErrorCode:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:68     .text.FLASH_SetErrorCode:00000000 FLASH_SetErrorCode
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:129    .text.FLASH_SetErrorCode:00000038 $d
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:135    .text.HAL_FLASH_Program_IT:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:141    .text.HAL_FLASH_Program_IT:00000000 HAL_FLASH_Program_IT
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:260    .text.HAL_FLASH_Program_IT:00000060 $d
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:266    .text.HAL_FLASH_EndOfOperationCallback:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:272    .text.HAL_FLASH_EndOfOperationCallback:00000000 HAL_FLASH_EndOfOperationCallback
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:288    .text.HAL_FLASH_OperationErrorCallback:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:294    .text.HAL_FLASH_OperationErrorCallback:00000000 HAL_FLASH_OperationErrorCallback
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:310    .text.HAL_FLASH_IRQHandler:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:316    .text.HAL_FLASH_IRQHandler:00000000 HAL_FLASH_IRQHandler
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:615    .text.HAL_FLASH_IRQHandler:00000148 $d
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:622    .text.HAL_FLASH_Unlock:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:628    .text.HAL_FLASH_Unlock:00000000 HAL_FLASH_Unlock
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:676    .text.HAL_FLASH_Unlock:00000024 $d
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:683    .text.HAL_FLASH_Lock:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:689    .text.HAL_FLASH_Lock:00000000 HAL_FLASH_Lock
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:710    .text.HAL_FLASH_Lock:00000010 $d
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:715    .text.HAL_FLASH_OB_Unlock:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:721    .text.HAL_FLASH_OB_Unlock:00000000 HAL_FLASH_OB_Unlock
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:756    .text.HAL_FLASH_OB_Unlock:0000001c $d
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:763    .text.HAL_FLASH_OB_Lock:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:769    .text.HAL_FLASH_OB_Lock:00000000 HAL_FLASH_OB_Lock
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:790    .text.HAL_FLASH_OB_Lock:00000010 $d
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:796    .text.HAL_FLASH_GetError:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:802    .text.HAL_FLASH_GetError:00000000 HAL_FLASH_GetError
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:819    .text.HAL_FLASH_GetError:00000008 $d
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:824    .text.FLASH_WaitForLastOperation:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:830    .text.FLASH_WaitForLastOperation:00000000 FLASH_WaitForLastOperation
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:930    .text.FLASH_WaitForLastOperation:00000054 $d
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:935    .text.HAL_FLASH_Program:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:941    .text.HAL_FLASH_Program:00000000 HAL_FLASH_Program
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:1115   .text.HAL_FLASH_Program:0000009c $d
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:1122   .text.HAL_FLASH_OB_Launch:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:1128   .text.HAL_FLASH_OB_Launch:00000000 HAL_FLASH_OB_Launch
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:1157   .text.HAL_FLASH_OB_Launch:00000018 $d
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:1168   .bss.pFlash:00000000 pFlash
+C:\Users\57298\AppData\Local\Temp\ccamOyPF.s:1164   .bss.pFlash:00000000 $d
 
 UNDEFINED SYMBOLS
 FLASH_PageErase

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccJs03m1.s 			page 1
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc29VFeJ.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccJs03m1.s 			page 1
   13:Core/Src/595.c **** }
   44              		.loc 1 13 1 is_stmt 0 view .LVU6
   45              		@ sp needed
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccJs03m1.s 			page 2
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc29VFeJ.s 			page 2
 
 
   46 000a 7047     		bx	lr
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccJs03m1.s 			page 1
   91              	.LVL4:
   92              	.L8:
   25:Core/Src/595.c ****       }
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccJs03m1.s 			page 3
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc29VFeJ.s 			page 3
 
 
   26:Core/Src/595.c ****       else
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccJs03m1.s 			page 1
   28:Core/Src/595.c ****       }
  132              		.loc 1 28 9 is_stmt 1 view .LVU27
  133 003c 0022     		movs	r2, #0
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccJs03m1.s 			page 4
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc29VFeJ.s 			page 4
 
 
  134 003e 1021     		movs	r1, #16
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccJs03m1.s 			page 1
  183              	HC595Init:
  184              	.LFB42:
   39:Core/Src/595.c **** 
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccJs03m1.s 			page 5
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc29VFeJ.s 			page 5
 
 
   40:Core/Src/595.c **** void HC595Init(void)
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccJs03m1.s 			page 1
  236 0000 0000     		.space	2
  237              		.section	.bss.timedelaycnt,"aw",%nobits
  238              		.align	2
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccJs03m1.s 			page 6
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc29VFeJ.s 			page 6
 
 
  239              		.set	.LANCHOR0,. + 0
@@ -315,33 +315,33 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccJs03m1.s 			page 1
  256 0000 FF03     		.short	1023
  257              		.text
  258              	.Letext0:
- 259              		.file 2 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\machine\\_defa
- 260              		.file 3 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\sys\\_stdint.h
+ 259              		.file 2 "c:\\program files\\openocd\\windowstool\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\i
+ 260              		.file 3 "c:\\program files\\openocd\\windowstool\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\i
  261              		.file 4 "Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f030x8.h"
  262              		.file 5 "Core/Inc/HC595.h"
  263              		.file 6 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_gpio.h"
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccJs03m1.s 			page 7
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc29VFeJ.s 			page 7
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 595.c
-C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:18     .text.delayms:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:24     .text.delayms:00000000 delayms
-C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:50     .text.delayms:0000000c $d
-C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:55     .text.LED595SendData:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:61     .text.LED595SendData:00000000 LED595SendData
-C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:171    .text.LED595SendData:00000070 $d
-C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:177    .text.HC595Init:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:183    .text.HC595Init:00000000 HC595Init
-C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:222    .text.HC595Init:00000028 $d
-C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:248    .bss.timetestcnt:00000000 timetestcnt
-C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:242    .bss.timedelaycnt:00000000 timedelaycnt
-C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:235    .bss.hcreg:00000000 hcreg
-C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:255    .data.outputallinit:00000000 outputallinit
-C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:232    .bss.hcreg:00000000 $d
-C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:238    .bss.timedelaycnt:00000000 $d
-C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:245    .bss.timetestcnt:00000000 $d
-C:\Users\57298\AppData\Local\Temp\ccJs03m1.s:251    .data.outputallinit:00000000 $d
+C:\Users\57298\AppData\Local\Temp\cc29VFeJ.s:18     .text.delayms:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cc29VFeJ.s:24     .text.delayms:00000000 delayms
+C:\Users\57298\AppData\Local\Temp\cc29VFeJ.s:50     .text.delayms:0000000c $d
+C:\Users\57298\AppData\Local\Temp\cc29VFeJ.s:55     .text.LED595SendData:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cc29VFeJ.s:61     .text.LED595SendData:00000000 LED595SendData
+C:\Users\57298\AppData\Local\Temp\cc29VFeJ.s:171    .text.LED595SendData:00000070 $d
+C:\Users\57298\AppData\Local\Temp\cc29VFeJ.s:177    .text.HC595Init:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cc29VFeJ.s:183    .text.HC595Init:00000000 HC595Init
+C:\Users\57298\AppData\Local\Temp\cc29VFeJ.s:222    .text.HC595Init:00000028 $d
+C:\Users\57298\AppData\Local\Temp\cc29VFeJ.s:248    .bss.timetestcnt:00000000 timetestcnt
+C:\Users\57298\AppData\Local\Temp\cc29VFeJ.s:242    .bss.timedelaycnt:00000000 timedelaycnt
+C:\Users\57298\AppData\Local\Temp\cc29VFeJ.s:235    .bss.hcreg:00000000 hcreg
+C:\Users\57298\AppData\Local\Temp\cc29VFeJ.s:255    .data.outputallinit:00000000 outputallinit
+C:\Users\57298\AppData\Local\Temp\cc29VFeJ.s:232    .bss.hcreg:00000000 $d
+C:\Users\57298\AppData\Local\Temp\cc29VFeJ.s:238    .bss.timedelaycnt:00000000 $d
+C:\Users\57298\AppData\Local\Temp\cc29VFeJ.s:245    .bss.timetestcnt:00000000 $d
+C:\Users\57298\AppData\Local\Temp\cc29VFeJ.s:251    .data.outputallinit:00000000 $d
 
 UNDEFINED SYMBOLS
 HAL_GPIO_WritePin
