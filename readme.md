@@ -1,3 +1,5 @@
+https://github.com/x-itg/x-itg-notebook/releases/download/untagged-0529c8ebfcfb3dda44b4/OpenOCD_ArmGCC_MakeTool.msi
+
 ## 自动推送拉取脚本.bat
 
 这个脚本是一个简易的代码仓库维护脚本，它简单实现以远程仓库（gitee/github）为中转的多个本地仓库（家里/公司）之间的同步。比如在家里改好代码后运行这个脚本就能推送更新到远程仓库上班在公司改代码前运行这个脚本自动将代码拉取到本地接着改代码。
