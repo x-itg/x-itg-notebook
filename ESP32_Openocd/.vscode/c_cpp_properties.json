@@ -13,9 +13,8 @@
             "windowsSdkVersion": "10.0.22000.0",
             "cStandard": "c17",
             "cppStandard": "c++17",
-            "intelliSenseMode": "windows-msvc-x64",
             "compileCommands": "${workspaceFolder}/build/bootloader/compile_commands.json",
-            "compilerPath": "C:\\EspressifIDE\\tools\\riscv32-esp-elf\\esp-2022r1-11.2.0\\riscv32-esp-elf\\bin\\riscv32-esp-elf-gcc.exe"
+            "compilerPath": "C:\\Espressif4.4\\tools\\riscv32-esp-elf\\esp-2021r2-patch5-8.4.0\\riscv32-esp-elf\\bin\\riscv32-esp-elf-gcc.exe"
         }
     ],
     "version": 4
