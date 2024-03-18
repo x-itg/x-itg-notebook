@@ -1,0 +1,276 @@
+##IAR Ninja build file
+
+
+#Rules
+rule COMPILER_XCL
+  command = C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\XclFileGenerator.exe $xclcommand -f "$rspfile_name"
+  description = IAR_NEW_TOOL+++COMPILER_XCL+++$in+++"C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\XclFileGenerator.exe" $flags
+  rspfile = $rspfile_name
+  rspfile_content = $flags
+
+rule INDEXER
+  command = C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\SourceIndexer.exe $flags
+  depfile = $out.dep
+  description = IAR_NEW_TOOL+++INDEXER+++$out+++"C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\SourceIndexer.exe" $flags
+
+rule MAKEBROWSE
+  command = C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\makeBrowseData.exe $flags
+  description = IAR_NEW_TOOL+++MAKEBROWSE+++$out+++"C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\makeBrowseData.exe" $flags
+
+rule PDBLINK
+  command = C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\PbdLink.exe $flags
+  description = IAR_NEW_TOOL+++PDBLINK+++$out+++"C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\PbdLink.exe" $flags
+
+
+
+#Build steps
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\main.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\zxb2023\gear\Core\Src\main.c -xcl_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\main.xcl -macro_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\main.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = C$:\zxb2023\gear\Core\Src\main.c -D USE_HAL_DRIVER -D STM32F031x6 -o C$:\zxb2023\gear\EWARM\gear\Obj\Application\User\Core --debug --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Full.h" -I C$:\zxb2023\gear\EWARM/../Core/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Device/ST/STM32F0xx/Include\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Include\ -Ohz --predef_macros C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\main.tmp
+  rspfile_name = C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\main.xcl.rsp
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\stm32f0xx_hal_msp.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\zxb2023\gear\Core\Src\stm32f0xx_hal_msp.c -xcl_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\stm32f0xx_hal_msp.xcl -macro_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\stm32f0xx_hal_msp.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = C$:\zxb2023\gear\Core\Src\stm32f0xx_hal_msp.c -D USE_HAL_DRIVER -D STM32F031x6 -o C$:\zxb2023\gear\EWARM\gear\Obj\Application\User\Core --debug --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Full.h" -I C$:\zxb2023\gear\EWARM/../Core/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Device/ST/STM32F0xx/Include\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Include\ -Ohz --predef_macros C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\stm32f0xx_hal_msp.tmp
+  rspfile_name = C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\stm32f0xx_hal_msp.xcl.rsp
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\stm32f0xx_it.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\zxb2023\gear\Core\Src\stm32f0xx_it.c -xcl_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\stm32f0xx_it.xcl -macro_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\stm32f0xx_it.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = C$:\zxb2023\gear\Core\Src\stm32f0xx_it.c -D USE_HAL_DRIVER -D STM32F031x6 -o C$:\zxb2023\gear\EWARM\gear\Obj\Application\User\Core --debug --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Full.h" -I C$:\zxb2023\gear\EWARM/../Core/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Device/ST/STM32F0xx/Include\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Include\ -Ohz --predef_macros C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\stm32f0xx_it.tmp
+  rspfile_name = C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\stm32f0xx_it.xcl.rsp
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\CMSIS\system_stm32f0xx.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\zxb2023\gear\Core\Src\system_stm32f0xx.c -xcl_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\CMSIS\system_stm32f0xx.xcl -macro_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\CMSIS\system_stm32f0xx.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = C$:\zxb2023\gear\Core\Src\system_stm32f0xx.c -D USE_HAL_DRIVER -D STM32F031x6 -o C$:\zxb2023\gear\EWARM\gear\Obj\Drivers\CMSIS --debug --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Full.h" -I C$:\zxb2023\gear\EWARM/../Core/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Device/ST/STM32F0xx/Include\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Include\ -Ohz --predef_macros C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\CMSIS\system_stm32f0xx.tmp
+  rspfile_name = C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\CMSIS\system_stm32f0xx.xcl.rsp
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal.c -xcl_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal.xcl -macro_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal.c -D USE_HAL_DRIVER -D STM32F031x6 -o C$:\zxb2023\gear\EWARM\gear\Obj\Drivers\STM32F0xx_HAL_Driver --debug --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Full.h" -I C$:\zxb2023\gear\EWARM/../Core/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Device/ST/STM32F0xx/Include\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Include\ -Ohz --predef_macros C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal.tmp
+  rspfile_name = C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal.xcl.rsp
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_adc.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_adc.c -xcl_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_adc.xcl -macro_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_adc.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_adc.c -D USE_HAL_DRIVER -D STM32F031x6 -o C$:\zxb2023\gear\EWARM\gear\Obj\Drivers\STM32F0xx_HAL_Driver --debug --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Full.h" -I C$:\zxb2023\gear\EWARM/../Core/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Device/ST/STM32F0xx/Include\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Include\ -Ohz --predef_macros C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_adc.tmp
+  rspfile_name = C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_adc.xcl.rsp
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_adc_ex.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_adc_ex.c -xcl_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_adc_ex.xcl -macro_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_adc_ex.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_adc_ex.c -D USE_HAL_DRIVER -D STM32F031x6 -o C$:\zxb2023\gear\EWARM\gear\Obj\Drivers\STM32F0xx_HAL_Driver --debug --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Full.h" -I C$:\zxb2023\gear\EWARM/../Core/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Device/ST/STM32F0xx/Include\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Include\ -Ohz --predef_macros C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_adc_ex.tmp
+  rspfile_name = C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_adc_ex.xcl.rsp
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_cortex.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_cortex.c -xcl_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_cortex.xcl -macro_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_cortex.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_cortex.c -D USE_HAL_DRIVER -D STM32F031x6 -o C$:\zxb2023\gear\EWARM\gear\Obj\Drivers\STM32F0xx_HAL_Driver --debug --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Full.h" -I C$:\zxb2023\gear\EWARM/../Core/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Device/ST/STM32F0xx/Include\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Include\ -Ohz --predef_macros C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_cortex.tmp
+  rspfile_name = C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_cortex.xcl.rsp
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_dma.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_dma.c -xcl_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_dma.xcl -macro_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_dma.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_dma.c -D USE_HAL_DRIVER -D STM32F031x6 -o C$:\zxb2023\gear\EWARM\gear\Obj\Drivers\STM32F0xx_HAL_Driver --debug --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Full.h" -I C$:\zxb2023\gear\EWARM/../Core/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Device/ST/STM32F0xx/Include\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Include\ -Ohz --predef_macros C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_dma.tmp
+  rspfile_name = C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_dma.xcl.rsp
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_exti.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_exti.c -xcl_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_exti.xcl -macro_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_exti.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_exti.c -D USE_HAL_DRIVER -D STM32F031x6 -o C$:\zxb2023\gear\EWARM\gear\Obj\Drivers\STM32F0xx_HAL_Driver --debug --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Full.h" -I C$:\zxb2023\gear\EWARM/../Core/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Device/ST/STM32F0xx/Include\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Include\ -Ohz --predef_macros C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_exti.tmp
+  rspfile_name = C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_exti.xcl.rsp
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_flash.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_flash.c -xcl_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_flash.xcl -macro_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_flash.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_flash.c -D USE_HAL_DRIVER -D STM32F031x6 -o C$:\zxb2023\gear\EWARM\gear\Obj\Drivers\STM32F0xx_HAL_Driver --debug --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Full.h" -I C$:\zxb2023\gear\EWARM/../Core/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Device/ST/STM32F0xx/Include\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Include\ -Ohz --predef_macros C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_flash.tmp
+  rspfile_name = C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_flash.xcl.rsp
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_flash_ex.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_flash_ex.c -xcl_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_flash_ex.xcl -macro_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_flash_ex.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_flash_ex.c -D USE_HAL_DRIVER -D STM32F031x6 -o C$:\zxb2023\gear\EWARM\gear\Obj\Drivers\STM32F0xx_HAL_Driver --debug --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Full.h" -I C$:\zxb2023\gear\EWARM/../Core/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Device/ST/STM32F0xx/Include\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Include\ -Ohz --predef_macros C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_flash_ex.tmp
+  rspfile_name = C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_flash_ex.xcl.rsp
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_gpio.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_gpio.c -xcl_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_gpio.xcl -macro_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_gpio.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_gpio.c -D USE_HAL_DRIVER -D STM32F031x6 -o C$:\zxb2023\gear\EWARM\gear\Obj\Drivers\STM32F0xx_HAL_Driver --debug --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Full.h" -I C$:\zxb2023\gear\EWARM/../Core/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Device/ST/STM32F0xx/Include\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Include\ -Ohz --predef_macros C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_gpio.tmp
+  rspfile_name = C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_gpio.xcl.rsp
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_i2c.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_i2c.c -xcl_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_i2c.xcl -macro_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_i2c.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_i2c.c -D USE_HAL_DRIVER -D STM32F031x6 -o C$:\zxb2023\gear\EWARM\gear\Obj\Drivers\STM32F0xx_HAL_Driver --debug --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Full.h" -I C$:\zxb2023\gear\EWARM/../Core/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Device/ST/STM32F0xx/Include\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Include\ -Ohz --predef_macros C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_i2c.tmp
+  rspfile_name = C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_i2c.xcl.rsp
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_i2c_ex.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_i2c_ex.c -xcl_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_i2c_ex.xcl -macro_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_i2c_ex.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_i2c_ex.c -D USE_HAL_DRIVER -D STM32F031x6 -o C$:\zxb2023\gear\EWARM\gear\Obj\Drivers\STM32F0xx_HAL_Driver --debug --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Full.h" -I C$:\zxb2023\gear\EWARM/../Core/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Device/ST/STM32F0xx/Include\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Include\ -Ohz --predef_macros C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_i2c_ex.tmp
+  rspfile_name = C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_i2c_ex.xcl.rsp
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_pwr.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_pwr.c -xcl_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_pwr.xcl -macro_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_pwr.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_pwr.c -D USE_HAL_DRIVER -D STM32F031x6 -o C$:\zxb2023\gear\EWARM\gear\Obj\Drivers\STM32F0xx_HAL_Driver --debug --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Full.h" -I C$:\zxb2023\gear\EWARM/../Core/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Device/ST/STM32F0xx/Include\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Include\ -Ohz --predef_macros C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_pwr.tmp
+  rspfile_name = C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_pwr.xcl.rsp
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_pwr_ex.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_pwr_ex.c -xcl_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_pwr_ex.xcl -macro_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_pwr_ex.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_pwr_ex.c -D USE_HAL_DRIVER -D STM32F031x6 -o C$:\zxb2023\gear\EWARM\gear\Obj\Drivers\STM32F0xx_HAL_Driver --debug --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Full.h" -I C$:\zxb2023\gear\EWARM/../Core/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Device/ST/STM32F0xx/Include\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Include\ -Ohz --predef_macros C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_pwr_ex.tmp
+  rspfile_name = C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_pwr_ex.xcl.rsp
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_rcc.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_rcc.c -xcl_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_rcc.xcl -macro_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_rcc.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_rcc.c -D USE_HAL_DRIVER -D STM32F031x6 -o C$:\zxb2023\gear\EWARM\gear\Obj\Drivers\STM32F0xx_HAL_Driver --debug --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Full.h" -I C$:\zxb2023\gear\EWARM/../Core/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Device/ST/STM32F0xx/Include\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Include\ -Ohz --predef_macros C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_rcc.tmp
+  rspfile_name = C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_rcc.xcl.rsp
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_rcc_ex.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_rcc_ex.c -xcl_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_rcc_ex.xcl -macro_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_rcc_ex.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_rcc_ex.c -D USE_HAL_DRIVER -D STM32F031x6 -o C$:\zxb2023\gear\EWARM\gear\Obj\Drivers\STM32F0xx_HAL_Driver --debug --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Full.h" -I C$:\zxb2023\gear\EWARM/../Core/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Device/ST/STM32F0xx/Include\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Include\ -Ohz --predef_macros C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_rcc_ex.tmp
+  rspfile_name = C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_rcc_ex.xcl.rsp
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_tim.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_tim.c -xcl_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_tim.xcl -macro_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_tim.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_tim.c -D USE_HAL_DRIVER -D STM32F031x6 -o C$:\zxb2023\gear\EWARM\gear\Obj\Drivers\STM32F0xx_HAL_Driver --debug --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Full.h" -I C$:\zxb2023\gear\EWARM/../Core/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Device/ST/STM32F0xx/Include\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Include\ -Ohz --predef_macros C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_tim.tmp
+  rspfile_name = C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_tim.xcl.rsp
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_tim_ex.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_tim_ex.c -xcl_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_tim_ex.xcl -macro_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_tim_ex.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_tim_ex.c -D USE_HAL_DRIVER -D STM32F031x6 -o C$:\zxb2023\gear\EWARM\gear\Obj\Drivers\STM32F0xx_HAL_Driver --debug --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Full.h" -I C$:\zxb2023\gear\EWARM/../Core/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Device/ST/STM32F0xx/Include\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Include\ -Ohz --predef_macros C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_tim_ex.tmp
+  rspfile_name = C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_tim_ex.xcl.rsp
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_uart.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_uart.c -xcl_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_uart.xcl -macro_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_uart.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_uart.c -D USE_HAL_DRIVER -D STM32F031x6 -o C$:\zxb2023\gear\EWARM\gear\Obj\Drivers\STM32F0xx_HAL_Driver --debug --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Full.h" -I C$:\zxb2023\gear\EWARM/../Core/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Device/ST/STM32F0xx/Include\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Include\ -Ohz --predef_macros C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_uart.tmp
+  rspfile_name = C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_uart.xcl.rsp
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_uart_ex.xcl : COMPILER_XCL 
+  xclcommand = -source_file C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_uart_ex.c -xcl_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_uart_ex.xcl -macro_file C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_uart_ex.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_uart_ex.c -D USE_HAL_DRIVER -D STM32F031x6 -o C$:\zxb2023\gear\EWARM\gear\Obj\Drivers\STM32F0xx_HAL_Driver --debug --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Full.h" -I C$:\zxb2023\gear\EWARM/../Core/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc\ -I C$:\zxb2023\gear\EWARM/../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Device/ST/STM32F0xx/Include\ -I C$:\zxb2023\gear\EWARM/../Drivers/CMSIS/Include\ -Ohz --predef_macros C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_uart_ex.tmp
+  rspfile_name = C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_uart_ex.xcl.rsp
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\main.pbi : INDEXER C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\main.xcl |  $
+C$:\zxb2023\gear\Core\Src\main.c
+  flags = -out=C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\main.pbi -f C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\main.xcl
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\stm32f0xx_hal_msp.pbi : INDEXER C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\stm32f0xx_hal_msp.xcl |  $
+C$:\zxb2023\gear\Core\Src\stm32f0xx_hal_msp.c
+  flags = -out=C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\stm32f0xx_hal_msp.pbi -f C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\stm32f0xx_hal_msp.xcl
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\stm32f0xx_it.pbi : INDEXER C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\stm32f0xx_it.xcl |  $
+C$:\zxb2023\gear\Core\Src\stm32f0xx_it.c
+  flags = -out=C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\stm32f0xx_it.pbi -f C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\stm32f0xx_it.xcl
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\CMSIS\system_stm32f0xx.pbi : INDEXER C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\CMSIS\system_stm32f0xx.xcl |  $
+C$:\zxb2023\gear\Core\Src\system_stm32f0xx.c
+  flags = -out=C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\CMSIS\system_stm32f0xx.pbi -f C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\CMSIS\system_stm32f0xx.xcl
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal.pbi : INDEXER C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal.xcl |  $
+C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal.c
+  flags = -out=C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal.pbi -f C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal.xcl
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_adc.pbi : INDEXER C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_adc.xcl |  $
+C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_adc.c
+  flags = -out=C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_adc.pbi -f C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_adc.xcl
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_adc_ex.pbi : INDEXER C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_adc_ex.xcl |  $
+C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_adc_ex.c
+  flags = -out=C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_adc_ex.pbi -f C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_adc_ex.xcl
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_cortex.pbi : INDEXER C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_cortex.xcl |  $
+C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_cortex.c
+  flags = -out=C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_cortex.pbi -f C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_cortex.xcl
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_dma.pbi : INDEXER C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_dma.xcl |  $
+C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_dma.c
+  flags = -out=C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_dma.pbi -f C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_dma.xcl
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_exti.pbi : INDEXER C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_exti.xcl |  $
+C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_exti.c
+  flags = -out=C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_exti.pbi -f C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_exti.xcl
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_flash.pbi : INDEXER C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_flash.xcl |  $
+C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_flash.c
+  flags = -out=C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_flash.pbi -f C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_flash.xcl
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_flash_ex.pbi : INDEXER C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_flash_ex.xcl |  $
+C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_flash_ex.c
+  flags = -out=C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_flash_ex.pbi -f C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_flash_ex.xcl
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_gpio.pbi : INDEXER C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_gpio.xcl |  $
+C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_gpio.c
+  flags = -out=C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_gpio.pbi -f C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_gpio.xcl
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_i2c.pbi : INDEXER C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_i2c.xcl |  $
+C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_i2c.c
+  flags = -out=C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_i2c.pbi -f C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_i2c.xcl
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_i2c_ex.pbi : INDEXER C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_i2c_ex.xcl |  $
+C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_i2c_ex.c
+  flags = -out=C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_i2c_ex.pbi -f C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_i2c_ex.xcl
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_pwr.pbi : INDEXER C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_pwr.xcl |  $
+C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_pwr.c
+  flags = -out=C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_pwr.pbi -f C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_pwr.xcl
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_pwr_ex.pbi : INDEXER C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_pwr_ex.xcl |  $
+C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_pwr_ex.c
+  flags = -out=C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_pwr_ex.pbi -f C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_pwr_ex.xcl
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_rcc.pbi : INDEXER C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_rcc.xcl |  $
+C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_rcc.c
+  flags = -out=C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_rcc.pbi -f C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_rcc.xcl
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_rcc_ex.pbi : INDEXER C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_rcc_ex.xcl |  $
+C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_rcc_ex.c
+  flags = -out=C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_rcc_ex.pbi -f C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_rcc_ex.xcl
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_tim.pbi : INDEXER C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_tim.xcl |  $
+C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_tim.c
+  flags = -out=C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_tim.pbi -f C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_tim.xcl
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_tim_ex.pbi : INDEXER C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_tim_ex.xcl |  $
+C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_tim_ex.c
+  flags = -out=C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_tim_ex.pbi -f C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_tim_ex.xcl
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_uart.pbi : INDEXER C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_uart.xcl |  $
+C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_uart.c
+  flags = -out=C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_uart.pbi -f C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_uart.xcl
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_uart_ex.pbi : INDEXER C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_uart_ex.xcl |  $
+C$:\zxb2023\gear\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_uart_ex.c
+  flags = -out=C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_uart_ex.pbi -f C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_uart_ex.xcl
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear.pbw : MAKEBROWSE C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear.pbd
+  flags = C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear.pbd -output C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear.pbw
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear_part0.pbi : PDBLINK C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\main.pbi |  $
+C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\stm32f0xx_hal_msp.pbi $
+C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\stm32f0xx_it.pbi $
+C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\CMSIS\system_stm32f0xx.pbi $
+C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal.pbi
+  flags = -M C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear_part0.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\main.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\stm32f0xx_hal_msp.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Application\User\Core\stm32f0xx_it.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\CMSIS\system_stm32f0xx.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal.pbi
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear_part1.pbi : PDBLINK C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_adc.pbi |  $
+C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_adc_ex.pbi $
+C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_cortex.pbi $
+C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_dma.pbi $
+C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_exti.pbi
+  flags = -M C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear_part1.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_adc.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_adc_ex.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_cortex.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_dma.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_exti.pbi
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear_part2.pbi : PDBLINK C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_flash.pbi |  $
+C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_flash_ex.pbi $
+C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_gpio.pbi $
+C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_i2c.pbi $
+C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_i2c_ex.pbi
+  flags = -M C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear_part2.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_flash.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_flash_ex.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_gpio.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_i2c.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_i2c_ex.pbi
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear_part3.pbi : PDBLINK C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_pwr.pbi |  $
+C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_pwr_ex.pbi $
+C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_rcc.pbi $
+C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_rcc_ex.pbi $
+C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_tim.pbi
+  flags = -M C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear_part3.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_pwr.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_pwr_ex.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_rcc.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_rcc_ex.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_tim.pbi
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear_part4.pbi : PDBLINK C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_tim_ex.pbi |  $
+C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_uart.pbi $
+C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_uart_ex.pbi
+  flags = -M C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear_part4.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_tim_ex.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_uart.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\Drivers\STM32F0xx_HAL_Driver\stm32f0xx_hal_uart_ex.pbi
+
+build C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear.pbd : PDBLINK C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear_part0.pbi |  $
+C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear_part1.pbi $
+C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear_part2.pbi $
+C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear_part3.pbi $
+C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear_part4.pbi
+  flags = -M C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear.pbd C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear_part0.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear_part1.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear_part2.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear_part3.pbi C$:\zxb2023\gear\EWARM\gear\BrowseInfo\gear_part4.pbi
+

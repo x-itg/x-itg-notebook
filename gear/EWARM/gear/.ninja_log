@@ -1,0 +1,27 @@
+# ninja log v5
+25	193	7324736725769010	C:/zxb2023/gear/EWARM/gear/Obj/Application/EWARM/startup_stm32f031x6.o	fe8e0e66af83ed45
+17	505	7324736728789820	C:/zxb2023/gear/EWARM/gear/Obj/Application/User/Core/stm32f0xx_it.o	93a3c710b991c629
+10	542	7324736729019954	C:/zxb2023/gear/EWARM/gear/Obj/Application/User/Core/stm32f0xx_hal_msp.o	41a23da2ba86ac03
+129	558	7324736729029936	C:/zxb2023/gear/EWARM/gear/Obj/Drivers/CMSIS/system_stm32f0xx.o	acbaa4a13ab4c01b
+1	588	7324736729375102	C:/zxb2023/gear/EWARM/gear/Obj/Application/User/Core/main.o	4a833160963fd84c
+136	616	7324736729705094	C:/zxb2023/gear/EWARM/gear/Obj/Drivers/STM32F0xx_HAL_Driver/stm32f0xx_hal.o	13d1013fce9ca8e3
+197	632	7324736729895099	C:/zxb2023/gear/EWARM/gear/Obj/Drivers/STM32F0xx_HAL_Driver/stm32f0xx_hal_adc_ex.o	818136d2a51a5c6f
+597	835	7324736732075531	C:/zxb2023/gear/EWARM/gear/Obj/Drivers/STM32F0xx_HAL_Driver/stm32f0xx_hal_pwr_ex.o	8526aac42a8236e5
+641	916	7324736732930669	C:/zxb2023/gear/EWARM/gear/Obj/Drivers/STM32F0xx_HAL_Driver/stm32f0xx_hal_cortex.o	5b0ed44be4bed94d
+626	946	7324736733131164	C:/zxb2023/gear/EWARM/gear/Obj/Drivers/STM32F0xx_HAL_Driver/stm32f0xx_hal_exti.o	28d516804d05b1a3
+514	980	7324736733531187	C:/zxb2023/gear/EWARM/gear/Obj/Drivers/STM32F0xx_HAL_Driver/stm32f0xx_hal_flash_ex.o	5320c20b7d5ecb1b
+568	1015	7324736733861178	C:/zxb2023/gear/EWARM/gear/Obj/Drivers/STM32F0xx_HAL_Driver/stm32f0xx_hal_dma.o	f2a66b44ff31f472
+926	1188	7324736735611593	C:/zxb2023/gear/EWARM/gear/Obj/Drivers/STM32F0xx_HAL_Driver/stm32f0xx_hal_pwr.o	79952f1e6cb194d6
+845	1239	7324736736126790	C:/zxb2023/gear/EWARM/gear/Obj/Drivers/STM32F0xx_HAL_Driver/stm32f0xx_hal_flash.o	d56a3e52c42de081
+991	1266	7324736736196830	C:/zxb2023/gear/EWARM/gear/Obj/Drivers/STM32F0xx_HAL_Driver/stm32f0xx_hal_i2c_ex.o	84e814890ec2d558
+552	1303	7324736736646788	C:/zxb2023/gear/EWARM/gear/Obj/Drivers/STM32F0xx_HAL_Driver/stm32f0xx_hal_adc.o	43ad190fd7c074cb
+1025	1387	7324736737615501	C:/zxb2023/gear/EWARM/gear/Obj/Drivers/STM32F0xx_HAL_Driver/stm32f0xx_hal_gpio.o	71c63f92edf4ffa8
+1279	1517	7324736738919393	C:/zxb2023/gear/EWARM/gear/Obj/Drivers/STM32F0xx_HAL_Driver/stm32f0xx_hal_tim.o	71eb362652265b7d
+1313	1559	7324736739304594	C:/zxb2023/gear/EWARM/gear/Obj/Drivers/STM32F0xx_HAL_Driver/stm32f0xx_hal_tim_ex.o	af221b72ca32732e
+1249	1582	7324736739524587	C:/zxb2023/gear/EWARM/gear/Obj/Drivers/STM32F0xx_HAL_Driver/stm32f0xx_hal_rcc_ex.o	74aba5e2f19a3c60
+1396	1778	7324736741548135	C:/zxb2023/gear/EWARM/gear/Obj/Drivers/STM32F0xx_HAL_Driver/stm32f0xx_hal_uart_ex.o	84c5dec0f6c5df83
+1196	1872	7324736742493275	C:/zxb2023/gear/EWARM/gear/Obj/Drivers/STM32F0xx_HAL_Driver/stm32f0xx_hal_rcc.o	9f817824bcf82413
+1527	2576	7324736749495256	C:/zxb2023/gear/EWARM/gear/Obj/Drivers/STM32F0xx_HAL_Driver/stm32f0xx_hal_uart.o	ed6dfd69cf149f1a
+956	2990	7324736753603217	C:/zxb2023/gear/EWARM/gear/Obj/Drivers/STM32F0xx_HAL_Driver/stm32f0xx_hal_i2c.o	5c0180e41882951
+3001	3215	7324736755923516	C:/zxb2023/gear/EWARM/gear/Exe/gear.out	194f7e484df64463
+3239	3295	7324736756803886	C:/zxb2023/gear/EWARM/gear/Exe/gear.hex	8b062e312ce6a26b
