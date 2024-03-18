@@ -1,6 +1,1 @@
-./build/*.o
-./build/*.map
-./build/*.elf
-./build/*.lst
-./build/*.d
-./build/*p.bin
+/build
