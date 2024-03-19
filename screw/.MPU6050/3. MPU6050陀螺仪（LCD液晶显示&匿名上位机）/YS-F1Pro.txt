@@ -1,0 +1,109 @@
+Configuration	YS-F1Pro
+STM32CubeMX 	4.14.0
+Date	06/10/2016
+MCU	STM32F103ZETx
+
+
+
+PERIPHERALS	MODES	FUNCTIONS	PINS
+FSMC:NOR Flash/PSRAM/SRAM/ROM/LCD 2	NE4	FSMC_NE4	PG12
+FSMC:NOR Flash/PSRAM/SRAM/ROM/LCD 2	SRAM	FSMC_NOE	PD4
+FSMC:NOR Flash/PSRAM/SRAM/ROM/LCD 2	SRAM	FSMC_NWE	PD5
+FSMC:NOR Flash/PSRAM/SRAM/ROM/LCD 2	1 bit	FSMC_A0	PF0
+FSMC:NOR Flash/PSRAM/SRAM/ROM/LCD 2	16 bits	FSMC_D0	PD14
+FSMC:NOR Flash/PSRAM/SRAM/ROM/LCD 2	16 bits	FSMC_D1	PD15
+FSMC:NOR Flash/PSRAM/SRAM/ROM/LCD 2	16 bits	FSMC_D2	PD0
+FSMC:NOR Flash/PSRAM/SRAM/ROM/LCD 2	16 bits	FSMC_D3	PD1
+FSMC:NOR Flash/PSRAM/SRAM/ROM/LCD 2	16 bits	FSMC_D4	PE7
+FSMC:NOR Flash/PSRAM/SRAM/ROM/LCD 2	16 bits	FSMC_D5	PE8
+FSMC:NOR Flash/PSRAM/SRAM/ROM/LCD 2	16 bits	FSMC_D6	PE9
+FSMC:NOR Flash/PSRAM/SRAM/ROM/LCD 2	16 bits	FSMC_D7	PE10
+FSMC:NOR Flash/PSRAM/SRAM/ROM/LCD 2	16 bits	FSMC_D8	PE11
+FSMC:NOR Flash/PSRAM/SRAM/ROM/LCD 2	16 bits	FSMC_D9	PE12
+FSMC:NOR Flash/PSRAM/SRAM/ROM/LCD 2	16 bits	FSMC_D10	PE13
+FSMC:NOR Flash/PSRAM/SRAM/ROM/LCD 2	16 bits	FSMC_D11	PE14
+FSMC:NOR Flash/PSRAM/SRAM/ROM/LCD 2	16 bits	FSMC_D12	PE15
+FSMC:NOR Flash/PSRAM/SRAM/ROM/LCD 2	16 bits	FSMC_D13	PD8
+FSMC:NOR Flash/PSRAM/SRAM/ROM/LCD 2	16 bits	FSMC_D14	PD9
+FSMC:NOR Flash/PSRAM/SRAM/ROM/LCD 2	16 bits	FSMC_D15	PD10
+RCC	Crystal/Ceramic Resonator	RCC_OSC_IN	OSC_IN
+RCC	Crystal/Ceramic Resonator	RCC_OSC_OUT	OSC_OUT
+SDIO	SD 4 bits Wide bus	SDIO_CK	PC12
+SDIO	SD 4 bits Wide bus	SDIO_CMD	PD2
+SDIO	SD 4 bits Wide bus	SDIO_D0	PC8
+SDIO	SD 4 bits Wide bus	SDIO_D1	PC9
+SDIO	SD 4 bits Wide bus	SDIO_D2	PC10
+SDIO	SD 4 bits Wide bus	SDIO_D3	PC11
+SPI1	Full-Duplex Master	SPI1_MISO	PA6
+SPI1	Full-Duplex Master	SPI1_MOSI	PA7
+SPI1	Full-Duplex Master	SPI1_SCK	PA5
+SYS	SysTick	SYS_VS_Systick	VP_SYS_VS_Systick
+USART1	Asynchronous	USART1_RX	PA10
+USART1	Asynchronous	USART1_TX	PA9
+
+
+
+Pin Nb	PINs	FUNCTIONs	LABELs
+10	PF0	FSMC_A0	
+22	PF10	GPIO_Output	
+23	OSC_IN	RCC_OSC_IN	
+24	OSC_OUT	RCC_OSC_OUT	
+40	PA4	GPIO_Output	
+41	PA5	SPI1_SCK	
+42	PA6	SPI1_MISO	
+43	PA7	SPI1_MOSI	
+58	PE7	FSMC_D4	
+59	PE8	FSMC_D5	
+60	PE9	FSMC_D6	
+63	PE10	FSMC_D7	
+64	PE11	FSMC_D8	
+65	PE12	FSMC_D9	
+66	PE13	FSMC_D10	
+67	PE14	FSMC_D11	
+68	PE15	FSMC_D12	
+77	PD8	FSMC_D13	
+78	PD9	FSMC_D14	
+79	PD10	FSMC_D15	
+85	PD14	FSMC_D0	
+86	PD15	FSMC_D1	
+98	PC8	SDIO_D0	
+99	PC9	SDIO_D1	
+101	PA9	USART1_TX	
+102	PA10	USART1_RX	
+111	PC10	SDIO_D2	
+112	PC11	SDIO_D3	
+113	PC12	SDIO_CK	
+114	PD0	FSMC_D2	
+115	PD1	FSMC_D3	
+116	PD2	SDIO_CMD	
+118	PD4	FSMC_NOE	
+119	PD5	FSMC_NWE	
+127	PG12	FSMC_NE4	
+
+
+
+SOFTWARE PROJECT
+
+Project Settings : 
+Project Name : YS-F1Pro
+Project Folder : E:\硬石电子\2. 软件设计(HAL库版本)\1. 软件设计之基本裸机例程(HAL库版本)\YSF1_HAL-051. LCD-显示汉字(字库在SD卡)
+Toolchain / IDE : MDK-ARM V5
+Firmware Package Name and Version : STM32Cube FW_F1 V1.3.1
+
+
+Code Generation Settings : 
+STM32Cube Firmware Library Package : Copy all used libraries into the project folder
+Generate peripheral initialization as a pair of '.c/.h' files per IP : Yes
+Backup previously generated files when re-generating : No
+Delete previously generated files when not re-generated : Yes
+Set all free pins as analog (to optimize the power consumption) : No
+
+
+Toolchains Settings : 
+Compiler Optimizations : Balanced Size/Speed
+
+
+
+
+
+

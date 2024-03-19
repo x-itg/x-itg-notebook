@@ -1,0 +1,10 @@
+
+    MPU6050模块      STM32开发板
+1      VCC             3.3V
+2      GND             GND
+3      SCL             PB6
+4      SDA             PB7
+5      XDA             不接
+6      XCL             不接
+7      ADO             不接
+8      INT             PG15(可修改程序改变)
