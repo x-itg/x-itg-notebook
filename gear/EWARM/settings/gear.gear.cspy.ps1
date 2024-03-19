@@ -23,9 +23,9 @@
 
 if ($debugfile -eq "")
 {
-& "C:\Program Files\IAR Systems\Embedded Workbench 9.0\common\bin\cspybat" -f "C:\zxb2023\gear\EWARM\settings\gear.gear.general.xcl" --backend -f "C:\zxb2023\gear\EWARM\settings\gear.gear.driver.xcl" 
+& "C:\Program Files\IAR Systems\Embedded Workbench 9.0\common\bin\cspybat" -f "C:\x-itg\x-itg-notebook\gear\EWARM\settings\gear.gear.general.xcl" --backend -f "C:\x-itg\x-itg-notebook\gear\EWARM\settings\gear.gear.driver.xcl" 
 }
 else
 {
-& "C:\Program Files\IAR Systems\Embedded Workbench 9.0\common\bin\cspybat" -f "C:\zxb2023\gear\EWARM\settings\gear.gear.general.xcl" --debug_file=$debugfile --backend -f "C:\zxb2023\gear\EWARM\settings\gear.gear.driver.xcl" 
+& "C:\Program Files\IAR Systems\Embedded Workbench 9.0\common\bin\cspybat" -f "C:\x-itg\x-itg-notebook\gear\EWARM\settings\gear.gear.general.xcl" --debug_file=$debugfile --backend -f "C:\x-itg\x-itg-notebook\gear\EWARM\settings\gear.gear.driver.xcl" 
 }
