@@ -14,6 +14,7 @@
 # target
 ######################################
 TARGET = gear
+PROJECT= gear
 
 
 ######################################
@@ -22,7 +23,7 @@ TARGET = gear
 # debug build?
 DEBUG = 1
 # optimization
-OPT = -Og
+OPT = -O0
 
 
 #######################################
@@ -190,5 +191,16 @@ clean:
 # dependencies
 #######################################
 -include $(wildcard $(BUILD_DIR)/*.d)
+#######################################
+# 上传
+#######################################
+upload: build/$(PROJECT).bin
+	openocd -f board/st_nucleo_f0.cfg -c "reset_config trst_only combined" -c "program build/$(PROJECT).elf verify reset exit"
 
+
+#######################################
+# 调试
+#######################################
+debug-start:
+	openocd -f board/st_nucleo_f0.cfg
 # *** EOF ***

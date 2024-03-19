@@ -1,0 +1,54 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "stm32-wsl-openocd", //调试入口显示的名字，随便起
+      "cwd": "${workspaceRoot}", //工作目录，根路径
+      "armToolchainPath": "/opt/st/stm32cubeclt/GNU-tools-for-STM32/bin/arm-none-eabi-gcc",
+      "gdbPath": "/opt/st/stm32cubeclt/GNU-tools-for-STM32/bin/arm-none-eabi-gdb",
+      "executable": "${workspaceFolder}/build/gear.elf", //调试文件
+      "request": "launch",
+      "type": "cortex-debug", //配置为使用插件调试
+      "servertype": "openocd", //映射openocd
+      "configFiles": [
+          "${workspaceRoot}/openocd_lnx.cfg"
+      ], //openocd配置
+      "postDebugTask": "Reset", //同上，调试结束执行的任务
+
+},
+    {
+      // For the Cortex-Debug extension
+      "type": "cortex-debug",
+      "servertype": "openocd",
+      "request": "launch",
+      "name": "Debug VESC - ST-Link",
+      "executable": "${workspaceRoot}/build/gear.elf",
+      "configFiles": [
+        "C:/Program Files (x86)/OpenOcdArmgccBuildTools/OpenOCD/0.10.0-13/scripts/interface/stlink-v2.cfg",
+        "C:/Program Files (x86)/OpenOcdArmgccBuildTools/OpenOCD/0.10.0-13/scripts/target/stm32f0x_stlink.cfg",
+      ],
+      "cwd": "${workspaceRoot}"
+    },
+    {
+      "name": "Launch",
+      "type": "cppdbg",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "program": "${command:cmake.launchTargetPath}",
+      "MIMode": "gdb",
+      "miDebuggerPath": "${command:vscode-embedded.st.gdb}",
+      "miDebuggerServerAddress": "localhost:3333",
+      "debugServerPath": "${command:vscode-embedded.st.gdbserver}",
+      "debugServerArgs": "--stm32cubeprogrammer-path ${command:vscode-embedded.st.cubeprogrammer} --swd --port-number 3333",
+      "serverStarted": "Waiting for connection on port .*\\.\\.\\.",
+      "stopAtConnect": true,
+      "postRemoteConnectCommands": [
+        {
+          "text": "load build/debug/build/T3hand.elf"
+        }
+      ],
+      "preLaunchTask": "Build",
+      "svdPath": "${command:vscode-embedded.st.svd}/STM32F030.svd"
+    }
+  ]
+}

@@ -57,9 +57,145 @@ static void MX_DMA_Init(void);
 static void MX_ADC_Init(void);
 static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
-#define clkh HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_SET)
-#define clkl HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET)
-#define read HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_3) == GPIO_PIN_SET
+unsigned int poolcnt = 0;
+unsigned short readmavalue = 0;
+#define ssi_clk_h HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_SET)
+#define ssi_clk_l HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET)
+#define ssi_read_data HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_3) == GPIO_PIN_SET
+
+void delay_ns(unsigned int ndelay)
+{
+  unsigned int i = 0;
+  unsigned int j = 0;
+  for (i = 0; i < 3; i++)
+  {
+    j++;
+  }
+}
+
+void delay_us(unsigned int udelay)
+{
+  unsigned int i = 0;
+  for (i = 0; i < udelay; i++)
+  {
+    delay_ns(1000);
+  }
+}
+
+void delay_ms(unsigned int nms)
+{
+  for (; nms > 0; nms--)
+  {
+    delay_us(1000);
+  }
+}
+unsigned short readma710(void)
+{
+  unsigned short buf = 0;
+
+  ssi_clk_h;
+  delay_us(1);
+  ssi_clk_l;
+  delay_us(1); // 第一个虚拟时钟
+  ssi_clk_h;
+  delay_us(1);
+  if (ssi_read_data)
+    buf = buf | 0x8000;
+  ssi_clk_l;
+  delay_us(1);
+  ssi_clk_h;
+  delay_us(1);
+  if (ssi_read_data)
+    buf = buf | 0x4000;
+  ssi_clk_l;
+  delay_us(1);
+  ssi_clk_h;
+  delay_us(1);
+  if (ssi_read_data)
+    buf = buf | 0x2000;
+  ssi_clk_l;
+  delay_us(1);
+  ssi_clk_h;
+  delay_us(1);
+  if (ssi_read_data)
+    buf = buf | 0x1000;
+  ssi_clk_l;
+  delay_us(1);
+  ssi_clk_h;
+  delay_us(1);
+  if (ssi_read_data)
+    buf = buf | 0x0800;
+  ssi_clk_l;
+  delay_us(1);
+  ssi_clk_h;
+  delay_us(1);
+  if (ssi_read_data)
+    buf = buf | 0x0400;
+  ssi_clk_l;
+  delay_us(1);
+  ssi_clk_h;
+  delay_us(1);
+  if (ssi_read_data)
+    buf = buf | 0x0200;
+  ssi_clk_l;
+  delay_us(1);
+  ssi_clk_h;
+  delay_us(1);
+  if (ssi_read_data)
+    buf = buf | 0x0100;
+  ssi_clk_l;
+  delay_us(1);
+  ssi_clk_h;
+  delay_us(1);
+  if (ssi_read_data)
+    buf = buf | 0x0080;
+  ssi_clk_l;
+  delay_us(1);
+  ssi_clk_h;
+  delay_us(1);
+  if (ssi_read_data)
+    buf = buf | 0x0040;
+  ssi_clk_l;
+  delay_us(1);
+  ssi_clk_h;
+  delay_us(1);
+  if (ssi_read_data)
+    buf = buf | 0x0020;
+  ssi_clk_l;
+  delay_us(1);
+  ssi_clk_h;
+  delay_us(1);
+  if (ssi_read_data)
+    buf = buf | 0x0010;
+  ssi_clk_l;
+  delay_us(1);
+  ssi_clk_h;
+  delay_us(1);
+  if (ssi_read_data)
+    buf = buf | 0x0008;
+  ssi_clk_l;
+  delay_us(1);
+  ssi_clk_h;
+  delay_us(1);
+  if (ssi_read_data)
+    buf = buf | 0x0004;
+  ssi_clk_l;
+  delay_us(1);
+  ssi_clk_h;
+  delay_us(1);
+  if (ssi_read_data)
+    buf = buf | 0x0002;
+  ssi_clk_l;
+  delay_us(1);
+  ssi_clk_h;
+  delay_us(1);
+  if (ssi_read_data)
+    buf = buf | 0x0001;
+  ssi_clk_l;
+  delay_us(1);
+
+  return buf;
+}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -109,6 +245,11 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    if (poolcnt > 5)
+    {
+      poolcnt = 0;
+      readmavalue = readma710();
+    }
   }
   /* USER CODE END 3 */
 }
