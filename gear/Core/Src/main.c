@@ -57,6 +57,11 @@ static void MX_DMA_Init(void);
 static void MX_ADC_Init(void);
 static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
+signed int UPTIMEOUT = 50; // 50的话表示 50ms 主动上传 -1表示不主动上传
+#define SUMC 100
+#define SUMCHAN 4
+unsigned short AdDataOrig[SUMC][SUMCHAN]; // ADC DMA缓存
+unsigned short AdcValue[5];               // ADC的平均值结果
 unsigned int poolcnt = 0;
 unsigned short readmavalue = 0;
 #define ssi_clk_h HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_SET)
@@ -78,7 +83,7 @@ void delay_us(unsigned int udelay)
   unsigned int i = 0;
   for (i = 0; i < udelay; i++)
   {
-    delay_ns(1000);
+    delay_ns(600);
   }
 }
 
@@ -89,6 +94,9 @@ void delay_ms(unsigned int nms)
     delay_us(1000);
   }
 }
+
+// 角度传感器 SSI 12bits
+
 unsigned short readma710(void)
 {
   unsigned short buf = 0;
@@ -196,6 +204,73 @@ unsigned short readma710(void)
 
   return buf;
 }
+
+//  开启ADC转换
+void startADC(void)
+{
+  HAL_ADC_Start_DMA(&hadc, (uint32_t *)&AdDataOrig, SUMC * SUMCHAN);
+}
+
+// 关闭ADC转换
+void stopADC(void)
+{
+  HAL_ADC_Stop_DMA(&hadc);
+}
+
+// ADC转换完成的回调 hal中拷贝出来的  在这个回调中计算adc的平均值
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hadc);
+  unsigned int i, j;
+  unsigned int tmp[6] = {0, 0, 0, 0, 0, 0};
+  for (j = 0; j < 5; j++) // 通道数量
+  {
+    tmp[j] = 0;
+
+    switch (j)
+    {
+    case 0: // 获取ADC数值
+    case 1:
+    case 2:
+    case 3:
+      for (i = 0; i < SUMC; i++)
+      {
+        tmp[j] = tmp[j] + AdDataOrig[i][j];
+      }
+      AdcValue[j] = tmp[j] / SUMC;
+      break;
+    case 4: // 获取角度值
+      AdcValue[4] = readma710();
+      break;
+    }
+    tmp[j] = 0;
+  }
+}
+
+// 主动长传传感器数据 4个模拟量 1个角度数据
+void AcUpload(unsigned short *PUPS)
+{
+  unsigned char i;
+  char TxBufU1[20];
+  i = 0;
+  TxBufU1[i++] = 0xFA;
+  TxBufU1[i++] = 0xF5;
+  TxBufU1[i++] = PUPS[0] >> 0;
+  TxBufU1[i++] = PUPS[0] >> 8;
+  TxBufU1[i++] = PUPS[1] >> 0;
+  TxBufU1[i++] = PUPS[1] >> 8;
+  TxBufU1[i++] = PUPS[2] >> 0;
+  TxBufU1[i++] = PUPS[2] >> 8;
+  TxBufU1[i++] = PUPS[3] >> 0;
+  TxBufU1[i++] = PUPS[3] >> 8;
+  TxBufU1[i++] = PUPS[4] >> 0;
+  TxBufU1[i++] = PUPS[4] >> 8;
+  TxBufU1[i++] = 0xFA;
+  TxBufU1[i++] = 0xFD;
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
+  HAL_UART_Transmit_DMA(&huart1, (const uint8_t *)TxBufU1, i); // DMA
+}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -235,7 +310,7 @@ int main(void)
   MX_ADC_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  startADC();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -245,10 +320,10 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    if (poolcnt > 5)
+    if (poolcnt > UPTIMEOUT && UPTIMEOUT != -1)
     {
       poolcnt = 0;
-      readmavalue = readma710();
+      AcUpload(AdcValue); // 主动长传传感器数据 4个模拟量 1个角度数据
     }
   }
   /* USER CODE END 3 */
@@ -343,7 +418,7 @@ static void MX_ADC_Init(void)
    */
   sConfig.Channel = ADC_CHANNEL_3;
   sConfig.Rank = ADC_RANK_CHANNEL_NUMBER;
-  sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+  sConfig.SamplingTime = ADC_SAMPLETIME_239CYCLES_5;
   if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK)
   {
     Error_Handler();
