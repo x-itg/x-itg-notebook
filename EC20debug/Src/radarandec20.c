@@ -226,7 +226,7 @@ unsigned int GetIDCode(void)
   SendID = 0x0003;
   SendID = 0x0004;
   SendID = 0x0005;
-  SendID = 0x0001;
+  SendID = 0x0007;
 
   sprintf(txb, "id:%x\r\n\0", SendID);
   SendTxDebug((unsigned char *)txb);
