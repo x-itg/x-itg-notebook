@@ -21,7 +21,7 @@ Windows Registry Editor Version 5.00
 - 为什么要用蒲公英组网，是不是多此一举？ 答：并不是，不用蒲公英直接使用服务器的外网ip测试过了会很卡，卡到无法正常使用。
 
 
-## 二、ubuntu下编译调试stm32f1
+# 二、ubuntu下编译调试stm32f1
 
 ```
 ---------------------下载安装stm32cubeclt------------------------
@@ -105,14 +105,14 @@ source [find /usr/local/share/openocd/scripts/interface/stlink.cfg]
 source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]### 
 ```
 
-## 三、windows下工程搭建
+# 三、windows下工程搭建
 
 自动把STM32编译调试需要的armgcc openocd以及环境变量安装到C:\Program Files (x86)\windowstool的工具：
 
 https://github.com/x-itg/x-itg-notebook/releases/download/untagged-0529c8ebfcfb3dda44b4/OpenOCD_ArmGCC_MakeTool.msi
 
 
-## 四、SSH自动登录
+# 四、SSH自动登录
 
 ```
 --------------ubuntu开启ssh----------------------------
@@ -152,7 +152,7 @@ Host 001
 ssh 001
 ```
 
-## 五、远程ubuntu用本地windows的usb
+# 五、远程ubuntu用本地windows的usb
 
 本地windows电脑使用usbipd-win做usbip的服务器
 远程ubuntu使用usbip做usbip的客户端
@@ -161,7 +161,7 @@ ssh 001
 [云服务器 Linux 系统使用 USB/IP 远程共享 USB 设备-最佳实践-文档中心-腾讯云](https://cloud.tencent.com/document/product/213/43016)
 [安装usbipd-win](https://github.com/dorssel/usbipd-win)
 
-#### 本地USB服务器含有物理USB,：
+## 本地USB服务器含有物理USB,：
 
 ```
 usbipd list （本地windows安装usbipd-win后powershell里运行查看usb）
@@ -169,7 +169,7 @@ usbipd bind --force -b 2-1（把本地usb分享出去）
 ssh -Nf -R 3240:localhost:3240 ubuntu@XXX.XXX.XXX.XXX （创建SSH隧道）
 ```
 
-#### 远程USB客户端物理USB：
+## 远程USB客户端物理USB：
 
 ```
 sudo modprobe usbip-core
@@ -185,10 +185,10 @@ sudo minicom -s #设置下波特率 就可以收发com数据了
 ps aux | grep minicom
 sudo kill PID
 ```
-## 六、WSL 
-### wsl ubuntu 安装 wps后提示字体缺失
+# 六、WSL 
+## wsl ubuntu 安装 wps后提示字体缺失
 - git clone https://github.com/jiaxiaochu/font.git && cd font && ./install.sh
-### wsl ubuntu 安装中文输入法
+## wsl ubuntu 安装中文输入法
 - sudo apt install language-pack-zh-hans
 - sudo dpkg-reconfigure locales #这一步要选择en_US.UTF-8和zh_CN.UTF-8, 并且zh_CN.UTF-8为默认语言
 - sudo apt install fontconfig
@@ -219,7 +219,7 @@ fcitx-autostart &>/dev/null
 - source ~/.profile #刷新
 
 
-### WSL UBUNTU使用WINDOWS的USB口
+## WSL UBUNTU使用WINDOWS的USB口
 
 
 参考：
@@ -250,13 +250,13 @@ netsh interface portproxy show all
 netsh interface portproxy reset #删除所有端口转发
 ```
 
-## 七、ROS、Python
+# 七、ROS、Python
 
 把pip的安装源设置为国内的清华源
 
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple/
 
-#### 8.1 WSL2 下 ROS 添加ROS官方源添加密钥
+## 8.1 WSL2 下 ROS 添加ROS官方源添加密钥
 
 [(14条消息) win10 wsl2 + ubuntu20.04 配置 ROS-Noetic_lainegates的博客-CSDN博客_wsl2 rosnoetic](https://blog.csdn.net/LaineGates/article/details/120910628)
 
@@ -267,7 +267,7 @@ echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-#### 8.2 安装配套工具初始化rosdep开机自动进行ROS环境配置
+## 8.2 安装配套工具初始化rosdep开机自动进行ROS环境配置
 
 ```
 sudo apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
@@ -312,7 +312,7 @@ rosrun beginner_tutorials listener
 rosrun beginner_tutorials talker
 ```
 
-#### 8.3 创建Catkin工作空间
+## 8.3 创建Catkin工作空间
 
 ```
 cd ~/catkin_ws/
