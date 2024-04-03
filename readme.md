@@ -1,13 +1,16 @@
-
 # 一、组网代理
+
+这里介绍一种简易的上网外的方法：使用外网ubutu服务器+蒲公英+SSH
+
 - 客户端windows下载并安装：https://d.oray.com/pgy/windows/PgyVisitor_6.3.0_x64.exe
 - 客户端windows登录贝锐账号，没有账号先创建账号，免费的可以组网三台设备，如果家里一台电脑，公司一台电脑，服务器一台电脑，这样免费的刚刚好。
 - 服务器linux命令行下载蒲公英：wget https://pgy.oray.com/softwares/153/download/2156/PgyVisitor_6.2.0_x86_64.deb
-- 服务器linux命令行安装蒲公英：sudo dpkg -i PgyVisitor_6.2.0_x86_64.deb 
+- 服务器linux命令行安装蒲公英：sudo dpkg -i PgyVisitor_6.2.0_x86_64.deb
 - 服务器linux命令行登录之前注册的贝锐账号：pgyvisitor login
 - 客户端windows在蒲公英客户端软件中取得服务器蒲公英网络ip如：172.16.0.198
 - 客户端windows打开cmd命令行输入（这里用户名是ubuntu然后输入密码）：ssh -N -D 127.0.0.1:8080 ubuntu@172.16.0.198
 - 客户端windows编辑一个.reg后缀的文件,内容如下
+
 ```
 Windows Registry Editor Version 5.00
 
@@ -15,13 +18,13 @@ Windows Registry Editor Version 5.00
 
 "ProxyServer"="socks://127.0.0.1:8080"
 ```
+
 - 客户端windows左下角搜索框中搜索“代理”：进入网络和Internet>代理>手动代理点上“开”代理ip填入127.0.0.1端口填入8080
 - 客户端windows双击运行reg文件注册表注入后即可使windows全局用本地socks:127.0.0.1:8080上网，如果服务器放在“外地”的话就可以用“外地”的网络了上网，腾讯，阿里，UCLOUD......都可以。
 - 如果不要全局代理上网使用火狐浏览器，火狐浏览器设置中搜代理进入网络设置下面选手动代理SOCKS主机填入127.0.0.1 SOCKS v5选项 另外“使用SOCKSv5 时代理DNS查询” 这个要勾上。
 - 为什么要用蒲公英组网，是不是多此一举？ 答：并不是，不用蒲公英直接使用服务器的外网ip测试过了会很卡，卡到无法正常使用。
 
-
-# 二、ubuntu下编译调试stm32f1
+# 二、ubuntu下编译调试stm32f
 
 ```
 ---------------------下载安装stm32cubeclt------------------------
@@ -105,12 +108,11 @@ source [find /usr/local/share/openocd/scripts/interface/stlink.cfg]
 source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]### 
 ```
 
-# 三、windows下工程搭建
+# 三、windows下工程搭建stm32 vscode
 
 自动把STM32编译调试需要的armgcc openocd以及环境变量安装到C:\Program Files (x86)\windowstool的工具：
 
 https://github.com/x-itg/x-itg-notebook/releases/download/untagged-0529c8ebfcfb3dda44b4/OpenOCD_ArmGCC_MakeTool.msi
-
 
 # 四、SSH自动登录
 
@@ -132,10 +134,10 @@ powershell下运行：
 function ssh-copy-id([string]$userAtMachine, $args){   
     $publicKey = "$ENV:USERPROFILE" + "/.ssh/id_rsa.pub"
     if (!(Test-Path "$publicKey")){
-        Write-Error "ERROR: failed to open ID file '$publicKey': No such file"          
+        Write-Error "ERROR: failed to open ID file '$publicKey': No such file"        
     }
     else {
-        & cat "$publicKey" | ssh $args $userAtMachine "umask 077; test -d .ssh || mkdir .ssh ; cat >> .ssh/authorized_keys || exit 1"    
+        & cat "$publicKey" | ssh $args $userAtMachine "umask 077; test -d .ssh || mkdir .ssh ; cat >> .ssh/authorized_keys || exit 1"  
     }
 }
 -------------------------------
@@ -185,14 +187,20 @@ sudo minicom -s #设置下波特率 就可以收发com数据了
 ps aux | grep minicom
 sudo kill PID
 ```
-# 六、WSL 
+
+# 六、WSL
+
 ## wsl ubuntu 安装 wps后提示字体缺失
+
 - git clone https://github.com/jiaxiaochu/font.git && cd font && ./install.sh
+
 ## wsl ubuntu 安装中文输入法
+
 - sudo apt install language-pack-zh-hans
 - sudo dpkg-reconfigure locales #这一步要选择en_US.UTF-8和zh_CN.UTF-8, 并且zh_CN.UTF-8为默认语言
 - sudo apt install fontconfig
 - 创建/etc/fonts/local.conf
+
 ```
 <?xml version="1.0"?>
 <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
@@ -200,15 +208,19 @@ sudo kill PID
     <dir>/mnt/c/Windows/Fonts</dir>
 </fontconfig>
 ```
+
 - fc-cache -f -v #刷新字体
 - wsl --shutdown #命令行关闭wsl ubuntu
 - sudo apt install fcitx dbus-x11 im-config fcitx-sunpinyin #重新进入wsl ubuntu
 - 编辑/etc/locale.gen文件
+
 ```
 # 找到 # zh_CN.UTF-8 这一行，取消注释
 zh_CN.UTF-8
 ```
+
 - 编辑~/.profile文件
+
 ```
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
@@ -216,11 +228,10 @@ export XMODIFIERS=@im=fcitx
 export DefaultIMModule=fcitx
 fcitx-autostart &>/dev/null
 ```
+
 - source ~/.profile #刷新
 
-
 ## WSL UBUNTU使用WINDOWS的USB口
-
 
 参考：
 [连接 USB 设备 | Microsoft Learn](https://learn.microsoft.com/zh-cn/windows/wsl/connect-usb)
@@ -393,4 +404,3 @@ generate_messages(
 #查看服务
 rossrv show beginner_tutorials/AddTwoInts
 ```
-
