@@ -1,3 +1,4 @@
+
 自动把STM32编译调试需要的armgcc openocd以及环境变量安装到C:\Program Files (x86)\windowstool的工具：
 
 https://github.com/x-itg/x-itg-notebook/releases/download/untagged-0529c8ebfcfb3dda44b4/OpenOCD_ArmGCC_MakeTool.msi
@@ -208,7 +209,41 @@ ps aux | grep minicom
 sudo kill PID
 ```
 
+### wsl ubuntu 安装 wps后提示字体缺失
+- git clone https://github.com/jiaxiaochu/font.git && cd font && ./install.sh
+### wsl ubuntu 安装中文输入法
+- sudo apt install language-pack-zh-hans
+- sudo dpkg-reconfigure locales #这一步要选择en_US.UTF-8和zh_CN.UTF-8, 并且zh_CN.UTF-8为默认语言
+- sudo apt install fontconfig
+- 创建/etc/fonts/local.conf
+```
+<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<fontconfig>
+    <dir>/mnt/c/Windows/Fonts</dir>
+</fontconfig>
+```
+- fc-cache -f -v #刷新字体
+- wsl --shutdown #命令行关闭wsl ubuntu
+- sudo apt install fcitx dbus-x11 im-config fcitx-sunpinyin #重新进入wsl ubuntu
+- 编辑/etc/locale.gen文件
+```
+# 找到 # zh_CN.UTF-8 这一行，取消注释
+zh_CN.UTF-8
+```
+- 编辑~/.profile文件
+```
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+export DefaultIMModule=fcitx
+fcitx-autostart &>/dev/null
+```
+- source ~/.profile #刷新
+
+
 ## 六、WSL UBUNTU使用WINDOWS的USB口
+
 
 参考：
 [连接 USB 设备 | Microsoft Learn](https://learn.microsoft.com/zh-cn/windows/wsl/connect-usb)
