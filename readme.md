@@ -1,25 +1,27 @@
 
-自动把STM32编译调试需要的armgcc openocd以及环境变量安装到C:\Program Files (x86)\windowstool的工具：
+# 一、组网代理
+- 客户端windows下载并安装：https://d.oray.com/pgy/windows/PgyVisitor_6.3.0_x64.exe
+- 客户端windows登录贝锐账号，没有账号先创建账号，免费的可以组网三台设备，如果家里一台电脑，公司一台电脑，服务器一台电脑，这样免费的刚刚好。
+- 服务器linux命令行下载蒲公英：wget https://pgy.oray.com/softwares/153/download/2156/PgyVisitor_6.2.0_x86_64.deb
+- 服务器linux命令行安装蒲公英：sudo dpkg -i PgyVisitor_6.2.0_x86_64.deb 
+- 服务器linux命令行登录之前注册的贝锐账号：pgyvisitor login
+- 客户端windows在蒲公英客户端软件中取得服务器蒲公英网络ip如：172.16.0.198
+- 客户端windows打开cmd命令行输入（这里用户名是ubuntu然后输入密码）：ssh -N -D 127.0.0.1:8080 ubuntu@172.16.0.198
+- 客户端windows编辑一个.reg后缀的文件,内容如下
+```
+Windows Registry Editor Version 5.00
 
-https://github.com/x-itg/x-itg-notebook/releases/download/untagged-0529c8ebfcfb3dda44b4/OpenOCD_ArmGCC_MakeTool.msi
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings]
 
-## 自动推送拉取脚本.bat
+"ProxyServer"="socks://127.0.0.1:8080"
+```
+- 客户端windows左下角搜索框中搜索“代理”：进入网络和Internet>代理>手动代理点上“开”代理ip填入127.0.0.1端口填入8080
+- 客户端windows双击运行reg文件注册表注入后即可使windows全局用本地socks:127.0.0.1:8080上网，如果服务器放在“外地”的话就可以用“外地”的网络了上网，腾讯，阿里，UCLOUD......都可以。
+- 如果不要全局代理上网使用火狐浏览器，火狐浏览器设置中搜代理进入网络设置下面选手动代理SOCKS主机填入127.0.0.1 SOCKS v5选项 另外“使用SOCKSv5 时代理DNS查询” 这个要勾上。
+- 为什么要用蒲公英组网，是不是多此一举？ 答：并不是，不用蒲公英直接使用服务器的外网ip测试过了会很卡，卡到无法正常使用。
 
-这个脚本是一个简易的代码仓库维护脚本，它简单实现以远程仓库（gitee/github）为中转的多个本地仓库（家里/公司）之间的同步。比如在家里改好代码后运行这个脚本就能推送更新到远程仓库上班在公司改代码前运行这个脚本自动将代码拉取到本地接着改代码。
 
-- 用法：
-
-  - 双击运行此脚本（前提安装好git，本地和远程建好仓库和分支）
-- 时机：
-
-  - 在修改好本地代码后运行此脚本，脚本自动将修改推送至远程；
-  - 在远程代码仓库更新后运行此脚本，脚本会将远程更新拉取至本地。
-- 原理：
-
-  - 当远程提交数大于本地提交数时运行此脚本系统调用git拉取远程提交合并到本地；
-  - 当本地提交数大于远程提交数时运行此脚本系统调用git推送本地提交到远程
-
-## 一、ubuntu下编译调试stm32f1
+## 二、ubuntu下编译调试stm32f1
 
 ```
 ---------------------下载安装stm32cubeclt------------------------
@@ -103,37 +105,12 @@ source [find /usr/local/share/openocd/scripts/interface/stlink.cfg]
 source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]### 
 ```
 
-## 二、windows下工程搭建
+## 三、windows下工程搭建
 
- [参考]([【精选】Makerbase VESC 第三课 VSCODE环境搭建-CSDN博客](https://blog.csdn.net/gjy_skyblue/article/details/119669725?spm=1001.2014.3001.5502))
+自动把STM32编译调试需要的armgcc openocd以及环境变量安装到C:\Program Files (x86)\windowstool的工具：
 
-- 安装的软件：
-- - vscode cortex-debug插件；
-- - tup-latest
-- - openocd
-- - arm-gdb/gcc
-- - GNU MCU Eclipse安装到C:\Program Files文件夹，它们的bin文件夹路径加入到path环境变量当中。
+https://github.com/x-itg/x-itg-notebook/releases/download/untagged-0529c8ebfcfb3dda44b4/OpenOCD_ArmGCC_MakeTool.msi
 
-## 三、编译与版本控制
-
-`make g`
-
-```makefile
-# make g 先判断_backup.bin是否存在，不存在就先make再cp一个_backup.bin
-# 文件，判断.c .h 文件是否发生改变，如果改变就make，make前cp一个
-# _backup.bin文件再在make后比对bin文件和_backup.bin文件；bin文件发
-# 生变化就打tag 并往远程推送，未改变就不打tag也不推送；
-# 判断仓库是否dirty如果dirty则进行推送（此时不打tag）
-```
-
-`autoGITorigino2main.bat`
-
-```bat
-# 事先建立本地分支main和远程主机origin
-# 获取远程仓库并比较远程仓库和本地仓库的提交数
-# 本地仓库提交数多或一样多的话提送本地到远程仓库
-# 远程仓库提交数多的话用远程仓库的内容替换本地仓库的内容
-```
 
 ## 四、SSH自动登录
 
@@ -208,7 +185,7 @@ sudo minicom -s #设置下波特率 就可以收发com数据了
 ps aux | grep minicom
 sudo kill PID
 ```
-
+## 六、WSL 
 ### wsl ubuntu 安装 wps后提示字体缺失
 - git clone https://github.com/jiaxiaochu/font.git && cd font && ./install.sh
 ### wsl ubuntu 安装中文输入法
@@ -242,7 +219,7 @@ fcitx-autostart &>/dev/null
 - source ~/.profile #刷新
 
 
-## 六、WSL UBUNTU使用WINDOWS的USB口
+### WSL UBUNTU使用WINDOWS的USB口
 
 
 参考：
@@ -273,63 +250,7 @@ netsh interface portproxy show all
 netsh interface portproxy reset #删除所有端口转发
 ```
 
-## 七、WSL 图形界面
-
-- https://learn.microsoft.com/zh-cn/windows/wsl/install-manual#step-4--download-the-linux-kernel-update-package
-- 管理员运行powershell：dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
-- 管理员运行powershell：dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
-- 内核更新下载安装：https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
-- 管理员运行powershell：wsl --set-default-version 2
-- 下载ubuntu1804： https://wslstorestorage.blob.core.windows.net/wslblob/Ubuntu_1804.2019.522.0_x64.appx
-- 管理员运行powershell：Add-AppxPackage .\Ubuntu_1804.2019.522.0_x64.appx
-- 双击安装Ubuntu_1804.2019.522.0_x64.appx
-
-#### wsl2 应用程序直接打开gui远程桌面连接
-
-```
-- apt install fonts-noto-cjk #解决中文乱码
-- /etc/environment: line 5: unexpected EOF while looking for matching `'' 问题：删除 /etc/environment 中第五行：_SESSION:WT_PROFILE_ID:'
-- windows下载VxSrv安装时注意勾选Disable access control:    https://nchc.dl.sourceforge.net/project/vcxsrv/vcxsrv/1.20.14.0/vcxsrv-64.1.20.14.0.installer.exe
-- sudo apt install -y x11-apps
-- echo 'export DISPLAY=172.23.80.1:0' >> ~/.bashrc
-- source ~/.bashrc
-- [(14条消息) 超详细Windows10/Windows11 子系统（WSL2）安装Ubuntu20.04（带桌面环境）_萌褚的博客-CSDN博客_wsl ubuntu 桌面](https://blog.csdn.net/m0_60028455/article/details/125316625)
-- [(14条消息) wsl安装xrdp（可视化界面并远程），解决闪退、黑屏_xrdp闪退_daboluo520的博客-CSDN博客](https://blog.csdn.net/guorong520/article/details/124749625)
-- [(14条消息) WSL（Ubuntu20.04）与其图形界面安装配置_sandonz的博客-CSDN博客_wsl ubuntu图形界面](https://blog.csdn.net/sandonz/article/details/120854876?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EOPENSEARCH%7ERate-1-120854876-blog-113616883.pc_relevant_vip_default&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EOPENSEARCH%7ERate-1-120854876-blog-113616883.pc_relevant_vip_default&utm_relevant_index=2)
-- git clone https://github.com/DamionGans/ubuntu-wsl2-systemd-script.git
-- cd ubuntu-wsl2-systemd-script/
-- bash ubuntu-wsl2-systemd-script.sh --force
-- wsl --shutdown  #去windows cmd下重启wsl
-- wsl #启动ubuntu
-- systemctl
-- sudo apt update
-- sudo apt install -y xubuntu-desktop
-- sudo apt install -y xrdp
-- sudo adduser xrdp ssl-cert
-- sudo ufw allow 3390
-- sudo sed -i 's/port=3389/port=3390/g' /etc/xrdp/xrdp.ini
-- sudo echo xfce4-session > ~/.xsession
-- sudo nano /etc/xrdp/sesman.ini   #将 `KillDisconnected`的值修改为 `true`,保存退出
-- sudo systemctl restart xrdp
------------------------------------------------------------------------------------
-- ubuntu安装SYSTEMCTL：git clone https://github.com/DamionGans/ubuntu-wsl2-systemd-script.git
-- ubuntu安装SYSTEMCTL：cd ubuntu-wsl2-systemd-script/
-- ubuntu安装SYSTEMCTL：bash ubuntu-wsl2-systemd-script.sh --force
-- ubuntu安装SYSTEMCTL：wsl --shutdown  #去windows cmd下重启wsl
-- ubuntu安装SYSTEMCTL：wsl #启动ubuntu
-- ubuntu安装SYSTEMCTL：sudo apt update
-- sudo apt install -y ubuntu-desktop
-- sudo apt install -y xubuntu-desktop
-- sudo apt install -y xrdp
-- sudo adduser xrdp ssl-cert
-- sudo ufw allow 3390
-- sudo sed -i 's/port=3389/port=3390/g' /etc/xrdp/xrdp.ini
-- sudo echo xfce4-session > ~/.xsession
-- sudo nano /etc/xrdp/sesman.ini   #将 `KillDisconnected`的值修改为 `true`,保存退出
-- sudo systemctl restart xrdp
-```
-
-## 八、ROS、Python
+## 七、ROS、Python
 
 把pip的安装源设置为国内的清华源
 
@@ -473,23 +394,3 @@ generate_messages(
 rossrv show beginner_tutorials/AddTwoInts
 ```
 
-# 组网代理
-- 客户端windows下载并安装：https://d.oray.com/pgy/windows/PgyVisitor_6.3.0_x64.exe
-- 客户端windows登录贝锐账号，没有账号先创建账号，免费的可以组网三台设备，如果家里一台电脑，公司一台电脑，服务器一台电脑，这样免费的刚刚好。
-- 服务器linux命令行下载蒲公英：wget https://pgy.oray.com/softwares/153/download/2156/PgyVisitor_6.2.0_x86_64.deb
-- 服务器linux命令行安装蒲公英：sudo dpkg -i PgyVisitor_6.2.0_x86_64.deb 
-- 服务器linux命令行登录之前注册的贝锐账号：pgyvisitor login
-- 客户端windows在蒲公英客户端软件中取得服务器蒲公英网络ip如：172.16.0.198
-- 客户端windows打开cmd命令行输入（这里用户名是ubuntu然后输入密码）：ssh -N -D 127.0.0.1:8080 ubuntu@172.16.0.198
-- 客户端windows编辑一个.reg后缀的文件,内容如下
-```
-Windows Registry Editor Version 5.00
-
-[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings]
-
-"ProxyServer"="socks://127.0.0.1:8080"
-```
-- 客户端windows左下角搜索框中搜索“代理”：进入网络和Internet>代理>手动代理点上“开”代理ip填入127.0.0.1端口填入8080
-- 客户端windows双击运行reg文件注册表注入后即可使windows全局用本地socks:127.0.0.1:8080上网，如果服务器放在“外地”的话就可以用“外地”的网络了上网，腾讯，阿里，UCLOUD......都可以。
-- 如果不要全局代理上网使用火狐浏览器，火狐浏览器设置中搜代理进入网络设置下面选手动代理SOCKS主机填入127.0.0.1 SOCKS v5选项 另外“使用SOCKSv5 时代理DNS查询” 这个要勾上。
-- 为什么要用蒲公英组网，是不是多此一举？ 答：并不是，不用蒲公英直接使用服务器的外网ip测试过了会很卡，卡到无法正常使用。
