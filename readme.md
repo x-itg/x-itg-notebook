@@ -24,19 +24,16 @@ Windows Registry Editor Version 5.00
 - 如果不要全局代理上网使用火狐浏览器，火狐浏览器设置中搜代理进入网络设置下面选手动代理SOCKS主机填入127.0.0.1 SOCKS v5选项 另外“使用SOCKSv5 时代理DNS查询” 这个要勾上。
 - 为什么要用蒲公英组网，是不是多此一举？ 答：并不是，不用蒲公英直接使用服务器的外网ip测试过了会很卡，卡到无法正常使用。
 
-# 二、ubuntu下编译调试stm32f
-
+# 二、ubuntu下编译调试stm32
 
 ## 下载安装stm32cubeclt 
 
 - https://www.st.com/en/development-tools/stm32cubeclt.html     #下载
 - sudo bash st-stm32cubeclt_1.15.0_20695_20240315_1429_amd64.sh #安装
 
-## 下载安装openocd
-- 根据这篇文章 安装openocd：https://blog.csdn.net/daoshengtianxia/article/details/115038674
-- sudo apt-get install libncurses5 lsb-core build-essential pkg-config autoconf automake libtool libusb-dev libusb-1.0-0-dev libhidapi-dev libtool libsysfs-dev 
-- git clone https://gitee.com/x-itg/openocd.git
-### 下载openocd及其子模块后编译安装
+## 下载openocd及其子模块后编译安装
+- git clone https://gitee.com/x-itg/openocd.git # 从我的仓库克隆下openocd的源码；参考 https://blog.csdn.net/daoshengtianxia/article/details/115038674
+- sudo apt-get install libncurses5 lsb-core build-essential pkg-config autoconf automake libtool libusb-dev libusb-1.0-0-dev libhidapi-dev libtool libsysfs-dev #编译openocd源码需要安装的软件
 - sudo ./bootstrap
 - sudo ./configure --enable-stlink
 - sudo make
