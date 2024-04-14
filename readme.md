@@ -31,8 +31,43 @@ Windows Registry Editor Version 5.00
 
 - https://www.st.com/en/development-tools/stm32cubeclt.html     #下载
 - sudo bash st-stm32cubeclt_1.15.0_20695_20240315_1429_amd64.sh #安装
+
+## 下载安装openocd
+- 根据这篇文章 安装openocd：https://blog.csdn.net/daoshengtianxia/article/details/115038674
+- sudo apt-get install libncurses5 lsb-core build-essential pkg-config autoconf automake libtool libusb-dev libusb-1.0-0-dev libhidapi-dev libtool libsysfs-dev 
+- git clone https://gitee.com/x-itg/openocd.git
+### 下载openocd及其子模块后编译安装
+- sudo ./bootstrap
+- sudo ./configure --enable-stlink
+- sudo make
+- sudo make install #安装在了/usr/local/bin 配置文件在 /usr/local/share/openocd/scripts
+
+
+sudo cp stm32f1discovery.cfg /usr/local/share/openocd/scripts/board 
+
+## makefile文件修改 
+upload: build/$(PROJECT).bin
+    openocd -f board/stm32f1discovery.cfg -c "reset_config trst_only combined" -c "program build/$(PROJECT).elf verify reset exit"
+ifeq ($(OS),Windows_NT)
+debug-start:
+    openocd -f openocd_win.cfg
+reset:
+    openocd -f openocd_win.cfg -c init -c halt -reset -c shutdown
+else
+debug-start:
+    openocd -f openocd_lnx.cfg
+reset:
+    openocd -f openocd_lnx.cfg -c init -c halt -reset -c shu
+
+
+## 在工作目录下添加openocd.cfg文件，内容：
+
+source [find /usr/local/share/openocd/scripts/interface/stlink.cfg]
+source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]### 
+
+## launch.json文件修改
+
 ```
----------------------launch.json文件修改------------------------
 
 .vscode文件夹下launch.json:
 {
@@ -70,42 +105,6 @@ Windows Registry Editor Version 5.00
         }
     ]
 }
-
---------------------补充 可能需要另外安装的软件-------------------------
-sudo apt-get install libncurses5 lsb-core build-essential pkg-config autoconf automake libtool libusb-dev libusb-1.0-0-dev libhidapi-dev libtool libsysfs-dev  
-
----------------------下载安装openocd--------------
-根据这篇文章 安装openocd：https://blog.csdn.net/daoshengtianxia/article/details/115038674
-git clone https://gitee.com/x-itg/openocd.git
-下载openocd及其子模块后编译安装
-sudo apt-get install libusb-1.0-0-dev  ##configure: error: libusb-1.x is required for the ST-Link Programmer
-sudo ./bootstrap
-sudo ./configure --enable-stlink
-sudo make
-sudo make install
-安装在了/usr/local/bin
-配置文件在 /usr/local/share/openocd/scripts
-sudo cp stm32f1discovery.cfg /usr/local/share/openocd/scripts/board 
-
---------------------makefile文件修改-------------
-upload: build/$(PROJECT).bin
-    openocd -f board/stm32f1discovery.cfg -c "reset_config trst_only combined" -c "program build/$(PROJECT).elf verify reset exit"
-ifeq ($(OS),Windows_NT)
-debug-start:
-    openocd -f openocd_win.cfg
-reset:
-    openocd -f openocd_win.cfg -c init -c halt -reset -c shutdown
-else
-debug-start:
-    openocd -f openocd_lnx.cfg
-reset:
-    openocd -f openocd_lnx.cfg -c init -c halt -reset -c shu
-
-
-在工作目录下添加openocd.cfg文件，内容：
-
-source [find /usr/local/share/openocd/scripts/interface/stlink.cfg]
-source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]### 
 ```
 
 # 三、windows下工程搭建stm32 vscode
