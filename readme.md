@@ -222,7 +222,8 @@ deb http://security.ubuntu.com/ubuntu/ jammy-security main restricted universe m
 - git clone https://github.com/jiaxiaochu/font.git && cd font && ./install.sh
 
 ## wsl ubuntu 安装中文输入法
-
+- 下载 https://www.wps.cn/product/wpslinux
+- sudo dpkg -i wps-office_11.1.0.11719_amd64.deb
 - sudo apt install language-pack-zh-hans
 - sudo dpkg-reconfigure locales #这一步要选择en_US.UTF-8和zh_CN.UTF-8, 并且zh_CN.UTF-8为默认语言
 - sudo apt install fontconfig
