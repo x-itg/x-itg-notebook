@@ -41,9 +41,7 @@ Windows Registry Editor Version 5.00
 - sudo ./configure --enable-stlink
 - sudo make
 - sudo make install #安装在了/usr/local/bin 配置文件在 /usr/local/share/openocd/scripts
-
-
-sudo cp stm32f1discovery.cfg /usr/local/share/openocd/scripts/board 
+- sudo cp stm32f1discovery.cfg /usr/local/share/openocd/scripts/board 
 
 ## makefile文件修改 
 ```
