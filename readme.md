@@ -26,12 +26,12 @@ Windows Registry Editor Version 5.00
 
 # 二、ubuntu下编译调试stm32f
 
+
+##下载安装stm32cubeclt 
+
+- https://www.st.com/en/development-tools/stm32cubeclt.html     #下载
+- sudo bash st-stm32cubeclt_1.15.0_20695_20240315_1429_amd64.sh #安装
 ```
----------------------下载安装stm32cubeclt------------------------
-
-ubuntu下安装stm32cubeclt之前有安装过的可以卸载掉：https://www.st.com/en/development-tools/stm32cubeclt.html
-下载好后 sudo bash stm32cubeclt.sh 安装
-
 ---------------------launch.json文件修改------------------------
 
 .vscode文件夹下launch.json:
