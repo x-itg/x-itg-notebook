@@ -189,6 +189,7 @@ sudo kill PID
 ```
 
 # 六、WSL
+- wsl --update # windows 终端下运行
 ## 清华源
 - sudo nano /etc/apt/sources.list
 ```
