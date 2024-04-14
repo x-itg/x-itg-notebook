@@ -46,6 +46,7 @@ Windows Registry Editor Version 5.00
 sudo cp stm32f1discovery.cfg /usr/local/share/openocd/scripts/board 
 
 ## makefile文件修改 
+```
 upload: build/$(PROJECT).bin
     openocd -f board/stm32f1discovery.cfg -c "reset_config trst_only combined" -c "program build/$(PROJECT).elf verify reset exit"
 ifeq ($(OS),Windows_NT)
@@ -58,12 +59,14 @@ debug-start:
     openocd -f openocd_lnx.cfg
 reset:
     openocd -f openocd_lnx.cfg -c init -c halt -reset -c shu
-
+```
 
 ## 在工作目录下添加openocd.cfg文件，内容：
 
+```
 source [find /usr/local/share/openocd/scripts/interface/stlink.cfg]
 source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]### 
+```
 
 ## launch.json文件修改
 
