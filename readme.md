@@ -16,6 +16,16 @@
 - 服务器linux命令行安装蒲公英：sudo dpkg -i PgyVisitor_6.2.0_x86_64.deb
 - 服务器linux命令行登录之前注册的贝锐账号：pgyvisitor login
 
+## 1.3除了蒲公英还可以用zerotier ubuntu下安装启动zerotier方法
+```
+curl -s https://install.zerotier.com | sudo bash #安装
+
+sudo systemctl enable zerotier-one.service #设置自启动
+
+sudo systemctl start zerotier-one.service#启动
+
+sudo zerotier-cli join 41d49af6c252649d#加入网络
+```
 ## 1.3外网服务器安装配置dante-server
 
 - sudo apt install dante-server#服务器安装socksv5代理
