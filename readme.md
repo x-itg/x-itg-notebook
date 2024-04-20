@@ -70,6 +70,20 @@ Windows Registry Editor Version 5.00
 
 - 火狐浏览器设置中搜代理进入网络设置下面选手动代理SOCKS主机填入127.0.0.1 SOCKS v5选项 另外“使用SOCKSv5 时代理DNS查询” 这个要勾上。
 
+
+## 1.6 ssh代理转发
+```
+ssh -N -D 192.168.1.123:1080 ubuntu@172.16.0.198
+```
+- 在能上网的电脑运行以上ssh端口转发指令
+- 在不能上网的电脑使用`socks5://192.168.1.123:1080/`代理上网
+
+## 1.7 ubuntu 全局代理
+```
+sudo nano /etc/environment   
+all_proxy=socks5://192.168.1.123:1080/ #添加在/etc/environment 文件中
+sudo systemctl restart networkd-dispatcher.service #重启网络
+```
 # 二、ubuntu下编译调试stm32
 
 ## 下载安装stm32cubeclt
