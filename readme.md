@@ -17,8 +17,9 @@
 - 服务器linux命令行登录之前注册的贝锐账号：pgyvisitor login
 
 ## 1.3除了蒲公英还可以用zerotier ubuntu下安装启动zerotier方法
+
 ```
-curl -s https://install.zerotier.com | sudo bash #安装
+curl -s https://install.zerotier.com | sudo bash #安装 172.23.0.1
 
 sudo systemctl enable zerotier-one.service #设置自启动
 
@@ -26,6 +27,7 @@ sudo systemctl start zerotier-one.service#启动
 
 sudo zerotier-cli join 41d49af6c252649d#加入网络
 ```
+
 ## 1.3外网服务器安装配置dante-server
 
 - sudo apt install dante-server#服务器安装socksv5代理
@@ -70,20 +72,23 @@ Windows Registry Editor Version 5.00
 
 - 火狐浏览器设置中搜代理进入网络设置下面选手动代理SOCKS主机填入127.0.0.1 SOCKS v5选项 另外“使用SOCKSv5 时代理DNS查询” 这个要勾上。
 
-
 ## 1.6 ssh代理转发
+
 ```
 ssh -N -D 192.168.1.123:1080 ubuntu@172.16.0.198
 ```
+
 - 在能上网的电脑运行以上ssh端口转发指令
-- 在不能上网的电脑使用`socks5://192.168.1.123:1080/`代理上网
+- 在不能上网的电脑使用 `socks5://192.168.1.123:1080/`代理上网
 
 ## 1.7 ubuntu 全局代理
+
 ```
 sudo nano /etc/environment   
 all_proxy=socks5://192.168.1.123:1080/ #添加在/etc/environment 文件中
 sudo systemctl restart networkd-dispatcher.service #重启网络
 ```
+
 # 二、ubuntu下编译调试stm32
 
 ## 下载安装stm32cubeclt
@@ -193,7 +198,7 @@ powershell下运行：
 function ssh-copy-id([string]$userAtMachine, $args){   
     $publicKey = "$ENV:USERPROFILE" + "/.ssh/id_rsa.pub"
     if (!(Test-Path "$publicKey")){
-        Write-Error "ERROR: failed to open ID file '$publicKey': No such file"      
+        Write-Error "ERROR: failed to open ID file '$publicKey': No such file"    
     }
     else {
         & cat "$publicKey" | ssh $args $userAtMachine "umask 077; test -d .ssh || mkdir .ssh ; cat >> .ssh/authorized_keys || exit 1"  
